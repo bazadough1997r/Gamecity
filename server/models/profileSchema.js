@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const gameSchema = mongoose.Schema({
+const profileSchema = mongoose.Schema({
   id: Number,
   firstName: String,
   lastName: String,
@@ -23,8 +23,9 @@ const gameSchema = mongoose.Schema({
     id: [Number],
     default: 0,
   }
+  
 });
 
-const GameSchema = mongoose.model('GameSchema', gameSchema);
+const ProfileSchema = mongoose.model('ProfileSchema', profileSchema);
 
-export default GameSchema;
+export default ProfileSchema;
