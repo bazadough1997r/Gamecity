@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const gameSchema = mongoose.Schema({
   id: Number,
   firstName: String,
@@ -7,7 +8,7 @@ const gameSchema = mongoose.Schema({
   city: String,
   phoneNo: Number,
   birthday: Date,
-  password: Password,
+  password: String,
   likeCount: {
     type: Number,
     default: 0,
@@ -20,9 +21,9 @@ const gameSchema = mongoose.Schema({
     type: Number,
     id: [Number],
     default: 0,
-  },
-
-  firstName: String,
-  firstName: String,
-  firstName: String,
+  }
 });
+
+const GameSchema = mongoose.model('GameSchema', gameSchema);
+
+export default GameSchema;
