@@ -1,10 +1,16 @@
-const reducers = (state, action) => {
-    switch (action, type) {
-        case value:
+import { EDIT_PROFILE } from '../actions'
 
-        break;
+
+export let reducers = (state, action) => {
+    switch (action.type) {
+        case EDIT_PROFILE:
+            break;
+        //case :
+            //break;
+        //case :
+            //break;
 
         default:
-            break;
+            return state
     }
 }
