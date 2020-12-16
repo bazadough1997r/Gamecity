@@ -7,7 +7,7 @@ const Profile = ()=> {
             <h1>First name: </h1> <h1>Last name: </h1>
             <h1>Email: </h1> <h1>Phone No.: </h1>
             <h1>Birthday: </h1> 
-            <button ></button>
+            <button >Edit</button>
         </div>
     )
 
