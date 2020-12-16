@@ -8,6 +8,7 @@ const gameSchema = mongoose.Schema({
   city: String,
   phoneNo: Number,
   birthday: Date,
+  //changed password type to string because of server error
   password: String,
   likeCount: {
     type: Number,
