@@ -20,9 +20,10 @@ const gameSchema = mongoose.Schema({
     type: Number,
     id: [Number],
     default: 0,
-  },
-
-  firstName: String,
-  firstName: String,
-  firstName: String,
+  }
 });
+
+const GameSchema = mongoose.model('GameSchema', gameSchema);
+export default GameSchema;
+
+
