@@ -1,9 +1,10 @@
-import mongoose from "mongoose";
+const mongoose= require('mongoose');
 
-const gameSchema = mongoose.Schema({
+const profileSchema = mongoose.Schema({
   id: Number,
   firstName: String,
   lastName: String,
+  username: String,
   email: String,
   city: String,
   phoneNo: Number,
@@ -23,8 +24,9 @@ const gameSchema = mongoose.Schema({
     id: [Number],
     default: 0,
   }
+  
 });
 
-const GameSchema = mongoose.model('GameSchema', gameSchema);
+const User = mongoose.model('User', profileSchema);
 
-export default GameSchema;
+module.exports = User;

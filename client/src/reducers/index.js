@@ -1,6 +1,8 @@
-import { combineReducers } from 'redux'
-//import the reducers you added
+import { combineReducers } from 'redux';
 
-export default combineReducers ({
-    //insert all the reducers you have here
-})
+//import the reducers you added
+import posts from './posts.js'
+
+//Usually { posts: posts }, { key : value }
+//Since the key and value are the same, so > posts
+export default combineReducers ({ posts });
