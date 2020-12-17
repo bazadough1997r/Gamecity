@@ -1,10 +1,11 @@
-import GameSchema from '../models/schema.js';
+import PostSchema from '../models/postSchema.js';
+// import ProfileSchema from '../models/profileSchema.js';
 
 export const getPosts = async (req, res) => {
   try {
 
-    const gameSchema = await GameSchema.find();
-    res.status(200).json(gameSchema);
+    const postSchema = await PostSchema.find();
+    res.status(200).json(postSchema);
 
   } catch (error) {
 
@@ -15,7 +16,7 @@ export const getPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
   const post = req.body;
-  const newPost = new GameSchema(post)
+  const newPost = new PostSchema(post)
 
   try {
 
@@ -25,6 +26,6 @@ export const createPost = async (req, res) => {
   } catch (error) {
     
     res.status(409).json({ message: error.message });
-    
+
   }
 };

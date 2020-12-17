@@ -1,12 +1,15 @@
 import React from "react";
-import MainSearch from "./components/MainSearch";
 import Profile from "./components/profile";
+import Form from "./components/Form/Form.js"
+import Posts from "./components/Posts/Posts.js"
 
 const App = () => {
   return (
     <div>
-      <h1>Gamecity</h1>
-      <MainSearch/>
+      <h1>HI FROM RAHAF AND ABEER</h1>
+      {/* <Profile /> */}
+      <Posts />
+      <Form />
     </div>
   );
 };
