@@ -2,12 +2,16 @@ import mongoose from "mongoose";
 
 const postSchema = mongoose.Schema({
 
-  Post: String,
-  Game: String,
-  Duration: String,
-  Date: Date,
-  Location: String,
-  Image: String,
+  post: String,
+  game: String,
+  duration: String,
+  date: Date,
+  location: String,
+  image: String,
+  likeCount: {
+      type: Number,
+      default: 0
+  },
   createdAt: {
     type: Date,
     default: new Date(),
