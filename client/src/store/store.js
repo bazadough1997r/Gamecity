@@ -1,5 +1,5 @@
-import { createStore } from 'redux';
-import { reducers } from '../reducers';
+// import { createStore } from 'redux';
+// import { reducers } from '../reducers';
 
 
-export let store = createStore(reducers)
+// export let store = createStore(reducers)
