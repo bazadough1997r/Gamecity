@@ -1,7 +1,8 @@
 import { EDIT_PROFILE } from '../actions'
+// import { EDIT_PROFILE } from '../actions'
 
 
-export let reducers = (state, action) => {
+export let reducers = (state = info, action) => {
     switch (action.type) {
         case EDIT_PROFILE:
             break;
@@ -11,6 +12,9 @@ export let reducers = (state, action) => {
             //break;
 
         default:
-            return state
+           
     }
+     return state
 }
+
+export default reducers;
