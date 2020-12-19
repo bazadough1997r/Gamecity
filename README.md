@@ -17,10 +17,26 @@ Video games players.
 
 # Technologies
 
-MERN Stack
+MERN Stack (MongoDB, Express.js, React.js, Node.js)
+- Node exepress
+- react-redux
+- react-hooks
+- mongoDB Atlas
+- bootstrap 
+- bcrypt - Token 
+- Heroku
 
 # Team
 
 - **Product Owner**: Abeer
 - **Scrum Master**: Rawan
 - **Development Team Members**: Abeer , Rawan , Dialah , Rahaf
+
+### Installing Dependencies
+​
+From within the root directory:
+​
+```sh
+npm install
+npm run dev
+```
