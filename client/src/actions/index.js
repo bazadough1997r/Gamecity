@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { get } from "axios";
 import axios from 'axios'
 
@@ -99,14 +98,3 @@ export const fetchUserFailure = error => {
     payload: error
   }
 }
-=======
-// export const EDIT_PROFILE = "EDIT_PROFILE";
-
-// export function editProfile(firstName) {
-//     return {
-//         type: EDIT_PROFILE,
-//         payload: firstName,
-//     }
-// }
->>>>>>> a13bf32053c730febeedfcf91470e99946d3787d
-
