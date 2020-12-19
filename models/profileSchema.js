@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const ProfileSchema= new mongoose.Schema({
+const ProfileSchema = new mongoose.Schema({
 
   firstName: String,
   lastName: String,
@@ -23,7 +23,7 @@ const ProfileSchema= new mongoose.Schema({
   //   id: [Number],
   //   default: 0,
   // }
-  
+
 });
 
 module.exports = mongoose.model("ProfileSchema", ProfileSchema);

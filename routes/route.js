@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
       { username: req.body.username }
     ]
   })
-  
+
 
   if (useradded) return res.status(402).send("There is an account with same Username or Email,please choose another one?");
   const username = req.body.username;
@@ -69,7 +69,7 @@ router.post('/', async (req, res) => {
 
   try {
     const saveUser = await newUser.save();
-    res.send({ id: newUser._id})
+    res.send({ id: newUser._id })
   }
   catch (err) {
     res.status(400).send(err)
