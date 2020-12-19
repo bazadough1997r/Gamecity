@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { combineReducers } from "redux";
 import games from "./gamesReducer";
 import game from "./gameReducer";
@@ -10,3 +11,11 @@ export default combineReducers({
   game: game,
   user: profileReducer,
 });
+=======
+// import { combineReducers } from 'redux'
+// //import the reducers you added
+
+// export default combineReducers ({
+//     //insert all the reducers you have here
+// })
+>>>>>>> a13bf32053c730febeedfcf91470e99946d3787d
