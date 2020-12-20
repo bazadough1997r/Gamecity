@@ -42,7 +42,6 @@ function GameInfo(props) {
   return (
     <div>
       <h2>{game.gameName}</h2>
-      {/* <small>id: {game._id}</small> */}
       <h6>{game.content}</h6>
       <div className="btn-group">
         <Link
