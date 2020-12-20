@@ -67,8 +67,8 @@ function Navigation() {
               Notifications
             </NavLink>
           </li>
-          <SearchForm />
         </ul>
+          <SearchForm className="nav-item"/>
       </div>
     </nav>
   );
