@@ -16,7 +16,7 @@ export class SearchForm extends Component {
           placeholder="Search.. "
           onChange={this.onChange}
         />
-        <button type="submit" className="nav-item">
+        <button type="submit" className="nav-item"  >
           Search
         </button>
       </div>
