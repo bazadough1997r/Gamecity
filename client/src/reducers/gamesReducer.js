@@ -21,7 +21,7 @@ export default function gamesReducer(state = initialState, action) {
             ...game,
             gameName: action.game.gameName,
             content: action.game.content,
-            type: action.game.gameType
+            type: action.game.gameType,
           };
         } else return game;
       });

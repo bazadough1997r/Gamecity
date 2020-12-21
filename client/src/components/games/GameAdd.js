@@ -9,11 +9,11 @@ import { addGame } from "../../actions";
 // import {storage} from "../../firebase";
 
 function GameAdd(props) {
-  const initialState = { 
-    gameName: "", 
-    gameType: "Select Game", 
-    gameDuration: "",  
-    gameDate: "", 
+  const initialState = {
+    gameName: "",
+    gameType: "Select Game",
+    gameDuration: "",
+    gameDate: "",
     gameGovernorate: "Select Governorate",
     // image: null,
     // url: ""
@@ -58,12 +58,9 @@ function GameAdd(props) {
   // }
 
   // function handleUpload(event) {
-  //   // const image = 
+  //   // const image =
   //   const uploadTask = storage.ref(`images/${image.name}`).put(image);
   // }
-
-  
-
 
   //When the user presses the submit button it calls the handleSubmit function. This is where our API post
   //request is sent with the game object sent as the payload. If it successfully posts it will send back
@@ -71,12 +68,12 @@ function GameAdd(props) {
   function handleSubmit(event) {
     event.preventDefault();
     // if (!game.gameName || !game.gameType || !game.gameDate || !game.gameDuration || !game.gameGovernorate) return;
-    post("/api/games", { 
-      gameName: game.gameName, 
-      gameType: game.gameType, 
-      gameDate: game.gameDate, 
-      gameDuration: game.gameDuration, 
-      gameGovernorate: game.gameGovernorate 
+    post("/api/games", {
+      gameName: game.gameName,
+      gameType: game.gameType,
+      gameDate: game.gameDate,
+      gameDuration: game.gameDuration,
+      gameGovernorate: game.gameGovernorate,
     })
       .then(function (response) {
         dispatch(addGame(response.data));
@@ -96,9 +93,8 @@ function GameAdd(props) {
   return (
     <div>
       <h4>What's your next game?..</h4>
-      
-      <form onSubmit={handleSubmit}>
 
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Post</label>
           <input
@@ -122,23 +118,21 @@ function GameAdd(props) {
             className="form-control"
             placeholder="Select Governorate"
           >
-
-            <option value = "SelectGovernorate">Select Governorate</option>
-            <option value = "Amman"> Amman</option>
-            <option value = "Jerash"> Jerash</option>
-            <option value = "Irbid"> Irbid</option>
-            <option value = "Balqa"> Balqa</option>
-            <option value = "Zarqa"> Zarqa</option>
-            <option value = "Madaba"> Madaba</option>
-            <option value = "Mafraq"> Mafraq</option>
-            <option value = "Ajloun"> Ajloun</option>
-
+            <option value="SelectGovernorate">Select Governorate</option>
+            <option value="Amman"> Amman</option>
+            <option value="Jerash"> Jerash</option>
+            <option value="Irbid"> Irbid</option>
+            <option value="Balqa"> Balqa</option>
+            <option value="Zarqa"> Zarqa</option>
+            <option value="Madaba"> Madaba</option>
+            <option value="Mafraq"> Mafraq</option>
+            <option value="Ajloun"> Ajloun</option>
           </select>
         </div>
 
-      {/* SELECT GAME- DROPDOWN */}
+        {/* SELECT GAME- DROPDOWN */}
         <div className="form-group">
-        <label>Game</label>
+          <label>Game</label>
           <select
             type="text"
             required
@@ -147,23 +141,21 @@ function GameAdd(props) {
             className="form-control"
             placeholder="Select Game"
           >
-
-            <option value = "SelectGame"> Select Game</option>
-            <option value = "Paintball"> Paintball</option>
-            <option value = "Football"> Football</option>
-            <option value = "Karting"> Karting</option>
-            <option value = "Basketball"> Basketball</option>
-            <option value = "Laser Tag"> Laser Tag</option>
-            <option value = "Volleyball"> Volleyball</option>
-            <option value = "Rock Climbing"> Rock Climbing</option>
-            <option value = "Horseback Riding"> Horseback Riding</option>
-
+            <option value="SelectGame"> Select Game</option>
+            <option value="Paintball"> Paintball</option>
+            <option value="Football"> Football</option>
+            <option value="Karting"> Karting</option>
+            <option value="Basketball"> Basketball</option>
+            <option value="Laser Tag"> Laser Tag</option>
+            <option value="Volleyball"> Volleyball</option>
+            <option value="Rock Climbing"> Rock Climbing</option>
+            <option value="Horseback Riding"> Horseback Riding</option>
           </select>
         </div>
 
         {/* DATE- CALENDAR DATE */}
         <div className="form-group">
-        <label>Date</label>
+          <label>Date</label>
           <input
             type="date"
             required
@@ -173,7 +165,7 @@ function GameAdd(props) {
           />
         </div>
 
-        {/* DURATION- SET TIME */} 
+        {/* DURATION- SET TIME */}
         <div className="form-group">
           <label>Game Duration</label>
           <input
@@ -198,10 +190,18 @@ function GameAdd(props) {
         </div> */}
 
         <div className="btn-group">
-         
-          <button type="submit" value="Post" className="btn btn-primary"> Submit </button>
-          <button type="button" onClick={handleCancel} className="btn btn-secondary"> Cancel </button>
-
+          <button type="submit" value="Post" className="btn btn-primary">
+            {" "}
+            Submit{" "}
+          </button>
+          <button
+            type="button"
+            onClick={handleCancel}
+            className="btn btn-secondary"
+          >
+            {" "}
+            Cancel{" "}
+          </button>
         </div>
       </form>
     </div>

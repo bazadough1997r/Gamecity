@@ -1,11 +1,9 @@
 import { get } from "axios";
-import axios from 'axios'
+import axios from "axios";
 
-export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST'
-export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS'
-export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE'
-
-
+export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
+export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
+export const FETCH_USER_FAILURE = "FETCH_USER_FAILURE";
 
 export const SET_GAMES = "SET_GAMES";
 
@@ -60,41 +58,39 @@ export function replaceGame(game) {
   };
 }
 
-
-
 export const fetchUser = () => {
   return (dispatch) => {
-    dispatch(fetchUserRequest())
+    dispatch(fetchUserRequest());
     axios
-      .get('https://jsonplaceholder.typicode.com/users') //change
-      .then(response => {
+      .get("https://jsonplaceholder.typicode.com/users") //change
+      .then((response) => {
         // response.data is the users
-        const user = response.data
-        dispatch(fetchUserSuccess(user))
+        const user = response.data;
+        dispatch(fetchUserSuccess(user));
       })
-      .catch(error => {
+      .catch((error) => {
         // error.message is the error message
-        dispatch(fetchUserFailure(error.message))
-      })
-  }
-}
+        dispatch(fetchUserFailure(error.message));
+      });
+  };
+};
 
 export const fetchUserRequest = () => {
   return {
-    type: FETCH_USER_REQUEST
-  }
-}
+    type: FETCH_USER_REQUEST,
+  };
+};
 
-export const fetchUserSuccess = user => {
+export const fetchUserSuccess = (user) => {
   return {
     type: FETCH_USER_SUCCESS,
-    payload: user
-  }
-}
+    payload: user,
+  };
+};
 
-export const fetchUserFailure = error => {
+export const fetchUserFailure = (error) => {
   return {
     type: FETCH_USER_FAILURE,
-    payload: error
-  }
-}
+    payload: error,
+  };
+};
