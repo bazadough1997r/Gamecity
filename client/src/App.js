@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -11,9 +11,25 @@ import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
 import GameAdd from "./components/games/GameAdd";
 import GameEdit from "./components/games/GameEdit";
+import { loadUser } from "./actions";
+import { setToken } from "./components/pages/setToken";
+import { store } from "./index";
 import SearchForm from "./components/pages/SearchForm";
 
+
+
+if(localStorage.getItem("token")){
+  setToken(localStorage.getItem("token"))
+}
+
+
 function App() {
+
+  useEffect(()=> {
+    store.dispatch(loadUser());
+  }, [])
+
+
   return (
     <div className="App">
       <Router>
