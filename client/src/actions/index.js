@@ -1,9 +1,6 @@
 import { get } from "axios";
-import axios from 'axios'
-
-export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST'
-export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS'
-export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE'
+import axios from 'axios';
+import { setToken } from '../components/pages/setToken'
 
 
 
@@ -61,6 +58,13 @@ export function replaceGame(game) {
 }
 
 
+export const SET_USER = "SET_USER";
+export function setUser(user) {
+  return {
+    type: SET_USER,
+    payload: user,
+  };
+}
 
 export const fetchUser = () => {
   return (dispatch) => {
@@ -79,12 +83,14 @@ export const fetchUser = () => {
   }
 }
 
+export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST'
 export const fetchUserRequest = () => {
   return {
     type: FETCH_USER_REQUEST
   }
 }
 
+export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS'
 export const fetchUserSuccess = user => {
   return {
     type: FETCH_USER_SUCCESS,
@@ -92,9 +98,97 @@ export const fetchUserSuccess = user => {
   }
 }
 
+export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE'
 export const fetchUserFailure = error => {
   return {
     type: FETCH_USER_FAILURE,
     payload: error
   }
 }
+
+
+
+export const loadUser = () => async dispatch => {
+  if(localStorage.getItem('token')){
+    setToken(localStorage.getItem('token'))
+  }
+  try {
+
+   const response =  await axios.get('URL');
+   dispatch({
+     type: LOAD_USER,
+     payload: response.data
+
+   })
+
+    
+
+  } catch (error) {
+    dispatch({
+      type: AUTH_ERROR,
+      payload: error 
+    })
+
+  }
+}
+
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
+export const regusterUser = (email, password) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    const body = JSON.stringify({email, password})
+   const response = await axios.post('URL', body.config);
+
+   dispatch({
+     type: REGISTER_SUCCESS,
+     payload: response.data
+   })
+   dispatch(loadUser())
+
+  } catch (error) {
+    dispatch({
+      type: REGISTER_FAILURE,
+      payload:error
+    })
+  }
+}
+
+export const loginUser = (email, password) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    const body = JSON.stringify({email, password})
+   const response = await axios.post('URL', body.config);
+
+   dispatch({
+     type: LOGIN_SUCCESS,
+     payload: response.data
+   })
+   dispatch(loadUser())
+
+  } catch (error) {
+    dispatch({
+      type: LOGIN_FAILURE,
+      payload:error
+    })
+  }
+}
+
+
+export const REGISTER_FAILURE = 'REGISTER_FAILURE'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+export const LOAD_USER = 'LOAD_USER'
+export const AUTH_ERROR = 'AUTH_ERROR'
+
+
+
