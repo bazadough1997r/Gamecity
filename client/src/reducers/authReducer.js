@@ -1,10 +1,8 @@
-
   import {
     REGISTER_SUCCESS,
     REGISTER_FAILURE,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
-    LOAD_USER,
     AUTH_ERROR
   } from '../actions/index'
   
@@ -15,7 +13,7 @@ const initialState = {
     errors: {}
 }
 
-const loginReducer = (state = initialState, action) =>{
+const authReducer = (state = initialState, action) =>{
     const { type, payload } = action;
     switch(type){
         case REGISTER_SUCCESS:
@@ -46,4 +44,4 @@ const loginReducer = (state = initialState, action) =>{
     }
 }
 
-export default loginReducer;
+export default authReducer;

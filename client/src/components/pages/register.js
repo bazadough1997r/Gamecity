@@ -1,12 +1,27 @@
 import React, { useState } from 'react';
+import  { registerUser } from '../../actions';
+import { connect } from 'react-redux';
 
-const Login = () => {
+
+// import { Redirect } from 'react-router-dom';
+
+
+const Register = (props) => {
+    console.log(props,"isLoggedInnnn")
+
+    // if(isLoggedIn) return <Redirect to="/"/>
     let [data, setData] = useState ({
+        firstName: "",
+        lastName: "",
+        username: "",
         email: "",
+        city: "",
+        phoneNo: "",
+        birthday: "",
         password: ""
     })
 
-    let { email, password } = data
+    let { firstName, lastName, username, email, city, phoneNo, birthday, password  } = data
 
 
     const onChange = (e)=> {
@@ -16,17 +31,44 @@ const Login = () => {
     }
 
     const onsubmit = () =>{
+        // if(firstName === "" || lastName === "" || username === "" || email === "" || city === "" || phoneNo === "" || birthday === "" || password === ""){
+        //     return alert("Fill all empty fields please!")
+        // } else 
         console.log(data)
+        registerUser(firstName, lastName, username, email, city,phoneNo, birthday, password)
     }
-
-    
 
 
     return (
         <div>
+              <h1>REGISTER PAGE</h1>
+            <label>First name</label>
+            <br/>
+            <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName}></input>
+            <br/>
+            <label>Last name</label>
+            <br/>
+            <input onChange = {(e)=> onChange(e) } type="text" name = "lastName" value={lastName}></input>
+            <br/>
+            <label>username</label>
+            <br/>
+            <input onChange = {(e)=> onChange(e) } type="text" name = "username" value={username}></input>
+            <br/>
             <label>Email</label>
             <br/>
             <input onChange = {(e)=> onChange(e) } type="email" name = "email" value={email}></input>
+            <br/>
+            <label>city</label>
+            <br/>
+            <input onChange = {(e)=> onChange(e) } type="text" name = "city" value={city}></input>
+            <br/>
+            <label>Phone No.</label>
+            <br/>
+            <input onChange = {(e)=> onChange(e) } type="number" name = "phoneNo" value={phoneNo}></input>
+            <br/>
+            <label>Birthday</label>
+            <br/>
+            <input onChange = {(e)=> onChange(e) } type="date" name = "birthday" value={birthday}></input>
             <br/>
             <label>Password</label>
             <br/>
@@ -38,4 +80,8 @@ const Login = () => {
     )
 }
 
-export default Login;
+const mapStateToProps = state => ({
+    isLoggedIn: state.isLoggedIn
+})
+
+export default connect(mapStateToProps, {registerUser})(Register);

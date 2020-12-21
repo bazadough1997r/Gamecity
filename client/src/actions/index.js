@@ -107,7 +107,8 @@ export const fetchUserFailure = error => {
 }
 
 
-
+export const LOAD_USER = 'LOAD_USER'
+export const AUTH_ERROR = 'AUTH_ERROR'
 export const loadUser = () => async dispatch => {
   if(localStorage.getItem('token')){
     setToken(localStorage.getItem('token'))
@@ -119,9 +120,7 @@ export const loadUser = () => async dispatch => {
      type: LOAD_USER,
      payload: response.data
 
-   })
-
-    
+   }) 
 
   } catch (error) {
     dispatch({
@@ -133,7 +132,9 @@ export const loadUser = () => async dispatch => {
 }
 
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
-export const regusterUser = (email, password) => async dispatch => {
+export const REGISTER_FAILURE = 'REGISTER_FAILURE'
+export const registerUser = ( firstName, lastName, username, email, city, phoneNo, birthday, password ) => async dispatch => {
+  console.log(firstName, lastName, username, email, city, phoneNo, birthday, password,"helooo")
   try {
     const config = {
       headers: {
@@ -141,13 +142,14 @@ export const regusterUser = (email, password) => async dispatch => {
       }
     }
 
-    const body = JSON.stringify({email, password})
-   const response = await axios.post('URL', body.config);
+     const body = JSON.stringify({ firstName, lastName, username, email, city, phoneNo, birthday, password })
+   const response = await axios.post('/addUser', body.config);
 
    dispatch({
      type: REGISTER_SUCCESS,
      payload: response.data
    })
+   console.log(response,"respoonse")
    dispatch(loadUser())
 
   } catch (error) {
@@ -158,6 +160,10 @@ export const regusterUser = (email, password) => async dispatch => {
   }
 }
 
+
+
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const loginUser = (email, password) => async dispatch => {
   try {
     const config = {
@@ -165,7 +171,7 @@ export const loginUser = (email, password) => async dispatch => {
         'Content-Type': 'application/json'
       }
     }
-
+  
     const body = JSON.stringify({email, password})
    const response = await axios.post('URL', body.config);
 
@@ -184,11 +190,7 @@ export const loginUser = (email, password) => async dispatch => {
 }
 
 
-export const REGISTER_FAILURE = 'REGISTER_FAILURE'
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGIN_FAILURE = 'LOGIN_FAILURE'
-export const LOAD_USER = 'LOAD_USER'
-export const AUTH_ERROR = 'AUTH_ERROR'
+
 
 
 

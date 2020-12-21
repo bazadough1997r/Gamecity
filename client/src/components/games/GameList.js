@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Login from "../pages/register"
+import Register from "../pages/register"
+import Login from "../pages/login"
 
 function GameList() {
   const [games, setGames] = useState([]);
@@ -20,7 +21,9 @@ function GameList() {
 
   return (
     <div>
+             <Register />
              <Login />
+
       <h2>
         Games
         <Link to="/games/new" className="btn btn-primary float-right">
