@@ -3,9 +3,11 @@ import { setGames } from "../../actions/index";
 import { connect } from "react-redux";
 
 export class SearchForm extends Component {
+    
   onChange = (e) => {
     this.props.setGames(e.target.value);
   };
+
   render() {
     return (
       <div>
@@ -16,7 +18,7 @@ export class SearchForm extends Component {
           placeholder="Search.. "
           onChange={this.onChange}
         />
-        <button type="submit" className="nav-item"  >
+        <button type="submit" className="nav-item" >
           Search
         </button>
       </div>
