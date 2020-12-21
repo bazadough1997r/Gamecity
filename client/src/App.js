@@ -11,6 +11,7 @@ import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
 import GameAdd from "./components/games/GameAdd";
 import GameEdit from "./components/games/GameEdit";
+import signup from "../src/components/signup";
 
 
 function App() {
@@ -75,6 +76,7 @@ function Main() {
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
       <Route exact path="/profile" component={Profile} />
+      <Route exact path="/signup" component={signup} />
     </Switch>
   );
 }

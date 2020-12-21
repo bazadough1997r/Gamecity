@@ -41,6 +41,7 @@ router.post('/', async (req, res) => {
     ]
   })
 
+console.log("user added")
 
   if (useradded) return res.status(402).send("There is an account with same Username or Email,please choose another one?");
   const username = req.body.username;
@@ -51,6 +52,7 @@ router.post('/', async (req, res) => {
   const phoneNo = req.body.phoneNo;
   const birthday = req.body.birthday;
   //hashing password
+
   const hashedPassword = bcrypt.hashSync(req.body.password, 10)
 
   //every thing is readdy here we send the data to the server  
