@@ -68,7 +68,7 @@ function Navigation() {
             </NavLink>
           </li>
         </ul>
-          <SearchForm className="nav-item"/>
+        <SearchForm className="nav-item" />
       </div>
     </nav>
   );

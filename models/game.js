@@ -3,11 +3,23 @@ const mongoose = require("mongoose");
 const gameSchema = new mongoose.Schema({
   gameName: {
     type: String,
-    required: [true, "game name is required"],
+    required: [true, "Game name is required"]
   },
-  content: {
+  gameType: {
     type: String,
-    required: [true, "Content can't be blank"],
+    required: [true, "Game type is required"]
+  },
+  gameDuration: {
+    type: String,
+    required: [true, "Game duration is required"]
+  },
+  gameGovernorate: {
+    type: String,
+    required: [true, "Game governorate is required"]
+  },
+  gameDate: {
+    type: String,
+    required: [true, "Game governorate is required"]
   },
 });
 

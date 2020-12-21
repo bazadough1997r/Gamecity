@@ -32,7 +32,10 @@ function GameList() {
             <h4>
               <Link to={`/games/${game._id}`}>{game.gameName}</Link>
             </h4>
-            <h6>{game.content}</h6>
+            <h6>{game.gameGovernorate}</h6>
+            <h6>{game.gameType}</h6>
+            <h6>{game.gameDate}</h6>
+            <h6>{game.gameDuration}</h6>
             <hr />
           </div>
         );

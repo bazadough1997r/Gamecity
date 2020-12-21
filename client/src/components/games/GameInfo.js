@@ -42,7 +42,11 @@ function GameInfo(props) {
   return (
     <div>
       <h2>{game.gameName}</h2>
-      <h6>{game.content}</h6>
+      <h6>{game.gameDate}</h6>
+      <h6>{game.gameDuration}</h6>
+      <h6>{game.gameGovernorate}</h6>
+      <h6>{game.gameType}</h6>
+
       <div className="btn-group">
         <Link
           to={{ pathname: `/games/${game._id}/edit` }}
