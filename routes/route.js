@@ -34,6 +34,7 @@ router.post("/", async (req, res) => {
     $or: [{ email: req.body.email }, { username: req.body.username }],
   });
   console.log("user added");
+  console.log(req.body)
   if (useradded)
     return res
       .status(402)

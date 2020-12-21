@@ -1,11 +1,11 @@
 import { get } from "axios";
-import axios from 'axios'
-
-export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST'
-export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS'
-export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE'
+import axios from 'axios';
+import { setToken } from '../components/pages/setToken'
 
 
+export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
+// export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
+// export const FETCH_USER_FAILURE = "FETCH_USER_FAILURE";
 
 export const SET_GAMES = "SET_GAMES";
 
@@ -61,40 +61,139 @@ export function replaceGame(game) {
 }
 
 
+export const SET_USER = "SET_USER";
+export function setUser(user) {
+  return {
+    type: SET_USER,
+    payload: user,
+  };
+}
 
 export const fetchUser = () => {
   return (dispatch) => {
-    dispatch(fetchUserRequest())
+    dispatch(fetchUserRequest());
     axios
-      .get('https://jsonplaceholder.typicode.com/users') //change
-      .then(response => {
+      .get("https://jsonplaceholder.typicode.com/users") //change
+      .then((response) => {
         // response.data is the users
-        const user = response.data
-        dispatch(fetchUserSuccess(user))
+        const user = response.data;
+        dispatch(fetchUserSuccess(user));
       })
-      .catch(error => {
+      .catch((error) => {
         // error.message is the error message
-        dispatch(fetchUserFailure(error.message))
-      })
-  }
-}
+        dispatch(fetchUserFailure(error.message));
+      });
+  };
+};
 
+// export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST'
 export const fetchUserRequest = () => {
   return {
-    type: FETCH_USER_REQUEST
-  }
-}
+    type: FETCH_USER_REQUEST,
+  };
+};
 
+export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS'
 export const fetchUserSuccess = user => {
   return {
     type: FETCH_USER_SUCCESS,
-    payload: user
-  }
-}
+    payload: user,
+  };
+};
 
+export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE'
 export const fetchUserFailure = error => {
   return {
     type: FETCH_USER_FAILURE,
     payload: error
   }
 }
+
+
+export const LOAD_USER = 'LOAD_USER'
+export const AUTH_ERROR = 'AUTH_ERROR'
+export const loadUser = () => async dispatch => {
+  if(localStorage.getItem('token')){
+    setToken(localStorage.getItem('token'))
+  }
+  try {
+
+   const response =  await axios.get('URL');
+   dispatch({
+     type: LOAD_USER,
+     payload: response.data
+
+   }) 
+
+  } catch (error) {
+    dispatch({
+      type: AUTH_ERROR,
+      payload: error 
+    })
+
+  }
+}
+
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
+export const REGISTER_FAILURE = 'REGISTER_FAILURE'
+export const registerUser = ( firstName, lastName, username, email, city, phoneNo, birthday, password ) => async dispatch => {
+  console.log(firstName, lastName, username, email, city, phoneNo, birthday, password,"helooo")
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+     const body = JSON.stringify({ firstName, lastName, username, email, city, phoneNo, birthday, password })
+   const response = await axios.post('/addUser', body.config);
+
+   dispatch({
+     type: REGISTER_SUCCESS,
+     payload: response.data
+   })
+   console.log(response,"respoonse")
+   dispatch(loadUser())
+
+  } catch (error) {
+    dispatch({
+      type: REGISTER_FAILURE,
+      payload:error
+    })
+  }
+}
+
+
+
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+export const loginUser = (email, password) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  
+    const body = JSON.stringify({email, password})
+   const response = await axios.post('URL', body.config);
+
+   dispatch({
+     type: LOGIN_SUCCESS,
+     payload: response.data
+   })
+   dispatch(loadUser())
+
+  } catch (error) {
+    dispatch({
+      type: LOGIN_FAILURE,
+      payload:error
+    })
+  }
+}
+
+
+
+
+
+

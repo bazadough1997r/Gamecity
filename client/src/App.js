@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -11,9 +11,25 @@ import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
 import GameAdd from "./components/games/GameAdd";
 import GameEdit from "./components/games/GameEdit";
+import { loadUser } from "./actions";
+import { setToken } from "./components/pages/setToken";
+import { store } from "./index";
+import SearchForm from "./components/pages/SearchForm";
+
+
+
+if(localStorage.getItem("token")){
+  setToken(localStorage.getItem("token"))
+}
 
 
 function App() {
+
+  useEffect(()=> {
+    store.dispatch(loadUser());
+  }, [])
+
+
   return (
     <div className="App">
       <Router>
@@ -31,8 +47,14 @@ function Navigation() {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
       <div className="container">
         <ul className="navbar-nav mr-auto">
-        <li className="nav-item">
-            <NavLink exact className="nav-link" activeClassName="active" to="/" style={{color:"#c6fc03"}}>
+          <li className="nav-item">
+            <NavLink
+              exact
+              className="nav-link"
+              activeClassName="active"
+              to="/"
+              style={{ color: "#c6fc03" }}
+            >
               Gamecity
             </NavLink>
           </li>
@@ -62,6 +84,7 @@ function Navigation() {
             </NavLink>
           </li>
         </ul>
+        <SearchForm className="nav-item" />
       </div>
     </nav>
   );
