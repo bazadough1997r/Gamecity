@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const ProfileSchema = new mongoose.Schema({
-
   firstName: String,
   lastName: String,
   username: String,
@@ -9,7 +8,7 @@ const ProfileSchema = new mongoose.Schema({
   city: String,
   phoneNo: Number,
   birthday: Date,
-  password: String
+  password: String,
   // likeCount: {
   //   type: Number,
   //   default: 0,
@@ -23,7 +22,6 @@ const ProfileSchema = new mongoose.Schema({
   //   id: [Number],
   //   default: 0,
   // }
-
 });
 
 module.exports = mongoose.model("ProfileSchema", ProfileSchema);
