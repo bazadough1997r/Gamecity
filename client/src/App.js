@@ -97,6 +97,7 @@ function Main() {
     <Switch>
       <Route exact path="/home" component={Land} />
       <Route exact path="/games" component={GameList} />
+      <Route exact path="/" component={GameList} />
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
