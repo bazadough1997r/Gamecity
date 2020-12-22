@@ -6,7 +6,9 @@ export default class SearchForm extends Component {
       if (e.keyCode === 13) {
         e.preventDefault();
         window.find(e.target.value);
-      } 
+      } else if(!(e.target.value)) {
+        console.log("not found!!")
+      }
     });
   };
 
