@@ -140,14 +140,12 @@ export const registerUser = ( firstName, lastName, username, email, city, phoneN
 
   try {
      const body = { firstName, lastName, username, email, city, phoneNo, birthday, password }
-      console.log(body,"body")
      const response = await axios.post('/addUser', body);
 
    dispatch({
      type: REGISTER_SUCCESS,
      payload: response.data
    })
-   console.log(response,"respoonse")
    dispatch(loadUser())
 
   } catch (error) {
@@ -164,14 +162,15 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const loginUser = (email, password) => async dispatch => {
   try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-  
-    const body = JSON.stringify({email, password})
-   const response = await axios.post('URL', body.config);
+    // const config = {
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // }
+     
+    // const body = JSON.stringify({email, password})
+    const body = {email, password}
+   const response = await axios.post('addUser/login', body);
 
    dispatch({
      type: LOGIN_SUCCESS,
