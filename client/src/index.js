@@ -10,9 +10,12 @@ import App from "./App";
 import rootReducer from "./reducers";
 //Import the setGames method from the actions folder
 import { setGames } from "./actions";
-
+// const composeEnhancer = window.window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__ || compose;
 // import { composeWithDevTools } from 'redux-devtools-extension'
 
+const DEFAULT_STATE = {
+  searchTerm: ""
+}
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 /*We are applying the dispatch method directly to the store object. It is calling the setGames 

@@ -1,11 +1,26 @@
 import React, { Component } from "react";
-import { setGames } from "../../actions/index";
-import { connect } from "react-redux";
+// import {searchGame} from "../../actions/index";
+// import { connect } from "react-redux";
+// import axios from "axios";
 
-export class SearchForm extends Component {
-  onChange = (e) => {
-    this.props.setGames(e.target.value);
-  };
+export default class SearchForm extends Component {
+//   onChange = (e) => {
+//     // this.props.searchGame(e.target.value);
+//     dispatch(searchGame(5))
+//   };
+  handleSearch() {
+    // dispatch(searchGame(game._id))
+    // axios
+    //   .delete(`/api/games/${game._id}`)
+    //   .then(function () {
+    //     dispatch(searchGame(game._id));
+    //     props.history.push("/");
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error, "error from search -RawanB");
+    //   });
+  }
+
 
   render() {
     return (
@@ -17,7 +32,7 @@ export class SearchForm extends Component {
           placeholder="Search.. "
           onChange={this.onChange}
         />
-        <button type="submit" className="nav-item">
+        <button type="submit" className="nav-item"  onClick={this.handleSearch} >
           Search
         </button>
       </div>
@@ -25,8 +40,8 @@ export class SearchForm extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  games: state.gameName, //lazim a3mil access sah
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   games: dispatch.gameName, //lazim a3mil access sah
+// });
 
-export default connect(mapStateToProps, { setGames })(SearchForm);
+// export default connect(mapDispatchToProps, { searchGame })(SearchForm);

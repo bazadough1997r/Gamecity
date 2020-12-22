@@ -1,13 +1,8 @@
 import { get } from "axios";
 import axios from "axios";
 
-export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
-export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
-export const FETCH_USER_FAILURE = "FETCH_USER_FAILURE";
-
-export const SET_GAMES = "SET_GAMES";
-
 //setGames() will make our API call and use the dispatch method to send an action to the reducer.
+export const SET_GAMES = "SET_GAMES";
 export function setGames() {
   return function (dispatch) {
     //We don't need to use the full URL, just the path. We added the domain portion as a proxy in the client/package.json file.
@@ -50,6 +45,23 @@ export function removeGame(_id) {
   };
 }
 
+//for searching
+// export const SEARCH_GAME = "SEARCH_GAME";
+// export function setGame(game) {
+//   return {
+//     type: SET_GAME,
+//     game: game,
+//   };
+// }
+
+// export function searchGame(_id) {
+//   return {
+//     type: SEARCH_GAME,
+//     _id: _id,
+//   };
+// }
+
+
 export const REPLACE_GAME = "REPLACE_GAME";
 export function replaceGame(game) {
   return {
@@ -58,6 +70,9 @@ export function replaceGame(game) {
   };
 }
 
+export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
+export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
+export const FETCH_USER_FAILURE = "FETCH_USER_FAILURE";
 export const fetchUser = () => {
   return (dispatch) => {
     dispatch(fetchUserRequest());
