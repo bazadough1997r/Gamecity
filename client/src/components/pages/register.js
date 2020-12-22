@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 // import { Redirect } from 'react-router-dom';
 
 
-const Register = (registerUser,isLoggedIn) => {
-    console.log(isLoggedIn,"isLoggedInnnn")
+const Register = ({ registerUser, isLoggedIn }) => {
+    console.log(isLoggedIn,"isLoggedIn")
 
     // if(isLoggedIn) return <Redirect to="/"/>
     let [data, setData] = useState ({
@@ -34,7 +34,7 @@ const Register = (registerUser,isLoggedIn) => {
         // if(firstName === "" || lastName === "" || username === "" || email === "" || city === "" || phoneNo === "" || birthday === "" || password === ""){
         //     return alert("Fill all empty fields please!")
         // } else 
-        console.log(data)
+        // console.log(data)
         registerUser(firstName, lastName, username, email, city,phoneNo, birthday, password)
     }
 
