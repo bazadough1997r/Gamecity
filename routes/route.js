@@ -59,8 +59,10 @@ router.post("/", async (req, res) => {
   const phoneNo = req.body.phoneNo;
   const birthday = req.body.birthday;
   //hashing password
-  const hashedPassword = bcrypt.hashSync(req.body.password, 10);
-  //every thing is readdy here we send the data to the server
+
+  const hashedPassword = bcrypt.hashSync(req.body.password, 10)
+
+  //every thing is readdy here we send the data to the server  
   const newUser = await AddUser.create({
     firstName: firstName,
     lastName: lastName,
