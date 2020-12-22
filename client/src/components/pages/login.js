@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 
 const Login = ( {loginUser, isLoggedIn} ) => {
-    // console.log(isLoggedIn,"isLoggedIn")
+
     // if(isLoggedIn) return <Redirect to="/"/>
     let [data, setData] = useState ({
         email: "",
@@ -16,9 +16,7 @@ const Login = ( {loginUser, isLoggedIn} ) => {
 
 
     const onChange = (e)=> {
-
         setData({...data, [e.target.name]: e.target.value})
-        console.log([e.target.value])
     }
 
     const onsubmit = () =>{
