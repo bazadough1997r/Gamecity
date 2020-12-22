@@ -118,7 +118,7 @@ export const loadUser = () => async dispatch => {
   }
   try {
 
-   const response =  await axios.get('URL');
+   const response =  await axios.get('/addUser');
    dispatch({
      type: LOAD_USER,
      payload: response.data
@@ -137,16 +137,11 @@ export const loadUser = () => async dispatch => {
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 export const REGISTER_FAILURE = 'REGISTER_FAILURE'
 export const registerUser = ( firstName, lastName, username, email, city, phoneNo, birthday, password ) => async dispatch => {
-  console.log(firstName, lastName, username, email, city, phoneNo, birthday, password,"helooo")
-  try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
 
-     const body = JSON.stringify({ firstName, lastName, username, email, city, phoneNo, birthday, password })
-   const response = await axios.post('/addUser', body.config);
+  try {
+     const body = { firstName, lastName, username, email, city, phoneNo, birthday, password }
+      console.log(body,"body")
+     const response = await axios.post('/addUser', body);
 
    dispatch({
      type: REGISTER_SUCCESS,
