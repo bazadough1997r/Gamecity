@@ -54,7 +54,7 @@ function Navigation() {
               exact
               className="nav-link"
               activeClassName="active"
-              to="/home"
+              to="/"
               style={{ color: "#c6fc03" }}
             >
               Gamecity
@@ -95,7 +95,7 @@ function Navigation() {
 function Main() {
   return (
     <Switch>
-      <Route exact path="/home" component={Land} />
+      <Route exact path="/" component={Land} />
       <Route exact path="/games" component={GameList} />
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />

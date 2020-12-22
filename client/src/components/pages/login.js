@@ -43,6 +43,8 @@ const Login = ( {loginUser, isLoggedIn} ) => {
             <br/>
             <br/>
             <button type= "submit" onClick= {()=> onsubmit()}>submit</button>
+            <p>Register new account <a href="/">SignUp</a></p>
+
         </div>
     )
 }
