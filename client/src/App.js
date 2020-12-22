@@ -17,6 +17,7 @@ import { setToken } from "./components/pages/setToken";
 import { store } from "./index";
 import  login  from "./components/pages/login";
 import SearchForm from "./components/pages/SearchForm";
+import register from "./components/pages/register";
 
 
 
@@ -85,6 +86,16 @@ function Navigation() {
               Notifications
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink
+              exact
+              className="nav-link"
+              activeClassName="active"
+              to="/addUser"
+            >
+              Signup
+            </NavLink>
+          </li>
         </ul>
         <SearchForm className="nav-item" />
       </div>
@@ -95,13 +106,15 @@ function Navigation() {
 function Main() {
   return (
     <Switch>
-      <Route exact path="/" component={Land} />
+      <Route exact path="/" component={GameList} />
       <Route exact path="/games" component={GameList} />
+      <Route exact path="/" component={GameList} />
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
       <Route exact path="/profile" component={Profile} />
       <Route exact path="/login" component={login} />
+      <Route exact path="/addUser" component={register} />
     </Switch>
   );
 }
