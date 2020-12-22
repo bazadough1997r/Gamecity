@@ -76,6 +76,8 @@ const Register = ({ registerUser, isLoggedIn }) => {
             <br/>
             <br/>
             <button type= "submit" onClick= {()=> onsubmit()}>submit</button>
+            <br/>
+            <p>Already have an account? <a href="/login">Sign in</a></p>
         </div>
     )
 }
