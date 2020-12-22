@@ -9,6 +9,9 @@ router.get("/", async (req, res) => {
     .then((users) => res.json(users))
     .catch((err) => res.status(400).json("Error: " + err));
 });
+
+
+
 ///loggingggg in
 router.post("/login", async (req, res) => {
   //checking if the username is signed up
@@ -72,5 +75,12 @@ router.post("/", async (req, res) => {
   } catch (err) {
     res.status(400).send(err);
   }
+});
+
+
+router.get("/addUser", async (req, res) => {
+  AddUser.find()
+    .then((users) => res.json(users))
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 module.exports = router;
