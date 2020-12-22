@@ -1,26 +1,18 @@
 import React, { Component } from "react";
-// import {searchGame} from "../../actions/index";
-// import { connect } from "react-redux";
-// import axios from "axios";
 
 export default class SearchForm extends Component {
-//   onChange = (e) => {
-//     // this.props.searchGame(e.target.value);
-//     dispatch(searchGame(5))
-//   };
-  handleSearch() {
-    // dispatch(searchGame(game._id))
-    // axios
-    //   .delete(`/api/games/${game._id}`)
-    //   .then(function () {
-    //     dispatch(searchGame(game._id));
-    //     props.history.push("/");
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error, "error from search -RawanB");
-    //   });
-  }
-
+  searchHandler = (e) => {
+    window.addEventListener("keydown", function (e) {
+      var result =[];
+      window.find(e.target.value);
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        result.push(e.target.value)
+        // window.find(e.target.value);
+      }
+      console.log(result)
+    });
+  };
 
   render() {
     return (
@@ -30,18 +22,9 @@ export default class SearchForm extends Component {
           className="nav-item"
           name="searchText"
           placeholder="Search.. "
-          onChange={this.onChange}
+          onClick={this.searchHandler}
         />
-        <button type="submit" className="nav-item"  onClick={this.handleSearch} >
-          Search
-        </button>
       </div>
     );
   }
 }
-
-// const mapDispatchToProps = (dispatch) => ({
-//   games: dispatch.gameName, //lazim a3mil access sah
-// });
-
-// export default connect(mapDispatchToProps, { searchGame })(SearchForm);

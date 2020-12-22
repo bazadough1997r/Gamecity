@@ -4,7 +4,6 @@ import {
   ADD_GAME,
   REMOVE_GAME,
   REPLACE_GAME,
-  // SEARCH_GAME
 } from "../actions/index";
 
 
@@ -21,8 +20,6 @@ export default function gamesReducer(state = initialState, action) {
       return [action.game, ...state];
     case REMOVE_GAME:
       return state.filter((game) => game._id !== action._id);
-    // case SEARCH_GAME: 
-    //   return state.filter((game) =>  game._id !== action._id);
     case REPLACE_GAME:
       return state.map(function (game) {
         if (game._id === action.game._id) {

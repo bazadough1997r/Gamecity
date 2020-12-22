@@ -45,23 +45,6 @@ export function removeGame(_id) {
   };
 }
 
-//for searching
-// export const SEARCH_GAME = "SEARCH_GAME";
-// export function setGame(game) {
-//   return {
-//     type: SET_GAME,
-//     game: game,
-//   };
-// }
-
-// export function searchGame(_id) {
-//   return {
-//     type: SEARCH_GAME,
-//     _id: _id,
-//   };
-// }
-
-
 export const REPLACE_GAME = "REPLACE_GAME";
 export function replaceGame(game) {
   return {
