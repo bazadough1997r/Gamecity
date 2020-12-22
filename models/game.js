@@ -21,6 +21,10 @@ const gameSchema = new mongoose.Schema({
     type: String,
     required: [true, "Game governorate is required"]
   },
+  // image: {
+  //   type: null,
+  //   required: [true, "Please upload image of game"]
+  // }
 });
 
 module.exports = mongoose.model("Game", gameSchema);

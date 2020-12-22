@@ -2,11 +2,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { post } from "axios";
-
+// import FileBase from "react-file-base64";
 //Import the addGame function from the Actions file.
 import { addGame } from "../../actions";
 //Import the storage from firebase file
-// import {storage} from "../../firebase";
+import {storage} from "../../firebase";
+import logo from "../../logo.svg"
 
 function GameAdd(props) {
   const initialState = { 
@@ -15,9 +16,19 @@ function GameAdd(props) {
     gameDuration: "",  
     gameDate: "", 
     gameGovernorate: "Select Governorate",
+    imageData: {
     // image: null,
-    // url: ""
+    // url: "",
+    // progress: 0,
+    // error: ""
+    }
   };
+
+  const [image, setImage] = useState(null);
+  const [url, setUrl] = useState("");
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState("");
+
   //useState: UseState is a two element array that contains the current state as the
   //first element and a function to update it as the second. Here we're assigning the
   //(const) variable "game" to the current state value, and "setFields" to the update function.
@@ -48,19 +59,47 @@ function GameAdd(props) {
     setFields({ ...game, gameDuration: event.target.value });
   }
 
-  // function handleChangeImage(event) {
-  //   console.log(event.target.files[0]);
-  //   if(event.target.files[0]){
-  //     setFields({ ...game, image: event.target.files[0]});
-  //   } else {
-  //     console.log("Error: handleChangeImage")
-  //   }
-  // }
+  function handleChangeImage(event) {
+    const file = event.target.files[0];
+      if (file) {
+        //Check file type
+        const fileType = file["type"];
+        const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+        if (validImageTypes.includes(fileType)) {
+          setError("");
+          setImage(file);
+        }else {
+        setError("Please select an image to upload")
+      } 
+      }
+  }
 
-  // function handleUpload(event) {
-  //   // const image = 
-  //   const uploadTask = storage.ref(`images/${image.name}`).put(image);
-  // }
+  function handleUpload(event) {
+    if(image) {
+      //Images is the folder in firebase that contains the images
+      const uploadTask = storage.ref(`images/${image.name}`).put(image);
+      uploadTask.on(
+        "state_changed",
+        snapshot => {
+            const progress = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes)
+            )
+            setFields(progress)
+        },
+        error => {
+          setFields(error)
+        },
+        () => {
+          storage.ref("images").child(image.name).getDownloadURL().then(url => {
+            setUrl(url)
+            setProgress(0);
+          });
+        }
+      );
+    } else {
+      setError("Error, please choose an image to upload")
+    }
+  }
 
   
 
@@ -76,7 +115,8 @@ function GameAdd(props) {
       gameType: game.gameType, 
       gameDate: game.gameDate, 
       gameDuration: game.gameDuration, 
-      gameGovernorate: game.gameGovernorate 
+      gameGovernorate: game.gameGovernorate
+      // image: image.image 
     })
       .then(function (response) {
         dispatch(addGame(response.data));
@@ -187,15 +227,26 @@ function GameAdd(props) {
         </div>
 
         {/* IMAGE- Upload Image */}
-        {/* <div className = "form-group">
+        <div className = "form-group">
         <label>Upload Image</label>
-        <br/>
-          <input
-            type = "file"
-            onChange = {handleChangeImage}
-          />
-          <button onClick = {handleUpload}>Upload</button>
-        </div> */}
+        <br/> 
+         <div>
+           <input
+             type = "file"
+             onChange = {handleChangeImage}
+            /> {" "}
+            <button onClick = {handleUpload}>Upload</button>
+          </div>
+          <div>
+            {progress > 0? <progress value = {progress} max = "100"/> : ""}
+           <p> {error} </p>
+          </div>
+          {url ? (
+            <img src = {url} alt = "image" />
+          ) : (
+            <img src = {logo} alt = "logo" />
+          )}
+        </div>
 
         <div className="btn-group">
          
