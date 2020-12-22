@@ -3,7 +3,7 @@ const AddUser = require("../models/profileSchema.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
-// router.route('/').get((req, res) => {
+ 
 router.get("/", async (req, res) => {
   AddUser.find()
     .then((users) => res.json(users))
@@ -29,15 +29,16 @@ router.post("/login", async (req, res) => {
   //console.log(res.header)
 });
 router.post("/", async (req, res) => {
+
   //checking if the username or email is used
   const useradded = await AddUser.findOne({
     $or: [{ email: req.body.email }, { username: req.body.username }],
   });
   console.log("user added");
-  console.log(req.body)
+
   if (useradded)
     return res
-      .status(402)
+      .status(400)
       .send(
         "There is an account with same Username or Email,please choose another one?"
       );
