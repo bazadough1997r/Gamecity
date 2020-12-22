@@ -141,6 +141,7 @@ export const registerUser = ( firstName, lastName, username, email, city, phoneN
   try {
      const body = { firstName, lastName, username, email, city, phoneNo, birthday, password }
      const response = await axios.post('/addUser', body);
+     window.location = '/login'
 
    dispatch({
      type: REGISTER_SUCCESS,
@@ -171,11 +172,12 @@ export const loginUser = (email, password) => async dispatch => {
     // const body = JSON.stringify({email, password})
     const body = {email, password}
    const response = await axios.post('addUser/login', body);
-
+   
    dispatch({
      type: LOGIN_SUCCESS,
      payload: response.data
    })
+   window.location = '/games'
    dispatch(loadUser())
 
   } catch (error) {

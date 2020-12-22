@@ -21,8 +21,6 @@ function GameList() {
 
   return (
     <div>
-             <Register />
-             <Login />
 
       <h2>
         Games

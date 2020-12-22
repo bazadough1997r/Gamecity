@@ -9,6 +9,14 @@ router.get("/", async (req, res) => {
     .then((users) => res.json(users))
     .catch((err) => res.status(400).json("Error: " + err));
 });
+
+//get all user from  database 
+router.get("/addUser", async (req, res) => {
+  AddUser.find()
+    .then((profileSchema) => res.json(profileSchema))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 ///loggingggg in
 router.post("/login", async (req, res) => {
   //checking if the username is signed up
@@ -25,6 +33,7 @@ router.post("/login", async (req, res) => {
   if (!validpassword) return res.status(400).send("Password not correct");
   //create and send a token
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+ 
   res.header("addUser-token", token).json({ token });
   //console.log(res.header)
 });
@@ -70,4 +79,6 @@ router.post("/", async (req, res) => {
     res.status(400).send(err);
   }
 });
+
+
 module.exports = router;
