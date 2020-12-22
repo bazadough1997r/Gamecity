@@ -20,9 +20,9 @@ const gameSchema = new mongoose.Schema({
   gameDate: {
     type: String,
     required: [true, "Game governorate is required"]
-  },
-  // image: {
-  //   type: null,
+  }
+  // selectedFile: {
+  //   type: String,
   //   required: [true, "Please upload image of game"]
   // }
 });
