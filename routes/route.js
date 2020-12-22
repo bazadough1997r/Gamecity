@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
 ///loggingggg in
 router.post("/login", async (req, res) => {
   //checking if the username is signed up
-  const user = await AddUser.findOne({ username: req.body.username });
+  const user = await AddUser.findOne({ email: req.body.email });
   if (!user) {
     return res
       .status(400)
