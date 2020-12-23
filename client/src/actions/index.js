@@ -166,12 +166,13 @@ export const loginUser = (email, password) => async dispatch => {
    
     const body = {email, password}
    const response = await axios.post('addUser/login', body);
+   window.location = '/games'
    
    dispatch({
      type: LOGIN_SUCCESS,
      payload: response.data
    })
-   window.location = '/games'
+   
    dispatch(loadUser())
 
   } catch (error) {
