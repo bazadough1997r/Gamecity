@@ -138,9 +138,7 @@ export const registerUser = ( firstName, lastName, username, email, city, phoneN
  
   try {
      const body = { firstName, lastName, username, email, city, phoneNo, birthday, password }
-    //  console.log(isLoggedIn,"bodyyyyyy")
      const response = await axios.post('/addUser', body);
-     console.log(response.data.id, "responseee")
      window.location = '/login'
 
    dispatch({
