@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { fetchUser } from '../../actions/index'
+import { fetchUser, logOut } from '../../actions/index'
 import { Link } from "react-router-dom";
 
-function Profile({ userData, fetchUser }) {
+function Profile({ userData, fetchUser, logOut }) {
   useEffect(() => {
     fetchUser();
   }, []);
@@ -26,6 +26,7 @@ function Profile({ userData, fetchUser }) {
         >
           Edit
         </Link>
+        {/* <button onClick = {() => logOut()}> logOut</button> */}
       </div>
     </div>
   );
@@ -40,6 +41,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUser: () => dispatch(fetchUser()),
+    logOut: () => dispatch(logOut())
   };
 };
 
