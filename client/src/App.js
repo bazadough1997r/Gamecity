@@ -11,22 +11,26 @@ import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
 import GameAdd from "./components/games/GameAdd";
 import GameEdit from "./components/games/GameEdit";
+import Land from "./components/Land";
 import { loadUser } from "./actions";
 import { setToken } from "./components/pages/setToken";
 import { store } from "./index";
-import login from "./components/pages/login";
+import  login  from "./components/pages/login";
 import SearchForm from "./components/pages/SearchForm";
-import register from "./components/pages/register";
 
-if (localStorage.getItem("token")) {
-  setToken(localStorage.getItem("token"));
+
+
+if(localStorage.getItem("token")){
+  setToken(localStorage.getItem("token"))
 }
 
-//jordgjrio
+
 function App() {
-  useEffect(() => {
+
+  useEffect(()=> {
     store.dispatch(loadUser());
-  }, []);
+  }, [])
+
 
   return (
     <div className="App">
@@ -42,92 +46,47 @@ function App() {
 
 function Navigation() {
   return (
-    <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
       <div className="container">
-        <ul className="nav justify-content-start ">
-          <li className="nav-item">
-            <a href="/" className="navbar-brand">
-              <img
-                height="30px"
-                width="30px"
-                src={`${process.env.PUBLIC_URL}/Logo/GamecityLogo.png`}
-                alt="Gamecity logo"
-              />
-            </a>
-          </li>
-        </ul>
-        <ul className="nav justify-content-start">
-          <li className="nav-item">
-            <SearchForm/>
-          </li>
-        </ul>
-        <ul className="nav justify-content-end ">
+        <ul className="navbar-nav mr-auto">
           <li className="nav-item">
             <NavLink
               exact
               className="nav-link"
               activeClassName="active"
-              to="/games"
-              style={{color: "white"}}
+              to="/"
+              style={{ color: "#c6fc03" }}
             >
+              Gamecity
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink exact className="nav-link" activeClassName="active" to="/games">
               Games
             </NavLink>
           </li>
-          <li className="nav-item dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-              style={{color: "white"}}
+          <li className="nav-item">
+            <NavLink
+              exact
+              className="nav-link"
+              activeClassName="active"
+              to="/profile"
             >
-              Account
-            </a>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="/profile">
-                Profile
-              </a>
-              <a className="dropdown-item" href="/land">
-                Logout
-              </a>
-              <div className="dropdown-divider"></div>
-            </div>
-          </li>
-          <li className="nav-item dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-              style={{color: "white"}}
-            >
-              Notifications
-            </a>
-            <div className="dropdown-menu">
-              <a className="dropdown-item" href="/notifications">
-                Notification#1
-              </a>
-              <a className="dropdown-item" href="/notifications">
-                Notification#2
-              </a>
-            </div>
+              Profile
+            </NavLink>
           </li>
           <li className="nav-item">
             <NavLink
               exact
               className="nav-link"
               activeClassName="active"
-              to="/addUser"
-              style={{color: "white"}}
+              to="/notifications"
             >
-              Signup
+              Notifications
             </NavLink>
           </li>
         </ul>
+        <SearchForm className="nav-item" />
       </div>
     </nav>
   );
@@ -136,15 +95,17 @@ function Navigation() {
 function Main() {
   return (
     <Switch>
+<<<<<<< HEAD
       {/* <Route exact path="/" component={GameList} /> */}
+=======
+      <Route exact path="/" component={Land} />
+>>>>>>> ed969f33ac28f8d38d58f884a6a08dfd0b662dd1
       <Route exact path="/games" component={GameList} />
-      <Route exact path="/" component={GameList} />
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
       <Route exact path="/profile" component={Profile} />
       <Route exact path="/login" component={login} />
-      <Route exact path="/addUser" component={register} />
     </Switch>
   );
 }
