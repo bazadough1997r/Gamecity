@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Register from "../pages/register";
-import Login from "../pages/login";
+import { connect } from 'react-redux';
 
-function GameList() {
+
+function GameList( {isLoggedIn}) {
+  console.log(isLoggedIn, "isLoggedIn")
+
   const [games, setGames] = useState([]);
 
   useEffect(function () {
@@ -46,4 +48,10 @@ function GameList() {
   );
 }
 
-export default GameList;
+const mapStateToProps = state => ({
+  isLoggedIn: state.authReducer.isLoggedIn
+})
+
+
+export default connect(mapStateToProps)(GameList);
+
