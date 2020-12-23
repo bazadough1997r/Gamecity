@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
+// import Profile from '../pages/Profile'
 
 
-function GameList( {isLoggedIn}) {
-  console.log(isLoggedIn, "isLoggedIn")
 
+function GameList() {
   const [games, setGames] = useState([]);
 
   useEffect(function () {
@@ -23,6 +23,7 @@ function GameList( {isLoggedIn}) {
 
   return (
     <div style={{marginTop: "10px"}}>
+      {/* <Profile /> */}
 
       <h2>
         Games
@@ -49,10 +50,6 @@ function GameList( {isLoggedIn}) {
   );
 }
 
-const mapStateToProps = state => ({
-  isLoggedIn: state.authReducer.isLoggedIn
-})
 
-
-export default connect(mapStateToProps)(GameList);
+export default GameList;
 
