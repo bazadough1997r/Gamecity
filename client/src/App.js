@@ -136,7 +136,7 @@ function Navigation() {
 function Main() {
   return (
     <Switch>
-      <Route exact path="/" component={GameList} />
+      {/* <Route exact path="/" component={GameList} /> */}
       <Route exact path="/games" component={GameList} />
       <Route exact path="/" component={GameList} />
       <Route exact path="/games/new" component={GameAdd} />
