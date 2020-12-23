@@ -22,8 +22,7 @@ function GameList( {isLoggedIn}) {
   }, []);
 
   return (
-    <div style={{marginTop: "10px"}}>
-
+    <div style={{ marginTop: "10px" }}>
       <h2>
         Games
         <Link to="/games/new" className="btn btn-primary float-right">
