@@ -6,9 +6,7 @@ export default class SearchForm extends Component {
       if (e.keyCode === 13) {
         e.preventDefault();
         window.find(e.target.value);
-      } else if(!(e.target.value)) {
-        console.log("not found!!")
-      }
+      } 
     });
   };
 
@@ -16,10 +14,11 @@ export default class SearchForm extends Component {
     return (
       <div>
         <input
-          type="text"
-          className="nav-item"
+          className="form-control mr-sm-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
           name="searchText"
-          placeholder="Search.. "
           onClick={this.searchHandler}
         />
       </div>

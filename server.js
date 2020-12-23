@@ -6,8 +6,8 @@ const mongoose = require("mongoose");
 const router = require("./routes/index");
 var dotenv = require("dotenv");
 const path = require("path");
-const PORT = process.env.PORT || 3001;
-require("dotenv").config();
+const PORT = process.env.PORT || 3001;  
+require('dotenv').config();  
 
 const app = express();
 app.use(bodyParser.json({ limit: "30mb" }));
