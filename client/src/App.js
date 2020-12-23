@@ -22,6 +22,7 @@ if (localStorage.getItem("token")) {
   setToken(localStorage.getItem("token"));
 }
 
+//jordgjrio
 function App() {
   useEffect(() => {
     store.dispatch(loadUser());
