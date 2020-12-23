@@ -22,9 +22,7 @@ function GameList() {
   }, []);
 
   return (
-    <div style={{marginTop: "10px"}}>
-      {/* <Profile /> */}
-
+    <div style={{ marginTop: "10px" }}>
       <h2>
         Games
         <Link to="/games/new" className="btn btn-primary float-right">
