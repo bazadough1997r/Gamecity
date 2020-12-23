@@ -119,14 +119,18 @@ function GameAdd(props) {
             placeholder="Select Governorate"
           >
             <option value="SelectGovernorate">Select Governorate</option>
-            <option value="Amman"> Amman</option>
-            <option value="Jerash"> Jerash</option>
             <option value="Irbid"> Irbid</option>
+            <option value="Ajloun"> Ajloun</option>
+            <option value="Jerash"> Jerash</option>
+            <option value="Mafraq"> Mafraq</option>
             <option value="Balqa"> Balqa</option>
+            <option value="Amman"> Amman</option>
             <option value="Zarqa"> Zarqa</option>
             <option value="Madaba"> Madaba</option>
-            <option value="Mafraq"> Mafraq</option>
-            <option value="Ajloun"> Ajloun</option>
+            <option value="Karak"> Karak</option>
+            <option value="Tafilah"> Tafilah</option>
+            <option value="Ma'an"> Ma'an</option>
+            <option value="Aqaba"> Aqaba</option>
           </select>
         </div>
 
@@ -150,6 +154,10 @@ function GameAdd(props) {
             <option value="Volleyball"> Volleyball</option>
             <option value="Rock Climbing"> Rock Climbing</option>
             <option value="Horseback Riding"> Horseback Riding</option>
+            <option value="Handball"> Handball</option>
+            <option value="Tennis"> Tennis</option>
+            <option value="Running"> Running</option>
+            <option value="Other.."> Other..</option>
           </select>
         </div>
 
