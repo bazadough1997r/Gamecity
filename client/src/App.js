@@ -11,7 +11,6 @@ import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
 import GameAdd from "./components/games/GameAdd";
 import GameEdit from "./components/games/GameEdit";
-import Land from "./components/Land";
 import { loadUser } from "./actions";
 import { setToken } from "./components/pages/setToken";
 import { store } from "./index";
