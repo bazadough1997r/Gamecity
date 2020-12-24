@@ -1,5 +1,12 @@
 //Import SET_GAMES && ADD_GAME from the actions folder.
-import { SET_GAMES, ADD_GAME, REMOVE_GAME, REPLACE_GAME } from "../actions";
+import {
+  SET_GAMES,
+  ADD_GAME,
+  REMOVE_GAME,
+  REPLACE_GAME,
+  LIKE
+} from "../actions/index";
+
 
 //Declare our reducer function with two arguments, state and action. Set the initial state to an empty games array.
 const initialState = { games: [] };
@@ -21,7 +28,7 @@ export default function gamesReducer(state = initialState, action) {
             ...game,
             gameName: action.game.gameName,
             content: action.game.content,
-            type: action.game.gameType
+            type: action.game.gameType,
           };
         } else return game;
       });

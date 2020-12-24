@@ -3,16 +3,24 @@ const AddUser = require("../models/profileSchema.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
-// router.route('/').get((req, res) => {
+ 
 router.get("/", async (req, res) => {
   AddUser.find()
     .then((users) => res.json(users))
     .catch((err) => res.status(400).json("Error: " + err));
 });
+
+//get all user from  database 
+router.get("/addUser", async (req, res) => {
+  AddUser.find()
+    .then((profileSchema) => res.json(profileSchema))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 ///loggingggg in
 router.post("/login", async (req, res) => {
   //checking if the username is signed up
-  const user = await AddUser.findOne({ username: req.body.username });
+  const user = await AddUser.findOne({ email: req.body.email });
   if (!user) {
     return res
       .status(400)
@@ -25,18 +33,21 @@ router.post("/login", async (req, res) => {
   if (!validpassword) return res.status(400).send("Password not correct");
   //create and send a token
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+ 
   res.header("addUser-token", token).json({ token });
   //console.log(res.header)
 });
 router.post("/", async (req, res) => {
+
   //checking if the username or email is used
   const useradded = await AddUser.findOne({
     $or: [{ email: req.body.email }, { username: req.body.username }],
   });
   console.log("user added");
+
   if (useradded)
     return res
-      .status(402)
+      .status(400)
       .send(
         "There is an account with same Username or Email,please choose another one?"
       );
@@ -48,8 +59,10 @@ router.post("/", async (req, res) => {
   const phoneNo = req.body.phoneNo;
   const birthday = req.body.birthday;
   //hashing password
-  const hashedPassword = bcrypt.hashSync(req.body.password, 10);
-  //every thing is readdy here we send the data to the server
+
+  const hashedPassword = bcrypt.hashSync(req.body.password, 10)
+
+  //every thing is readdy here we send the data to the server  
   const newUser = await AddUser.create({
     firstName: firstName,
     lastName: lastName,
@@ -68,4 +81,6 @@ router.post("/", async (req, res) => {
     res.status(400).send(err);
   }
 });
+
+
 module.exports = router;

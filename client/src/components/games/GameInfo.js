@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { setGame, removeGame } from "../../actions";
+// import FileBase from "react-file-base64";
 
 //this component dispatches two different actions, setGame and removeGame
 
@@ -42,11 +43,11 @@ function GameInfo(props) {
   return (
     <div>
       <h2>{game.gameName}</h2>
-      {/* <small>id: {game._id}</small> */}
       <h6>{game.gameDate}</h6>
       <h6>{game.gameDuration}</h6>
       <h6>{game.gameGovernorate}</h6>
       <h6>{game.gameType}</h6>
+      {/* <img>{game.selectedFile}</img> */}
       
       <div className="btn-group">
         <Link
