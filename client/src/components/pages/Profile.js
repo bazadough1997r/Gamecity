@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { fetchUser, logOut } from '../../actions/index'
+import { fetchUser } from '../../actions/index'
 import { Link } from "react-router-dom";
 
 function Profile({ userData, fetchUser, logOut }) {
