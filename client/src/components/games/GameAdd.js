@@ -157,7 +157,7 @@ function GameAdd(props) {
             <option value="Handball"> Handball</option>
             <option value="Tennis"> Tennis</option>
             <option value="Running"> Running</option>
-            <option value="Other.."> Other..</option>
+            <option value="Other.."> Others..</option>
           </select>
         </div>
 
