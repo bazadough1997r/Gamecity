@@ -6,6 +6,7 @@ import {
   Switch,
 } from "react-router-dom";
 import "./App.css";
+import ProtectedRoute from "./components/pages/ProtectedRoute"
 import Profile from "./components/pages/Profile";
 import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
@@ -137,8 +138,8 @@ function Main() {
   return (
     <Switch>
       {/* <Route exact path="/" component={GameList} /> */}
-      <Route exact path="/games" component={GameList} />
-      <Route exact path="/" component={GameList} />
+      <PrivateRoute exact path="/games" component={GameList} />
+      <Route exact path="/" component={GameList} /> 
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
