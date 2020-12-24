@@ -5,7 +5,6 @@ import { Redirect } from 'react-router-dom';
 
 
 const Login = ( {loginUser, isLoggedIn} ) => {
-   console.log(isLoggedIn, "isLoggedIn")
     let [data, setData] = useState ({
         email: "",
         password: ""
