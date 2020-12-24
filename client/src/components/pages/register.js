@@ -3,7 +3,13 @@ import  { registerUser } from '../../actions';
 import { connect } from 'react-redux';
 
 
+// import { Redirect } from 'react-router-dom';
+
+
 const Register = ({ registerUser, isLoggedIn }) => {
+    // console.log(isLoggedIn,"isLoggedIn")
+
+    // if(isLoggedIn) return <Redirect to="/"/>
     let [data, setData] = useState ({
         firstName: "",
         lastName: "",
@@ -19,13 +25,16 @@ const Register = ({ registerUser, isLoggedIn }) => {
 
 
     const onChange = (e)=> {
+
         setData({...data, [e.target.name]: e.target.value})
+        // console.log([e.target.value])
     }
 
     const onsubmit = () =>{
-        if(firstName === "" || lastName === "" || username === "" || email === "" || city === "" || phoneNo === "" || birthday === "" || password === ""){
-            return alert("Please fill all required fields")
-        } else        
+        // if(firstName === "" || lastName === "" || username === "" || email === "" || city === "" || phoneNo === "" || birthday === "" || password === ""){
+        //     return alert("Fill all empty fields please!")
+        // } else 
+        // console.log(data)
         registerUser(firstName, lastName, username, email, city,phoneNo, birthday, password)
     }
 
@@ -74,7 +83,7 @@ const Register = ({ registerUser, isLoggedIn }) => {
 }
 
 const mapStateToProps = state => ({
-    isLoggedIn: state.authReducer.isLoggedIn
+    isLoggedIn: state.isLoggedIn
 })
 
 export default connect(mapStateToProps, {registerUser})(Register);

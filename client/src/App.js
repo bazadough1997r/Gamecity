@@ -138,7 +138,7 @@ function Main() {
   return (
     <Switch>
       {/* <Route exact path="/" component={GameList} /> */}
-      <PrivateRoute exact path="/games" component={GameList} />
+      <ProtectedRoute exact path="/games" component={GameList} />
       <Route exact path="/" component={GameList} /> 
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />
