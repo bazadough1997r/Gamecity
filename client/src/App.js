@@ -18,12 +18,13 @@ import { store } from "./index";
 import login from "./components/pages/login";
 import SearchForm from "./components/pages/SearchForm";
 import register from "./components/pages/register";
+import { connect } from 'react-redux'
 
 if (localStorage.getItem("token")) {
   setToken(localStorage.getItem("token"));
 }
 
-//jordgjrio
+
 function App() {
   useEffect(() => {
     store.dispatch(loadUser());
@@ -128,6 +129,18 @@ function Navigation() {
               Signup
             </NavLink>
           </li>
+          <li>
+          <NavLink
+              exact
+              className="nav-link"
+              activeClassName="active"
+              to="/addUser"
+              style={{color: "white"}}
+              onClick = { () => logout() }
+            >
+              Logout
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>
@@ -150,5 +163,10 @@ function Main() {
   );
 }
 
-export default App;
+
+function logout() {
+  window.localStorage.clear();
+  window.location = "/addUser";
+}
+export default (App);
 //Our home page here is the GameList component.

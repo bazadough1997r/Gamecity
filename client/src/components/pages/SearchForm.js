@@ -2,9 +2,31 @@ import React, { Component } from "react";
 import { setGames } from "../../actions/index";
 import { connect } from "react-redux";
 
-export class SearchForm extends Component {
-  onChange = (e) => {
-    this.props.setGames(e.target.value);
+export default class SearchForm extends Component {
+  // searchHandler = (e) => {
+  //   window.addEventListener("keydown", function (e) {
+  //     if (e.keyCode === 13) {
+  //       e.preventDefault();
+  //       if (window.find(e.target.value) === false) {
+  //         alert(e.target.value + " does not exist in this page!");
+  //       } else {
+  //         window.find(e.target.value);
+  //       }
+  //     }
+  //   });
+  // };
+
+  searchHandler = (e) => {
+    window.addEventListener("keydown", function (e) {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        if (window.find(e.target.value) === false) {
+          alert(e.target.value + " does not exist in this page!");
+        }
+        if (window.find(e.target.value) === true) {
+        }
+      }
+    });
   };
 
   render() {
@@ -15,18 +37,10 @@ export class SearchForm extends Component {
           className="nav-item"
           name="searchText"
           placeholder="Search.. "
-          onChange={this.onChange}
+          onClick={this.searchHandler}
         />
-        <button type="submit" className="nav-item">
-          Search
-        </button>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  games: state.gameName, //lazim a3mil access sah
-});
-
-export default connect(mapStateToProps, { setGames })(SearchForm);
