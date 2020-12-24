@@ -17,7 +17,7 @@ import { store } from "./index";
 import login from "./components/pages/login";
 import SearchForm from "./components/pages/SearchForm";
 import register from "./components/pages/register";
-import { connect } from 'react-redux'
+
 
 if (localStorage.getItem("token")) {
   setToken(localStorage.getItem("token"));

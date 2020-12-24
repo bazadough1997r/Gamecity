@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import  { registerUser } from '../../actions';
 import { connect } from 'react-redux';
+// import ReduxForm from './registerForm1'
 
 
 const Register = ({ registerUser, isLoggedIn }) => {
@@ -25,17 +26,25 @@ const Register = ({ registerUser, isLoggedIn }) => {
     const onsubmit = () =>{
         if(firstName === "" || lastName === "" || username === "" || email === "" || city === "" || phoneNo === "" || birthday === "" || password === ""){
             return alert("Please fill all required fields")
-        } else        
+        } else      
+        // if (required())
         registerUser(firstName, lastName, username, email, city,phoneNo, birthday, password)
     }
+
+    // const required = () => {
+    //     if(firstName ==="abeer") return alert("3aw")
+    // }
 
 
     return (
         <div>
-              <h1>REGISTER PAGE</h1>
+            {/* <ReduxForm /> */}
+            <h1>REGISTER PAGE</h1>
             <label>First name</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName}></input>
+            <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName}
+            //  validate={required}
+             ></input>
             <br/>
             <label>Last name</label>
             <br/>
