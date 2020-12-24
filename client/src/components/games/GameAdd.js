@@ -6,9 +6,9 @@ import FileBase from "react-file-base64";
 //Import the addGame function from the Actions file.
 import { addGame } from "../../actions";
 import { set } from "mongoose";
-//Import the storage from firebase file
-import {storage} from "../../firebase";
-import UploadImage from "../../UploadImage.jpg"
+// //Import the storage from firebase file
+// import {storage} from "../../firebase";
+// import UploadImage from "../../UploadImage.jpg"
 
 function GameAdd(props) {
   
