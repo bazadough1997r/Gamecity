@@ -69,7 +69,7 @@ function GameList() {
             <h6>{game.gameType}</h6>
             <h6>{game.gameDate}</h6>
             <h6>{game.gameDuration}</h6>
-            {/* <img>{game.selectedFile}</img> */}
+            <img src = {game.selectedFile} width = "250px"/>
             <LikeButton />
             <br/>
             <div className="form-group">

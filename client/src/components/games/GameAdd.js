@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { post } from "axios";
-// import FileBase from "react-file-base64";
+import FileBase from "react-file-base64";
 //Import the addGame function from the Actions file.
 import { addGame } from "../../actions";
 import { set } from "mongoose";
@@ -18,12 +18,12 @@ function GameAdd(props) {
     gameDuration: "",
     gameDate: "",
     gameGovernorate: "Select Governorate",
-    // selectedFile: ""
+    selectedFile: ""
     // imageData: {
-    image: null,
-    url: "",
-    // progress: 0,
-    error: ""
+    // image: null,
+    // url: "",
+    // // progress: 0,
+    // error: ""
     // // }
   };
 
@@ -63,57 +63,57 @@ function GameAdd(props) {
   }
 
 
-  function handleChangeImage(event) {
-    const file = event.target.files[0];
+  // function handleChangeImage(event) {
+  //   const file = event.target.files[0];
     
-      if (file) {
-        //Check file type
-        const fileType = file["type"];
-        const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
-        console.log(file);
-        if (validImageTypes.includes(fileType)) {
-          setFields({ ...game, error: ""});
-          setFields({ ...game, image: file });
+  //     if (file) {
+  //       //Check file type
+  //       const fileType = file["type"];
+  //       const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+  //       console.log(file);
+  //       if (validImageTypes.includes(fileType)) {
+  //         setFields({ ...game, error: ""});
+  //         setFields({ ...game, image: file });
           
-        }else {
-        setFields({ ...game, error: "Please select an image to upload"})
-      } 
-      }
-  }
+  //       }else {
+  //       setFields({ ...game, error: "Please select an image to upload"})
+  //     } 
+  //     }
+  // }
 
-  function HandleUpload(event) {
-    console.log(game.image)
-    useEffect(() => {
-      if(game.image) {
-      //Images is the folder in firebase that contains the images
-      const uploadTask = storage.ref(`images/${game.image.name}`).put(game.image);
-      console.log(game.image.name)
-      uploadTask.on(
-        "state_changed",
-        // snapshot => {
-        //     const progress = Math.round(
-        //       (snapshot.bytesTransferred / snapshot.totalBytes)
-        //     )
-        //     setFields({ ...game, progress: progress})
-        // },
-        error => {
-          setFields({ ...game, error : error })
-        },
+  // function HandleUpload(event) {
+  //   console.log(game.image)
+  //   useEffect(() => {
+  //     if(game.image) {
+  //     //Images is the folder in firebase that contains the images
+  //     const uploadTask = storage.ref(`images/${game.image.name}`).put(game.image);
+  //     console.log(game.image.name)
+  //     uploadTask.on(
+  //       "state_changed",
+  //       // snapshot => {
+  //       //     const progress = Math.round(
+  //       //       (snapshot.bytesTransferred / snapshot.totalBytes)
+  //       //     )
+  //       //     setFields({ ...game, progress: progress})
+  //       // },
+  //       error => {
+  //         setFields({ ...game, error : error })
+  //       },
 
-        // useEffect(
-          () => {
-          console.log(game.image.name)
-          storage.ref("images").child(game.image.name).getDownloadURL().then(url => {
-            setFields({ ...game, url : url })
-            // setFields({ ...game, progress: 0})
-          });
-        })
-      // );
-    } else {
-      setFields({...game, error: "Error, please choose an image to upload"})
-    }
-  });
-  }
+  //       // useEffect(
+  //         () => {
+  //         console.log(game.image.name)
+  //         storage.ref("images").child(game.image.name).getDownloadURL().then(url => {
+  //           setFields({ ...game, url : url })
+  //           // setFields({ ...game, progress: 0})
+  //         });
+  //       })
+  //     // );
+  //   } else {
+  //     setFields({...game, error: "Error, please choose an image to upload"})
+  //   }
+  // });
+  // }
 
   // function handleChangeImage(event) {
   //   const file = event.target.files[0];
@@ -170,6 +170,7 @@ function GameAdd(props) {
       gameDate: game.gameDate,
       gameDuration: game.gameDuration,
       gameGovernorate: game.gameGovernorate,
+      selectedFile: game.selectedFile
     })
       .then(function (response) {
         dispatch(addGame(response.data));
@@ -280,12 +281,12 @@ function GameAdd(props) {
         <div className = "form-group">
         <label>Upload Image</label>
         <br/> 
-          {/* <FileBase
+          <FileBase
             type = "file" 
             multiple = {false} 
             onDone = {({base64}) => setFields({...game, selectedFile: base64})}
           />
-        </div> */}
+        </div> 
          {/* <div>
            <input
              type = "file"
@@ -302,7 +303,7 @@ function GameAdd(props) {
           ) : (
             <img src = {UploadImage} alt = "UploadImage" width = "250px" height = "125px"/>
           )} 
-        </div> */}
+        </div> 
 
         <div>
            <input
@@ -312,7 +313,7 @@ function GameAdd(props) {
             <button onClick = {HandleUpload}>Upload</button>
           </div>
           <div>
-            {/* {game.progress > 0? <game.progress value = {game.progress} max = "100"/> : ""} */}
+            {/* {game.progress > 0? <game.progress value = {game.progress} max = "100"/> : ""} 
            <p> {game.error} </p>
           </div>
           {game.url ? (
@@ -320,7 +321,7 @@ function GameAdd(props) {
           ) : (
             <img src = {UploadImage} alt = "UploadImage" />
           )} 
-        </div>
+        </div> */}
 
         <div className="btn-group">
           <button type="submit" value="Post" className="btn btn-primary">

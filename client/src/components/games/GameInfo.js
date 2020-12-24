@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { setGame, removeGame } from "../../actions";
-import FileBase from "react-file-base64";
+// import FileBase from "react-file-base64";
 
 //this component dispatches two different actions, setGame and removeGame
 

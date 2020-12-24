@@ -21,21 +21,21 @@ const gameSchema = new mongoose.Schema({
     type: String,
     required: [true, "Game governorate is required"]
   },
-  like: {
-    type: Number,
-    default: 0
-  },
-  createdAt: {
-    type: Date,
-    default: new Date()
-  },
-  comment : {
-    type: String
+  // like: {
+  //   type: Number,
+  //   default: 0
+  // },
+  // createdAt: {
+  //   type: Date,
+  //   default: new Date()
+  // },
+  // comment : {
+  //   type: String
+  // },
+  selectedFile: {
+    type: String,
+    required: [true, "Please upload image of game"]
   }
-  // selectedFile: {
-  //   type: String,
-  //   required: [true, "Please upload image of game"]
-  // }
 });
 
 module.exports = mongoose.model("Game", gameSchema);
