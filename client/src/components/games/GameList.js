@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+// import { Nav } from "react-bootstrap";
+// import { Form } from "react-bootstrap";
 
 export default function GameList() {
   const [games, setGames] = useState([]);
+  // const [governerates, setGovernerates] = useState([]);
 
   useEffect(function () {
     async function getGames() {
@@ -18,12 +21,73 @@ export default function GameList() {
     getGames();
   }, []);
 
+  // //filter function to filter games cities
+  // function onChangeGovernerates(e) {
+  // // //  setGovernerates(governerates) =>
+  //    let string = e.target.value;
+  //   let city = games.gameGovernorate;
+  //   //) => games.gameGovernorate.includes(string));
+  // //   setGovernerates({ governerates: governerates });
+  //  return { games : setGames.games.filter ( city => city === string) }
+
+  // }
+  
+// function filterByInput(e) {
+//    console.log(e.target.value)
+// }
+
   return (
     <div>
       <hr />
       <MDBContainer>
         <MDBRow>
           <MDBCol md="3">
+            {/* <div className="control" style={{ minWidth: "300px" }}>
+              <input
+                onChange={(e) => {this.filterByInput(e)}}
+                style={{ width: "100%" }}
+                placeholder="Filter by"
+                type="text"
+              />
+            </div> */}
+            {/* <Form.Group
+              controlId="exampleForm.SelectCustomSizeSm"
+              onChange={onChangeGovernerates}
+            >
+              <Form.Control
+                as="select"
+                size="sm"
+                custom
+                style={{
+                  width: 155,
+                  color: "white",
+                  border: "orange",
+                  margin: "50px 0px 10px 250px",
+                  background: "#212121",
+                }}
+              >
+                <option value="">Select by type</option>
+                <option value="Amman">Amman</option>
+                <option value="Jerash">Jerash</option>
+              </Form.Control>
+            </Form.Group> */}
+            {/* <Nav fill variant="tabs" defaultActiveKey="/" style={{ marginTop: "20px" }}>
+              <Nav.Item>
+                <Nav.Link href="/">Amman</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="/">Irbid</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="/">Ajloun</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="/">Jerash</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="/">Mafraq</Nav.Link>
+              </Nav.Item>
+            </Nav> */}
             {/* <div style={{ marginTop: "20px" }}>
               <h6>
                 Governorates
@@ -186,7 +250,7 @@ export default function GameList() {
               </h6>
             </div> */}
           </MDBCol>
-          <MDBCol md="6">
+          <MDBCol md="6" style={{ marginTop: "20px" }}>
             {games.map((game) => {
               return (
                 <div key={game._id}>
@@ -196,7 +260,9 @@ export default function GameList() {
                   <MDBContainer>
                     <MDBRow>
                       <MDBCol size="4">
-                        <h6>Jordan/{game.gameGovernorate}</h6>
+                        <h6 key={game.gameGovernorate}>
+                          Jordan/{game.gameGovernorate}
+                        </h6>
                         <h6>Game: {game.gameType}</h6>
                       </MDBCol>
                       <MDBCol size="4">

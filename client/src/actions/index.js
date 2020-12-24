@@ -2,10 +2,6 @@ import { get } from "axios";
 import axios from 'axios';
 import { setToken } from '../components/pages/setToken'
 
-
-
-
-
 //setGames() will make our API call and use the dispatch method to send an action to the reducer.
 export const SET_GAMES = "SET_GAMES";
 export function setGames() {
@@ -184,6 +180,7 @@ export const LOG_OUT = 'LOG_OUT'
 export const logOut = () => async dispatch => {
   dispatch({ type: LOG_OUT })
 }
+
 
 
 
