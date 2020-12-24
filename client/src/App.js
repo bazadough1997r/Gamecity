@@ -11,17 +11,18 @@ import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
 import GameAdd from "./components/games/GameAdd";
 import GameEdit from "./components/games/GameEdit";
-import Land from "./components/Land";
 import { loadUser } from "./actions";
 import { setToken } from "./components/pages/setToken";
 import { store } from "./index";
 import login from "./components/pages/login";
 import SearchForm from "./components/pages/SearchForm";
 import register from "./components/pages/register";
+import { connect } from 'react-redux'
 
 if (localStorage.getItem("token")) {
   setToken(localStorage.getItem("token"));
 }
+
 
 function App() {
   useEffect(() => {
@@ -127,6 +128,18 @@ function Navigation() {
               Signup
             </NavLink>
           </li>
+          <li>
+          <NavLink
+              exact
+              className="nav-link"
+              activeClassName="active"
+              to="/addUser"
+              style={{color: "white"}}
+              onClick = { () => logout() }
+            >
+              Logout
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>
@@ -136,7 +149,7 @@ function Navigation() {
 function Main() {
   return (
     <Switch>
-      <Route exact path="/" component={GameList} />
+      {/* <Route exact path="/" component={GameList} /> */}
       <Route exact path="/games" component={GameList} />
       <Route exact path="/" component={GameList} />
       <Route exact path="/games/new" component={GameAdd} />
@@ -149,5 +162,10 @@ function Main() {
   );
 }
 
-export default App;
+
+function logout() {
+  window.localStorage.clear();
+  window.location = "/addUser";
+}
+export default (App);
 //Our home page here is the GameList component.

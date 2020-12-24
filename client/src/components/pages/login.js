@@ -1,29 +1,26 @@
 import React, { useState } from 'react';
 import { loginUser } from '../../actions';
 import { connect } from 'react-redux'
-// import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 
 const Login = ( {loginUser, isLoggedIn} ) => {
-
-    // if(isLoggedIn) return <Redirect to="/"/>
     let [data, setData] = useState ({
         email: "",
         password: ""
     })
 
+    if(isLoggedIn) return <Redirect to="/games"/>
+
     let {  email, password  } = data
-
-
     const onChange = (e)=> {
         setData({...data, [e.target.name]: e.target.value})
     }
 
     const onsubmit = () =>{
-        // if(email === "" || password === ""){
-        //     alert("Fill all feilds")
-        // }else 
-        // console.log(email, password)
+        if(email === "" || password === ""){
+            alert("Fill all feilds")
+        }else 
         loginUser(email, password)
     }
 
@@ -50,7 +47,7 @@ const Login = ( {loginUser, isLoggedIn} ) => {
 }
 
 const mapStateToProps = state =>({
-    isLoggedIn: state.isLoggedIn
+    isLoggedIn: state.authReducer.isLoggedIn
 
 })
 export default connect(mapStateToProps, {loginUser})(Login);
