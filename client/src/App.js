@@ -6,6 +6,8 @@ import {
   Switch,
 } from "react-router-dom";
 import "./App.css";
+import ProtectedRoute from "./components/pages/ProtectedRoute"
+import notfound from "./components/pages/notfound"
 import Profile from "./components/pages/Profile";
 import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
@@ -18,6 +20,7 @@ import login from "./components/pages/login";
 import SearchForm from "./components/pages/SearchForm";
 import register from "./components/pages/register";
 import { connect } from 'react-redux'
+
 
 if (localStorage.getItem("token")) {
   setToken(localStorage.getItem("token"));
@@ -149,15 +152,16 @@ function Navigation() {
 function Main() {
   return (
     <Switch>
-      {/* <Route exact path="/" component={GameList} /> */}
-      <Route exact path="/games" component={GameList} />
-      <Route exact path="/" component={GameList} />
+      {/* <Route exact path="/" component={GameList} /> */} 
+      <ProtectedRoute exact path="/games" component={GameList} isAuth={localStorage.length>0}/>
+      <Route exact path="/" component={GameList} /> 
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
       <Route exact path="/profile" component={Profile} />
       <Route exact path="/login" component={login} />
       <Route exact path="/addUser" component={register} />
+      <Route exact path="/notfound" component={notfound} />
     </Switch>
   );
 }

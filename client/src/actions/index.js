@@ -3,11 +3,13 @@ import axios from 'axios';
 import { setToken } from '../components/pages/setToken'
 
 
+export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
+// export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
+// export const FETCH_USER_FAILURE = "FETCH_USER_FAILURE";
 
-
+export const SET_GAMES = "SET_GAMES";
 
 //setGames() will make our API call and use the dispatch method to send an action to the reducer.
-export const SET_GAMES = "SET_GAMES";
 export function setGames() {
   return function (dispatch) {
     //We don't need to use the full URL, just the path. We added the domain portion as a proxy in the client/package.json file.
@@ -84,7 +86,7 @@ export const fetchUser = () => {
   };
 };
 
-export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST'
+// export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST'
 export const fetchUserRequest = () => {
   return {
     type: FETCH_USER_REQUEST,
@@ -135,7 +137,7 @@ export const loadUser = () => async dispatch => {
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 export const REGISTER_FAILURE = 'REGISTER_FAILURE'
 export const registerUser = ( firstName, lastName, username, email, city, phoneNo, birthday, password ) => async dispatch => {
- 
+
   try {
      const body = { firstName, lastName, username, email, city, phoneNo, birthday, password }
      const response = await axios.post('/addUser', body);
@@ -143,7 +145,7 @@ export const registerUser = ( firstName, lastName, username, email, city, phoneN
 
    dispatch({
      type: REGISTER_SUCCESS,
-     payload: response.data.id
+     payload: response.data
    })
    dispatch(loadUser())
 
@@ -161,15 +163,16 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const loginUser = (email, password) => async dispatch => {
   try {
+   
     const body = {email, password}
    const response = await axios.post('addUser/login', body);
-   console.log(response, "responseee")
+   window.location = '/games'
    
    dispatch({
      type: LOGIN_SUCCESS,
      payload: response.data
    })
-  //  ation = '/games'
+   
    dispatch(loadUser())
 
   } catch (error) {
@@ -179,12 +182,6 @@ export const loginUser = (email, password) => async dispatch => {
     })
   }
 }
-
-export const LOG_OUT = 'LOG_OUT'
-export const logOut = () => async dispatch => {
-  dispatch({ type: LOG_OUT })
-}
-
 
 
 

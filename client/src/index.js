@@ -11,6 +11,7 @@ import rootReducer from "./reducers";
 //Import the setGames method from the actions folder
 import { setGames } from "./actions";
 
+
 // import { composeWithDevTools } from 'redux-devtools-extension'
 export const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
