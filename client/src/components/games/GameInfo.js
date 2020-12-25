@@ -42,6 +42,7 @@ function GameInfo(props) {
 
   return (
     <div>
+      <hr></hr>
       <h2>{game.gameName}</h2>
       <h6>{game.gameDate}</h6>
       <h6>{game.gameDuration}</h6>

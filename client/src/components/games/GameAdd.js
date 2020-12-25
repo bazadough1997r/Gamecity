@@ -18,13 +18,9 @@ function GameAdd(props) {
     gameDuration: "",
     gameDate: "",
     gameGovernorate: "Select Governorate",
-    selectedFile: ""
-    // imageData: {
-    // image: null,
-    // url: "",
-    // // progress: 0,
-    // error: ""
-    // // }
+    selectedFile: "",
+    like: 0,
+    comment:""
   };
 
   // const [image, setImage] = useState(null);
@@ -62,58 +58,6 @@ function GameAdd(props) {
     setFields({ ...game, gameDuration: event.target.value });
   }
 
-
-  // function handleChangeImage(event) {
-  //   const file = event.target.files[0];
-    
-  //     if (file) {
-  //       //Check file type
-  //       const fileType = file["type"];
-  //       const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
-  //       console.log(file);
-  //       if (validImageTypes.includes(fileType)) {
-  //         setFields({ ...game, error: ""});
-  //         setFields({ ...game, image: file });
-          
-  //       }else {
-  //       setFields({ ...game, error: "Please select an image to upload"})
-  //     } 
-  //     }
-  // }
-
-  // function HandleUpload(event) {
-  //   console.log(game.image)
-  //   useEffect(() => {
-  //     if(game.image) {
-  //     //Images is the folder in firebase that contains the images
-  //     const uploadTask = storage.ref(`images/${game.image.name}`).put(game.image);
-  //     console.log(game.image.name)
-  //     uploadTask.on(
-  //       "state_changed",
-  //       // snapshot => {
-  //       //     const progress = Math.round(
-  //       //       (snapshot.bytesTransferred / snapshot.totalBytes)
-  //       //     )
-  //       //     setFields({ ...game, progress: progress})
-  //       // },
-  //       error => {
-  //         setFields({ ...game, error : error })
-  //       },
-
-  //       // useEffect(
-  //         () => {
-  //         console.log(game.image.name)
-  //         storage.ref("images").child(game.image.name).getDownloadURL().then(url => {
-  //           setFields({ ...game, url : url })
-  //           // setFields({ ...game, progress: 0})
-  //         });
-  //       })
-  //     // );
-  //   } else {
-  //     setFields({...game, error: "Error, please choose an image to upload"})
-  //   }
-  // });
-  // }
 
   // function handleChangeImage(event) {
   //   const file = event.target.files[0];
@@ -218,14 +162,18 @@ function GameAdd(props) {
             placeholder="Select Governorate"
           >
             <option value="SelectGovernorate">Select Governorate</option>
-            <option value="Amman"> Amman</option>
-            <option value="Jerash"> Jerash</option>
             <option value="Irbid"> Irbid</option>
+            <option value="Ajloun"> Ajloun</option>
+            <option value="Jerash"> Jerash</option>
+            <option value="Mafraq"> Mafraq</option>
             <option value="Balqa"> Balqa</option>
+            <option value="Amman"> Amman</option>
             <option value="Zarqa"> Zarqa</option>
             <option value="Madaba"> Madaba</option>
-            <option value="Mafraq"> Mafraq</option>
-            <option value="Ajloun"> Ajloun</option>
+            <option value="Karak"> Karak</option>
+            <option value="Tafilah"> Tafilah</option>
+            <option value="Ma'an"> Ma'an</option>
+            <option value="Aqaba"> Aqaba</option>
           </select>
         </div>
 
@@ -249,6 +197,10 @@ function GameAdd(props) {
             <option value="Volleyball"> Volleyball</option>
             <option value="Rock Climbing"> Rock Climbing</option>
             <option value="Horseback Riding"> Horseback Riding</option>
+            <option value="Handball"> Handball</option>
+            <option value="Tennis"> Tennis</option>
+            <option value="Running"> Running</option>
+            <option value="Other.."> Others..</option>
           </select>
         </div>
 

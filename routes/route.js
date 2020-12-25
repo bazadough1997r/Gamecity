@@ -33,11 +33,10 @@ router.post("/login", async (req, res) => {
   if (!validpassword) return res.status(400).send("Password not correct");
   //create and send a token
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
- 
+  console.log(token)
   res.header("addUser-token", token).json({ token });
-  //console.log(res.header)
 });
-router.post("/", async (req, res) => {
+router.post("/",  async (req, res) => {
 
   //checking if the username or email is used
   const useradded = await AddUser.findOne({

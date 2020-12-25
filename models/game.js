@@ -21,17 +21,17 @@ const gameSchema = new mongoose.Schema({
     type: String,
     required: [true, "Game governorate is required"]
   },
-  // like: {
-  //   type: Number,
-  //   default: 0
-  // },
+  like: {
+    type: Number,
+    default: 0
+  },
   // createdAt: {
   //   type: Date,
   //   default: new Date()
   // },
-  // comment : {
-  //   type: String
-  // },
+  comment : {
+    type: String
+  },
   selectedFile: {
     type: String,
     required: [true, "Please upload image of game"]
