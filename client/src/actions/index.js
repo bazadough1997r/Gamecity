@@ -9,8 +9,9 @@ export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
 export const LIKE = 'LIKE';
 export const FETCH_ALL = 'FETCH_ALL';
 
-//setGames() will make our API call and use the dispatch method to send an action to the reducer.
 export const SET_GAMES = "SET_GAMES";
+
+//setGames() will make our API call and use the dispatch method to send an action to the reducer.
 export function setGames() {
   return function (dispatch) {
     //We don't need to use the full URL, just the path. We added the domain portion as a proxy in the client/package.json file.
@@ -164,21 +165,16 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const loginUser = (email, password) => async dispatch => {
   try {
-    // const config = {
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // }
-     
-    // const body = JSON.stringify({email, password})
+   
     const body = {email, password}
    const response = await axios.post('addUser/login', body);
+   window.location = '/games'
    
    dispatch({
      type: LOGIN_SUCCESS,
      payload: response.data
    })
-   window.location = '/games'
+   
    dispatch(loadUser())
 
   } catch (error) {
