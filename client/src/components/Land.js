@@ -1,6 +1,6 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import Login from "./pages/Login";
+import Login from "./pages/login";
 
 const Land = () => {
   return (

@@ -16,11 +16,11 @@ import GameEdit from "./components/games/GameEdit";
 import { loadUser } from "./actions";
 import { setToken } from "./components/pages/setToken";
 import { store } from "./index";
-import Login from "./components/pages/Login";
+import Login from "./components/pages/login";
 import SearchForm from "./components/pages/SearchForm";
-import Register from "./components/pages/Register";
+import Register from "./components/pages/register";
 // import FooterPage from "./Footer"
-import Land from "./components/Land"
+import Land from "./components/Land";
 
 if (localStorage.getItem("token")) {
   setToken(localStorage.getItem("token"));
@@ -76,51 +76,6 @@ function Navigation() {
               Games
             </NavLink>
           </li>
-          {/* <li className="nav-item dropdown">
-            <a
-              href="/login"
-              className="nav-link dropdown-toggle"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-              style={{ color: "white" }}
-            >
-              Account
-            </a>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="/profile">
-                Profile
-              </a>
-              <a className="dropdown-item" href="/land">
-                Logout
-              </a>
-              <div className="dropdown-divider"></div>
-            </div>
-          </li> */}
-          {/* <li className="nav-item dropdown">
-            <a
-              href="/notifications"
-              className="nav-link dropdown-toggle"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-              style={{ color: "white" }}
-            >
-              Notifications
-            </a>
-            <div className="dropdown-menu">
-              <a className="dropdown-item" href="/notifications">
-                Notification#1
-              </a>
-              <a className="dropdown-item" href="/notifications">
-                Notification#2
-              </a>
-            </div>
-          </li> */}
           <li className="nav-item">
             <NavLink
               exact
@@ -145,9 +100,7 @@ function Navigation() {
             </NavLink>
           </li>
         </ul>
-        
       </div>
-      
     </nav>
   );
 }
@@ -173,7 +126,11 @@ function Main() {
       <Route exact path="/games/:_id/edit" component={GameEdit} />
       <Route exact path="/profile" render={(props) => <Profile {...props} />} />
       <Route exact path="/login" render={(props) => <Login {...props} />} />
-      <Route exact path="/addUser" render={(props) => <Register {...props} />} />
+      <Route
+        exact
+        path="/addUser"
+        render={(props) => <Register {...props} />}
+      />
       <Route exact path="/notfound" component={notfound} />
       <Route exact path="/land" component={Land} />
     </Switch>
