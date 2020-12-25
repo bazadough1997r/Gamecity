@@ -6,14 +6,14 @@ const mongoose = require("mongoose");
 const router = require("./routes/index");
 var dotenv = require("dotenv");
 const path = require("path");
-const PORT = process.env.PORT || 3001;  
-require('dotenv').config();  
+const PORT = process.env.PORT || 3001;
+require("dotenv").config();
 
 const app = express();
 app.use(bodyParser.json({ limit: "30mb" }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
-
+const uri = process.env.MONGODB_URI;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/api", router);
