@@ -1,11 +1,8 @@
 import { get } from "axios";
 import axios from 'axios';
 import { setToken } from '../components/pages/setToken'
+import swal from 'sweetalert';
 
-
-export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
-// export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
-// export const FETCH_USER_FAILURE = "FETCH_USER_FAILURE";
 export const LIKE = 'LIKE';
 export const FETCH_ALL = 'FETCH_ALL';
 
@@ -17,7 +14,9 @@ export function setGames() {
     //We don't need to use the full URL, just the path. We added the domain portion as a proxy in the client/package.json file.
     return get("/api/games")
       .then(function (response) {
-        dispatch({ type: SET_GAMES, games: response.data });
+        dispatch({
+           type: SET_GAMES,
+           payload: response.data });
         //if we get a successful response we will call the dispatch method and send an Action. In this case the action type is SET_GAMES, and we are sending the API response data with the action as a payload called "games." Then the reducer will add it to the store.
       })
       .catch(function (error) {
@@ -71,6 +70,7 @@ export function setUser(user) {
   };
 }
 
+export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
 export const fetchUser = () => {
   return (dispatch) => {
     dispatch(fetchUserRequest());
@@ -143,6 +143,7 @@ export const registerUser = ( firstName, lastName, username, email, city, phoneN
   try {
      const body = { firstName, lastName, username, email, city, phoneNo, birthday, password }
      const response = await axios.post('/addUser', body);
+     
      window.location = '/login'
 
    dispatch({
@@ -150,6 +151,11 @@ export const registerUser = ( firstName, lastName, username, email, city, phoneN
      payload: response.data
    })
    dispatch(loadUser())
+   swal({
+    title: "Regesterd succssesfully!",
+    icon: "success",
+  });
+
 
   } catch (error) {
     dispatch({
@@ -168,14 +174,13 @@ export const loginUser = (email, password) => async dispatch => {
    
     const body = {email, password}
    const response = await axios.post('addUser/login', body);
-   window.location = '/games'
    
    dispatch({
      type: LOGIN_SUCCESS,
      payload: response.data
    })
-   
    dispatch(loadUser())
+  
 
   } catch (error) {
     dispatch({
@@ -186,6 +191,24 @@ export const loginUser = (email, password) => async dispatch => {
 }
 
 
+
+////////////////////////////FILTERRRRR//////////////////////////////
+
+export const FILTER_GAMES_BY_GOVERNORATES = 'FILTER_GAMES_BY_GOVERNORATES'
+export const filterGames = (games, Governorates) => (dispatch) => {
+  dispatch({
+    type: FILTER_GAMES_BY_GOVERNORATES,
+    payload: { //payload is an object that has the items
+      
+      Governorates: Governorates,
+      items: Governorates === "" // now if items are empty
+          ? games // return all games
+          : //else
+          games.filter((x) => x.gameGovernorate.indexOf(Governorates) >= 0),
+          //I want you to filter the games based on their governorates
+    },
+  });
+};
 
 
 

@@ -157,7 +157,9 @@ function Main() {
         path="/games"
         component={GameList}
         isAuth={localStorage.length > 0}
+
       />
+      
       <ProtectedRoute
         exact
         path="/"
@@ -168,7 +170,9 @@ function Main() {
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
       <Route exact path="/profile" component={Profile} />
-      <Route exact path="/login" component={login} />
+      <Route exact path="/login" component={login} 
+        
+      />
       <Route exact path="/addUser" component={register} />
       <Route exact path="/notfound" component={notfound} />
     </Switch>
