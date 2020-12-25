@@ -16,9 +16,9 @@ import GameEdit from "./components/games/GameEdit";
 import { loadUser } from "./actions";
 import { setToken } from "./components/pages/setToken";
 import { store } from "./index";
-import login from "./components/pages/login";
+import Login from "./components/pages/Login";
 import SearchForm from "./components/pages/SearchForm";
-import register from "./components/pages/register";
+import Register from "./components/pages/Register";
 // import FooterPage from "./Footer"
 import Land from "./components/Land"
 
@@ -172,8 +172,8 @@ function Main() {
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
       <Route exact path="/profile" render={(props) => <Profile {...props} />} />
-      <Route exact path="/login" render={(props) => <login {...props} />} />
-      <Route exact path="/addUser" render={(props) => <register {...props} />} />
+      <Route exact path="/login" render={(props) => <Login {...props} />} />
+      <Route exact path="/addUser" render={(props) => <Register {...props} />} />
       <Route exact path="/notfound" component={notfound} />
       <Route exact path="/land" component={Land} />
     </Switch>

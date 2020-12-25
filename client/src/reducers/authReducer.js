@@ -22,7 +22,7 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 isLoggedIn: true
             }
-        case LOGIN_SUCCESS:
+        case LOGIN_SUCCESS: 
             localStorage.setItem('token', payload.token)
             return {
                 ...state,
