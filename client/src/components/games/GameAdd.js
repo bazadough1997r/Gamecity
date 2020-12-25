@@ -1,11 +1,11 @@
 // Import useState which will allow us to add state to a functional component.
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { post } from "axios";
 import FileBase from "react-file-base64";
 //Import the addGame function from the Actions file.
 import { addGame } from "../../actions";
-import { set } from "mongoose";
+// import { set } from "mongoose";
 // //Import the storage from firebase file
 // import {storage} from "../../firebase";
 // import UploadImage from "../../UploadImage.jpg"
@@ -256,7 +256,6 @@ function GameAdd(props) {
             <img src = {UploadImage} alt = "UploadImage" width = "250px" height = "125px"/>
           )} 
         </div> 
-
         <div>
            <input
              type = "file"

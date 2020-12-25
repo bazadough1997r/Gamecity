@@ -156,7 +156,7 @@ function Main() {
   return (
     <Switch>
       {/* <Route exact path="/" component={GameList} /> */}
-      <Route
+      <ProtectedRoute
         exact
         path="/games"
         component={GameList}
@@ -171,9 +171,9 @@ function Main() {
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
-      <Route exact path="/profile" component={Profile} />
-      <Route exact path="/login" component={login} />
-      <Route exact path="/addUser" component={register} />
+      <Route exact path="/profile" render={(props) => <Profile {...props} />} />
+      <Route exact path="/login" render={(props) => <login {...props} />} />
+      <Route exact path="/addUser" render={(props) => <register {...props} />} />
       <Route exact path="/notfound" component={notfound} />
       <Route exact path="/land" component={Land} />
     </Switch>

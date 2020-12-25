@@ -199,7 +199,6 @@ export default function GameList(props) {
                   </form>
                 </nav>
               </h6>
-
               <h6>
                 Games
                 <nav className="navbar navbar-light bg-light">
@@ -301,7 +300,7 @@ export default function GameList(props) {
                         <h6>Duration: {game.gameDuration}</h6>
                       </MDBCol>
                     </MDBRow>
-                    <img src={game.selectedFile} width="250px" alt="post pic" />
+                    <img src={game.selectedFile} width="250px" alt="game post"/>
                     <br />
                     <form onSubmit={handleSubmit}>
                       {/* <button onClick={setFields({...game, like: game.like++})}>Likes: {game.like}</button> */}
@@ -335,6 +334,7 @@ export default function GameList(props) {
           </MDBCol>
         </MDBRow>
       </MDBContainer>
+      <hr />
     </div>
   );
 }
