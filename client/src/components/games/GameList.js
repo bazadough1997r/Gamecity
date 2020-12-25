@@ -3,33 +3,31 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { post } from "axios";
 import { Link } from "react-router-dom";
-import Register from "../pages/register"
-import Login from "../pages/login"
-import LikeButton from "../likeButton.js"
-import { DELETE, LIKE } from '../../actions/index.js';
-import e from "cors";
+// import Register from "../pages/register"
+// import Login from "../pages/login"
+import LikeButton from "../likeButton.js";
+// import { DELETE, LIKE } from '../../actions/index.js';
+// import e from "cors";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-
-
-
-
+// import { Nav } from "react-bootstrap";
+// import { Form } from "react-bootstrap";
 
 export default function GameList(props) {
   const [games, setGames] = useState([]);
+  // const [governerates, setGovernerates] = useState([]);
 
-  const [game, setFields] = useState({ like: 0, comment: ""});
+  const [game, setFields] = useState({ like: 0, comment: "" });
   const dispatch = useDispatch();
-  
+
   function handleChangeComment(event) {
-    setFields({...game, comment : event.target.value})
+    setFields({ ...game, comment: event.target.value });
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     post("/api/games", {
       like: game.like,
-      comment: game.comment
-
+      comment: game.comment,
     })
       .then(function (response) {
         dispatch(GameList(response.data));
@@ -40,7 +38,7 @@ export default function GameList(props) {
       .catch(function (error) {
         console.log(error);
       });
-  }
+  };
 
   useEffect(function () {
     async function getGames() {
@@ -54,11 +52,20 @@ export default function GameList(props) {
     getGames();
   }, []);
 
+  // //filter function to filter games cities
+  // function onChangeGovernerates(e) {
+  // // //  setGovernerates(governerates) =>
+  //    let string = e.target.value;
+  //   let city = games.gameGovernorate;
+  //   //) => games.gameGovernorate.includes(string));
+  // //   setGovernerates({ governerates: governerates });
+  //  return { games : setGames.games.filter ( city => city === string) }
 
+  // }
 
-
-
-
+  // function filterByInput(e) {
+  //    console.log(e.target.value)
+  // }
 
   return (
     <div>
@@ -66,6 +73,52 @@ export default function GameList(props) {
       <MDBContainer>
         <MDBRow>
           <MDBCol md="3">
+            {/* <div className="control" style={{ minWidth: "300px" }}>
+              <input
+                onChange={(e) => {this.filterByInput(e)}}
+                style={{ width: "100%" }}
+                placeholder="Filter by"
+                type="text"
+              />
+            </div> */}
+            {/* <Form.Group
+              controlId="exampleForm.SelectCustomSizeSm"
+              onChange={onChangeGovernerates}
+            >
+              <Form.Control
+                as="select"
+                size="sm"
+                custom
+                style={{
+                  width: 155,
+                  color: "white",
+                  border: "orange",
+                  margin: "50px 0px 10px 250px",
+                  background: "#212121",
+                }}
+              >
+                <option value="">Select by type</option>
+                <option value="Amman">Amman</option>
+                <option value="Jerash">Jerash</option>
+              </Form.Control>
+            </Form.Group> */}
+            {/* <Nav fill variant="tabs" defaultActiveKey="/" style={{ marginTop: "20px" }}>
+              <Nav.Item>
+                <Nav.Link href="/">Amman</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="/">Irbid</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="/">Ajloun</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="/">Jerash</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="/">Mafraq</Nav.Link>
+              </Nav.Item>
+            </Nav> */}
             {/* <div style={{ marginTop: "20px" }}>
               <h6>
                 Governorates
@@ -228,7 +281,7 @@ export default function GameList(props) {
               </h6>
             </div> */}
           </MDBCol>
-          <MDBCol md="6">
+          <MDBCol md="6" style={{ marginTop: "20px" }}>
             {games.map((game) => {
               return (
                 <div key={game._id}>
@@ -238,7 +291,9 @@ export default function GameList(props) {
                   <MDBContainer>
                     <MDBRow>
                       <MDBCol size="4">
-                        <h6>Jordan/{game.gameGovernorate}</h6>
+                        <h6 key={game.gameGovernorate}>
+                          Jordan/{game.gameGovernorate}
+                        </h6>
                         <h6>Game: {game.gameType}</h6>
                       </MDBCol>
                       <MDBCol size="4">
@@ -246,7 +301,27 @@ export default function GameList(props) {
                         <h6>Duration: {game.gameDuration}</h6>
                       </MDBCol>
                     </MDBRow>
+                    <img src={game.selectedFile} width="250px" />
+                    <br />
+                    <form onSubmit={handleSubmit}>
+                      {/* <button onClick={setFields({...game, like: game.like++})}>Likes: {game.like}</button> */}
+                      <LikeButton />
+                      <br />
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          value={game.comment}
+                          onChange={handleChangeComment}
+                          className="form-control"
+                          placeholder="Type in your comment here..."
+                        />
+                        <button type="Submit">Comment</button>
+                        <br />
+                        <h6>{game.comment}</h6>
+                      </div>
+                    </form>
                   </MDBContainer>
+                  <hr/>
                 </div>
               );
             })}
@@ -261,40 +336,6 @@ export default function GameList(props) {
         </MDBRow>
       </MDBContainer>
       <hr />
-      {games.map((game) => {
-        return (
-          <div key={game._id}>
-            <h4>
-              <Link to={`/games/${game._id}`}>{game.gameName}</Link>
-            </h4>
-            <h6>{game.gameGovernorate}</h6>
-            <h6>{game.gameType}</h6>
-            <h6>{game.gameDate}</h6>
-            <h6>{game.gameDuration}</h6>
-            <img src = {game.selectedFile} width = "250px"/>
-            <br/>
-            <form onSubmit={handleSubmit}>
-            {/* <button onClick={setFields({...game, like: game.like++})}>Likes: {game.like}</button> */}
-            <LikeButton />
-            <br/>
-            <div className="form-group">
-            <input
-              type="text"
-              value={game.comment}
-              onChange={handleChangeComment}
-              className="form-control"
-              placeholder="Type in your comment here..."
-            />
-            <button type= "Submit">Comment</button>
-            <br/>
-            <h6>{game.comment}</h6>
-          </div>
-          </form>
-
-            <hr />
-          </div>
-        );
-      })}
     </div>
   );
 }
