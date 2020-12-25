@@ -19,6 +19,8 @@ import { store } from "./index";
 import login from "./components/pages/login";
 import SearchForm from "./components/pages/SearchForm";
 import register from "./components/pages/register";
+// import FooterPage from "./Footer"
+import Land from "./components/Land"
 
 if (localStorage.getItem("token")) {
   setToken(localStorage.getItem("token"));
@@ -124,10 +126,10 @@ function Navigation() {
               exact
               className="nav-link"
               activeClassName="active"
-              to="/addUser"
+              to="/land"
               style={{ color: "white" }}
             >
-              Signup
+              Login
             </NavLink>
           </li>
           <li>
@@ -135,7 +137,7 @@ function Navigation() {
               exact
               className="nav-link"
               activeClassName="active"
-              to="/addUser"
+              to="/land"
               style={{ color: "white" }}
               onClick={() => logout()}
             >
@@ -143,7 +145,9 @@ function Navigation() {
             </NavLink>
           </li>
         </ul>
+        
       </div>
+      
     </nav>
   );
 }
@@ -171,13 +175,14 @@ function Main() {
       <Route exact path="/login" component={login} />
       <Route exact path="/addUser" component={register} />
       <Route exact path="/notfound" component={notfound} />
+      <Route exact path="/land" component={Land} />
     </Switch>
   );
 }
 
 function logout() {
   window.localStorage.clear();
-  window.location = "/addUser";
+  window.location = "/land";
 }
 export default App;
 //Our home page here is the GameList component.
