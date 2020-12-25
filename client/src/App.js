@@ -6,8 +6,8 @@ import {
   Switch,
 } from "react-router-dom";
 import "./App.css";
-import ProtectedRoute from "./components/pages/ProtectedRoute"
-import notfound from "./components/pages/notfound"
+import ProtectedRoute from "./components/pages/ProtectedRoute";
+import notfound from "./components/pages/notfound";
 import Profile from "./components/pages/Profile";
 import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
@@ -20,12 +20,9 @@ import login from "./components/pages/login";
 import SearchForm from "./components/pages/SearchForm";
 import register from "./components/pages/register";
 
-
-
 if (localStorage.getItem("token")) {
   setToken(localStorage.getItem("token"));
 }
-
 
 function App() {
   useEffect(() => {
@@ -62,7 +59,7 @@ function Navigation() {
         </ul>
         <ul className="nav justify-content-start">
           <li className="nav-item">
-            <SearchForm/>
+            <SearchForm />
           </li>
         </ul>
         <ul className="nav justify-content-end ">
@@ -72,20 +69,21 @@ function Navigation() {
               className="nav-link"
               activeClassName="active"
               to="/games"
-              style={{color: "white"}}
+              style={{ color: "white" }}
             >
               Games
             </NavLink>
           </li>
-          <li className="nav-item dropdown">
+          {/* <li className="nav-item dropdown">
             <a
+              href="/login"
               className="nav-link dropdown-toggle"
               id="navbarDropdown"
               role="button"
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              style={{color: "white"}}
+              style={{ color: "white" }}
             >
               Account
             </a>
@@ -98,16 +96,17 @@ function Navigation() {
               </a>
               <div className="dropdown-divider"></div>
             </div>
-          </li>
-          <li className="nav-item dropdown">
+          </li> */}
+          {/* <li className="nav-item dropdown">
             <a
+              href="/notifications"
               className="nav-link dropdown-toggle"
               id="navbarDropdown"
               role="button"
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              style={{color: "white"}}
+              style={{ color: "white" }}
             >
               Notifications
             </a>
@@ -119,26 +118,26 @@ function Navigation() {
                 Notification#2
               </a>
             </div>
-          </li>
+          </li> */}
           <li className="nav-item">
             <NavLink
               exact
               className="nav-link"
               activeClassName="active"
               to="/addUser"
-              style={{color: "white"}}
+              style={{ color: "white" }}
             >
               Signup
             </NavLink>
           </li>
           <li>
-          <NavLink
+            <NavLink
               exact
               className="nav-link"
               activeClassName="active"
               to="/addUser"
-              style={{color: "white"}}
-              onClick = { () => logout() }
+              style={{ color: "white" }}
+              onClick={() => logout()}
             >
               Logout
             </NavLink>
@@ -152,9 +151,19 @@ function Navigation() {
 function Main() {
   return (
     <Switch>
-      {/* <Route exact path="/" component={GameList} /> */} 
-      <ProtectedRoute exact path="/games" component={GameList} isAuth={localStorage.length>0}/>
-      <Route exact path="/" component={GameList} /> 
+      {/* <Route exact path="/" component={GameList} /> */}
+      <ProtectedRoute
+        exact
+        path="/games"
+        component={GameList}
+        isAuth={localStorage.length > 0}
+      />
+      <ProtectedRoute
+        exact
+        path="/"
+        component={GameList}
+        isAuth={localStorage.length > 0}
+      />
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
@@ -166,10 +175,9 @@ function Main() {
   );
 }
 
-
 function logout() {
   window.localStorage.clear();
   window.location = "/addUser";
 }
-export default (App);
+export default App;
 //Our home page here is the GameList component.

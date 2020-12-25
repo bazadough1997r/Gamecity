@@ -44,8 +44,7 @@ const Register = ({ registerUser, isLoggedIn }) => {
             <h1>REGISTER PAGE</h1>
             <label>First name</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName}
-             ></input>
+            <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName}  required={true}></input>
             <br/>
             <label>Last name</label>
             <br/>

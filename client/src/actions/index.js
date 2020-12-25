@@ -2,7 +2,8 @@ import { get } from "axios";
 import axios from 'axios';
 import { setToken } from '../components/pages/setToken'
 
-
+export const LIKE = 'LIKE';
+export const FETCH_ALL = 'FETCH_ALL';
 
 export const SET_GAMES = "SET_GAMES";
 
@@ -201,6 +202,7 @@ export const filterGames = (games, Governorates) => (dispatch) => {
     },
   });
 };
+
 
 
 
