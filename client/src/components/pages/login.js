@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 
 const Login = ( {loginUser, isLoggedIn} ) => {
+   console.log(isLoggedIn, "isLoggedIn")
     let [data, setData] = useState ({
         email: "",
         password: ""
@@ -45,6 +46,11 @@ const Login = ( {loginUser, isLoggedIn} ) => {
         </div>
     )
 }
+
+
+// function mapStateToProps(state) {
+//     console.log(state,"prrrrr")
+//   }
 
 const mapStateToProps = state =>({
     isLoggedIn: state.authReducer.isLoggedIn

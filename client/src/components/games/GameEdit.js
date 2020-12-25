@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { get, patch } from "axios";
 
 function GameEdit(props) {
+  console.log(props)
   const initialState = { gameName: "", content: "" };
   const [game, setGame] = useState(initialState);
 
@@ -12,7 +13,7 @@ function GameEdit(props) {
           const response = await get(`/api/games/${props.match.params._id}`);
           setGame(response.data);
         } catch (error) {
-          console.log(error);
+          console.log(error, "useEffect in GameEdit /failed");
         }
       }
       getGame();

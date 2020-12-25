@@ -4,7 +4,13 @@ import { connect } from 'react-redux';
 // import ReduxForm from './registerForm1'
 
 
+// import { Redirect } from 'react-router-dom';
+
+
 const Register = ({ registerUser, isLoggedIn }) => {
+    // console.log(isLoggedIn,"isLoggedIn")
+
+    // if(isLoggedIn) return <Redirect to="/"/>
     let [data, setData] = useState ({
         firstName: "",
         lastName: "",
@@ -20,7 +26,9 @@ const Register = ({ registerUser, isLoggedIn }) => {
 
 
     const onChange = (e)=> {
+
         setData({...data, [e.target.name]: e.target.value})
+        // console.log([e.target.value])
     }
 
     const onsubmit = () =>{
@@ -31,19 +39,12 @@ const Register = ({ registerUser, isLoggedIn }) => {
         registerUser(firstName, lastName, username, email, city,phoneNo, birthday, password)
     }
 
-    // const required = () => {
-    //     if(firstName ==="abeer") return alert("3aw")
-    // }
-
-
     return (
         <div>
-            {/* <ReduxForm /> */}
             <h1>REGISTER PAGE</h1>
             <label>First name</label>
             <br/>
             <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName}
-            //  validate={required}
              ></input>
             <br/>
             <label>Last name</label>
@@ -82,8 +83,12 @@ const Register = ({ registerUser, isLoggedIn }) => {
     )
 }
 
+// function mapStateToProps(state) {
+//     console.log(state,"fsdfsd")
+//   }
+
 const mapStateToProps = state => ({
-    isLoggedIn: state.authReducer.isLoggedIn
+    isLoggedIn: state.isLoggedIn
 })
 
 export default connect(mapStateToProps, {registerUser})(Register);
