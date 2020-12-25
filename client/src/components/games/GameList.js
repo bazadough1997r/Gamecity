@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
+import { post } from "axios";
 import { Link } from "react-router-dom";
 import Register from "../pages/register"
 import Login from "../pages/login"
@@ -7,26 +9,33 @@ import LikeButton from "../likeButton.js"
 import { DELETE, LIKE } from '../../actions/index.js';
 import e from "cors";
 
-function GameList() {
+function GameList(props) {
   const [games, setGames] = useState([]);
-  // const [games, setComment] = useState({comment : "" })
 
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-  //   // if (!game.gameName || !game.gameType || !game.gameDate || !game.gameDuration || !game.gameGovernorate) return;
-  //   post("/api/games", {
-  //     comment: game.comment
-  //   })
-  //     .then(function (response) {
-  //       dispatch(addGame(response.data));
-  //     })
-  //     .then(function () {
-  //       props.history.push("/");
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
+  const [game, setFields] = useState({ like: 0, comment: ""});
+  const dispatch = useDispatch();
+  
+  function handleChangeComment(event) {
+    setFields({...game, comment : event.target.value})
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    post("/api/games", {
+      like: game.like,
+      comment: game.comment
+
+    })
+      .then(function (response) {
+        dispatch(GameList(response.data));
+      })
+      .then(function () {
+        props.history.push("/");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   useEffect(function () {
     async function getGames() {
@@ -43,9 +52,6 @@ function GameList() {
 
 
 
-  // function handleChangeComment(event) {
-  //   setComment({...games, comment : event.target.value})
-  // }
 
 
 
@@ -70,18 +76,24 @@ function GameList() {
             <h6>{game.gameDate}</h6>
             <h6>{game.gameDuration}</h6>
             <img src = {game.selectedFile} width = "250px"/>
+            <br/>
+            <form onSubmit={handleSubmit}>
+            {/* <button onClick={setFields({...game, like: game.like++})}>Likes: {game.like}</button> */}
             <LikeButton />
             <br/>
             <div className="form-group">
             <input
               type="text"
-              // value={game.comment}
-              // onChange={handleChangeComment}
+              value={game.comment}
+              onChange={handleChangeComment}
               className="form-control"
               placeholder="Type in your comment here..."
             />
-            <button>Comment</button>
+            <button type= "Submit">Comment</button>
+            <br/>
+            <h6>{game.comment}</h6>
           </div>
+          </form>
 
             <hr />
           </div>
