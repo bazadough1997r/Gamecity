@@ -6,7 +6,6 @@ import { setToken } from '../components/pages/setToken'
 export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
 // export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 // export const FETCH_USER_FAILURE = "FETCH_USER_FAILURE";
-export const LIKE = 'LIKE';
 export const FETCH_ALL = 'FETCH_ALL';
 
 export const SET_GAMES = "SET_GAMES";
@@ -59,6 +58,41 @@ export function replaceGame(game) {
   return {
     type: REPLACE_GAME,
     game: game,
+  };
+}
+
+export const LIKE_GAME = "LIKE_GAME";
+export function likeGame(_id) {
+  return function (dispatch) {
+    //We don't need to use the full URL, just the path. We added the domain portion as a proxy in the client/package.json file.
+    return get(`/api/games/${_id}/like`)
+      .then(function (response) {
+        dispatch({ type: LIKE_GAME, _id: response.data });
+        //if we get a successful response we will call the dispatch method and send an Action. In this case the action type is SET_GAMES, and we are sending the API response data with the action as a payload called "games." Then the reducer will add it to the store.
+      })
+      .catch(function (error) {
+        console.log(
+          error,
+          "error from the actions/index.js (setGames) -RawanB"
+        );
+      });
+  };
+}
+export const UNLIKE_GAME = "UNLIKE_GAME";
+export function unlikeGame(_id) {
+  return function (dispatch) {
+    //We don't need to use the full URL, just the path. We added the domain portion as a proxy in the client/package.json file.
+    return get(`/api/games/${_id}/unlike`)
+      .then(function (response) {
+        dispatch({ type: UNLIKE_GAME, _id: response.data });
+        //if we get a successful response we will call the dispatch method and send an Action. In this case the action type is SET_GAMES, and we are sending the API response data with the action as a payload called "games." Then the reducer will add it to the store.
+      })
+      .catch(function (error) {
+        console.log(
+          error,
+          "error from the actions/index.js (setGames) -RawanB"
+        );
+      });
   };
 }
 
