@@ -47,6 +47,11 @@ const Login = ( {loginUser, isLoggedIn} ) => {
     )
 }
 
+
+// function mapStateToProps(state) {
+//     console.log(state,"prrrrr")
+//   }
+
 const mapStateToProps = state =>({
     isLoggedIn: state.authReducer.isLoggedIn
 
