@@ -276,16 +276,14 @@ function GameAdd(props) {
 
         <div className="btn-group">
           <button type="submit" value="Post" className="btn btn-primary">
-            {" "}
-            Submit{" "}
+            Submit
           </button>
           <button
             type="button"
             onClick={handleCancel}
             className="btn btn-secondary"
           >
-            {" "}
-            Cancel{" "}
+            Cancel
           </button>
         </div>
       </form>

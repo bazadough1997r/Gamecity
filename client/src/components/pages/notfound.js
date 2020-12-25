@@ -11,7 +11,6 @@ export default function notfound() {
         width="75%"
         alt="page not found"
       ></img>
-
     </div>
   );
 }
