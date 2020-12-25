@@ -1,13 +1,44 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
+import { post } from "axios";
 import { Link } from "react-router-dom";
+// import Register from "../pages/register"
+// import Login from "../pages/login"
+import LikeButton from "../likeButton.js";
+// import { DELETE, LIKE } from '../../actions/index.js';
+// import e from "cors";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 // import { Nav } from "react-bootstrap";
 // import { Form } from "react-bootstrap";
 
-export default function GameList() {
+export default function GameList(props) {
   const [games, setGames] = useState([]);
   // const [governerates, setGovernerates] = useState([]);
+
+  const [game, setFields] = useState({ like: 0, comment: "" });
+  const dispatch = useDispatch();
+
+  function handleChangeComment(event) {
+    setFields({ ...game, comment: event.target.value });
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    post("/api/games", {
+      like: game.like,
+      comment: game.comment,
+    })
+      .then(function (response) {
+        dispatch(GameList(response.data));
+      })
+      .then(function () {
+        props.history.push("/");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   useEffect(function () {
     async function getGames() {
@@ -31,10 +62,10 @@ export default function GameList() {
   //  return { games : setGames.games.filter ( city => city === string) }
 
   // }
-  
-// function filterByInput(e) {
-//    console.log(e.target.value)
-// }
+
+  // function filterByInput(e) {
+  //    console.log(e.target.value)
+  // }
 
   return (
     <div>
@@ -270,7 +301,27 @@ export default function GameList() {
                         <h6>Duration: {game.gameDuration}</h6>
                       </MDBCol>
                     </MDBRow>
+                    <img src={game.selectedFile} width="250px" />
+                    <br />
+                    <form onSubmit={handleSubmit}>
+                      {/* <button onClick={setFields({...game, like: game.like++})}>Likes: {game.like}</button> */}
+                      <LikeButton />
+                      <br />
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          value={game.comment}
+                          onChange={handleChangeComment}
+                          className="form-control"
+                          placeholder="Type in your comment here..."
+                        />
+                        <button type="Submit">Comment</button>
+                        <br />
+                        <h6>{game.comment}</h6>
+                      </div>
+                    </form>
                   </MDBContainer>
+                  <hr/>
                 </div>
               );
             })}
