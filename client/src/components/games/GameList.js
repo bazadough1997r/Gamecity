@@ -121,12 +121,12 @@ export default function GameList(props) {
                         <h6>Duration: {game.gameDuration}</h6>
                       </MDBCol>
                     </MDBRow>
-                    <img src={game.selectedFile} width="250px" />
+                    <img src={game.selectedFile} width="250px" alt="game post"/>
                     <br />
                     {/* <form onSubmit={handleSubmit}> */}
-                      <button onSubmit={handleSubmit}> Like {game.likeCount}</button>
+                      {/* <button onSubmit={handleSubmit}> Like {game.likeCount}</button> */}
                       {/* <h6>{game.like.length} like(s)</h6> */}
-
+                      <LikeButton />
                       <br />
                       {/* <div className="form-group">
                         <input

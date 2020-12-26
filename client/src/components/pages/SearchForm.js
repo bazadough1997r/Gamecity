@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-// import { setGames } from "../../actions/index";
-// import { connect } from "react-redux";
 
 export default class SearchForm extends Component {
   

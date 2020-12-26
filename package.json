@@ -24,8 +24,13 @@
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
     "mongoose": "^5.11.8",
+<<<<<<< HEAD
     "mongoose-schema-types": "^1.2.6",
     "nodemon": "^2.0.6"
+=======
+    "nodemon": "^2.0.6",
+    "node": "^10.16.3"
+>>>>>>> b12abb9c3071fdc59b630d521d76ff533f99c0c6
   },
   "devDependencies": {
     "concurrently": "^5.3.0"

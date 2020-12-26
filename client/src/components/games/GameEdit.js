@@ -2,7 +2,14 @@ import React, { useState, useEffect } from "react";
 import { get, patch } from "axios";
 
 function GameEdit(props) {
-  const initialState = { gameName: "", content: "" };
+  const initialState = { 
+    gameName: "",     
+    gameType: "Select Game",
+    gameDuration: "",
+    gameDate: "",
+    gameGovernorate: "Select Governorate",
+    selectedFile: ""};
+    
   const [game, setGame] = useState(initialState);
 
   useEffect(
