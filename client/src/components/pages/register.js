@@ -63,11 +63,11 @@ const Register = ({ registerUser, isLoggedIn }) => {
     
 
     return (
-        <div>
+        <div><form>
             <h1>REGISTER PAGE</h1>
             <label>First name</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName} ></input>
+            <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName}  required={true}></input>
             <br/>
             <label>Last name</label>
             <br/>
@@ -101,6 +101,7 @@ const Register = ({ registerUser, isLoggedIn }) => {
             <button type= "submit" onClick= {()=> onsubmit()}>submit</button>
             <br/>
             <p>Already have an account? <a href="/login">Sign in</a></p>
+            </form>
         </div>
     )
     }
