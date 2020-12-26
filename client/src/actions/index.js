@@ -1,4 +1,4 @@
-import { get } from "axios";
+import { get, patch } from "axios";
 import axios from 'axios';
 import { setToken } from '../components/pages/setToken'
 
@@ -6,9 +6,7 @@ import { setToken } from '../components/pages/setToken'
 export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
 // export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 // export const FETCH_USER_FAILURE = "FETCH_USER_FAILURE";
-export const LIKE = 'LIKE';
 export const FETCH_ALL = 'FETCH_ALL';
-
 export const SET_GAMES = "SET_GAMES";
 
 //setGames() will make our API call and use the dispatch method to send an action to the reducer.
@@ -28,6 +26,22 @@ export function setGames() {
       });
   };
 }
+
+export const LIKE_GAME = "LIKE_GAME";
+export function likePost(id) {
+  return function (dispatch) {
+    return patch("/api/games/:id/likePost")
+      .then (function(response) {
+        dispatch({type : LIKE_GAME, id: response.data._id })
+        console.log(response,"response")
+
+      })
+      .catch(function (error) {
+        console.log(error, "error from the actions")
+      })
+  }
+}
+
 
 //The only thing we are doing in this action is passing on the game object to the reducer.
 export const ADD_GAME = "ADD_GAME";

@@ -58,6 +58,18 @@ router.delete("/games/:id", function (req, res) {
   });
 });
 
+router.patch("/games/:id/likePost"), function (req, res) {
+  console.log(req.params.id)
+  // Game.findById(req.params.id);
+  const gameId = Game.findById(req.params.id);
+  Game.findByIdAndUpdate(req.params.id, {likeCount: gameId.likeCount + 1})
+  .then(function() {
+    res.status(200).json("like is working!!!")
+  })
+  .catch(function (err) {
+    res.status(400).send(err, "Game like failed.")
+});
+}
+
 module.exports = router;
 
-//Rawaaaaaaaaaan is testinggggggg

@@ -21,7 +21,7 @@ const gameSchema = new mongoose.Schema({
     type: String,
     required: [true, "Game governorate is required"]
   },
-  like: {
+  likeCount: {
     type: Number,
     default: 0
   },

@@ -18,9 +18,7 @@ function GameAdd(props) {
     gameDuration: "",
     gameDate: "",
     gameGovernorate: "Select Governorate",
-    selectedFile: "",
-    like: 0,
-    comment:""
+    selectedFile: ""
   };
 
   // const [image, setImage] = useState(null);
