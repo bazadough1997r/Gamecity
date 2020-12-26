@@ -28,13 +28,16 @@ const Register = ({ registerUser, isLoggedIn }) => {
     }
 
     const onsubmit = () =>{
+        if(firstName === "" || lastName === "" || username === "" || email === "" || city === "" || phoneNo === "" || birthday === "" || password === ""){
+            console.log("Please fill all required fields");
+        } else {
         registerUser(firstName, lastName, username, email, city,phoneNo, birthday, password)
-        
+        }   
     }
     
 
     return (
-        <div><form data-toggle="validator" role="form">
+        <div><form action="/login" method="get">
             <h1>REGISTER PAGE</h1>
             <label>First name</label>
             <br/>
