@@ -8,6 +8,7 @@ import Login from "../pages/login"
 import LikeButton from "../likeButton.js"
 import e from "cors";
 import {likePost} from "../../actions/index.js"
+import { patch } from "axios";
 
 // import Register from "../pages/register"
 // import Login from "../pages/login"
@@ -18,6 +19,11 @@ import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 // import { Form } from "react-bootstrap";
 
 export default function GameList(props) {
+  const initialState = { 
+    likeCount: 0
+  };
+    
+  const [game, setGame] = useState(initialState);
 
   const [games, setGames] = useState([]);
   // const [governerates, setGovernerates] = useState([]);
@@ -59,9 +65,6 @@ export default function GameList(props) {
     getGames();
   }, []);
 
-  // const likePost = (_id) => {
-  //   fetch('')
-  // }
 
   // //filter function to filter games cities
   // function onChangeGovernerates(e) {
@@ -78,219 +81,25 @@ export default function GameList(props) {
   //    console.log(e.target.value)
   // }
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    async function likePost() {
+      try {
+        await patch(`/api/games/${game._id}/likePost`, game);
+        props.history.push(`/games/${game._id}/likePost`);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    likePost();
+  }
+
   return (
     <div>
       <hr />
       <MDBContainer>
         <MDBRow>
           <MDBCol md="3">
-            {/* <div className="control" style={{ minWidth: "300px" }}>
-              <input
-                onChange={(e) => {this.filterByInput(e)}}
-                style={{ width: "100%" }}
-                placeholder="Filter by"
-                type="text"
-              />
-            </div> */}
-            {/* <Form.Group
-              controlId="exampleForm.SelectCustomSizeSm"
-              onChange={onChangeGovernerates}
-            >
-              <Form.Control
-                as="select"
-                size="sm"
-                custom
-                style={{
-                  width: 155,
-                  color: "white",
-                  border: "orange",
-                  margin: "50px 0px 10px 250px",
-                  background: "#212121",
-                }}
-              >
-                <option value="">Select by type</option>
-                <option value="Amman">Amman</option>
-                <option value="Jerash">Jerash</option>
-              </Form.Control>
-            </Form.Group> */}
-            {/* <Nav fill variant="tabs" defaultActiveKey="/" style={{ marginTop: "20px" }}>
-              <Nav.Item>
-                <Nav.Link href="/">Amman</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link href="/">Irbid</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link href="/">Ajloun</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link href="/">Jerash</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link href="/">Mafraq</Nav.Link>
-              </Nav.Item>
-            </Nav> */}
-            {/* <div style={{ marginTop: "20px" }}>
-              <h6>
-                Governorates
-                <nav className="navbar navbar-light bg-light">
-                  <form className="form-inline">
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Irbid
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Ajloun
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Jerash
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Mafraq
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Balqa
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Amman
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Zarqa
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Madaba
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Karak
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Tafilah
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Ma'an
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Aqaba
-                    </button>
-                  </form>
-                </nav>
-              </h6>
-
-              <h6>
-                Games
-                <nav className="navbar navbar-light bg-light">
-                  <form className="form-inline">
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Paintball
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Football
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Karting
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Basketball
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Laser Tag
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Volleyball
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Rock Climbing
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Horseback Riding
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Handball
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Tennis
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Running
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      type="button"
-                    >
-                      Others..
-                    </button>
-                  </form>
-                </nav>
-              </h6>
-            </div> */}
           </MDBCol>
           <MDBCol md="6" style={{ marginTop: "20px" }}>
             {games.map((game) => {
@@ -315,7 +124,7 @@ export default function GameList(props) {
                     <img src={game.selectedFile} width="250px" />
                     <br />
                     {/* <form onSubmit={handleSubmit}> */}
-                      <button onClick={() => dispatch(likePost(game._id))}> Like {game.likeCount}</button>
+                      <button onSubmit={handleSubmit}> Like {game.likeCount}</button>
                       {/* <h6>{game.like.length} like(s)</h6> */}
 
                       <br />

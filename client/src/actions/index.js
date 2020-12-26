@@ -25,20 +25,27 @@ export const getPosts = () => async (dispatch) => {
 */
 
 export const LIKE_GAME = "LIKE_GAME";
-export function likePost(_id) {
-  return function (dispatch) {
-    return patch("/api/games/:id/likePost")
-    .then( function (response) {
-      dispatch({type: LIKE_GAME, _id:_id})
-    })
-    .catch(function (error) {
-      console.log(
-        error,
-        "error from the actions/index.js (likeGame)"
-      );
-    });
-  }
+export function likePost(game) {
+  return {
+    type: REPLACE_GAME,
+    game: game,
+  };
 }
+// export function likePost(game) {
+//   return function (dispatch) {
+//     return patch("/api/games/:id/likePost")
+//     .then( function (response) {
+//       console.log(response)
+//       dispatch({type: LIKE_GAME, game:response.data})
+//     })
+//     .catch(function (error) {
+//       console.log(
+//         error,
+//         "error from the actions/index.js (likeGame)"
+//       );
+//     });
+//   }
+// }
 //setGames() will make our API call and use the dispatch method to send an action to the reducer.
 export function setGames() {
   return function (dispatch) {

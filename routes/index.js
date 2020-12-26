@@ -60,19 +60,31 @@ router.delete("/games/:id", function (req, res) {
   });
 });
 
-router.patch("/games/:id/likePost"), function (req, res) {
 
-  if(!Mongoose.Types.ObjectId.isValid(req.params.id)) return res.status(404).send(`No post with id: ${id}`);
-  Game.findById(req.params.id);
-  // Game.findByIdAndUpdate(req.params.id, {likeCount: game.likeCount + 1}, {new: true})
-  Game.findByIdAndUpdate(req.params.id)
-  .then(function() {
-    res.status(200).json({likeCount: game.likeCount + 1}, {new: true})
-  })
-  .catch(function (err) {
-    res.status(400).send("Game like failed.")
+router.patch("/games/:id/likePost", function (req, res) {
+  Game.findByIdAndUpdate(req.params.id, req.body)
+    .then(function () {
+      res.json({likeCount : game.likeCount + 1}, "game like increased!!!!");
+    })
+    .catch(function (err) {
+      res.status(422).send("Game update failed/ Rawans route");
+    });
 });
-}
+
+// router.patch("/games/:id/likePost"), function (req, res) {
+
+//   if(!Mongoose.Types.ObjectId.isValid(req.params.id)) return res.status(404).send(`No post with id: ${id}`);
+//   Game.findById(req.params.id);
+//   console.log(req.params.id)
+//   // Game.findByIdAndUpdate(req.params.id, {likeCount: game.likeCount + 1}, {new: true})
+//   Game.findByIdAndUpdate(req.params.id)
+//   .then(function() {
+//     res.status(200).json({likeCount: game.likeCount + 1}, {new: true})
+//   })
+//   .catch(function (err) {
+//     res.status(400).send("Game like failed.")
+// });
+// }
 
 // router.put("/like", function(req, res) {
 //   Game.findByIdAndUpdate(req.params.id, {
