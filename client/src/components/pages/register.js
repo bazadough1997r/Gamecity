@@ -35,67 +35,61 @@ const Register = ({ registerUser, isLoggedIn }) => {
     }
 
     const onsubmit = () =>{
-        if(firstName === "" || lastName === "" || username === "" || email === "" || city === "" || phoneNo === "" || birthday === "" || password === ""){
-        return swal("Please fill all required fields")
-        } 
-        if (username.length<5) {
-        return swal(
-            "Please fill your username and try to make it 5 characters or more!");
-        }
-        if (phoneNo.length<10) {
-            return swal
-               ( "Please enter your phone number,  10 numbers!");
-            }
-       if (password.length<5) {
-        return swal
-            ("Please enter your password and try to make it more than 5 characters!");        }
-    //    if(useradded){
+    //     if (username.length<5) {
+    //     return swal(
+    //         "Please fill your username and try to make it 5 characters or more!");
+    //     }
+    //     if (phoneNo.length<10) {
+    //         return swal
+    //            ( "Please enter your phone number,  10 numbers!");
+    //         }
+    //    if (password.length<5) {
     //     return swal
-    //     ("There is an account with same Username or Email,please choose another one?");
-    //    }
-        else {
+    //         ("Please enter your password and try to make it more than 5 characters!");        }
+    
+    //     else {
        
         registerUser(firstName, lastName, username, email, city,phoneNo, birthday, password)
         
-        }
+        
         
     }
     
 
     return (
-        <div><form>
+        <div><form data-toggle="validator" role="form">
             <h1>REGISTER PAGE</h1>
             <label>First name</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName}  required={true}></input>
+            <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName}  required></input>
             <br/>
             <label>Last name</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="text" name = "lastName" value={lastName} ></input>
+            <input onChange = {(e)=> onChange(e) } type="text" name = "lastName" value={lastName} required={true}></input>
             <br/>
             <label>username</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="text" name = "username" value={username}></input>
+            <input onChange = {(e)=> onChange(e) } type="text" name = "username" value={username} required={true}></input>
             <br/>
             <label>Email</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="email" name = "email" value={email}></input>
+            <input onChange = {(e)=> onChange(e) } type="email" name = "email" value={email} required={true}></input>
             <br/>
             <label>city</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="text" name = "city" value={city}></input>
+            <input onChange = {(e)=> onChange(e) } type="text" name = "city" value={city} required={true}></input>
             <br/>
             <label>Phone No.</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="number" name = "phoneNo" value={phoneNo}></input>
+            <input onChange = {(e)=> onChange(e) } type="number" name = "phoneNo" value={phoneNo} required={true}></input>
             <br/>
             <label>Birthday</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="date" name = "birthday" value={birthday}></input>
+            <input onChange = {(e)=> onChange(e) } type="date" name = "birthday" value={birthday} required={true}></input>
             <br/>
             <label>Password</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="password" name = "password" value={password}   maxlength="20"></input>
+            <input onChange = {(e)=> onChange(e) } type="password" name = "password" value={password}   required={true}></input>
             <br/>
             <br/>
             <button type= "submit" onClick= {()=> onsubmit()}>submit</button>
