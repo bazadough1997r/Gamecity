@@ -9,15 +9,12 @@ import LikeButton from "../likeButton.js";
 // import { DELETE, LIKE } from '../../actions/index.js';
 // import e from "cors";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import Filter from './Filter'
-import { connect } from 'react-redux';
-import  { setGames } from '../../actions';
-
-  const GameList = (props) => {
-  // const [games, setGames] = useState([]);
 // import { Nav } from "react-bootstrap";
 // import { Form } from "react-bootstrap";
 
+export default function GameList(props) {
+  const [games, setGames] = useState([]);
+  // const [governerates, setGovernerates] = useState([]);
 
   const [game, setFields] = useState({ like: 0, comment: "" });
   const dispatch = useDispatch();
@@ -55,31 +52,15 @@ import  { setGames } from '../../actions';
     getGames();
   }, []);
 
-  // //filter function to filter games cities
-  // function onChangeGovernerates(e) {
-  // // //  setGovernerates(governerates) =>
-  //    let string = e.target.value;
-  //   let city = games.gameGovernorate;
-  //   //) => games.gameGovernorate.includes(string));
-  // //   setGovernerates({ governerates: governerates });
-  //  return { games : setGames.games.filter ( city => city === string) }
-
-  // }
-
-  // function filterByInput(e) {
-  //    console.log(e.target.value)
-  // }
-
   return (
     <div>
-      <Filter />
       <hr />
       <MDBContainer>
         <MDBRow>
           <MDBCol md="3">
           </MDBCol>
-          <MDBCol md="6">
-            {props.games.filteredItems.map((game) => {
+          <MDBCol md="6" style={{ marginTop: "20px" }}>
+            {games.map((game) => {
               return (
                 <div key={game._id}>
                   <h4>
@@ -98,10 +79,9 @@ import  { setGames } from '../../actions';
                         <h6>Duration: {game.gameDuration}</h6>
                       </MDBCol>
                     </MDBRow>
-                    <img src={game.selectedFile} width="250px" alt="soora"/>
+                    <img src={game.selectedFile} width="250px" alt="game post"/>
                     <br />
                     <form onSubmit={handleSubmit}>
-                      {/* <button onClick={setFields({...game, like: game.like++})}>Likes: {game.like}</button> */}
                       <LikeButton />
                       <br />
                       <div className="form-group">
@@ -136,10 +116,3 @@ import  { setGames } from '../../actions';
     </div>
   );
 }
-
-const mapStateToProps = state => ({
-  games: state.games
-})
-
-export default connect(mapStateToProps, {setGames})(GameList);
-
