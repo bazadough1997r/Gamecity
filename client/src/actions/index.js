@@ -168,7 +168,7 @@ export const loginUser = (email, password) => async dispatch => {
   try {
    
    const body = {email, password}
-   const response = await axios.post('addUser/login', body);
+   const response = await axios.post('/addUser/login', body);
    window.location = '/games'
    
    dispatch({
