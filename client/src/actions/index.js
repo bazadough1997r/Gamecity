@@ -6,6 +6,8 @@ import { setToken } from '../components/pages/setToken'
 export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
 // export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 // export const FETCH_USER_FAILURE = "FETCH_USER_FAILURE";
+export const LIKE = 'LIKE';
+export const FETCH_ALL = 'FETCH_ALL';
 
 export const SET_GAMES = "SET_GAMES";
 
@@ -159,13 +161,14 @@ export const registerUser = ( firstName, lastName, username, email, city, phoneN
 
 
 
+export const LOGIN_SUCCESS2 = 'LOGIN_SUCCESS2'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const loginUser = (email, password) => async dispatch => {
   try {
    
-    const body = {email, password}
-   const response = await axios.post('addUser/login', body);
+   const body = {email, password}
+   const response = await axios.post('/addUser/login', body);
    window.location = '/games'
    
    dispatch({
@@ -182,9 +185,3 @@ export const loginUser = (email, password) => async dispatch => {
     })
   }
 }
-
-
-
-
-
-

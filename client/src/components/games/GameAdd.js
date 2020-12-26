@@ -2,22 +2,32 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { post } from "axios";
-
+import FileBase from "react-file-base64";
 //Import the addGame function from the Actions file.
 import { addGame } from "../../actions";
-//Import the storage from firebase file
+// import { set } from "mongoose";
+// //Import the storage from firebase file
 // import {storage} from "../../firebase";
+// import UploadImage from "../../UploadImage.jpg"
 
 function GameAdd(props) {
+  
   const initialState = {
     gameName: "",
     gameType: "Select Game",
     gameDuration: "",
     gameDate: "",
     gameGovernorate: "Select Governorate",
-    // image: null,
-    // url: ""
+    selectedFile: "",
+    like: 0,
+    comment:""
   };
+
+  // const [image, setImage] = useState(null);
+  // const [url, setUrl] = useState("");
+  // const [progress, setProgress] = useState(0);
+  // const [error, setError] = useState("");
+
   //useState: UseState is a two element array that contains the current state as the
   //first element and a function to update it as the second. Here we're assigning the
   //(const) variable "game" to the current state value, and "setFields" to the update function.
@@ -48,18 +58,48 @@ function GameAdd(props) {
     setFields({ ...game, gameDuration: event.target.value });
   }
 
+
   // function handleChangeImage(event) {
-  //   console.log(event.target.files[0]);
-  //   if(event.target.files[0]){
-  //     setFields({ ...game, image: event.target.files[0]});
-  //   } else {
-  //     console.log("Error: handleChangeImage")
-  //   }
+  //   const file = event.target.files[0];
+  //     if (file) {
+  //       //Check file type
+  //       const fileType = file["type"];
+  //       const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+  //       if (validImageTypes.includes(fileType)) {
+  //         setError("");
+  //         setImage(file);
+  //         // console.log(file);
+  //       }else {
+  //       setError("Please select an image to upload")
+  //     } 
+  //     }
   // }
 
-  // function handleUpload(event) {
-  //   // const image =
-  //   const uploadTask = storage.ref(`images/${image.name}`).put(image);
+  // function HandleUpload(event) {
+  //   if(image) {
+  //     //Images is the folder in firebase that contains the images
+  //     const uploadTask = storage.ref(`images/${image.name}`).put(image);
+  //     uploadTask.on(
+  //       "state_changed",
+  //       snapshot => {
+  //           const progress = Math.round(
+  //             (snapshot.bytesTransferred / snapshot.totalBytes)
+  //           )
+  //           setProgress(progress)
+  //       },
+  //       error => {
+  //         setError(error)
+  //       },
+  //       () => {
+  //         storage.ref("images").child(image.name).getDownloadURL().then(url => {
+  //           setUrl(url)
+  //           setProgress(0);
+  //         });
+  //       }
+  //     );
+  //   } else {
+  //     setError("Error, please choose an image to upload")
+  //   }
   // }
 
   //When the user presses the submit button it calls the handleSubmit function. This is where our API post
@@ -74,6 +114,7 @@ function GameAdd(props) {
       gameDate: game.gameDate,
       gameDuration: game.gameDuration,
       gameGovernorate: game.gameGovernorate,
+      selectedFile: game.selectedFile
     })
       .then(function (response) {
         dispatch(addGame(response.data));
@@ -85,6 +126,8 @@ function GameAdd(props) {
         console.log(error);
       });
   }
+
+
 
   function handleCancel() {
     props.history.push("/");
@@ -187,28 +230,60 @@ function GameAdd(props) {
         </div>
 
         {/* IMAGE- Upload Image */}
-        {/* <div className = "form-group">
+        <div className = "form-group">
         <label>Upload Image</label>
-        <br/>
-          <input
-            type = "file"
-            onChange = {handleChangeImage}
+        <br/> 
+          <FileBase
+            type = "file" 
+            multiple = {false} 
+            onDone = {({base64}) => setFields({...game, selectedFile: base64})}
           />
-          <button onClick = {handleUpload}>Upload</button>
+        </div> 
+         {/* <div>
+           <input
+             type = "file"
+             onChange = {handleChangeImage}
+            /> {" "}
+            <button onClick = {HandleUpload}>Upload</button>
+          </div>
+          <div>
+            {progress > 0? <progress value = {progress} max = "100"/> : ""}
+           <p> {error} </p>
+          </div>
+          {url ? (
+            <img src = {url} alt = "image" width = "250px" height = "125px" />
+          ) : (
+            <img src = {UploadImage} alt = "UploadImage" width = "250px" height = "125px"/>
+          )} 
+        </div> 
+        <div>
+           <input
+             type = "file"
+             onChange = {handleChangeImage}
+            /> {" "}
+            <button onClick = {HandleUpload}>Upload</button>
+          </div>
+          <div>
+            {/* {game.progress > 0? <game.progress value = {game.progress} max = "100"/> : ""} 
+           <p> {game.error} </p>
+          </div>
+          {game.url ? (
+            <img src = {game.url} alt = "image" />
+          ) : (
+            <img src = {UploadImage} alt = "UploadImage" />
+          )} 
         </div> */}
 
         <div className="btn-group">
           <button type="submit" value="Post" className="btn btn-primary">
-            {" "}
-            Submit{" "}
+            Submit
           </button>
           <button
             type="button"
             onClick={handleCancel}
             className="btn btn-secondary"
           >
-            {" "}
-            Cancel{" "}
+            Cancel
           </button>
         </div>
       </form>

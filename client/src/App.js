@@ -6,8 +6,8 @@ import {
   Switch,
 } from "react-router-dom";
 import "./App.css";
-import ProtectedRoute from "./components/pages/ProtectedRoute"
-import notfound from "./components/pages/notfound"
+import ProtectedRoute from "./components/pages/ProtectedRoute";
+import notfound from "./components/pages/notfound";
 import Profile from "./components/pages/Profile";
 import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
@@ -16,16 +16,15 @@ import GameEdit from "./components/games/GameEdit";
 import { loadUser } from "./actions";
 import { setToken } from "./components/pages/setToken";
 import { store } from "./index";
-import login from "./components/pages/login";
+import Login from "./components/pages/login";
 import SearchForm from "./components/pages/SearchForm";
-import register from "./components/pages/register";
-import { connect } from 'react-redux'
-
+import Register from "./components/pages/register";
+// import FooterPage from "./Footer"
+import Land from "./components/Land";
 
 if (localStorage.getItem("token")) {
   setToken(localStorage.getItem("token"));
 }
-
 
 function App() {
   useEffect(() => {
@@ -62,7 +61,7 @@ function Navigation() {
         </ul>
         <ul className="nav justify-content-start">
           <li className="nav-item">
-            <SearchForm/>
+            <SearchForm />
           </li>
         </ul>
         <ul className="nav justify-content-end ">
@@ -72,73 +71,30 @@ function Navigation() {
               className="nav-link"
               activeClassName="active"
               to="/games"
-              style={{color: "white"}}
+              style={{ color: "white" }}
             >
               Games
             </NavLink>
-          </li>
-          <li className="nav-item dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-              style={{color: "white"}}
-            >
-              Account
-            </a>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="/profile">
-                Profile
-              </a>
-              <a className="dropdown-item" href="/land">
-                Logout
-              </a>
-              <div className="dropdown-divider"></div>
-            </div>
-          </li>
-          <li className="nav-item dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-              style={{color: "white"}}
-            >
-              Notifications
-            </a>
-            <div className="dropdown-menu">
-              <a className="dropdown-item" href="/notifications">
-                Notification#1
-              </a>
-              <a className="dropdown-item" href="/notifications">
-                Notification#2
-              </a>
-            </div>
           </li>
           <li className="nav-item">
             <NavLink
               exact
               className="nav-link"
               activeClassName="active"
-              to="/addUser"
-              style={{color: "white"}}
+              to="/land"
+              style={{ color: "white" }}
             >
-              Signup
+              Login
             </NavLink>
           </li>
           <li>
-          <NavLink
+            <NavLink
               exact
               className="nav-link"
               activeClassName="active"
-              to="/addUser"
-              style={{color: "white"}}
-              onClick = { () => logout() }
+              to="/land"
+              style={{ color: "white" }}
+              onClick={() => logout()}
             >
               Logout
             </NavLink>
@@ -152,24 +108,41 @@ function Navigation() {
 function Main() {
   return (
     <Switch>
-      {/* <Route exact path="/" component={GameList} /> */} 
-      <ProtectedRoute exact path="/games" component={GameList} isAuth={localStorage.length>0}/>
-      <Route exact path="/" component={GameList} /> 
+      {/* <Route exact path="/" component={GameList} /> */}
+      <Route exact path="/land" component={Land} />
+      <ProtectedRoute
+        exact
+        path="/games"
+        component={GameList}
+        isAuth={localStorage.length > 0}
+
+      />
+      
+      <ProtectedRoute
+        exact
+        path="/"
+        component={GameList}
+        isAuth={localStorage.length > 0}
+      />
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
-      <Route exact path="/profile" component={Profile} />
-      <Route exact path="/login" component={login} />
-      <Route exact path="/addUser" component={register} />
+      <Route exact path="/profile" render={(props) => <Profile {...props} />} />
+      <Route exact path="/login" render={(props) => <Login {...props} />} />
+      <Route
+        exact
+        path="/addUser"
+        render={(props) => <Register {...props} />}
+      />
       <Route exact path="/notfound" component={notfound} />
+     
     </Switch>
   );
 }
 
-
 function logout() {
   window.localStorage.clear();
-  window.location = "/addUser";
+  window.location = "/land";
 }
-export default (App);
+export default App;
 //Our home page here is the GameList component.

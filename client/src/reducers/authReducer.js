@@ -1,7 +1,8 @@
 import {
-    REGISTER_SUCCESS,
+    // REGISTER_SUCCESS,
     REGISTER_FAILURE,
     LOGIN_SUCCESS,
+    LOGIN_SUCCESS2,
     LOGIN_FAILURE,
     AUTH_ERROR
 } from '../actions/index'
@@ -16,19 +17,19 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
     const { type, payload } = action;
     switch (type) {
-        case REGISTER_SUCCESS:
+        // case REGISTER_SUCCESS:
+        //     localStorage.setItem('token', payload.token)
+        //     return {
+        //         ...state,
+        //         isLoggedIn: true
+        //     }
+        case LOGIN_SUCCESS: 
             localStorage.setItem('token', payload.token)
             return {
                 ...state,
                 isLoggedIn: true
             }
-        case LOGIN_SUCCESS:
-            localStorage.setItem('token', payload.token)
-            return {
-                ...state,
-                isLoggedIn: true
-            }
-        case LOGIN_SUCCESS:
+        case LOGIN_SUCCESS2:
             localStorage.getItem('token')
             return {
                 ...state,
