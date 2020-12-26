@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import  { registerUser } from '../../actions';
 import { connect } from 'react-redux';
+// import ReduxForm from './registerForm1'
 
 
 // import { Redirect } from 'react-router-dom';
@@ -31,17 +32,16 @@ const Register = ({ registerUser, isLoggedIn }) => {
     }
 
     const onsubmit = () =>{
-        // if(firstName === "" || lastName === "" || username === "" || email === "" || city === "" || phoneNo === "" || birthday === "" || password === ""){
-        //     return alert("Fill all empty fields please!")
-        // } else 
-        // console.log(data)
+        if(firstName === "" || lastName === "" || username === "" || email === "" || city === "" || phoneNo === "" || birthday === "" || password === ""){
+            return alert("Please fill all required fields")
+        } else      
+        // if (required())
         registerUser(firstName, lastName, username, email, city,phoneNo, birthday, password)
     }
 
-
     return (
         <div>
-              <h1>REGISTER PAGE</h1>
+            <h1>REGISTER PAGE</h1>
             <label>First name</label>
             <br/>
             <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName}  required={true}></input>
@@ -81,6 +81,10 @@ const Register = ({ registerUser, isLoggedIn }) => {
         </div>
     )
 }
+
+// function mapStateToProps(state) {
+//     console.log(state,"fsdfsd")
+//   }
 
 const mapStateToProps = state => ({
     isLoggedIn: state.isLoggedIn
