@@ -109,6 +109,7 @@ function Main() {
   return (
     <Switch>
       {/* <Route exact path="/" component={GameList} /> */}
+      <Route exact path="/land" component={Land} />
       <ProtectedRoute
         exact
         path="/games"
@@ -132,7 +133,7 @@ function Main() {
         render={(props) => <Register {...props} />}
       />
       <Route exact path="/notfound" component={notfound} />
-      <Route exact path="/land" component={Land} />
+     
     </Switch>
   );
 }
