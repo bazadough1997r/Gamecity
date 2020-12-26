@@ -1,13 +1,145 @@
-import React from "react";
-import Profile from "./components/profile";
+import React, { useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+  Switch,
+} from "react-router-dom";
+import "./App.css";
+import ProtectedRoute from "./components/pages/ProtectedRoute";
+import notfound from "./components/pages/notfound";
+import Profile from "./components/pages/Profile";
+import GameList from "./components/games/GameList";
+import GameInfo from "./components/games/GameInfo";
+import GameAdd from "./components/games/GameAdd";
+import GameEdit from "./components/games/GameEdit";
+import { loadUser } from "./actions";
+import { setToken } from "./components/pages/setToken";
+import { store } from "./index";
+import Login from "./components/pages/login";
+import SearchForm from "./components/pages/SearchForm";
+import Register from "./components/pages/register";
+// import FooterPage from "./Footer"
+import Land from "./components/Land";
 
-const App = () => {
+if (localStorage.getItem("token")) {
+  setToken(localStorage.getItem("token"));
+}
+
+function App() {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
   return (
-    <div>
-      <h1>HI FROM RAHAF AND ABEER</h1>
-      <Profile />
+    <div className="App">
+      <Router>
+        <Navigation />
+        <div className="container">
+          <Main />
+        </div>
+      </Router>
     </div>
   );
-};
+}
 
+function Navigation() {
+  return (
+    <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+      <div className="container">
+        <ul className="nav justify-content-start ">
+          <li className="nav-item">
+            <a href="/" className="navbar-brand">
+              <img
+                height="30px"
+                width="30px"
+                src={`${process.env.PUBLIC_URL}/Logo/GamecityLogo.png`}
+                alt="Gamecity logo"
+              />
+            </a>
+          </li>
+        </ul>
+        <ul className="nav justify-content-start">
+          <li className="nav-item">
+            <SearchForm />
+          </li>
+        </ul>
+        <ul className="nav justify-content-end ">
+          <li className="nav-item">
+            <NavLink
+              exact
+              className="nav-link"
+              activeClassName="active"
+              to="/games"
+              style={{ color: "white" }}
+            >
+              Games
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink
+              exact
+              className="nav-link"
+              activeClassName="active"
+              to="/land"
+              style={{ color: "white" }}
+            >
+              Login
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              exact
+              className="nav-link"
+              activeClassName="active"
+              to="/land"
+              style={{ color: "white" }}
+              onClick={() => logout()}
+            >
+              Logout
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
+}
+
+function Main() {
+  return (
+    <Switch>
+      {/* <Route exact path="/" component={GameList} /> */}
+      <ProtectedRoute
+        exact
+        path="/games"
+        component={GameList}
+        isAuth={localStorage.length > 0}
+      />
+      <ProtectedRoute
+        exact
+        path="/"
+        component={GameList}
+        isAuth={localStorage.length > 0}
+      />
+      <Route exact path="/games/new" component={GameAdd} />
+      <Route exact path="/games/:_id" component={GameInfo} />
+      <Route exact path="/games/:_id/edit" component={GameEdit} />
+      <Route exact path="/profile" render={(props) => <Profile {...props} />} />
+      <Route exact path="/login" render={(props) => <Login {...props} />} />
+      <Route
+        exact
+        path="/addUser"
+        render={(props) => <Register {...props} />}
+      />
+      <Route exact path="/notfound" component={notfound} />
+      <Route exact path="/land" component={Land} />
+    </Switch>
+  );
+}
+
+function logout() {
+  window.localStorage.clear();
+  window.location = "/land";
+}
 export default App;
+//Our home page here is the GameList component.
