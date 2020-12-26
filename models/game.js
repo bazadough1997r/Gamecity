@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// const {ObjectId} = mongoose.Schema.Types
 
 const gameSchema = new mongoose.Schema({
   gameName: {
@@ -21,14 +22,14 @@ const gameSchema = new mongoose.Schema({
     type: String,
     required: [true, "Game governorate is required"]
   },
-  like: {
+  likeCount: {
     type: Number,
     default: 0
   },
-  // createdAt: {
-  //   type: Date,
-  //   default: new Date()
-  // },
+  createdAt: {
+    type: Date,
+    default: new Date()
+  },
   comment : {
     type: String
   },
@@ -40,30 +41,3 @@ const gameSchema = new mongoose.Schema({
 
 module.exports = mongoose.model("Game", gameSchema);
 
-/*
-this is the old schema
-I'll add the rest of the old schema when i finish the essence
-
-const gameSchema = mongoose.Schema({
-
-  post: String,
-  game: String,
-  duration: String,
-  date: Date,
-  location: String,
-  image: String,
-  likeCount: {
-      type: Number,
-      default: 0
-  },
-  createdAt: {
-    type: Date,
-    default: new Date(),
-  },
-
-});
-
-const GameSchema = mongoose.model('GameSchema', gameSchema);
-
-export default GameSchema;
-*/

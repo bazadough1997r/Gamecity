@@ -1,4 +1,6 @@
 const express = require("express");
+const { Mongoose } = require("mongoose");
+const game = require("../models/game");
 const router = express.Router();
 const Game = require("../models/game");
 
@@ -58,6 +60,25 @@ router.delete("/games/:id", function (req, res) {
   });
 });
 
+router.patch("/games/:id/likePost"), function (req, res) {
+
+  if(!Mongoose.Types.ObjectId.isValid(req.params.id)) return res.status(404).send(`No post with id: ${id}`);
+  Game.findById(req.params.id);
+  // Game.findByIdAndUpdate(req.params.id, {likeCount: game.likeCount + 1}, {new: true})
+  Game.findByIdAndUpdate(req.params.id)
+  .then(function() {
+    res.status(200).json({likeCount: game.likeCount + 1}, {new: true})
+  })
+  .catch(function (err) {
+    res.status(400).send("Game like failed.")
+});
+}
+
+// router.put("/like", function(req, res) {
+//   Game.findByIdAndUpdate(req.params.id, {
+//     $push: {likes:req.user._id}
+//   })
+// })
+
 module.exports = router;
 
-//Rawaaaaaaaaaan is testinggggggg

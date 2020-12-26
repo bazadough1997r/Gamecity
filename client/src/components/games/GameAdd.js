@@ -14,15 +14,10 @@ function GameAdd(props) {
     gameDuration: "",
     gameDate: "",
     gameGovernorate: "Select Governorate",
-    selectedFile: "",
-    like: 0,
-    comment:""
+    selectedFile: ""
+    // comment:""
   };
 
-  // const [image, setImage] = useState(null);
-  // const [url, setUrl] = useState("");
-  // const [progress, setProgress] = useState(0);
-  // const [error, setError] = useState("");
 
   //useState: UseState is a two element array that contains the current state as the
   //first element and a function to update it as the second. Here we're assigning the
