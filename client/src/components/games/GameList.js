@@ -16,12 +16,12 @@ export default function GameList(props) {
   const [games, setGames] = useState([]);
   // const [governerates, setGovernerates] = useState([]);
 
-  const [game, setFields] = useState({ like: 0, comment: "" });
+  const [game] = useState({ like: 0});
   const dispatch = useDispatch();
 
-  function handleChangeComment(event) {
-    setFields({ ...game, comment: event.target.value });
-  }
+  // function handleChangeComment(event) {
+  //   setFields({ ...game, comment: event.target.value });
+  // }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -84,7 +84,7 @@ export default function GameList(props) {
                     <form onSubmit={handleSubmit}>
                       <LikeButton />
                       <br />
-                      <div className="form-group">
+                      {/* <div className="form-group">
                         <input
                           type="text"
                           value={game.comment}
@@ -95,7 +95,7 @@ export default function GameList(props) {
                         <button type="Submit">Comment</button>
                         <br />
                         <h6>{game.comment}</h6>
-                      </div>
+                      </div> */}
                     </form>
                   </MDBContainer>
                   <hr/>
@@ -116,3 +116,5 @@ export default function GameList(props) {
     </div>
   );
 }
+
+//testing deployment -from rawan
