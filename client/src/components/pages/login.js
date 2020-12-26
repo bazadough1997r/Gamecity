@@ -25,30 +25,23 @@ const Login = ( {loginUser, isLoggedIn} ) => {
         loginUser(email, password)
     }
 
-    
-
-
     return (
-        <div>
-            <h1>LOGIN PAGE</h1>
-            <label>Email</label>
+        <div style={{ textAlign:"center" }}>
+            <h3>Login</h3>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="email" name = "email" value={email}></input>
-            <br/>
-            <label>Password</label>
-            <br/>
-            <input onChange = {(e)=> onChange(e) } type="password" name = "password" value={password}></input>
+            <input onChange = {(e)=> onChange(e) } type="email" name = "email" value={email} placeholder="email address"></input>
             <br/>
             <br/>
-            <button type= "submit" onClick= {()=> onsubmit()}>submit</button>
-            <p>Register new account <a href="/addUser">SignUp</a></p>
-
+            <input onChange = {(e)=> onChange(e) } type="password" name = "password" value={password} placeholder="password"></input>
+            <br/>
+            <br/>
+            <button type= "submit" onClick= {()=> onsubmit()}>Login</button>
+            <p>you don't have an account? <a href="/addUser">signup</a></p>
         </div>
     )
 }
 
 const mapStateToProps = state =>({
     isLoggedIn: state.authReducer.isLoggedIn
-
 })
 export default connect(mapStateToProps, {loginUser})(Login);
