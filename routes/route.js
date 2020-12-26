@@ -3,7 +3,9 @@ const AddUser = require("../models/profileSchema.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
- 
+
+
+
 router.get("/", async (req, res) => {
   AddUser.find()
     .then((users) => res.json(users))
@@ -45,12 +47,11 @@ router.post("/",  async (req, res) => {
   console.log("user added");
 
   if (useradded)
-    return res
-      .status(400)
-      .send(
-        "There is an account with same Username or Email,please choose another one?"
+    return res.status(400).send(
+       "There is an account with same Username or Email,please choose another one?"
       );
-  const username = req.body.username;
+
+     
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const email = req.body.email;
@@ -58,8 +59,12 @@ router.post("/",  async (req, res) => {
   const phoneNo = req.body.phoneNo;
   const birthday = req.body.birthday;
   //hashing password
-
+  
   const hashedPassword = bcrypt.hashSync(req.body.password, 10)
+  // if (Password.length < 5)
+  // return res.status(400).send({ msg: "The password need to be at least 5 characters long. " }); 
+const username = req.body.username;
+  
 
   //every thing is readdy here we send the data to the server  
   const newUser = await AddUser.create({
@@ -72,6 +77,8 @@ router.post("/",  async (req, res) => {
     birthday: birthday,
     password: hashedPassword,
   });
+
+
   console.log(newUser);
   try {
     const saveUser = await newUser.save();

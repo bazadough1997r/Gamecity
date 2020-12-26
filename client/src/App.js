@@ -115,7 +115,9 @@ function Main() {
         path="/games"
         component={GameList}
         isAuth={localStorage.length > 0}
+
       />
+      
       <ProtectedRoute
         exact
         path="/"

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import  { registerUser } from '../../actions';
 import { connect } from 'react-redux';
-// import swal from '@sweetalert/with-react'
+
 
 
 
