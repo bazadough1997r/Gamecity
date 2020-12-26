@@ -4,7 +4,7 @@ import { SET_GAMES, ADD_GAME, REMOVE_GAME, REPLACE_GAME } from "../actions";
 //Declare our reducer function with two arguments, state and action. Set the initial state to an empty games array.
 const initialState = { games: [] };
 export default function gamesReducer(state = initialState, action) {
-  console.log(state,"staaaate")
+  // console.log(state,"staaaate")
   //Use a switch statement to match the action type. If the action type is SET_GAMES it returns the games data to update the store with.
   switch (action.gameName) {
     //You need a default case. If there is no match, the reducer will just return the current state.
