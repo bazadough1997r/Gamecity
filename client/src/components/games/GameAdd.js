@@ -20,7 +20,8 @@ function GameAdd(props) {
     gameGovernorate: "Select Governorate",
     selectedFile: "",
     like: 0,
-    comment:""
+    comment:"",
+    email: window.localStorage.email
   };
 
   // const [image, setImage] = useState(null);
@@ -114,7 +115,8 @@ function GameAdd(props) {
       gameDate: game.gameDate,
       gameDuration: game.gameDuration,
       gameGovernorate: game.gameGovernorate,
-      selectedFile: game.selectedFile
+      selectedFile: game.selectedFile,
+      email: game.email
     })
       .then(function (response) {
         dispatch(addGame(response.data));
@@ -292,5 +294,5 @@ function GameAdd(props) {
 }
 
 export default GameAdd;
-
 //NOTE: we'll use the useDispatch hook to modify the Redux store.
+

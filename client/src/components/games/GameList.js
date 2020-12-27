@@ -3,25 +3,14 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { post } from "axios";
 import { Link } from "react-router-dom";
-// import Register from "../pages/register"
-// import Login from "../pages/login"
 import LikeButton from "../likeButton.js";
-// import { DELETE, LIKE } from '../../actions/index.js';
-// import e from "cors";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-// import { Nav } from "react-bootstrap";
-// import { Form } from "react-bootstrap";
 
 export default function GameList(props) {
   const [games, setGames] = useState([]);
-  // const [governerates, setGovernerates] = useState([]);
 
   const [game] = useState({ like: 0});
   const dispatch = useDispatch();
-
-  // function handleChangeComment(event) {
-  //   setFields({ ...game, comment: event.target.value });
-  // }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -84,18 +73,6 @@ export default function GameList(props) {
                     <form onSubmit={handleSubmit}>
                       <LikeButton />
                       <br />
-                      {/* <div className="form-group">
-                        <input
-                          type="text"
-                          value={game.comment}
-                          onChange={handleChangeComment}
-                          className="form-control"
-                          placeholder="Type in your comment here..."
-                        />
-                        <button type="Submit">Comment</button>
-                        <br />
-                        <h6>{game.comment}</h6>
-                      </div> */}
                     </form>
                   </MDBContainer>
                   <hr/>
@@ -116,5 +93,3 @@ export default function GameList(props) {
     </div>
   );
 }
-
-//testing deployment -from rawan

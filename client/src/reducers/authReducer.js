@@ -57,6 +57,7 @@ import {
   } from "../actions/index";
   const initialState = {
     token: localStorage.getItem("token"),
+    email: localStorage.getItem("email"),
     isLoggedIn: false,
     errors: {},
   };
@@ -69,10 +70,12 @@ import {
         };
       case LOGIN_SUCCESS:
         localStorage.setItem("token", payload.token);
+        localStorage.setItem("email", payload.email);
         return {
           ...state,
           isLoggedIn: true,
           token: payload.token,
+          email: payload.email,
         };
       case LOGIN_FAILURE:
       case REGISTER_FAILURE:
