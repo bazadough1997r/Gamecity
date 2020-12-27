@@ -83,10 +83,9 @@ const Register = ({ registerUser, isLoggedIn }) => {
 
 
 
-const mapStateToProps = state => ({
-    isLoggedIn: state.isLoggedIn
-    
-})
+    const mapStateToProps = state => ({
+        isLoggedIn: state.authReducer.isLoggedIn
+    })
 
 
 export default connect(mapStateToProps, {registerUser})(Register);

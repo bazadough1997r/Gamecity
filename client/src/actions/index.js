@@ -119,38 +119,31 @@ export const loadUser = () => async dispatch => {
     setToken(localStorage.getItem('token'))
   }
   try {
-
    const response =  await axios.get('/addUser');
    dispatch({
      type: LOAD_USER,
      payload: response.data
-
    }) 
-
   } catch (error) {
     dispatch({
       type: AUTH_ERROR,
       payload: error 
     })
-
   }
 }
-
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 export const REGISTER_FAILURE = 'REGISTER_FAILURE'
 export const registerUser = ( firstName, lastName, username, email, city, phoneNo, birthday, password ) => async dispatch => {
-
   try {
      const body = { firstName, lastName, username, email, city, phoneNo, birthday, password }
      const response = await axios.post('/addUser', body);
+     console.log(response.data.id, "responseee")
      window.location = '/login'
-
    dispatch({
      type: REGISTER_SUCCESS,
-     payload: response.data
+     payload: response.data.id
    })
    dispatch(loadUser())
-
   } catch (error) {
     dispatch({
       type: REGISTER_FAILURE,
@@ -158,26 +151,19 @@ export const registerUser = ( firstName, lastName, username, email, city, phoneN
     })
   }
 }
-
-
-
-export const LOGIN_SUCCESS2 = 'LOGIN_SUCCESS2'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const loginUser = (email, password) => async dispatch => {
   try {
-   
-   const body = {email, password}
-   const response = await axios.post('/addUser/login', body);
-   window.location = '/games'
-   
+    const body = {email, password}
+   const response = await axios.post('addUser/login', body);
+   console.log(response, "responseee")
    dispatch({
      type: LOGIN_SUCCESS,
      payload: response.data
    })
-   
+   window.location = '/'
    dispatch(loadUser())
-
   } catch (error) {
     dispatch({
       type: LOGIN_FAILURE,
