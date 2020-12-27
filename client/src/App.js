@@ -75,14 +75,20 @@ function Navigation() {
           <div className="container">
             <ul className="nav justify-content-start ">
               <li className="nav-item">
-                <a href="/" className="navbar-brand">
+              <NavLink
+                  exact
+                  className="nav-link"
+                  activeClassName="active"
+                  to="/"
+                  style={{ color: "white" }}
+                >
                   <img
                     height="30px"
                     width="30px"
                     src={`${process.env.PUBLIC_URL}/Logo/GamecityLogo.png`}
                     alt="Gamecity logo"
                   />
-                </a>
+                </NavLink>
               </li>
             </ul>
             <ul className="nav justify-content-start">
