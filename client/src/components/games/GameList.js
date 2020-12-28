@@ -22,7 +22,7 @@ function GameList(props) {
         setGames(response.data);
         // console.log(games, 'gamessss')
       } catch (error) {
-        console.log(error, "error from  useEffect in GameList");
+        console.log("error", error);
       }
     }
     getGames();

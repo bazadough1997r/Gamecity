@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { get, patch } from "axios";
 
 function GameEdit(props) {
-  console.log(props)
-  const initialState = {
-    gameName: "",
+  const initialState = { 
+    gameName: "",     
     gameType: "Select Game",
     gameDuration: "",
     gameDate: "",
@@ -159,14 +158,16 @@ function GameEdit(props) {
 
         <div>
           <button type="submit" value="Post" className="btn btn-primary">
-            Update
+            {" "}
+            Update{" "}
           </button>
           <button
             type="button"
             onClick={handleCancel}
             className="btn btn-secondary"
           >
-            Cancel
+            {" "}
+            Cancel{" "}
           </button>
         </div>
       </form>

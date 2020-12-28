@@ -5,10 +5,6 @@ import { post } from "axios";
 import FileBase from "react-file-base64";
 //Import the addGame function from the Actions file.
 import { addGame } from "../../actions";
-// import { set } from "mongoose";
-// //Import the storage from firebase file
-// import {storage} from "../../firebase";
-// import UploadImage from "../../UploadImage.jpg"
 
 function GameAdd(props) {
   console.log(props)
@@ -90,11 +86,14 @@ function GameAdd(props) {
 
   return (
     <div>
-      <h4>What's your next game?..</h4>
-
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Post</label>
+      <br /> <br/>
+    <div className = "container">
+      <form  className="text-center border border-light p-9 rounded" onSubmit={handleSubmit}>
+        <div className = "form-group">
+      <h4 className="mb-4">What's your next game?..</h4>
+        <br />        
+        <div className="col">
+          {/* <label>Post</label> */}
           <input
             type="text"
             required
@@ -104,10 +103,10 @@ function GameAdd(props) {
             placeholder="Type in your post here..."
           />
         </div>
-
+        <br />
         {/* LOCATION- Drop DOWN MENU */}
-        <div className="form-group">
-          <label>Governorate</label>
+        <div className="col">
+          {/* <label>Governorate</label> */}
           <select
             type="text"
             required
@@ -131,10 +130,10 @@ function GameAdd(props) {
             <option value="Aqaba"> Aqaba</option>
           </select>
         </div>
-
+        <br />
         {/* SELECT GAME- DROPDOWN */}
-        <div className="form-group">
-          <label>Game</label>
+        <div className="col">
+          {/* <label>Game</label> */}
           <select
             type="text"
             required
@@ -158,10 +157,10 @@ function GameAdd(props) {
             <option value="Other.."> Others..</option>
           </select>
         </div>
-
+        <br />
         {/* DATE- CALENDAR DATE */}
-        <div className="form-group">
-          <label>Date</label>
+        <div className="col">
+          {/* <label>Date</label> */}
           <input
             type="date"
             required
@@ -170,10 +169,10 @@ function GameAdd(props) {
             className="form-control"
           />
         </div>
-
+        <br />
         {/* DURATION- SET TIME */}
-        <div className="form-group">
-          <label>Game Duration</label>
+        <div className="col">
+          {/* <label>Game Duration</label> */}
           <input
             type="text"
             required
@@ -183,7 +182,7 @@ function GameAdd(props) {
             placeholder="Set game's duration"
           />
         </div>
-
+        <br />
         {/* IMAGE- Upload Image */}
         <div className = "form-group">
         <label>Upload Image</label>
@@ -206,7 +205,9 @@ function GameAdd(props) {
             Cancel
           </button>
         </div>
+        </div>
       </form>
+    </div>
     </div>
   );
 }

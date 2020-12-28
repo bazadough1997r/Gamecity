@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// const {ObjectId} = mongoose.Schema.Types
 
 const gameSchema = new mongoose.Schema({
   gameName: {
@@ -25,10 +26,10 @@ const gameSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  // createdAt: {
-  //   type: Date,
-  //   default: new Date()
-  // },
+  createdAt: {
+    type: Date,
+    default: new Date()
+  },
   comment : {
     type: String
   },

@@ -1,4 +1,6 @@
 const express = require("express");
+const { Mongoose } = require("mongoose");
+const game = require("../models/game");
 const router = express.Router();
 const Game = require("../models/game");
 const mongoose = require ("mongoose");
