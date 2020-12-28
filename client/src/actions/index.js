@@ -31,27 +31,27 @@ export function setGames() {
   };
 }
 
-
+// export const LIKE_GAME = "LIKE_GAME";
 // export function likePost(game) {
-  //   return function (dispatch) {
-    //     return patch(`/api/games/${game._id}/likePost`)
-    //       .then (function(data) {
-      //         // const newGame = JSON.stringify(game);
-      //         console.log(data, "game from actions")
-      //         dispatch({ type : LIKE_GAME, game: game})
-      //         console.log(game.likeCount,"this is the game likeCount from the actions!")
-      //         // console.log(response.data, "response.data")
+//     return function (dispatch) {
+//         return patch(`/api/games/${game._id}/likePost`)
+//           .then (function(data) {
+//               // const newGame = JSON.stringify(game);
+//               console.log(data, "game from actions")
+//               dispatch({ type : LIKE_GAME, game: game})
+//               console.log(game.likeCount,"this is the game likeCount from the actions!")
+//               // console.log(response.data, "response.data")
       
-      //       })
-      //       .catch(function (error) {
-        //         console.log(error, "error from the actions")
-        //       })
-        //   }
-        // }
+//             })
+//             .catch(function (error) {
+//                 console.log(error, "error from the actions")
+//               })
+//           }
+//         }
         
 export const LIKE_GAME = "LIKE_GAME";
 export function likePost(game, callback) {
-  return function (dispatch) {
+  return async function (dispatch) {
     return axios.patch(`/api/games/${game._id}/likePost`,game)
       .then (function(data) {
         callback();
@@ -66,7 +66,7 @@ export function likePost(game, callback) {
 
 export const JOIN_GAME = "JOIN_GAME";
 export function joinPost(game, callback) {
-  return function (dispatch) {
+  return async function (dispatch) {
     return axios.patch(`/api/games/${game._id}/joinPost`,game)
       .then (function(data) {
         callback();
