@@ -6,9 +6,9 @@ import { filterGames, filterByType } from "../../actions";
 class Filter extends Component {
 
     render() {
-      // console.log(this.props.Governorates, "this.props.Governorates")
-      // console.log(this.props.filteredGames, "this.props.filteredGames")
-      // console.log(this.props.games, "this.props.games")
+      console.log(this.props.Governorates, "this.props.Governorates")
+      console.log(this.props.filteredGames, "this.props.filteredGames")
+      console.log(this.props.games, "this.props.games")
     return !this.props.filteredGames ? (
       <div>Loading...</div>
     ) : (

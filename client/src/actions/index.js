@@ -212,12 +212,15 @@
 
 import { get } from "axios";
 import axios from 'axios';
-import { setToken } from '../components/pages/setToken'
+import { setToken } from '../components/pages/setToken';
 
-export const LIKE = 'LIKE';
+
 export const FETCH_ALL = 'FETCH_ALL';
-
 export const SET_GAMES = "SET_GAMES";
+
+
+
+
 
 //setGames() will make our API call and use the dispatch method to send an action to the reducer.
 export function setGames() {
@@ -239,6 +242,55 @@ export function setGames() {
       });
   };
 }
+
+// export const LIKE_GAME = "LIKE_GAME";
+// export function likePost(game) {
+//     return function (dispatch) {
+//         return patch(`/api/games/${game._id}/likePost`)
+//           .then (function(data) {
+//               // const newGame = JSON.stringify(game);
+//               console.log(data, "game from actions")
+//               dispatch({ type : LIKE_GAME, game: game})
+//               console.log(game.likeCount,"this is the game likeCount from the actions!")
+//               // console.log(response.data, "response.data")
+      
+//             })
+//             .catch(function (error) {
+//                 console.log(error, "error from the actions")
+//               })
+//           }
+//         }
+        
+export const LIKE_GAME = "LIKE_GAME";
+export function likePost(game, callback) {
+  return async function (dispatch) {
+    return axios.patch(`/api/games/${game._id}/likePost`,game)
+      .then (function(data) {
+        callback();
+        dispatch({ type: LIKE_GAME, payload: data})
+
+      })
+      .catch(function (error) {
+        console.log(error, "error from the actions")
+      })
+  }
+}
+
+export const JOIN_GAME = "JOIN_GAME";
+export function joinPost(game, callback) {
+  return async function (dispatch) {
+    return axios.patch(`/api/games/${game._id}/joinPost`,game)
+      .then (function(data) {
+        callback();
+        dispatch({ type: JOIN_GAME, payload: data})
+
+      })
+      .catch(function (error) {
+        console.log(error, "error from the actions")
+      })
+  }
+}
+
 
 //The only thing we are doing in this action is passing on the game object to the reducer.
 export const ADD_GAME = "ADD_GAME";
@@ -272,7 +324,6 @@ export function replaceGame(game) {
     game: game,
   };
 }
-
 
 export const SET_USER = "SET_USER";
 export function setUser(user) {

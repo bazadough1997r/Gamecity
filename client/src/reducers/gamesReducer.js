@@ -56,8 +56,10 @@
 // }
 
 
-import { SET_GAMES, ADD_GAME, REMOVE_GAME, REPLACE_GAME, FILTER_GAMES_BY_GOVERNORATES, FILTER_GAMES_BY_TYPE } from "../actions";
+import { SET_GAMES, ADD_GAME, REMOVE_GAME, REPLACE_GAME, FILTER_GAMES_BY_GOVERNORATES, FILTER_GAMES_BY_TYPE, LIKE_GAME, JOIN_GAME } from "../actions";
 
+//Import SET_GAMES && ADD_GAME from the actions folder.
+// import { SET_GAMES, ADD_GAME, REMOVE_GAME, REPLACE_GAME, LIKE_GAME, JOIN_GAME } from "../actions";
 //Declare our reducer function with two arguments, state and action. Set the initial state to an empty games array.
 const initialState = { games: [], filteredItems: [], Governorates: "", type: "" };
 export default function gamesReducer(state = initialState, action) {
@@ -84,8 +86,12 @@ export default function gamesReducer(state = initialState, action) {
           return {
             ...state,
             gameName: action.game.gameName,
-            content: action.game.content,
-            type: action.game.gameType,
+            gameType: action.game.gameType,
+            gameDurartion: action.game.gameDuration,
+            gameDate: action.game.gameDate,
+            selectedFile: action.game.selectedFile,
+            likeCount: action.game.likeCount,
+            joinCount: action.game.joinCount
           };
         } else return game;
       });
@@ -101,6 +107,37 @@ export default function gamesReducer(state = initialState, action) {
           type: action.payload.type,//these ones are coming from the action payload
           filteredItems: action.payload.items
         }
+      case LIKE_GAME:
+        return state.map(function (game) {
+          if (game._id === action.game._id) {
+            return {
+              ...game,
+              gameName: action.game.gameName,
+              gameType: action.game.gameType,
+              gameDurartion: action.game.gameDuration,
+              gameDate: action.game.gameDate,
+              selectedFile: action.game.selectedFile,
+              likeCount: action.game.likeCount,
+              joinCount: action.game.joinCount
+
+            };
+          } else return game;
+        });
+        case JOIN_GAME:
+          return state.map(function (game) {
+            if (game._id === action.game._id) {
+              return {
+                ...game,
+                gameName: action.game.gameName,
+                gameType: action.game.gameType,
+                gameDurartion: action.game.gameDuration,
+                gameDate: action.game.gameDate,
+                selectedFile: action.game.selectedFile,
+                likeCount: action.game.likeCount,
+                joinCount: action.game.joinCount
+              };
+            } else return game;
+          });
     default:
       return state;
   }
