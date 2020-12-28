@@ -1,45 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { post } from "axios";
 import { Link } from "react-router-dom";
-import LikeButton from "../likeButton.js";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import {likePost, joinPost} from "../../actions/index.js"
 
-export default function GameList(props) {
+
+function GameList(props) {
+
   const [games, setGames] = useState([]);
 
-  const [game] = useState({ like: 0});
+  // console.log(games);
   const dispatch = useDispatch();
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    post("/api/games", {
-      like: game.like,
-      comment: game.comment,
-    })
-      .then(function (response) {
-        dispatch(GameList(response.data));
-      })
-      .then(function () {
-        props.history.push("/");
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
 
   useEffect(function () {
     async function getGames() {
       try {
+        //we have to add the id
         const response = await axios.get("/api/games");
+        // console.log(games, "useEffect")
         setGames(response.data);
+        // console.log(games, 'gamessss')
       } catch (error) {
-        console.log(error, "error from  useEffect in GameList");
+        console.log("error", error);
       }
     }
     getGames();
   }, []);
+
+  // function handleSubmit(e, game) {
+  //   e.preventDefault();
+  //   dispatch(likePost(game));
+  // }
 
   return (
     <div>
@@ -49,9 +41,12 @@ export default function GameList(props) {
           <MDBCol md="3">
           </MDBCol>
           <MDBCol md="6" style={{ marginTop: "20px" }}>
+            {/* {console.log(games)} */}
             {games.map((game) => {
+              // console.log(game._id)
               return (
                 <div key={game._id}>
+                    {/* {console.log(game.gameType)} */}
                   <h4>
                     <Link to={`/games/${game._id}`}>{game.gameName}</Link>
                   </h4>
@@ -70,10 +65,25 @@ export default function GameList(props) {
                     </MDBRow>
                     <img src={game.selectedFile} width="250px" alt="game post"/>
                     <br />
-                    <form onSubmit={handleSubmit}>
-                      <LikeButton />
-                      <br />
-                    </form>
+                    <button onClick = {() => dispatch(likePost(game), console.log(game._id, game))}>
+                      Like {game.likeCount}
+                    </button>
+                    <button onClick = {() => dispatch(joinPost(game), console.log(game._id, game))}>
+                      Join {game.joinCount}
+                    </button>
+                      <br /> <br />
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          value={game.comment}
+                          // onChange={handleChangeComment}
+                          className="form-control"
+                          placeholder="Type in your comment here..."
+                        />
+                        <button type="Submit">Comment</button>
+                        <br />
+                        <h6>{game.comment}</h6>
+                      </div>
                   </MDBContainer>
                   <hr/>
                 </div>
@@ -93,3 +103,5 @@ export default function GameList(props) {
     </div>
   );
 }
+  
+export default GameList;

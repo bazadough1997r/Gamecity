@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// const {ObjectId} = mongoose.Schema.Types
 
 const gameSchema = new mongoose.Schema({
   gameName: {
@@ -21,14 +22,18 @@ const gameSchema = new mongoose.Schema({
     type: String,
     required: [true, "Game governorate is required"]
   },
-  like: {
+  likeCount: {
     type: Number,
     default: 0
   },
-  // createdAt: {
-  //   type: Date,
-  //   default: new Date()
-  // },
+  joinCount: {
+    type: Number,
+    default: 0
+  },
+  createdAt: {
+    type: Date,
+    default: new Date()
+  },
   comment : {
     type: String
   },
@@ -38,7 +43,7 @@ const gameSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-  },
+  }
 });
 
 module.exports = mongoose.model("Game", gameSchema);
