@@ -5,20 +5,22 @@ import { Redirect } from 'react-router-dom';
 
 
 const Login = ( {loginUser, isLoggedIn} ) => {
+      
    console.log(isLoggedIn, "isLoggedIn")
     let [data, setData] = useState ({
         email: "",
         password: ""
     })
 
-    if(isLoggedIn) return <Redirect to="/games"/>
+  if(isLoggedIn) return <Redirect to="/games"/>
 
     let {  email, password  } = data
     const onChange = (e)=> {
         setData({...data, [e.target.name]: e.target.value})
     }
 
-    const onsubmit = () =>{
+    const onsubmit = (e) =>{
+        e.preventDefault()
         if(email === "" || password === ""){
             alert("Fill all feilds")
         }else 
@@ -40,7 +42,7 @@ const Login = ( {loginUser, isLoggedIn} ) => {
             <input onChange = {(e)=> onChange(e) } type="password" name = "password" value={password}></input>
             <br/>
             <br/>
-            <button type= "submit" onClick= {()=> onsubmit()}>submit</button>
+            <button type= "submit" onClick= {(e)=> onsubmit(e)}>submit</button>
             <p>Register new account <a href="/addUser">SignUp</a></p>
 
         </div>

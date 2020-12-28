@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import Register from "./pages/register"
+import React from "react";
+// import Register from "./pages/register"
 
 const Land= ()=>{
     return(

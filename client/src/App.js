@@ -16,9 +16,11 @@ import GameEdit from "./components/games/GameEdit";
 import { loadUser } from "./actions";
 import { setToken } from "./components/pages/setToken";
 import { store } from "./index";
-import login from "./components/pages/login";
+import Login from "./components/pages/login";
 import SearchForm from "./components/pages/SearchForm";
-import register from "./components/pages/register";
+import Register from "./components/pages/register";
+// import FooterPage from "./Footer"
+import Land from "./components/Land";
 
 if (localStorage.getItem("token")) {
   setToken(localStorage.getItem("token"));
@@ -151,27 +153,32 @@ function Navigation() {
 function Main() {
   return (
     <Switch>
-      {/* <Route exact path="/" component={GameList} /> */}
-      <ProtectedRoute
-        exact
-        path="/games"
-        component={GameList}
-        isAuth={localStorage.length > 0}
-      />
-      <ProtectedRoute
-        exact
-        path="/"
-        component={GameList}
-        isAuth={localStorage.length > 0}
-      />
-      <Route exact path="/games/new" component={GameAdd} />
-      <Route exact path="/games/:_id" component={GameInfo} />
-      <Route exact path="/games/:_id/edit" component={GameEdit} />
-      <Route exact path="/profile" component={Profile} />
-      <Route exact path="/login" component={login} />
-      <Route exact path="/addUser" component={register} />
-      <Route exact path="/notfound" component={notfound} />
-    </Switch>
+    {/* <Route exact path="/" component={GameList} /> */}
+    <Route exact path="/land" component={Land} />
+    <ProtectedRoute
+      exact
+      path="/games"
+      component={GameList}
+      isAuth={localStorage.length > 0}
+    />
+    <ProtectedRoute
+      exact
+      path="/"
+      component={GameList}
+      isAuth={localStorage.length > 0}
+    />
+    <Route exact path="/games/new" component={GameAdd} />
+    <Route exact path="/games/:_id" component={GameInfo} />
+    <Route exact path="/games/:_id/edit" component={GameEdit} />
+    <Route exact path="/profile" render={(props) => <Profile {...props} />} />
+    <Route exact path="/login" render={(props) => <Login {...props} />} />
+    <Route
+      exact
+      path="/addUser"
+      render={(props) => <Register {...props} />}
+    />
+    <Route exact path="/notfound" component={notfound} />
+  </Switch>
   );
 }
 
