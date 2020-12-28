@@ -7,6 +7,7 @@ const mongoose = require ("mongoose");
 
 //Get request to /games returns a JSON array of all game objects found in the database.
 router.get("/games", function (req, res) {
+  // console.log("hello")
   Game.find(function (err, games) {
     res.json(games);
   });
@@ -85,6 +86,7 @@ router.delete("/games/:id", function (req, res) {
       Game.findByIdAndRemove(req.params.id)
         .then(function () {
           res.status(200).json("Game deleted");
+          console.log("game deleted")
         })
         .catch(function (err) {
           res.status(400).send("Game delete failed.");
