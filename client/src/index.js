@@ -6,6 +6,8 @@ import logger from "redux-logger";
 import { Provider } from "react-redux";
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
 import App from "./App";
 import rootReducer from "./reducers";
 //Import the setGames method from the actions folder

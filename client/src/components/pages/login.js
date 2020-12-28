@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { loginUser } from '../../actions';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
+import swal from 'sweetalert';
 
 
 const Login = ( {loginUser, isLoggedIn} ) => {
@@ -20,9 +21,13 @@ const Login = ( {loginUser, isLoggedIn} ) => {
 
     const onsubmit = () =>{
         if(email === "" || password === ""){
-            alert("Fill all feilds")
+             return swal("Please fill all required fields")
         }else 
         loginUser(email, password)
+        swal({
+            title: "Login succssesfully!",
+            icon: "success",
+          });
     }
 
     return (
@@ -40,6 +45,11 @@ const Login = ( {loginUser, isLoggedIn} ) => {
         </div>
     )
 }
+
+
+// function mapStateToProps(state) {
+//     console.log(state,"prrrrr")
+//   }
 
 const mapStateToProps = state =>({
     isLoggedIn: state.authReducer.isLoggedIn
