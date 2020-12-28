@@ -1,64 +1,53 @@
+const jwt = require("jsonwebtoken");
 const express = require("express");
-const router = express.Router();
-const Game = require("../models/game");
-
-//Get request to /games returns a JSON array of all game objects found in the database.
-router.get("/games", function (req, res) {
-  Game.find(function (err, games) {
-    res.json(games);
+var cors = require("cors");
+var bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const router = require("./routes/index");
+var dotenv = require("dotenv");
+const path = require("path");
+const PORT = process.env.PORT || 3001;
+require("dotenv").config();
+const app = express();
+app.use(bodyParser.json({ limit: "30mb" }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(cors());
+const uri = process.env.MONGODB_URI;
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use("/api", router);
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+mongoose.connection.once("open", () => {
+  console.log("Connected to the Database.");
+});
+mongoose.connection.on("error", (err) => {
+  console.log("Mongoose Connection Error : " + err);
+});
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
+}
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}.`);
 });
-
-//Get request to /games/:id (:id is a variable representing an game's _id) returns a JSON object of the specified game if it exists, otherwise returns status 404 and "No result found"
-router.get("/games/:id", function (req, res) {
-  Game.findById(req.params.id, function (err, game) {
-    if (!game) {
-      res.status(404).send("No result found, Rawans route");
-    } else {
-      res.json(game);
-    }
+global.authenticateToken = function (req, res, next) {
+  // Gather the jwt access token from the request header
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token == null) return res.sendStatus(401); // if there isn't any token
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    console.log(err);
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next(); // pass the execution off to whatever request the client intended
   });
-});
-
-router.post("/games", function (req, res) {
-  let game = new Game(req.body);
-  game
-    .save()
-    .then((game) => {
-      res.send(game);
-    })
-    .catch(function (err) {
-      res.status(422).send("Game add failed/ Rawans route");
-    });
-});
-
-router.patch("/games/:id", function (req, res) {
-  console.log(req.body, "bodyyy")
-  Game.findByIdAndUpdate(req.params.id, req.body)
-    .then(function () {
-      res.json("Game updated");
-    })
-    .catch(function (err) {
-      res.status(422).send("Game update failed/ Rawans route");
-    });
-});
-
-router.delete("/games/:id", function (req, res) {
-  Game.findById(req.params.id, function (err, game) {
-    if (!game) {
-      res.status(404).send("Game not found/ Rawan route");
-    } else {
-      Game.findByIdAndRemove(req.params.id)
-        .then(function () {
-          res.status(200).json("Game deleted");
-        })
-        .catch(function (err) {
-          res.status(400).send("Game delete failed.");
-        });
-    }
-  });
-});
-
-module.exports = router;
-
-//Rawaaaaaaaaaan is testinggggggg
+};
+mongoose.set("useFindAndModify", false);
+// app.use(express.json())
+const addUserRouter = require("./routes/route.js");
+app.use("/addUser", addUserRouter);
