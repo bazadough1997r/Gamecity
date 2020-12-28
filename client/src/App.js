@@ -153,7 +153,7 @@ function Main() {
 
       />
       
-      <ProtectedRoute
+      <Route
         exact
         path="/"
         component={GameList}

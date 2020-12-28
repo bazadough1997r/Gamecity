@@ -61,3 +61,4 @@ mongoose.set("useFindAndModify", false);
 
 const addUserRouter = require("./routes/route.js");
 app.use("/addUser", addUserRouter);
+
