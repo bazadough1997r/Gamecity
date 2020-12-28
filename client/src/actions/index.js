@@ -155,14 +155,14 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const loginUser = (email, password) => async dispatch => {
   try {
-    const body = {email, password}
+   const body = {email, password}
    const response = await axios.post('addUser/login', body);
    console.log(response, "responseee")
    dispatch({
      type: LOGIN_SUCCESS,
      payload: response.data
    })
-   window.location = '/'
+   window.location = '/games'
    dispatch(loadUser())
   } catch (error) {
     dispatch({

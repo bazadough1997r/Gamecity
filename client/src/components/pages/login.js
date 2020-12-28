@@ -24,10 +24,10 @@ const Login = ( {loginUser, isLoggedIn} ) => {
              return swal("Please fill all required fields")
         }else 
         loginUser(email, password)
-        swal({
-            title: "Login succssesfully!",
-            icon: "success",
-          });
+        // swal({
+        //     title: "Login succssesfully!",
+        //     icon: "success",
+        //   });
     }
 
     return (
@@ -40,7 +40,7 @@ const Login = ( {loginUser, isLoggedIn} ) => {
             <input onChange = {(e)=> onChange(e) } type="password" name = "password" value={password} placeholder="password"></input>
             <br/>
             <br/>
-            <button type= "submit" onClick= {()=> onsubmit()}>Login</button>
+            <button type= "submit" onClick= {()=> onsubmit()} >Login</button>
             <p>you don't have an account? <a href="/addUser">signup</a></p>
         </div>
     )
