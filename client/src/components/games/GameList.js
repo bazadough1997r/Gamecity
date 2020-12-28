@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import {likePost} from "../../actions/index.js"
+import {likePost, joinPost} from "../../actions/index.js"
 
 
 function GameList(props) {
@@ -28,6 +28,10 @@ function GameList(props) {
     getGames();
   }, []);
 
+  // function handleSubmit(e, game) {
+  //   e.preventDefault();
+  //   dispatch(likePost(game));
+  // }
 
   return (
     <div>
@@ -64,20 +68,22 @@ function GameList(props) {
                     <button onClick = {() => dispatch(likePost(game), console.log(game._id, game))}>
                       Like {game.likeCount}
                     </button>
-
-                      <br />
-                      {/* <div className="form-group">
+                    <button onClick = {() => dispatch(joinPost(game), console.log(game._id, game))}>
+                      Join {game.joinCount}
+                    </button>
+                      <br /> <br />
+                      <div className="form-group">
                         <input
                           type="text"
                           value={game.comment}
-                          onChange={handleChangeComment}
+                          // onChange={handleChangeComment}
                           className="form-control"
                           placeholder="Type in your comment here..."
                         />
                         <button type="Submit">Comment</button>
                         <br />
                         <h6>{game.comment}</h6>
-                      </div> */}
+                      </div>
                   </MDBContainer>
                   <hr/>
                 </div>

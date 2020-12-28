@@ -26,6 +26,10 @@ const gameSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  joinCount: {
+    type: Number,
+    default: 0
+  },
   createdAt: {
     type: Date,
     default: new Date()
@@ -39,7 +43,7 @@ const gameSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-  },
+  }
 });
 
 module.exports = mongoose.model("Game", gameSchema);
