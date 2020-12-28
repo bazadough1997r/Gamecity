@@ -22,7 +22,10 @@ router.get("/addUser", async (req, res) => {
 ///loggingggg in
 router.post("/login", async (req, res) => {
   //checking if the username is signed up
-  const user = await AddUser.findOne({ email: req.body.email });
+  const email = req.body.email;
+  console.log(req.body)
+  // console.log(email, "Rawan")
+  const user = await AddUser.findOne({ email });
   if (!user) {
     return res
       .status(400)
@@ -36,8 +39,10 @@ router.post("/login", async (req, res) => {
   //create and send a token
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
   console.log(token)
-  res.header("addUser-token", token).json({ token });
+  res.header("addUser-token", token, email).json({ token, email });
 });
+
+
 router.post("/",  async (req, res) => {
 
   //checking if the username or email is used

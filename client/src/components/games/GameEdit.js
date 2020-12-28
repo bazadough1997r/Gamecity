@@ -34,9 +34,7 @@ function GameEdit(props) {
     event.preventDefault();
     async function updateGame() {
       try {
-        console.log(game._id, "beforepatch")
         await patch(`/api/games/${game._id}`, game);
-        console.log(game, "game from the edit")
         console.log(game._id, "ID from the edit")
         props.history.push(`/games/${game._id}`);
       } catch (error) {

@@ -29,26 +29,6 @@ function GameList(props) {
   }, []);
 
 
-//  function handleClick(e) {
-//    console.log(e.target.key)
-//  }
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-  //   async function likePost() {
-  //     try {
-  //       await patch(`/api/games/${game._id}/likePost`, game);
-  //       console.log(game._id, "ID from the patch")
-  //       props.history.push(`/games/${game._id}/likePost`);
-  //     } catch (error) {
-  //       console.log(error);
-  //       console.log(game._id, "ID from the patch")
-
-  //     }
-  //   }
-  //   likePost();
-  // }
-
-
   return (
     <div>
       <hr />
@@ -81,14 +61,10 @@ function GameList(props) {
                     </MDBRow>
                     <img src={game.selectedFile} width="250px" alt="game post"/>
                     <br />
-                    {/* <form onSubmit = {handleSubmit}> */}
-                    <button onClick = {() => dispatch(likePost(game._id), console.log(game._id))}>
+                    <button onClick = {() => dispatch(likePost(game), console.log(game._id, game))}>
                       Like {game.likeCount}
                     </button>
-                    {/* <button key={game._id} onClick={handleSubmit}> Like {game.likeCount}</button> */}
-                    {/* </form> */}
 
-                      {/* <LikeButton /> */}
                       <br />
                       {/* <div className="form-group">
                         <input

@@ -24,15 +24,20 @@ export default function gamesReducer(state = initialState, action) {
             gameDurartion: action.game.gameDuration,
             gameDate: action.game.gameDate,
             selectedFile: action.game.selectedFile,
+            likeCount: action.game.likeCount
           };
         } else return game;
       });
-      //Old Like
       case LIKE_GAME:
         return state.map(function (game) {
           if (game._id === action.game._id) {
             return {
               ...game,
+              gameName: action.game.gameName,
+              gameType: action.game.gameType,
+              gameDurartion: action.game.gameDuration,
+              gameDate: action.game.gameDate,
+              selectedFile: action.game.selectedFile,
               likeCount: action.game.likeCount
             };
           } else return game;

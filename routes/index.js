@@ -34,6 +34,7 @@ router.post("/games", function (req, res) {
 });
 
 router.patch("/games/:id", function (req, res) {
+  console.log(req.body, "bodyyy")
   Game.findByIdAndUpdate(req.params.id, req.body)
   .then(function () {
     res.json("Game updated");    
@@ -46,17 +47,20 @@ router.patch("/games/:id", function (req, res) {
 });
 
 router.patch("/games/:id/likePost", function (req, res) {
-  // console.log(req.params);
+
   const gameId = Game.findById(req.params.id);
-  console.log(req.params, "req paramssssssssssssss")
-  console.log(req.body, "i am the gameIDDDDD")
+  console.log(req.params, "req params")
+  console.log(req.body, "i am the req.body")
   // console.log(req.params, "req.params", req.params.id, "req.params.id")
   // console.log(req.likeCount, "likeCount");
-  Game.findByIdAndUpdate(req.params.id, {likeCount: gameId.likeCount + 1})
+  // {likeCount: gameId.likeCount + 1}
+  Game.findByIdAndUpdate(req.params.id)
     .then(function () {
       res.json("Game liked");
+      // console.log(req.params.last)
+
       console.log(req.params.id, "after the then")
-      console.log(req, "request")
+      // console.log(req, "request")
     })
     .catch(function (err) {
       throw err;
