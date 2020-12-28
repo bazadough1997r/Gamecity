@@ -27,16 +27,18 @@ export function setGames() {
   };
 }
 
+
 export const LIKE_GAME = "LIKE_GAME";
-export function likePost(id) {
+export function likePost(_id) {
   return function (dispatch) {
-    return patch("/api/games/:id/likePost")
+    return patch(`/api/games/${_id}/likePost`)
       .then (function(response) {
-        dispatch({type : LIKE_GAME, id: response.data._id })
-        console.log(response,"response")
+        dispatch({type : LIKE_GAME, _id: _id })
+        console.log(_id,"response")
 
       })
       .catch(function (error) {
+        // console.log(response.data._id, "id from the actions")
         console.log(error, "error from the actions")
       })
   }
@@ -76,7 +78,13 @@ export function replaceGame(game) {
   };
 }
 
-
+// export const LIKE_GAME = "LIKE_GAME";
+// export function likePost(game) {
+//   return {
+//     type: LIKE_GAME,
+//     game: game,
+//   };
+// }
 export const SET_USER = "SET_USER";
 export function setUser(user) {
   return {
@@ -181,8 +189,8 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const loginUser = (email, password) => async dispatch => {
   try {
    
-    const body = {email, password}
-   const response = await axios.post('addUser/login', body);
+   const body = {email, password}
+   const response = await axios.post('/addUser/login', body);
    window.location = '/games'
    
    dispatch({

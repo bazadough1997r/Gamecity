@@ -3,14 +3,23 @@ import { get, patch } from "axios";
 
 function GameEdit(props) {
   console.log(props)
-  const initialState = { gameName: "", content: "" };
+  const initialState = {
+    gameName: "",
+    gameType: "Select Game",
+    gameDuration: "",
+    gameDate: "",
+    gameGovernorate: "Select Governorate",
+    selectedFile: ""
+  };
   const [game, setGame] = useState(initialState);
+  console.log(game)
 
   useEffect(
     function () {
       async function getGame() {
         try {
           const response = await get(`/api/games/${props.match.params._id}`);
+          console.log(response.data)
           setGame(response.data);
         } catch (error) {
           console.log(error, "useEffect in GameEdit /failed");
@@ -25,7 +34,10 @@ function GameEdit(props) {
     event.preventDefault();
     async function updateGame() {
       try {
+        console.log(game._id, "beforepatch")
         await patch(`/api/games/${game._id}`, game);
+        console.log(game, "game from the edit")
+        console.log(game._id, "ID from the edit")
         props.history.push(`/games/${game._id}`);
       } catch (error) {
         console.log(error);
@@ -163,5 +175,6 @@ function GameEdit(props) {
     </div>
   );
 }
+
 
 export default GameEdit;

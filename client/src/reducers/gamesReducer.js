@@ -3,7 +3,7 @@ import { SET_GAMES, ADD_GAME, REMOVE_GAME, REPLACE_GAME, LIKE_GAME } from "../ac
 //Declare our reducer function with two arguments, state and action. Set the initial state to an empty games array.
 const initialState = { games: [] };
 export default function gamesReducer(state = initialState, action) {
-  console.log(state,"staaaate")
+  // console.log(state,"staaaate")
   //Use a switch statement to match the action type. If the action type is SET_GAMES it returns the games data to update the store with.
   switch (action.gameName) {
     //You need a default case. If there is no match, the reducer will just return the current state.
@@ -20,11 +20,14 @@ export default function gamesReducer(state = initialState, action) {
           return {
             ...game,
             gameName: action.game.gameName,
-            content: action.game.content,
-            type: action.game.gameType,
+            gameType: action.game.gameType,
+            gameDurartion: action.game.gameDuration,
+            gameDate: action.game.gameDate,
+            selectedFile: action.game.selectedFile,
           };
         } else return game;
       });
+      //Old Like
       case LIKE_GAME:
         return state.map(function (game) {
           if (game._id === action.game._id) {

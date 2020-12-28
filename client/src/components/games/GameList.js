@@ -1,54 +1,53 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-// import { post } from "axios";
 import { Link } from "react-router-dom";
-// import Register from "../pages/register"
-// import Login from "../pages/login"
-// import LikeButton from "../likeButton.js";
-// import { DELETE, LIKE } from '../../actions/index.js';
-// import e from "cors";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-// import { Nav } from "react-bootstrap";
-// import { Form } from "react-bootstrap";
 import {likePost} from "../../actions/index.js"
 
 
-export default function GameList(props) {
+function GameList(props) {
+
   const [games, setGames] = useState([]);
-  // const [governerates, setGovernerates] = useState([]);
 
-  const [game, setFields] = useState({ like: 0, comment: "" });
+  // console.log(games);
   const dispatch = useDispatch();
-
-  function handleChangeComment(event) {
-    setFields({ ...game, comment: event.target.value });
-  }
-
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-  //   async function likePost() {
-  //     try {
-  //       await patch(`/api/games/${game._id}/likePost`, game);
-  //       props.history.push(`/games/${game._id}`);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   likePost();
-  // }
 
   useEffect(function () {
     async function getGames() {
       try {
+        //we have to add the id
         const response = await axios.get("/api/games");
+        // console.log(games, "useEffect")
         setGames(response.data);
+        // console.log(games, 'gamessss')
       } catch (error) {
         console.log(error, "error from  useEffect in GameList");
       }
     }
     getGames();
   }, []);
+
+
+//  function handleClick(e) {
+//    console.log(e.target.key)
+//  }
+  // function handleSubmit(event) {
+  //   event.preventDefault();
+  //   async function likePost() {
+  //     try {
+  //       await patch(`/api/games/${game._id}/likePost`, game);
+  //       console.log(game._id, "ID from the patch")
+  //       props.history.push(`/games/${game._id}/likePost`);
+  //     } catch (error) {
+  //       console.log(error);
+  //       console.log(game._id, "ID from the patch")
+
+  //     }
+  //   }
+  //   likePost();
+  // }
+
 
   return (
     <div>
@@ -58,10 +57,12 @@ export default function GameList(props) {
           <MDBCol md="3">
           </MDBCol>
           <MDBCol md="6" style={{ marginTop: "20px" }}>
+            {/* {console.log(games)} */}
             {games.map((game) => {
-              console.log(game._id)
+              // console.log(game._id)
               return (
                 <div key={game._id}>
+                    {/* {console.log(game.gameType)} */}
                   <h4>
                     <Link to={`/games/${game._id}`}>{game.gameName}</Link>
                   </h4>
@@ -80,7 +81,13 @@ export default function GameList(props) {
                     </MDBRow>
                     <img src={game.selectedFile} width="250px" alt="game post"/>
                     <br />
-                    <button onClick = {() => dispatch (likePost(game._id)) }>Like {game.likeCount}</button>
+                    {/* <form onSubmit = {handleSubmit}> */}
+                    <button onClick = {() => dispatch(likePost(game._id), console.log(game._id))}>
+                      Like {game.likeCount}
+                    </button>
+                    {/* <button key={game._id} onClick={handleSubmit}> Like {game.likeCount}</button> */}
+                    {/* </form> */}
+
                       {/* <LikeButton /> */}
                       <br />
                       {/* <div className="form-group">
@@ -114,3 +121,5 @@ export default function GameList(props) {
     </div>
   );
 }
+  
+export default GameList;

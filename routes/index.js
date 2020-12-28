@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Game = require("../models/game");
+const mongoose = require ("mongoose");
 
 //Get request to /games returns a JSON array of all game objects found in the database.
 router.get("/games", function (req, res) {
@@ -34,11 +35,31 @@ router.post("/games", function (req, res) {
 
 router.patch("/games/:id", function (req, res) {
   Game.findByIdAndUpdate(req.params.id, req.body)
-    .then(function () {
-      res.json("Game updated");
+  .then(function () {
+    res.json("Game updated");    
+    console.log(req.params.id, "after the then")
+
     })
     .catch(function (err) {
       res.status(422).send("Game update failed/ Rawans route");
+    });
+});
+
+router.patch("/games/:id/likePost", function (req, res) {
+  // console.log(req.params);
+  const gameId = Game.findById(req.params.id);
+  console.log(req.params, "req paramssssssssssssss")
+  console.log(req.body, "i am the gameIDDDDD")
+  // console.log(req.params, "req.params", req.params.id, "req.params.id")
+  // console.log(req.likeCount, "likeCount");
+  Game.findByIdAndUpdate(req.params.id, {likeCount: gameId.likeCount + 1})
+    .then(function () {
+      res.json("Game liked");
+      console.log(req.params.id, "after the then")
+      console.log(req, "request")
+    })
+    .catch(function (err) {
+      throw err;
     });
 });
 
@@ -58,18 +79,6 @@ router.delete("/games/:id", function (req, res) {
   });
 });
 
-router.patch("/games/:id/likePost"), function (req, res) {
-  console.log(req.params.id)
-  // Game.findById(req.params.id);
-  const gameId = Game.findById(req.params.id);
-  Game.findByIdAndUpdate(req.params.id, {likeCount: gameId.likeCount + 1})
-  .then(function() {
-    res.status(200).json("like is working!!!")
-  })
-  .catch(function (err) {
-    res.status(400).send(err, "Game like failed.")
-});
-}
 
 module.exports = router;
 

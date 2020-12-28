@@ -11,6 +11,7 @@ import { addGame } from "../../actions";
 // import UploadImage from "../../UploadImage.jpg"
 
 function GameAdd(props) {
+  console.log(props)
   
   const initialState = {
     gameName: "",
@@ -18,7 +19,8 @@ function GameAdd(props) {
     gameDuration: "",
     gameDate: "",
     gameGovernorate: "Select Governorate",
-    selectedFile: ""
+    selectedFile: "",
+    likeCount: 0
   };
 
   // const [image, setImage] = useState(null);
