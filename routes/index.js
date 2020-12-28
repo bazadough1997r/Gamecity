@@ -34,6 +34,7 @@ router.post("/games", function (req, res) {
 });
 
 router.patch("/games/:id", function (req, res) {
+  console.log(req.body, "bodyyy")
   Game.findByIdAndUpdate(req.params.id, req.body)
   
     .then(function () {

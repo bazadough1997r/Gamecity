@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { loginUser } from '../../actions';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
+import swal from 'sweetalert';
 
 
 const Login = ( {loginUser, isLoggedIn} ) => {
@@ -22,24 +23,23 @@ const Login = ( {loginUser, isLoggedIn} ) => {
     const onsubmit = (e) =>{
         e.preventDefault()
         if(email === "" || password === ""){
-            alert("Fill all feilds")
+             return swal("Please fill all required fields")
         }else 
         loginUser(email, password)
+        swal({
+            title: "Login succssesfully!",
+            icon: "success",
+          });
     }
 
-    
-
-
     return (
-        <div>
-            <h1>LOGIN PAGE</h1>
-            <label>Email</label>
+        <div style={{ textAlign:"center" }}>
+            <h3>Login</h3>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="email" name = "email" value={email}></input>
+            <input onChange = {(e)=> onChange(e) } type="email" name = "email" value={email} placeholder="email address"></input>
             <br/>
-            <label>Password</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="password" name = "password" value={password}></input>
+            <input onChange = {(e)=> onChange(e) } type="password" name = "password" value={password} placeholder="password"></input>
             <br/>
             <br/>
             <button type= "submit" onClick= {(e)=> onsubmit(e)}>submit</button>
@@ -56,6 +56,5 @@ const Login = ( {loginUser, isLoggedIn} ) => {
 
 const mapStateToProps = state =>({
     isLoggedIn: state.authReducer.isLoggedIn
-
 })
 export default connect(mapStateToProps, {loginUser})(Login);

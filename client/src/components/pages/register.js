@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 
 
 
-// import { Redirect } from 'react-router-dom';
-
 
 const Register = ({ registerUser, isLoggedIn}) => {
     console.log(isLoggedIn,"isLoggedIn")
@@ -31,53 +29,57 @@ const Register = ({ registerUser, isLoggedIn}) => {
 
     const onsubmit = () =>{
         if(firstName === "" || lastName === "" || username === "" || email === "" || city === "" || phoneNo === "" || birthday === "" || password === ""){
-            return alert("Please fill all required fields")
-        } else      
+            console.log("Please fill all required fields");
+        } else {
         registerUser(firstName, lastName, username, email, city,phoneNo, birthday, password)
+        }   
     }
+    
 
     return (
-        <div>
+        <div><form action="/login" method="get">
             <h1>REGISTER PAGE</h1>
             <label>First name</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName}  required={true}></input>
+            <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName}  required></input>
             <br/>
             <label>Last name</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="text" name = "lastName" value={lastName}></input>
+            <input onChange = {(e)=> onChange(e) } type="text" name = "lastName" value={lastName} required={true}></input>
             <br/>
             <label>username</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="text" name = "username" value={username}></input>
+            <input onChange = {(e)=> onChange(e) } type="text" name = "username" value={username} required={true}></input>
             <br/>
             <label>Email</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="email" name = "email" value={email}></input>
+            <input onChange = {(e)=> onChange(e) } type="email" name = "email" value={email} required={true}></input>
             <br/>
             <label>city</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="text" name = "city" value={city}></input>
+            <input onChange = {(e)=> onChange(e) } type="text" name = "city" value={city} required={true}></input>
             <br/>
             <label>Phone No.</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="number" name = "phoneNo" value={phoneNo}></input>
+            <input onChange = {(e)=> onChange(e) } type="tel"  placeholder="07X-XXXX-XXX"  maxLength="10" name = "phoneNo" value={phoneNo} required={true}></input>
             <br/>
             <label>Birthday</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="date" name = "birthday" value={birthday}></input>
+            <input onChange = {(e)=> onChange(e) } type="date" name = "birthday" value={birthday} required={true}></input>
             <br/>
             <label>Password</label>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="password" name = "password" value={password}></input>
+            <input onChange = {(e)=> onChange(e) } type="password" name = "password" value={password}   required={true}></input>
             <br/>
             <br/>
             <button type= "submit" onClick= {()=> onsubmit()}>submit</button>
             <br/>
             <p>Already have an account? <a href="/login">Sign in</a></p>
+            </form>
         </div>
     )
-}
+    }
+
 
 
 
