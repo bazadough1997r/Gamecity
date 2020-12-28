@@ -7,7 +7,7 @@ import FileBase from "react-file-base64";
 import { addGame } from "../../actions";
 
 function GameAdd(props) {
-  console.log(props)
+  // console.log(props)
   
   const initialState = {
     gameName: "",
