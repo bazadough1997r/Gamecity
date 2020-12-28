@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 
 
 
-const Register = ({ registerUser, isLoggedIn }) => {
-    console.log(isLoggedIn,"islogged")
-    
+const Register = ({ registerUser, isLoggedIn}) => {
+    console.log(isLoggedIn,"isLoggedIn")
+
     let [data, setData] = useState ({
         firstName: "",
         lastName: "",
@@ -25,7 +25,6 @@ const Register = ({ registerUser, isLoggedIn }) => {
     const onChange = (e)=> {
 
         setData({...data, [e.target.name]: e.target.value})
-        // console.log([e.target.value])
     }
 
     const onsubmit = () =>{
@@ -83,9 +82,9 @@ const Register = ({ registerUser, isLoggedIn }) => {
 
 
 
-    const mapStateToProps = state => ({
-        isLoggedIn: state.authReducer.isLoggedIn
-    })
 
+const mapStateToProps = state => ({
+    isLoggedIn: state.authReducer.isLoggedIn
+})
 
 export default connect(mapStateToProps, {registerUser})(Register);

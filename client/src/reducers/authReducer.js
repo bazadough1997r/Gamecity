@@ -47,6 +47,7 @@
 //     }
 // }
 // export default authReducer;
+
 import {
     REGISTER_SUCCESS,
     REGISTER_FAILURE,
@@ -90,4 +91,5 @@ import {
         return state;
     }
   };
+  
   export default authReducer;
