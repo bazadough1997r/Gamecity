@@ -6,6 +6,7 @@ import swal from 'sweetalert';
 
 
 const Login = ( {loginUser, isLoggedIn} ) => {
+      
    console.log(isLoggedIn, "isLoggedIn")
     let [data, setData] = useState ({
         email: "",
@@ -21,15 +22,16 @@ const Login = ( {loginUser, isLoggedIn} ) => {
         setData({...data, [e.target.name]: e.target.value})
     }
 
-    const onsubmit = () =>{
+    const onsubmit = (e) =>{
+        // e.preventDefault()
         if(email === "" || password === ""){
              return swal("Please fill all required fields")
         }else 
         loginUser(email, password)
-        swal({
-            title: "Login succssesfully!",
-            icon: "success",
-          });
+        // swal({
+        //     title: "Login succssesfully!",
+        //     icon: "success",
+        //   });
     }
 
     return (
@@ -42,8 +44,9 @@ const Login = ( {loginUser, isLoggedIn} ) => {
             <input onChange = {(e)=> onChange(e) } type="password" name = "password" value={password} placeholder="password"></input>
             <br/>
             <br/>
-            <button type= "submit" onClick= {()=> onsubmit()}>Login</button>
-            <p>you don't have an account? <a href="/addUser">signup</a></p>
+            <button type= "submit" onClick= {(e)=> onsubmit(e)}>Login</button>
+            <p>Register new account <a href="/addUser">SignUp</a></p>
+
         </div>
     )
 }

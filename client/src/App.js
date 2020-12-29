@@ -43,6 +43,7 @@ function App() {
   );
 }
 
+var useremail=window.localStorage.email
 
 function Navigation() {
   var value = false;
@@ -118,6 +119,17 @@ function Navigation() {
                   style={{ color: "white" }}
                 >
                   Notifications
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  className="nav-link"
+                  activeClassName="active"
+                  to={"/profile/"+useremail}
+                  style={{ color: "white" }}
+                >
+                  Profile
                 </NavLink>
               </li>
               <li>

@@ -47,6 +47,7 @@
 //     }
 // }
 // export default authReducer;
+
 import {
   REGISTER_SUCCESS,
   REGISTER_FAILURE,

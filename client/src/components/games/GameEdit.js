@@ -2,15 +2,23 @@ import React, { useState, useEffect } from "react";
 import { get, patch } from "axios";
 
 function GameEdit(props) {
-  console.log(props)
-  const initialState = { gameName: "", content: "" };
+  const initialState = { 
+    gameName: "",     
+    gameType: "Select Game",
+    gameDuration: "",
+    gameDate: "",
+    gameGovernorate: "Select Governorate",
+    selectedFile: ""
+  };
   const [game, setGame] = useState(initialState);
+  console.log(game)
 
   useEffect(
     function () {
       async function getGame() {
         try {
           const response = await get(`/api/games/${props.match.params._id}`);
+          console.log(response.data)
           setGame(response.data);
         } catch (error) {
           console.log(error, "useEffect in GameEdit /failed");
@@ -26,6 +34,7 @@ function GameEdit(props) {
     async function updateGame() {
       try {
         await patch(`/api/games/${game._id}`, game);
+        console.log(game._id, "ID from the edit")
         props.history.push(`/games/${game._id}`);
       } catch (error) {
         console.log(error);
@@ -149,19 +158,22 @@ function GameEdit(props) {
 
         <div>
           <button type="submit" value="Post" className="btn btn-primary">
-            Update
+            {" "}
+            Update{" "}
           </button>
           <button
             type="button"
             onClick={handleCancel}
             className="btn btn-secondary"
           >
-            Cancel
+            {" "}
+            Cancel{" "}
           </button>
         </div>
       </form>
     </div>
   );
 }
+
 
 export default GameEdit;
