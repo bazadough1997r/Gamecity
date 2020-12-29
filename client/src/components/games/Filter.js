@@ -57,7 +57,7 @@ class Filter extends Component {
             <option value="Handball">Handball</option>
             <option value="Tafila">Tennis</option>
             <option value="Running">Running</option>
-            <option value="Others..">Others..</option>
+            <option value="Other..">Other..</option>
           </select>
           
         </div>

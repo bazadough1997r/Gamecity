@@ -42,7 +42,7 @@ router.patch("/games/:id", function (req, res) {
   Game.findByIdAndUpdate(req.params.id, req.body)
   .then(function () {
     res.json("Game updated");    
-    console.log(req.params.id, "after the then")
+    // console.log(req.params.id, "after the then")
 
     })
     .catch(function (err) {
@@ -75,11 +75,11 @@ router.patch("/games/:id/joinPost", function (req, res) {
 
 router.patch("/games/:id/comment", function (req, res) {
   // console.log(req.body.comment, "i'm the req.body.comment")
-  // console.log(req.body, "i'm the req.body")
+  console.log(req.body, "i'm the req.body")
   // Game.findById(req.params.id)
   Game.findByIdAndUpdate(req.params.id, { $addToSet: {"comment": req.body.comment}}, {upsert: true, new: true}, (err, model) =>{
-   console.log(model, "model")
-   console.log(err, "err") 
+  //  console.log(model, "model")
+  //  console.log(err, "err") 
   })
   .then(function () {   
     res.json("Game comment added");    
@@ -108,4 +108,3 @@ router.delete("/games/:id", function (req, res) {
 
 
 module.exports = router;
-

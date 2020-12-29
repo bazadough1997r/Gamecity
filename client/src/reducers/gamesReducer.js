@@ -20,7 +20,6 @@ export default function gamesReducer(state = initialState, action) {
         game: action.game,
       };
     case REMOVE_GAME:
-      // console.log(...state, "amaaaneh")
       return {...state.filter((game) => game._id !== action._id)}
     case REPLACE_GAME:
       return state.map(function (game) {
@@ -61,8 +60,6 @@ export default function gamesReducer(state = initialState, action) {
               selectedFile: action.game.selectedFile,
               likeCount: action.game.likeCount,
               joinCount: action.game.joinCount,
-              comment: action.game.comment
-
             };
           } else return game;
         });
@@ -78,7 +75,6 @@ export default function gamesReducer(state = initialState, action) {
                 selectedFile: action.game.selectedFile,
                 likeCount: action.game.likeCount,
                 joinCount: action.game.joinCount,
-                comment: action.game.comment
               };
             } else return game;
           });
@@ -87,7 +83,7 @@ export default function gamesReducer(state = initialState, action) {
               if (commentField.id === action.commentField.id) {
                 return {
                   ...commentField,
-                  comment: action.commentField.comment
+                  comment: action.commentField.comment,
                 };
               } else return commentField;
             });

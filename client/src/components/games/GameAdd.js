@@ -7,7 +7,6 @@ import FileBase from "react-file-base64";
 import { addGame } from "../../actions";
 
 function GameAdd(props) {
-  // console.log(props)
   
   const initialState = {
     gameName: "",
@@ -64,7 +63,7 @@ function GameAdd(props) {
       gameDuration: game.gameDuration,
       gameGovernorate: game.gameGovernorate,
       selectedFile: game.selectedFile,
-      email: game.email
+      email: game.email,
     })
       .then(function (response) {
         dispatch(addGame(response.data));
