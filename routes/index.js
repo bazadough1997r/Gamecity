@@ -41,7 +41,7 @@ router.patch("/games/:id", function (req, res) {
   Game.findByIdAndUpdate(req.params.id, req.body)
   .then(function () {
     res.json("Game updated");    
-    console.log(req.params.id, "after the then")
+    // console.log(req.params.id, "after the then")
 
     })
     .catch(function (err) {
@@ -51,15 +51,15 @@ router.patch("/games/:id", function (req, res) {
 
 router.patch("/games/:id/likePost", function (req, res) {
   // const gameId = Game.findById(req.params.id);
-  console.log(req.params, "req params")
-  console.log(req.body.likeCount, "i am the req.body")
+  // console.log(req.params, "req params")
+  // console.log(req.body.likeCount, "i am the req.body")
   // {likeCount: req.body.likeCount + 1}
   Game.findByIdAndUpdate(req.params.id, {likeCount: req.body.likeCount + 1} )
     .then(function () {
       res.json("Game liked");
       // console.log(req.params.last)
 
-      console.log(req.params.id, "after the then")
+      // console.log(req.params.id, "after the then")
       // console.log(req, "request")
     })
     .catch(function (err) {
