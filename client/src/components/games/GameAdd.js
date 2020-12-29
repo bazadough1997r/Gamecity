@@ -18,7 +18,8 @@ function GameAdd(props) {
     selectedFile: "",
     likeCount: 0,
     comment:"",
-    email: window.localStorage.email
+    email: window.localStorage.email,
+    username: window.localStorage.username,
   };
 
 
@@ -65,7 +66,8 @@ function GameAdd(props) {
       gameDuration: game.gameDuration,
       gameGovernorate: game.gameGovernorate,
       selectedFile: game.selectedFile,
-      email: game.email
+      email: game.email,
+      username: game.username
     })
       .then(function (response) {
         dispatch(addGame(response.data));
