@@ -25,13 +25,10 @@
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
     "mongoose": "^5.11.8",
-
+    "mongoose-schema-types": "^1.2.6",
     "node": "^10.16.3",
     "nodemon": "^2.0.6",
-    "sweetalert": "^2.1.2",
-    "mongoose-schema-types": "^1.2.6"
-
-
+    "sweetalert": "^2.1.2"
   },
   "devDependencies": {
     "concurrently": "^5.3.0"

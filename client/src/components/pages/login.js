@@ -12,8 +12,10 @@ const Login = ( {loginUser, isLoggedIn} ) => {
         email: "",
         password: ""
     })
-
-  if(isLoggedIn) return <Redirect to="/games"/>
+   
+   
+    var useremail=window.localStorage.email
+    if(isLoggedIn) return <Redirect to={"/profile/"+useremail}/>
 
     let {  email, password  } = data
     const onChange = (e)=> {
@@ -57,4 +59,6 @@ const Login = ( {loginUser, isLoggedIn} ) => {
 const mapStateToProps = state =>({
     isLoggedIn: state.authReducer.isLoggedIn
 })
+
+
 export default connect(mapStateToProps, {loginUser})(Login);
