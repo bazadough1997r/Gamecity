@@ -1,26 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { post } from "axios";
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import {likePost, joinPost} from "../../actions/index.js"
 
 
 function GameList(props) {
-
+  const [commentField, setFields] = useState({comment : ""});
   const [games, setGames] = useState([]);
 
   // console.log(games);
   const dispatch = useDispatch();
 
+  function handleChangeComment(event) {
+    setFields({ ...commentField, comment: event.target.value });
+    console.log(event.target.value)
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    post("/api/games", {
+      comment: commentField.comment
+    })
+      .then(function (response) {
+        dispatch(GameList(response.data));
+      })
+      .then(function () {
+        props.history.push("/");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   useEffect(function () {
     async function getGames() {
       try {
-        //we have to add the id
         const response = await axios.get("/api/games");
-        // console.log(games, "useEffect")
         setGames(response.data);
-        // console.log(games, 'gamessss')
       } catch (error) {
         console.log("error", error);
       }
@@ -28,10 +47,7 @@ function GameList(props) {
     getGames();
   }, []);
 
-  // function handleSubmit(e, game) {
-  //   e.preventDefault();
-  //   dispatch(likePost(game));
-  // }
+
 
   return (
     <div>
@@ -75,14 +91,14 @@ function GameList(props) {
                       <div className="form-group">
                         <input
                           type="text"
-                          value={game.comment}
-                          // onChange={handleChangeComment}
+                          value={commentField.comment}
+                          onChange={handleChangeComment}
                           className="form-control"
                           placeholder="Type in your comment here..."
                         />
-                        <button type="Submit">Comment</button>
+                        <button type="Submit" onClick = {handleSubmit}>Comment</button>
                         <br />
-                        <h6>{game.comment}</h6>
+                        <h6>{commentField.comment}</h6>
                       </div>
                   </MDBContainer>
                   <hr/>

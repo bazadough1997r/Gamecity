@@ -39,7 +39,7 @@ const gameSchema = new mongoose.Schema({
   },
   selectedFile: {
     type: String,
-    required: [true, "Please upload image of game"]
+    // required: [true, "Please upload image of game"]
   },
   email: {
     type: String,
