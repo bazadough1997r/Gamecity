@@ -1,8 +1,8 @@
-import React, { useEffect ,  useState} from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchUser } from "../../actions/index";
-import { Link , useParams} from "react-router-dom";
-import { storage } from "../firebase/index"
+import {  useParams } from "react-router-dom";
+//import { storage } from "../firebase/index"
 function Profile({ userData, fetchUser, logOut }) {
   // const [image , setImage]= useState(null);
   // const [url , setURL]= useState(null);
@@ -10,7 +10,7 @@ function Profile({ userData, fetchUser, logOut }) {
   console.log(email)
   useEffect(() => {
     fetchUser(email);
-  }, []);
+  }, [email,fetchUser]);
 
 
 //  function handleChange(e)  {
