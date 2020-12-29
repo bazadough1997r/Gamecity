@@ -13,11 +13,22 @@ router.get("/", async (req, res) => {
 });
 
 //get all user from  database 
-router.get("/addUser", async (req, res) => {
-  AddUser.find()
-    .then((profileSchema) => res.json(profileSchema))
-    .catch((err) => res.status(400).json("Error: " + err));
+// router.get("/addUser/:id", async (req, res) => {
+//   var params=[req.params.id]
+//   console.log(req.params.id,"hhhhhhhhhhhhh")
+//   AddUser.find(params)
+//     .then((AddUser) => res.json(AddUser))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
+
+//server side
+router.get('/profile/:email', function(req, res) {
+  console.log(req.params)
+  AddUser.findOne({email:req.params.email})
+  .then(user => res.json(user))
+  .catch(err => res.status(400).json('Error: ' + err));
 });
+
 
 ///loggingggg in
 router.post("/login", async (req, res) => {
