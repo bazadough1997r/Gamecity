@@ -34,12 +34,11 @@ const gameSchema = new mongoose.Schema({
     type: Date,
     default: new Date()
   },
-  comment : {
-    type: String
-  },
+  comment : [{
+    comment: String, email: String
+  }],
   selectedFile: {
     type: String,
-    // required: [true, "Please upload image of game"]
   },
   email: {
     type: String,
