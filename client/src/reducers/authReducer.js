@@ -9,7 +9,6 @@ import {
   const initialState = {
     token: localStorage.getItem("token"),
     email: localStorage.getItem("email"),
-    username: localStorage.getItem("username"),
     isLoggedIn: false,
     errors: {},
   };
@@ -23,13 +22,11 @@ import {
       case LOGIN_SUCCESS:
         localStorage.setItem("token", payload.token);
         localStorage.setItem("email", payload.email);
-        localStorage.setItem("username", payload.username);
         return {
           ...state,
           isLoggedIn: true,
           token: payload.token,
           email: payload.email,
-          username: payload.username,
         };
       case LOGIN_FAILURE:
       case REGISTER_FAILURE:
