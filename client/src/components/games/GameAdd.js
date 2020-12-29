@@ -5,12 +5,9 @@ import { post } from "axios";
 import FileBase from "react-file-base64";
 //Import the addGame function from the Actions file.
 import { addGame } from "../../actions";
-// import { set } from "mongoose";
-// //Import the storage from firebase file
-// import {storage} from "../../firebase";
-// import UploadImage from "../../UploadImage.jpg"
 
 function GameAdd(props) {
+  // console.log(props)
   
   const initialState = {
     gameName: "",
@@ -19,15 +16,12 @@ function GameAdd(props) {
     gameDate: "",
     gameGovernorate: "Select Governorate",
     selectedFile: "",
-    like: 0,
+    likeCount: 0,
     comment:"",
-    email: window.localStorage.email
+    email: window.localStorage.email,
+    username: window.localStorage.username,
   };
 
-  // const [image, setImage] = useState(null);
-  // const [url, setUrl] = useState("");
-  // const [progress, setProgress] = useState(0);
-  // const [error, setError] = useState("");
 
   //useState: UseState is a two element array that contains the current state as the
   //first element and a function to update it as the second. Here we're assigning the
@@ -59,50 +53,6 @@ function GameAdd(props) {
     setFields({ ...game, gameDuration: event.target.value });
   }
 
-
-  // function handleChangeImage(event) {
-  //   const file = event.target.files[0];
-  //     if (file) {
-  //       //Check file type
-  //       const fileType = file["type"];
-  //       const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
-  //       if (validImageTypes.includes(fileType)) {
-  //         setError("");
-  //         setImage(file);
-  //         // console.log(file);
-  //       }else {
-  //       setError("Please select an image to upload")
-  //     } 
-  //     }
-  // }
-
-  // function HandleUpload(event) {
-  //   if(image) {
-  //     //Images is the folder in firebase that contains the images
-  //     const uploadTask = storage.ref(`images/${image.name}`).put(image);
-  //     uploadTask.on(
-  //       "state_changed",
-  //       snapshot => {
-  //           const progress = Math.round(
-  //             (snapshot.bytesTransferred / snapshot.totalBytes)
-  //           )
-  //           setProgress(progress)
-  //       },
-  //       error => {
-  //         setError(error)
-  //       },
-  //       () => {
-  //         storage.ref("images").child(image.name).getDownloadURL().then(url => {
-  //           setUrl(url)
-  //           setProgress(0);
-  //         });
-  //       }
-  //     );
-  //   } else {
-  //     setError("Error, please choose an image to upload")
-  //   }
-  // }
-
   //When the user presses the submit button it calls the handleSubmit function. This is where our API post
   //request is sent with the game object sent as the payload. If it successfully posts it will send back
   //the new game object. Then we dispatch the addGame action passing in the new game object.
@@ -116,7 +66,8 @@ function GameAdd(props) {
       gameDuration: game.gameDuration,
       gameGovernorate: game.gameGovernorate,
       selectedFile: game.selectedFile,
-      email: game.email
+      email: game.email,
+      username: game.username
     })
       .then(function (response) {
         dispatch(addGame(response.data));
@@ -137,11 +88,14 @@ function GameAdd(props) {
 
   return (
     <div>
-      <h4>What's your next game?..</h4>
-
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Post</label>
+      <br /> <br/>
+    <div className = "container">
+      <form  className="text-center border border-light p-9 rounded" onSubmit={handleSubmit}>
+        <div className = "form-group">
+      <h4 className="mb-4">What's your next game?..</h4>
+        <br />        
+        <div className="col">
+          {/* <label>Post</label> */}
           <input
             type="text"
             required
@@ -151,10 +105,10 @@ function GameAdd(props) {
             placeholder="Type in your post here..."
           />
         </div>
-
+        <br />
         {/* LOCATION- Drop DOWN MENU */}
-        <div className="form-group">
-          <label>Governorate</label>
+        <div className="col">
+          {/* <label>Governorate</label> */}
           <select
             type="text"
             required
@@ -178,10 +132,10 @@ function GameAdd(props) {
             <option value="Aqaba"> Aqaba</option>
           </select>
         </div>
-
+        <br />
         {/* SELECT GAME- DROPDOWN */}
-        <div className="form-group">
-          <label>Game</label>
+        <div className="col">
+          {/* <label>Game</label> */}
           <select
             type="text"
             required
@@ -205,10 +159,10 @@ function GameAdd(props) {
             <option value="Other.."> Others..</option>
           </select>
         </div>
-
+        <br />
         {/* DATE- CALENDAR DATE */}
-        <div className="form-group">
-          <label>Date</label>
+        <div className="col">
+          {/* <label>Date</label> */}
           <input
             type="date"
             required
@@ -217,10 +171,10 @@ function GameAdd(props) {
             className="form-control"
           />
         </div>
-
+        <br />
         {/* DURATION- SET TIME */}
-        <div className="form-group">
-          <label>Game Duration</label>
+        <div className="col">
+          {/* <label>Game Duration</label> */}
           <input
             type="text"
             required
@@ -230,7 +184,7 @@ function GameAdd(props) {
             placeholder="Set game's duration"
           />
         </div>
-
+        <br />
         {/* IMAGE- Upload Image */}
         <div className = "form-group">
         <label>Upload Image</label>
@@ -241,41 +195,6 @@ function GameAdd(props) {
             onDone = {({base64}) => setFields({...game, selectedFile: base64})}
           />
         </div> 
-         {/* <div>
-           <input
-             type = "file"
-             onChange = {handleChangeImage}
-            /> {" "}
-            <button onClick = {HandleUpload}>Upload</button>
-          </div>
-          <div>
-            {progress > 0? <progress value = {progress} max = "100"/> : ""}
-           <p> {error} </p>
-          </div>
-          {url ? (
-            <img src = {url} alt = "image" width = "250px" height = "125px" />
-          ) : (
-            <img src = {UploadImage} alt = "UploadImage" width = "250px" height = "125px"/>
-          )} 
-        </div> 
-        <div>
-           <input
-             type = "file"
-             onChange = {handleChangeImage}
-            /> {" "}
-            <button onClick = {HandleUpload}>Upload</button>
-          </div>
-          <div>
-            {/* {game.progress > 0? <game.progress value = {game.progress} max = "100"/> : ""} 
-           <p> {game.error} </p>
-          </div>
-          {game.url ? (
-            <img src = {game.url} alt = "image" />
-          ) : (
-            <img src = {UploadImage} alt = "UploadImage" />
-          )} 
-        </div> */}
-
         <div className="btn-group">
           <button type="submit" value="Post" className="btn btn-primary">
             Submit
@@ -288,7 +207,9 @@ function GameAdd(props) {
             Cancel
           </button>
         </div>
+        </div>
       </form>
+    </div>
     </div>
   );
 }
