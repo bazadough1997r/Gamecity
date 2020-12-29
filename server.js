@@ -2,21 +2,33 @@ const jwt = require("jsonwebtoken");
 const express = require("express");
 var cors = require("cors");
 var bodyParser = require("body-parser");
+
 const mongoose = require("mongoose");
 const router = require("./routes/index");
+
 var dotenv = require("dotenv");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 require("dotenv").config();
 const app = express();
+const server = require("http").createServer(app)
+const io = require("socket.io")(server)
+
 app.use(bodyParser.json({ limit: "30mb" }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 const uri = process.env.MONGODB_URI;
+
+
 app.use(express.urlencoded({ extended: true }));
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 app.use(express.json());
 app.use("/api", router);
-mongoose.connect(process.env.MONGODB_URI, {
+
+
+const connect = mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -47,7 +59,7 @@ global.authenticateToken = function (req, res, next) {
     next(); // pass the execution off to whatever request the client intended
   });
 };
-mongoose.set("useFindAndModify", false);
+// mongoose.set("useFindAndModify", false);
 // app.use(express.json())
 const addUserRouter = require("./routes/route.js");
 app.use("/addUser", addUserRouter);
