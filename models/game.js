@@ -43,6 +43,9 @@ const gameSchema = new mongoose.Schema({
   },
   email: {
     type: String,
+  },
+  username: {
+    type: String,
   }
 });
 
