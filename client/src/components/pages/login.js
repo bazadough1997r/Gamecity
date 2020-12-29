@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { loginUser } from '../../actions';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import swal from 'sweetalert';
 
@@ -49,10 +49,6 @@ const Login = ( {loginUser, isLoggedIn} ) => {
     )
 }
 
-
-// function mapStateToProps(state) {
-//     console.log(state,"prrrrr")
-//   }
 
 const mapStateToProps = state =>({
     isLoggedIn: state.authReducer.isLoggedIn
