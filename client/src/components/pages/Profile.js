@@ -1,15 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect ,  useState} from "react";
 import { connect } from "react-redux";
 import { fetchUser } from "../../actions/index";
 import { Link , useParams} from "react-router-dom";
-
-
+import { storage } from "../firebase/index"
 function Profile({ userData, fetchUser, logOut }) {
+  // const [image , setImage]= useState(null);
+  // const [url , setURL]= useState(null);
   let {email}= useParams();
   console.log(email)
   useEffect(() => {
     fetchUser(email);
   }, []);
+
+
+//  function handleChange(e)  {
+//    if(e.target.files[0]){
+//    }
+//  }
 
   return userData.loading ? (<h2>Loading</h2>) : userData.error ? (<h2>{userData.error}</h2>) : (<div><h2>User Information</h2>
       <div>
@@ -27,12 +34,24 @@ function Profile({ userData, fetchUser, logOut }) {
           </ul>
                                               
         }
+  {/* <label>Add Image </label>
+  <input type="file" onChange="handleChange()"/>
+  <button onClick = "handleUpload()">Upload</button> */}
+   {/* <br />
+  <img width="50px" src = {this.state.url || "http://via.placeholder.com/100x150"} alt = "firebase-image" />
+  <button type="submit" value = "Submit" onClick = {this.onSubmit}>Submit</button> */}
+
+
+
+
+
+{/*   
         <Link
           to={{ pathname: `/profile/${fetchUser._id}/edit` }}
           className="btn btn-info"
         >
           Edit
-        </Link>
+        </Link> */}
         {/* <button onClick = {() => logOut()}> logOut</button> */}
       </div>
     </div>
