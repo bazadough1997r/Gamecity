@@ -6,7 +6,9 @@ import { setToken } from '../components/pages/setToken';
 export const FETCH_ALL = 'FETCH_ALL';
 export const SET_GAMES = "SET_GAMES";
 
-
+export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
+export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
+export const FETCH_USER_FAILURE = "FETCH_USER_FAILURE";
 
 
 
@@ -103,15 +105,15 @@ export function setUser(user) {
   };
 }
 
-export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
-export const fetchUser = () => {
+export const fetchUser = (email) => {
+  console.log(email,"email from action ")
   return (dispatch) => {
+
     dispatch(fetchUserRequest());
-    axios
-      .get("https://jsonplaceholder.typicode.com/users") //change
+    axios.get("/addUser/profile/"+email) 
       .then((response) => {
-        // response.data is the users
-        const user = response.data;
+        let user = response.data;
+        console.log(user,"from client")
         dispatch(fetchUserSuccess(user));
       })
       .catch((error) => {
@@ -128,7 +130,7 @@ export const fetchUserRequest = () => {
   };
 };
 
-export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS'
+// export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS'
 export const fetchUserSuccess = user => {
   return {
     type: FETCH_USER_SUCCESS,
@@ -136,7 +138,7 @@ export const fetchUserSuccess = user => {
   };
 };
 
-export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE'
+// export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE'
 export const fetchUserFailure = error => {
   return {
     type: FETCH_USER_FAILURE,
@@ -199,15 +201,17 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const loginUser = (email, password) => async dispatch => {
   try {
-    const body = {email, password}
+   const body = {email, password}
    const response = await axios.post('addUser/login', body);
    console.log(response, "responseee")
    
    dispatch({
      type: LOGIN_SUCCESS,
-     payload: response.data
+     payload: response.data,
+     token: response.data.token
+     //save token 
    })
-
+  //  window.location = '/profie/'+token
    dispatch(loadUser())
 
   } catch (error) {

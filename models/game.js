@@ -37,14 +37,13 @@ const gameSchema = new mongoose.Schema({
   comment : {
     type: String
   },
-  // selectedFile: {
-  //   type: String,
-  //   required: [true, "Please upload image of game"]
-  // },
+  selectedFile: {
+    type: String,
+    // required: [true, "Please upload image of game"]
+  },
   email: {
     type: String,
   }
 });
 
 module.exports = mongoose.model("Game", gameSchema);
-

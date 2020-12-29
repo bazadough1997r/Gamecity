@@ -43,6 +43,8 @@ function App() {
   );
 }
 
+var useremail=window.localStorage.email
+
 function Navigation() {
   var value = false;
   if (window.localStorage.length > 0) {
@@ -119,6 +121,17 @@ function Navigation() {
                   Notifications
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  className="nav-link"
+                  activeClassName="active"
+                  to={"/profile/"+useremail}
+                  style={{ color: "white" }}
+                >
+                  Profile
+                </NavLink>
+              </li>
               <li>
                 <NavLink
                   exact
@@ -162,7 +175,7 @@ function Main() {
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
-      <Route exact path="/profile" render={(props) => <Profile {...props} />} />
+      <Route exact path="/profile/:email" render={(props) => <Profile {...props} />} />
       <Route exact path="/login" render={(props) => <Login {...props} />} />
       <Route
         exact

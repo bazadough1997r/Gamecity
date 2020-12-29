@@ -16,7 +16,6 @@ import   Chat  from '../pages/Chat';
 function GameList(props) {
   const [games, setGames] = useState([]);
   
-
   console.log("games", games)
   console.log("props.games.filteredItems", props.games.filteredItems)
   console.log(games);
@@ -102,7 +101,6 @@ function GameList(props) {
             </h2>
           </MDBCol>
         </MDBRow>
-
       </MDBContainer>
       <hr />
     </div>

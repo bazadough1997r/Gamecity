@@ -48,6 +48,8 @@ function GameInfo(props) {
     value = false;
   }
 
+  
+
   return (
     <div>
       {value === false ? (

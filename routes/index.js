@@ -7,7 +7,7 @@ const mongoose = require ("mongoose");
 
 //Get request to /games returns a JSON array of all game objects found in the database.
 router.get("/games", function (req, res) {
-  console.log("hello")
+  // console.log("hello")
   Game.find(function (err, games) {
     res.json(games);
   });
@@ -97,4 +97,3 @@ router.delete("/games/:id", function (req, res) {
 
 
 module.exports = router;
-
