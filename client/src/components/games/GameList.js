@@ -10,12 +10,13 @@ import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import {likePost, joinPost, comment} from "../../actions/index.js"
 
 function GameList(props) {
-  const [commentField, setComment] = useState({comment : "", id: "", username: ""});
+  const [commentField, setComment] = useState({comment : "", id: "", email: ""});
   const [games, setGames] = useState([]);
   const dispatch = useDispatch();
   
   function handleChangeComment(event) {
-    setComment({ ...commentField, comment: event.target.value, id: event.target.name });
+    setComment({ ...commentField, comment: event.target.value, id: event.target.name, email: event.target.name });
+    console.log(event.target.name, "event.target.name")
   }
 
   function handleSubmit(event) {
@@ -57,7 +58,7 @@ function GameList(props) {
           <MDBCol md="6" style={{ marginTop: "20px" }}>
             {/* {console.log(game)} */}
             {props.games.filteredItems.map((game) => {
-              console.log(game)
+              // console.log(game)
               return (
                 <div key={game._id}>
                     {/* {console.log(game.comment)} */}
@@ -89,7 +90,7 @@ function GameList(props) {
                       <form>
                       <div className="form-group">
                         <input
-                          name = {game._id}
+                          name = {game._id, game.email}
                           type="text"
                           value={commentField.comment.name}
                           onChange={handleChangeComment}
@@ -98,14 +99,10 @@ function GameList(props) {
                           />
                         <button onClick = {handleSubmit}>Comment</button>
                         <br /> <br />
-                        {/* {games.map((game) => {
-                          return (
-                            <h6>{game.comment}</h6>
-                          )
-                        })} */}
                         {game.comment.map((aComment) => {
                           return (
                             <div>
+                            <h6>insert email here</h6>
                             <h6>{aComment}</h6>
                           <hr/>
                         </div>

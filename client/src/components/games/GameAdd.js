@@ -17,7 +17,7 @@ function GameAdd(props) {
     gameGovernorate: "Select Governorate",
     selectedFile: "",
     likeCount: 0,
-    comment:"",
+    comment:[],
     email: window.localStorage.email
   };
 

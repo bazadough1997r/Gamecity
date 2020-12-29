@@ -64,34 +64,6 @@ export function comment(commentField) {
     commentField: commentField,
   };
 }
-// export function comment(game, callback) {
-// return async function (dispatch) {
-//   return axios.patch(`/api/games/${game._id}`,game)
-//     .then (function(data) {
-//       console.log(game)
-//       callback();
-//       dispatch({ type: ADD_COMMENT, payload: data})
-//     })
-//     .catch(function (error) {
-//       console.log(error, "error from the actions/comments")
-//     })
-// }
-// }
-
-// export function comment(commentField) {
-  //     return function (dispatch) {
-    //         return patch(`/api/games/${commentField.id}/comment`)
-    //           .then (function(data) {
-      //               console.log(data, "game from actions")
-      //               dispatch({ type : ADD_COMMENT, commentField: commentField})
-      //               console.log(commentField.comment,"this is the game comment from the actions!")
-      //             })
-      //             .catch(function (error) {
-        //                 console.log(error, "error from the actions")
-        //               })
-        //           }
-        //         }
-
 
 //The only thing we are doing in this action is passing on the game object to the reducer.
 export const ADD_GAME = "ADD_GAME";

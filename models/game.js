@@ -35,7 +35,7 @@ const gameSchema = new mongoose.Schema({
     default: new Date()
   },
   comment : [{
-    comment: String, email: String
+    type: String
   }],
   selectedFile: {
     type: String,
