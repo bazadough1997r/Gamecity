@@ -71,14 +71,15 @@ export function setUser(user) {
   };
 }
 
-export const fetchUser = () => {
+export const fetchUser = (email) => {
+  console.log(email,"email from action ")
   return (dispatch) => {
+
     dispatch(fetchUserRequest());
-    axios
-      .get("https://jsonplaceholder.typicode.com/users") //change
+    axios.get("/addUser/profile/"+email) 
       .then((response) => {
-        // response.data is the users
-        const user = response.data;
+        let user = response.data;
+        console.log(user,"from client")
         dispatch(fetchUserSuccess(user));
       })
       .catch((error) => {
@@ -160,9 +161,11 @@ export const loginUser = (email, password) => async dispatch => {
    console.log(response, "responseee")
    dispatch({
      type: LOGIN_SUCCESS,
-     payload: response.data
+     payload: response.data,
+     token: response.data.token
+     //save token 
    })
-   window.location = '/'
+  //  window.location = '/profie/'+token
    dispatch(loadUser())
   } catch (error) {
     dispatch({

@@ -48,6 +48,14 @@ function GameInfo(props) {
     value = false;
   }
 
+  
+  var value = false;
+  if (window.localStorage.id === game.id) {
+    value = true;
+  } else {
+    value = false;
+  }
+
   return (
     <div>
       {value === false ? (
