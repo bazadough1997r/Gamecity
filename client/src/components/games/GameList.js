@@ -36,13 +36,13 @@ function GameList(props) {
   return (
     <div>
       <hr />
-      <Chat />
-      <br/>    <br/>    <br/>
       <MDBContainer>
         <MDBRow>
           <MDBCol md="3">
-          </MDBCol>
+          <Chat />
+          <br></br>
           <Filter />
+          </MDBCol>
           <MDBCol md="6" style={{ marginTop: "20px" }}>
             {/* {console.log(games)} */}
             {props.games.filteredItems.map((game) => {
