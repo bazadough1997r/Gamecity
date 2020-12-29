@@ -1,42 +1,49 @@
 const mongoose = require("mongoose");
+// const {ObjectId} = mongoose.Schema.Types
 
 const gameSchema = new mongoose.Schema({
   gameName: {
     type: String,
-    required: [true, "game name is required"],
+    required: [true, "Game name is required"]
   },
-  content: {
+  gameType: {
     type: String,
-    required: [true, "Content can't be blank"],
+    required: [true, "Game type is required"]
   },
-});
-
-module.exports = mongoose.model("Game", gameSchema);
-
-/*
-this is the old schema
-I'll add the rest of the old schema when i finish the essence
-
-const gameSchema = mongoose.Schema({
-
-  post: String,
-  game: String,
-  duration: String,
-  date: Date,
-  location: String,
-  image: String,
+  gameDuration: {
+    type: String,
+    required: [true, "Game duration is required"]
+  },
+  gameGovernorate: {
+    type: String,
+    required: [true, "Game governorate is required"]
+  },
+  gameDate: {
+    type: String,
+    required: [true, "Game governorate is required"]
+  },
   likeCount: {
-      type: Number,
-      default: 0
+    type: Number,
+    default: 0
+  },
+  joinCount: {
+    type: Number,
+    default: 0
   },
   createdAt: {
     type: Date,
-    default: new Date(),
+    default: new Date()
   },
-
+  comment : {
+    type: String
+  },
+  selectedFile: {
+    type: String,
+    // required: [true, "Please upload image of game"]
+  },
+  email: {
+    type: String,
+  }
 });
 
-const GameSchema = mongoose.model('GameSchema', gameSchema);
-
-export default GameSchema;
-*/
+module.exports = mongoose.model("Game", gameSchema);
