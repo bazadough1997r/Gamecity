@@ -12,10 +12,8 @@ const Login = ( {loginUser, isLoggedIn} ) => {
         email: "",
         password: ""
     })
-   
-   
-    var useremail=window.localStorage.email
-    if(isLoggedIn) return <Redirect to={"/profile/"+useremail}/>
+
+  if(isLoggedIn) return <Redirect to="/games"/>
 
     let {  email, password  } = data
     const onChange = (e)=> {
@@ -23,15 +21,15 @@ const Login = ( {loginUser, isLoggedIn} ) => {
     }
 
     const onsubmit = (e) =>{
-        // e.preventDefault()
+        e.preventDefault()
         if(email === "" || password === ""){
              return swal("Please fill all required fields")
         }else 
         loginUser(email, password)
-        // swal({
-        //     title: "Login succssesfully!",
-        //     icon: "success",
-        //   });
+        swal({
+            title: "Login succssesfully!",
+            icon: "success",
+          });
     }
 
     return (
@@ -44,7 +42,7 @@ const Login = ( {loginUser, isLoggedIn} ) => {
             <input onChange = {(e)=> onChange(e) } type="password" name = "password" value={password} placeholder="password"></input>
             <br/>
             <br/>
-            <button type= "submit" onClick= {(e)=> onsubmit(e)}>Login</button>
+            <button type= "submit" onClick= {(e)=> onsubmit(e)}>submit</button>
             <p>Register new account <a href="/addUser">SignUp</a></p>
 
         </div>
@@ -55,6 +53,4 @@ const Login = ( {loginUser, isLoggedIn} ) => {
 const mapStateToProps = state =>({
     isLoggedIn: state.authReducer.isLoggedIn
 })
-
-
 export default connect(mapStateToProps, {loginUser})(Login);

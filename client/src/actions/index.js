@@ -21,7 +21,6 @@ export function setGames() {
         dispatch({
            type: SET_GAMES,
            payload: response.data });
-           console.log(response.data,"data data data")
         //if we get a successful response we will call the dispatch method and send an Action. In this case the action type is SET_GAMES, and we are sending the API response data with the action as a payload called "games." Then the reducer will add it to the store.
       })
       .catch(function (error) {
@@ -106,14 +105,13 @@ export function setUser(user) {
 }
 
 export const fetchUser = (email) => {
-  console.log(email,"email from action ")
   return (dispatch) => {
 
     dispatch(fetchUserRequest());
     axios.get("/addUser/profile/"+email) 
       .then((response) => {
         let user = response.data;
-        console.log(user,"from client")
+
         dispatch(fetchUserSuccess(user));
       })
       .catch((error) => {
@@ -156,6 +154,7 @@ export const loadUser = () => async dispatch => {
   try {
 
    const response =  await axios.get('/addUser');
+   console.log(response,"response from loaduser")
    dispatch({
      type: LOAD_USER,
      payload: response.data
@@ -178,7 +177,6 @@ export const registerUser = ( firstName, lastName, username, email, city, phoneN
   try {
      const body = { firstName, lastName, username, email, city, phoneNo, birthday, password }
      const response = await axios.post('/addUser', body);
-     console.log(response.data.id, "responseee")
      window.location = '/login'
 
    dispatch({
@@ -203,7 +201,6 @@ export const loginUser = (email, password) => async dispatch => {
   try {
    const body = {email, password}
    const response = await axios.post('addUser/login', body);
-   console.log(response, "responseee")
    
    dispatch({
      type: LOGIN_SUCCESS,

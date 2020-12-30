@@ -5,7 +5,7 @@ import { SET_GAMES, ADD_GAME, REMOVE_GAME, REPLACE_GAME, FILTER_GAMES_BY_GOVERNO
 //Declare our reducer function with two arguments, state and action. Set the initial state to an empty games array.
 const initialState = { games: [], filteredItems: [], Governorates: "", type: "" };
 export default function gamesReducer(state = initialState, action) {
-  console.log(state,"state for games reducer laih undefined")
+
   //Use a switch statement to match the action type. If the action type is SET_GAMES it returns the games data to update the store with.
   switch (action.type) {
     //You need a default case. If there is no match, the reducer will just return the current state.

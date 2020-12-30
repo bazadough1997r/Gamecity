@@ -7,7 +7,7 @@ function Profile({ userData, fetchUser, logOut }) {
   // const [image , setImage]= useState(null);
   // const [url , setURL]= useState(null);
   let {email}= useParams();
-  console.log(email)
+
   useEffect(() => {
     fetchUser(email);
   }, [email,fetchUser]);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadUser } from '../../actions';
+import moment from 'moment';
 // import io  from 'socket.io-client';;
 
  class ChatPage extends Component {
@@ -22,6 +23,9 @@ import { loadUser } from '../../actions';
     onSubmitMessage = (event)=>{
        event.preventDefault()
        console.log("submitted")
+    //    let username = this.props.user.username
+    //    let nowTime = moment();
+    //    console.log(username," user name")
     }
 
     render() {
@@ -49,9 +53,10 @@ import { loadUser } from '../../actions';
 }
 
 const mapStateToProps = (state) => {
+    console.log(state,"statefrom CHAT")
     return {
-        // user: state.//finish me
+        user: state.user.user,
     }
 }
 
-export default connect(mapStateToProps, {loadUser})(ChatPage);
+export default connect(mapStateToProps, {loadUser} )(ChatPage);
