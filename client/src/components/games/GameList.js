@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+// import {useRef} from 'react';
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { patch } from "axios";
 import Filter from './Filter'
 import { Link } from "react-router-dom";
 import  { setGames } from '../../actions';
@@ -10,20 +12,41 @@ import {likePost, joinPost} from "../../actions/index.js"
 import   Chat  from '../pages/Chat';
 
 
-
-
-
 function GameList(props) {
+  const [commentField, setComment] = useState({comment : "", id: "", username: window.localStorage.username});
   const [games, setGames] = useState([]);
-  
-  console.log("games", games)
-  console.log("props.games.filteredItems", props.games.filteredItems)
-  console.log(games);
   const dispatch = useDispatch();
+  console.log(games, "games for the warning")
+  // let btnRef = useRef();
+
+  function handleChangeComment(event) {
+    setComment({ ...commentField, comment: event.target.value, id: event.target.name, username: window.localStorage.username});
+  }
+
+  // const onBtnClick = e => {
+  //   if(btnRef.current){
+  //     btnRef.current.setAttribute("disabled", "disabled");
+  //   }
+  // }
+
+   function handleSubmit(event) {
+    event.preventDefault();
+    async function comment() {
+      try {
+        await patch(`/api/games/${commentField.id}/comment`, commentField);
+        console.log(commentField.id, "ID from the edit")
+        props.history.push(`/games/${commentField.id}/comment`);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    comment();
+  } 
+
+
   useEffect(function () {
     async function getGames() {
       try {
-        //we have to add the id
         const response = await axios.get("/api/games");
         setGames(response.data);
       } catch (error) {
@@ -32,6 +55,8 @@ function GameList(props) {
     }
     getGames();
   }, []);
+
+
 
   return (
     <div>
@@ -44,15 +69,16 @@ function GameList(props) {
           <Filter />
           </MDBCol>
           <MDBCol md="6" style={{ marginTop: "20px" }}>
-            {/* {console.log(games)} */}
+            {/* {console.log(game)} */}
             {props.games.filteredItems.map((game) => {
-              // console.log(game._id)
               return (
                 <div key={game._id}>
-                    {/* {console.log(game.gameType)} */}
+                    {/* {console.log(game.comment)} */}
+                  <h3>{game.username}</h3>
                   <h4>
                     <Link to={`/games/${game._id}`}>{game.gameName}</Link>
                   </h4>
+                  {/* <h6>{game._id}</h6> */}
                   <MDBContainer>
                     <MDBRow>
                       <MDBCol size="4">
@@ -68,25 +94,42 @@ function GameList(props) {
                     </MDBRow>
                     <img src={game.selectedFile} width="250px" alt="game post"/>
                     <br />
-                    <button onClick = {() => dispatch(likePost(game), console.log(game._id, game))}>
+                    <button onClick = {() => dispatch(likePost(game))}>
                       Like {game.likeCount}
                     </button>
+                    {/* <button name ={game._id} onClick = {handleSubmitLike}>
+                      Like {game.likeCount}
+                    </button>                    */}
                     <button onClick = {() => dispatch(joinPost(game), console.log(game._id, game))}>
                       Join {game.joinCount}
                     </button>
                       <br /> <br />
+                      <form>
                       <div className="form-group">
                         <input
+                          name = {game._id}
                           type="text"
-                          value={game.comment}
-                          // onChange={handleChangeComment}
+                          value={commentField.comment.name}
+                          onChange={handleChangeComment}
                           className="form-control"
                           placeholder="Type in your comment here..."
-                        />
-                        <button type="Submit">Comment</button>
-                        <br />
-                        <h6>{game.comment}</h6>
+                          />
+                        <button onClick = {handleSubmit}>Comment</button>
+                        {/* {console.log(commentField,"commentField")} */}
+                        <br /> <br />
+                        {game.comment.map((theComment) => {
+                          return (
+                            <div>
+                              {/* {console.log(game.comment,"theComment")} */}
+                            {console.log(theComment)}
+                            <h6>Username: {theComment.username}</h6>
+                            <h6>Comment: {theComment.comment}</h6>
+                          <hr/>
+                        </div>
+                            )
+                          })}
                       </div>
+                      </form>
                   </MDBContainer>
                   <hr/>
                 </div>
