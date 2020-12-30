@@ -154,9 +154,9 @@ function Navigation() {
 
 function Main() {
   return (
-    // { value === false ?
+    
     <Switch>
-      {/* <Route exact path="/" component={GameList} /> */}
+
       <Route exact path="/land" component={Land} />
       <ProtectedRoute
         exact

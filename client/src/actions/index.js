@@ -6,9 +6,7 @@ import { setToken } from '../components/pages/setToken';
 export const FETCH_ALL = 'FETCH_ALL';
 export const SET_GAMES = "SET_GAMES";
 
-export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
-export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
-export const FETCH_USER_FAILURE = "FETCH_USER_FAILURE";
+
 
 
 
@@ -32,6 +30,24 @@ export function setGames() {
   };
 }
 
+// export const LIKE_GAME = "LIKE_GAME";
+// export function likePost(game) {
+//     return function (dispatch) {
+//         return patch(`/api/games/${game._id}/likePost`)
+//           .then (function(data) {
+//               // const newGame = JSON.stringify(game);
+//               console.log(data, "game from actions")
+//               dispatch({ type : LIKE_GAME, game: game})
+//               console.log(game.likeCount,"this is the game likeCount from the actions!")
+//               // console.log(response.data, "response.data")
+      
+//             })
+//             .catch(function (error) {
+//                 console.log(error, "error from the actions")
+//               })
+//           }
+//         }
+        
 export const LIKE_GAME = "LIKE_GAME";
 export function likePost(game, callback) {
   return async function (dispatch) {
@@ -104,14 +120,15 @@ export function setUser(user) {
   };
 }
 
-export const fetchUser = (email) => {
+export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
+export const fetchUser = () => {
   return (dispatch) => {
-
     dispatch(fetchUserRequest());
-    axios.get("/addUser/profile/"+email) 
+    axios
+      .get("https://jsonplaceholder.typicode.com/users") //change
       .then((response) => {
-        let user = response.data;
-
+        // response.data is the users
+        const user = response.data;
         dispatch(fetchUserSuccess(user));
       })
       .catch((error) => {
@@ -128,7 +145,7 @@ export const fetchUserRequest = () => {
   };
 };
 
-// export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS'
+export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS'
 export const fetchUserSuccess = user => {
   return {
     type: FETCH_USER_SUCCESS,
@@ -136,7 +153,7 @@ export const fetchUserSuccess = user => {
   };
 };
 
-// export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE'
+export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE'
 export const fetchUserFailure = error => {
   return {
     type: FETCH_USER_FAILURE,
@@ -197,18 +214,16 @@ export const registerUser = ( firstName, lastName, username, email, city, phoneN
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
-export const loginUser = (email, password) => async dispatch => {
+export const loginUser = (email, password, username) => async dispatch => {
   try {
-   const body = {email, password}
+   const body = {email, password, username}
    const response = await axios.post('addUser/login', body);
    
    dispatch({
      type: LOGIN_SUCCESS,
-     payload: response.data,
-     token: response.data.token
-     //save token 
+     payload: response.data
    })
-  //  window.location = '/profie/'+token
+   window.location = '/'
    dispatch(loadUser())
 
   } catch (error) {
@@ -253,7 +268,3 @@ export const filterByType = (games, type) => (dispatch) => {
     },
   });
 };
-
-
-
-

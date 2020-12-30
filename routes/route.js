@@ -3,6 +3,7 @@ const AddUser = require("../models/profileSchema.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
+const jwt_decode = require ("jwt-decode");
 
 
 
@@ -13,31 +14,20 @@ router.get("/", async (req, res) => {
 });
 
 //get all user from  database 
-// router.get("/addUser/:id", async (req, res) => {
-//   var params=[req.params.id]
-//   console.log(req.params.id,"hhhhhhhhhhhhh")
-//   AddUser.find(params)
-//     .then((AddUser) => res.json(AddUser))
-//     .catch((err) => res.status(400).json("Error: " + err));
-// });
-
-//server side
-router.get('/profile/:email', function(req, res) {
-  console.log(req.params)
-  AddUser.findOne({email:req.params.email})
-  .then(user => res.json(user))
-  .catch(err => res.status(400).json('Error: ' + err));
+router.get("/addUser", async (req, res) => {
+  AddUser.find()
+    .then((profileSchema) => res.json(profileSchema))
+    .catch((err) => res.status(400).json("Error: " + err));
 });
-
 
 ///loggingggg in
 router.post("/login", async (req, res) => {
   //checking if the username is signed up
   const email = req.body.email;
-  // const username = req.body.username;
+  const username = req.body.username;
   console.log(req.body)
   // console.log(email, "Rawan")
-  // console.log(username, "Rawan")
+  console.log(username, "Rawan")
   const user = await AddUser.findOne({ email });
   if (!user) {
     return res
@@ -52,7 +42,9 @@ router.post("/login", async (req, res) => {
   //create and send a token
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
   console.log(token)
-  res.header("addUser-token", token, email).json({ token, email });
+  var decoded = jwt_decode(token);
+  console.log(decoded._id,"decoded");
+  res.header("addUser-token", token, email, username).json({ token, email, username });
 });
 
 

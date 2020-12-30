@@ -42,7 +42,7 @@ function GameInfo(props) {
 
   //auth user
   var value = false;
-  if (window.localStorage.email === game.email) {
+  if (window.localStorage.username === game.username) {
     value = true;
   } else {
     value = false;

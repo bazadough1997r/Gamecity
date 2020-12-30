@@ -2,17 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadUser } from '../../actions';
 import moment from 'moment';
-// import io  from 'socket.io-client';;
-
+import io from "socket.io-client"
+// import Axios from 'axios';
+import jwt_decode from "jwt-decode";
  class ChatPage extends Component {
     state = {
         chatMessage: "",
     }
 
-    // componentDidMount(){
-    //     let server ="http://localhost:3001"
-    //     this.socket = io(server);
-    // }
+    componentDidMount(){
+        let server ="http://localhost:3001"
+        this.socket = io(server);
+        this.socket.on("Output Chat Message", messageFromBackend => {
+            console.log(messageFromBackend)
+        })
+    }
 
     handleMessage = (event)=>{
         this.setState({
@@ -20,15 +24,33 @@ import moment from 'moment';
         })
     }
 
+
+
     onSubmitMessage = (event)=>{
        event.preventDefault()
        console.log("submitted")
-    //    let username = this.props.user.username
-    //    let nowTime = moment();
-    //    console.log(username," user name")
+           let token = localStorage.getItem("token")
+           var decoded = jwt_decode(token);
+           let userId = decoded._id
+           let chatMessage = this.state.chatMessage
+           let username = localStorage.getItem("username")
+           let nowTime = moment();
+           let type = "Image"
+           this.socket.emit("Input Chat Message", {
+               chatMessage,
+               userId,
+               username,
+               nowTime,
+               type
+           });
+           console.log(this.socket)
+           this.setState({
+               chatMessage: ""
+           })
     }
 
     render() {
+        
         return (
             <div>
                 HI FROM CHAT COMPONENT
@@ -41,11 +63,11 @@ import moment from 'moment';
                     value= {this.state.chatMessage}
                     onChange= {this.handleMessage}
                     />
-                    {/* <button
+                    <button
                     onClick= {(e)=> this.onSubmitMessage(e)}
                     >
                         Send
-                    </button> */}
+                    </button>
                 </form>
             </div>
         )
