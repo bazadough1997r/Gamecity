@@ -29,6 +29,21 @@ router.get('/profile/:email', function(req, res) {
   .catch(err => res.status(400).json('Error: ' + err));
 });
 
+//update user information
+
+router.patch("/editprofile/:email", function (req, res) {
+  console.log(req.body, "bodyyy")
+  AddUser.findOne(req.params.email, req.body)
+  .then(function () {
+    res.json("user updated");    
+    console.log(req.params.email, "after the then")
+
+    })
+    .catch(function (err) {
+      res.status(422).send("user update failed");
+    });
+});
+
 
 ///loggingggg in
 router.post("/login", async (req, res) => {
@@ -76,6 +91,7 @@ router.post("/",  async (req, res) => {
   const city = req.body.city;
   const phoneNo = req.body.phoneNo;
   const birthday = req.body.birthday;
+  const url=req.body.url;
   //hashing password
   
   const hashedPassword = bcrypt.hashSync(req.body.password, 10)
@@ -95,6 +111,7 @@ const username = req.body.username;
     phoneNo: phoneNo,
     birthday: birthday,
     password: hashedPassword,
+    url:url
   });
 
 

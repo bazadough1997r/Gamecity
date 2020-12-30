@@ -333,6 +333,14 @@ export function setUser(user) {
   };
 }
 
+// export const EDIT_PROFILE = "EDIT_PROFILE";
+// export function updateProfile(user) {
+//   return {
+//     type: EDIT_PROFILE,
+//     user: user,
+//   };
+// }
+
 export const fetchUser = (email) => {
   console.log(email,"email from action ")
   return (dispatch) => {
@@ -401,10 +409,10 @@ export const loadUser = () => async dispatch => {
 
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 export const REGISTER_FAILURE = 'REGISTER_FAILURE'
-export const registerUser = ( firstName, lastName, username, email, city, phoneNo, birthday, password ) => async dispatch => {
+export const registerUser = ( firstName, lastName, username, email, city, phoneNo, birthday, password,url ) => async dispatch => {
  
   try {
-     const body = { firstName, lastName, username, email, city, phoneNo, birthday, password }
+     const body = { firstName, lastName, username, email, city, phoneNo, birthday, password ,url }
      const response = await axios.post('/addUser', body);
      console.log(response.data.id, "responseee")
      window.location = '/login'

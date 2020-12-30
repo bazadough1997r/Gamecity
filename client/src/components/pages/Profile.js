@@ -1,23 +1,19 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchUser } from "../../actions/index";
-import {  useParams } from "react-router-dom";
-//import { storage } from "../firebase/index"
-function Profile({ userData, fetchUser, logOut }) {
-  // const [image , setImage]= useState(null);
-  // const [url , setURL]= useState(null);
+import { useParams } from "react-router-dom";
+ import { Link } from "react-router-dom";
+
+function Profile({ userData, fetchUser }) {
+ 
   let {email}= useParams();
   console.log(email)
   useEffect(() => {
     fetchUser(email);
-  }, [email,fetchUser]);
+  },[email,fetchUser]);
 
 
-//  function handleChange(e)  {
-//    if(e.target.files[0]){
-//    }
-//  }
-
+ 
   return userData.loading ? (<h2>Loading</h2>) : userData.error ? (<h2>{userData.error}</h2>) : (<div><h2>User Information</h2>
       <div>
         {userData &&
@@ -31,28 +27,14 @@ function Profile({ userData, fetchUser, logOut }) {
           <li>{userData.user.phoneNo}</li>
           <li>{userData.user.birthday}</li>
           <li>{userData.user._id}</li>
-          </ul>
-                                              
-        }
-  {/* <label>Add Image </label>
-  <input type="file" onChange="handleChange()"/>
-  <button onClick = "handleUpload()">Upload</button> */}
-   {/* <br />
-  <img width="50px" src = {this.state.url || "http://via.placeholder.com/100x150"} alt = "firebase-image" />
-  <button type="submit" value = "Submit" onClick = {this.onSubmit}>Submit</button> */}
-
-
-
-
-
-{/*   
-        <Link
-          to={{ pathname: `/profile/${fetchUser._id}/edit` }}
-          className="btn btn-info"
-        >
-          Edit
-        </Link> */}
-        {/* <button onClick = {() => logOut()}> logOut</button> */}
+          </ul>                }
+       <img src={userData.user.url} alt ="profile_pic" width="150px"></img>
+                   {/* <Link
+              to={{ pathname: `/profile/editProfile` }}
+              className="btn btn-info"
+            >
+              Edit
+            </Link> */}
       </div>
     </div>
   );

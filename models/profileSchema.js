@@ -9,6 +9,7 @@ const ProfileSchema = new mongoose.Schema({
   phoneNo: Number,
   birthday: Date,
   password: String,
+  url:String
   // likeCount: {
   //   type: Number,
   //   default: 0,
