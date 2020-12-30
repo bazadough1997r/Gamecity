@@ -51,8 +51,8 @@ router.patch("/games/:id", function (req, res) {
 });
 
 router.patch("/games/:id/likePost", function (req, res) {
-  console.log(req.params, "req params")
-  console.log(req.body.likeCount, "i am the req.body")
+  console.log(req.params.id, "req params")
+  console.log(req.body, "i am the req.body")
   Game.findByIdAndUpdate(req.params.id, {likeCount: req.body.likeCount + 1} )
     .then(function () {
       res.json("Game liked");
@@ -77,6 +77,7 @@ router.patch("/games/:id/comment", function (req, res) {
   // console.log(req.body.comment, "i'm the req.body.comment")
   console.log(req.body, "i'm the req.body")
   // Game.findById(req.params.id)
+  // Game.findByIdAndUpdate(req.params.id, { $addToSet: {"commented": req.body.comment, "commentEmail": req.body.commentEmail}}, {upsert: true, new: true}, (err, model) =>{
   Game.findByIdAndUpdate(req.params.id, { $addToSet: {"comment": req.body.comment}}, {upsert: true, new: true}, (err, model) =>{
   //  console.log(model, "model")
   //  console.log(err, "err") 

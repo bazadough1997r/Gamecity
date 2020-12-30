@@ -1,29 +1,53 @@
 import React, { useState, useEffect } from "react";
+import {useRef} from 'react';
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { patch } from "axios";
 import Filter from './Filter'
 import { Link } from "react-router-dom";
-import  { setGames } from '../../actions';
+import  { ADD_COMMENT, setGames } from '../../actions';
 import { connect } from 'react-redux';
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import {likePost, joinPost} from "../../actions/index.js"
 import   Chat  from '../pages/Chat';
 
 
-
-
-
 function GameList(props) {
-  const [commentField, setComment] = useState({comment : "", id: "", email: window.localStorage.email});
+  const [commentField, setComment] = useState({comment : "", id: "", email: window.localStorage.email, likeCount: 0});
   const [games, setGames] = useState([]);
   const dispatch = useDispatch();
-  
+  let btnRef = useRef();
+
   function handleChangeComment(event) {
     setComment({ ...commentField, comment: event.target.value, id: event.target.name, email: window.localStorage.email});
   }
 
-  function handleSubmit(event) {
+  const onBtnClick = e => {
+    if(btnRef.current){
+      btnRef.current.setAttribute("disabled", "disabled");
+    }
+  }
+
+
+
+  // function handleSubmitLike(event) {
+  //   event.preventDefault();
+  //   setComment({ ...commentField, id: event.target.name});
+  //   async function likePost() {
+  //     try {
+  //       await patch(`/api/games/${commentField.id}/likePost`, commentField);
+  //       console.log(commentField.id, "ID from the likePost")
+  //       props.history.push(`/games/${commentField.id}/likePost`);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   likePost();
+  // }
+
+
+
+   function handleSubmit(event) {
     event.preventDefault();
     async function comment() {
       try {
@@ -35,7 +59,8 @@ function GameList(props) {
       }
     }
     comment();
-  }
+  } 
+
 
   useEffect(function () {
     async function getGames() {
@@ -86,9 +111,12 @@ function GameList(props) {
                     </MDBRow>
                     <img src={game.selectedFile} width="250px" alt="game post"/>
                     <br />
-                    <button onClick = {() => dispatch(likePost(game), console.log(game._id, game))}>
+                    <button onClick = {() => dispatch(likePost(game))}>
                       Like {game.likeCount}
                     </button>
+                    {/* <button name ={game._id} onClick = {handleSubmitLike}>
+                      Like {game.likeCount}
+                    </button>                    */}
                     <button onClick = {() => dispatch(joinPost(game), console.log(game._id, game))}>
                       Join {game.joinCount}
                     </button>
@@ -105,11 +133,11 @@ function GameList(props) {
                           />
                         <button onClick = {handleSubmit}>Comment</button>
                         <br /> <br />
-                        {game.comment.map((aComment) => {
+                        {game.comment.map((theComment) => {
                           return (
                             <div>
-                            <h6>insert email here</h6>
-                            <h6>{aComment}</h6>
+                            {/* <h6>{commentField.email}</h6> */}
+                            <h6>{theComment}</h6>
                           <hr/>
                         </div>
                             )

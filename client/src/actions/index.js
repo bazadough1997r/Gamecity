@@ -26,6 +26,13 @@ export function setGames() {
 }
 
 export const LIKE_GAME = "LIKE_GAME";
+// export function likePost(commentField) {
+//   return {
+//     type: LIKE_GAME,
+//     commentField: commentField,
+//   };
+// }
+
 export function likePost(game, callback) {
   return async function (dispatch) {
     return axios.patch(`/api/games/${game._id}/likePost`,game)
