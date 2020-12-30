@@ -49,28 +49,20 @@ export default function gamesReducer(state = initialState, action) {
           filteredItems: action.payload.items
         }
       case LIKE_GAME:
-        // return state.map(function (commentField) {
-        //   if (commentField.id === action.commentField.id) {
-        //     return {
-        //       ...commentField,
-        //       id: action.commentField.id,
-        //     };
-        //   } else return commentField;
-        // });       
-        // return state.map(function (game) {
-        //   if (game._id === action.game._id) {
-        //     return {
-        //       ...game,
-        //       gameName: action.game.gameName,
-        //       gameType: action.game.gameType,
-        //       gameDurartion: action.game.gameDuration,
-        //       gameDate: action.game.gameDate,
-        //       selectedFile: action.game.selectedFile,
-        //       likeCount: action.game.likeCount,
-        //       joinCount: action.game.joinCount,
-        //     };
-        //   } else return game;
-        // });
+        return state.map(function (game) {
+          if (game._id === action.game._id) {
+            return {
+              ...game,
+              gameName: action.game.gameName,
+              gameType: action.game.gameType,
+              gameDurartion: action.game.gameDuration,
+              gameDate: action.game.gameDate,
+              selectedFile: action.game.selectedFile,
+              likeCount: action.game.likeCount,
+              joinCount: action.game.joinCount,
+            };
+          } else return game;
+        });
         case JOIN_GAME:
           return state.map(function (game) {
             if (game._id === action.game._id) {
@@ -92,6 +84,7 @@ export default function gamesReducer(state = initialState, action) {
                 return {
                   ...commentField,
                   comment: action.commentField.comment,
+                  username: action.commentField.username
                 };
               } else return commentField;
             });

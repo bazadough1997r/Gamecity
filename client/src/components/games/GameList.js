@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {useRef} from 'react';
+// import {useRef} from 'react';
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { patch } from "axios";
 import Filter from './Filter'
 import { Link } from "react-router-dom";
-import  { ADD_COMMENT, setGames } from '../../actions';
+import  { setGames } from '../../actions';
 import { connect } from 'react-redux';
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import {likePost, joinPost} from "../../actions/index.js"
@@ -13,39 +13,21 @@ import   Chat  from '../pages/Chat';
 
 
 function GameList(props) {
-  const [commentField, setComment] = useState({comment : "", id: "", email: window.localStorage.email, likeCount: 0});
+  const [commentField, setComment] = useState({comment : "", id: "", username: window.localStorage.username});
   const [games, setGames] = useState([]);
   const dispatch = useDispatch();
-  let btnRef = useRef();
+  console.log(games, "games for the warning")
+  // let btnRef = useRef();
 
   function handleChangeComment(event) {
-    setComment({ ...commentField, comment: event.target.value, id: event.target.name, email: window.localStorage.email});
+    setComment({ ...commentField, comment: event.target.value, id: event.target.name, username: window.localStorage.username});
   }
 
-  const onBtnClick = e => {
-    if(btnRef.current){
-      btnRef.current.setAttribute("disabled", "disabled");
-    }
-  }
-
-
-
-  // function handleSubmitLike(event) {
-  //   event.preventDefault();
-  //   setComment({ ...commentField, id: event.target.name});
-  //   async function likePost() {
-  //     try {
-  //       await patch(`/api/games/${commentField.id}/likePost`, commentField);
-  //       console.log(commentField.id, "ID from the likePost")
-  //       props.history.push(`/games/${commentField.id}/likePost`);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
+  // const onBtnClick = e => {
+  //   if(btnRef.current){
+  //     btnRef.current.setAttribute("disabled", "disabled");
   //   }
-  //   likePost();
   // }
-
-
 
    function handleSubmit(event) {
     event.preventDefault();
@@ -89,13 +71,14 @@ function GameList(props) {
           <MDBCol md="6" style={{ marginTop: "20px" }}>
             {/* {console.log(game)} */}
             {props.games.filteredItems.map((game) => {
-              // console.log(game)
               return (
                 <div key={game._id}>
                     {/* {console.log(game.comment)} */}
+                  <h3>{game.username}</h3>
                   <h4>
                     <Link to={`/games/${game._id}`}>{game.gameName}</Link>
                   </h4>
+                  {/* <h6>{game._id}</h6> */}
                   <MDBContainer>
                     <MDBRow>
                       <MDBCol size="4">
@@ -132,12 +115,15 @@ function GameList(props) {
                           placeholder="Type in your comment here..."
                           />
                         <button onClick = {handleSubmit}>Comment</button>
+                        {/* {console.log(commentField,"commentField")} */}
                         <br /> <br />
                         {game.comment.map((theComment) => {
                           return (
                             <div>
-                            {/* <h6>{commentField.email}</h6> */}
-                            <h6>{theComment}</h6>
+                              {/* {console.log(game.comment,"theComment")} */}
+                            {console.log(theComment)}
+                            <h6>Username: {theComment.username}</h6>
+                            <h6>Comment: {theComment.comment}</h6>
                           <hr/>
                         </div>
                             )

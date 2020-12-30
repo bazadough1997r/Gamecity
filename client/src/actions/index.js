@@ -24,15 +24,8 @@ export function setGames() {
       });
   };
 }
-
+       
 export const LIKE_GAME = "LIKE_GAME";
-// export function likePost(commentField) {
-//   return {
-//     type: LIKE_GAME,
-//     commentField: commentField,
-//   };
-// }
-
 export function likePost(game, callback) {
   return async function (dispatch) {
     return axios.patch(`/api/games/${game._id}/likePost`,game)
@@ -65,6 +58,7 @@ export function joinPost(game, callback) {
 
 export const ADD_COMMENT = "ADD_COMMENT";
 export function comment(commentField) {
+  console.log(commentField, "commentField")
   return {
     type: ADD_COMMENT,
     commentField: commentField,
@@ -112,16 +106,15 @@ export function setUser(user) {
   };
 }
 
-export const FETCH_ALL = 'FETCH_ALL';
-export const fetchUser = (email) => {
-  console.log(email,"email from action ")
+export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
+export const fetchUser = () => {
   return (dispatch) => {
-
     dispatch(fetchUserRequest());
-    axios.get("/addUser/profile/"+email) 
+    axios
+      .get("https://jsonplaceholder.typicode.com/users") //change
       .then((response) => {
-        let user = response.data;
-        console.log(user,"from client")
+        // response.data is the users
+        const user = response.data;
         dispatch(fetchUserSuccess(user));
       })
       .catch((error) => {
@@ -131,7 +124,7 @@ export const fetchUser = (email) => {
   };
 };
 
-export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
+// export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
 export const fetchUserRequest = () => {
   return {
     type: FETCH_USER_REQUEST,
@@ -207,19 +200,17 @@ export const registerUser = ( firstName, lastName, username, email, city, phoneN
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
-export const loginUser = (email, password) => async dispatch => {
+export const loginUser = (email, password, username) => async dispatch => {
   try {
-   const body = {email, password}
+   const body = {email, password, username}
    const response = await axios.post('addUser/login', body);
    console.log(response, "responseee")
    
    dispatch({
      type: LOGIN_SUCCESS,
-     payload: response.data,
-     token: response.data.token
-     //save token 
+     payload: response.data
    })
-  //  window.location = '/profie/'+token
+   window.location = '/'
    dispatch(loadUser())
 
   } catch (error) {
@@ -264,7 +255,3 @@ export const filterByType = (games, type) => (dispatch) => {
     },
   });
 };
-
-
-
-

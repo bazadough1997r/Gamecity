@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 
 const Register = ({ registerUser, isLoggedIn}) => {
-    console.log(isLoggedIn,"isLoggedIn")
+    // console.log(isLoggedIn,"isLoggedIn")
 
     let [data, setData] = useState ({
         firstName: "",

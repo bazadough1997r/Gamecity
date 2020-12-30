@@ -26,6 +26,7 @@ router.get("/games/:id", function (req, res) {
 
 router.post("/games", function (req, res) {
   let game = new Game(req.body);
+  console.log(req.body, "req.bodyyyyy")
   game
     .save()
     .then((game) => {
@@ -76,9 +77,8 @@ router.patch("/games/:id/joinPost", function (req, res) {
 router.patch("/games/:id/comment", function (req, res) {
   // console.log(req.body.comment, "i'm the req.body.comment")
   console.log(req.body, "i'm the req.body")
-  // Game.findById(req.params.id)
-  // Game.findByIdAndUpdate(req.params.id, { $addToSet: {"commented": req.body.comment, "commentEmail": req.body.commentEmail}}, {upsert: true, new: true}, (err, model) =>{
-  Game.findByIdAndUpdate(req.params.id, { $addToSet: {"comment": req.body.comment}}, {upsert: true, new: true}, (err, model) =>{
+  var object = {comment: req.body.comment, username: req.body.username}
+  Game.findByIdAndUpdate(req.params.id, { $addToSet: {comment: object}}, {upsert: true, new: true}, (err, model) =>{
   //  console.log(model, "model")
   //  console.log(err, "err") 
   })
@@ -86,14 +86,14 @@ router.patch("/games/:id/comment", function (req, res) {
     res.json("Game comment added");    
     })
     .catch(function (err) {
-      res.status(422).send("Game update failed/ Rawans route");
+      res.status(422).send("Game update failed");
     });
 });
 
 router.delete("/games/:id", function (req, res) {
   Game.findById(req.params.id, function (err, game) {
     if (!game) {
-      res.status(404).send("Game not found/ Rawan route");
+      res.status(404).send("Game not found");
     } else {
       Game.findByIdAndRemove(req.params.id)
         .then(function () {
