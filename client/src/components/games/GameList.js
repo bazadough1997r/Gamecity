@@ -117,9 +117,9 @@ function GameList(props) {
                         <button onClick = {handleSubmit}>Comment</button>
                         {/* {console.log(commentField,"commentField")} */}
                         <br /> <br />
-                        {game.comment.map((theComment) => {
+                        {game.comment.map((theComment, i) => {
                           return (
-                            <div>
+                            <div key={i}>
                               {/* {console.log(game.comment,"theComment")} */}
                             {console.log(theComment)}
                             <h6>Username: {theComment.username}</h6>
