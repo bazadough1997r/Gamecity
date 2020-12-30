@@ -48,6 +48,8 @@ function GameInfo(props) {
     value = false;
   }
 
+  
+
   return (
     <div>
       {value === false ? (
@@ -102,3 +104,4 @@ function GameInfo(props) {
 
 export default GameInfo;
 //useEffect: The React useEffect hook essentially replaces the lifecycle methods (componentDidMount, componentDidUpdate, componentWillUnmount). Use it when we need to rerender our component.
+
