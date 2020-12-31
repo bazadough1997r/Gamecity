@@ -29,12 +29,12 @@ function Profile({ userData, fetchUser }) {
           <li>{userData.user._id}</li>
           </ul>                }
        <img src={userData.user.url} alt ="profile_pic" width="150px"></img>
-                   {/* <Link
-              to={{ pathname: `/profile/editProfile` }}
+                   <Link
+              to={{ pathname: `/editProfile/` }}
               className="btn btn-info"
             >
               Edit
-            </Link> */}
+            </Link>
       </div>
     </div>
   );

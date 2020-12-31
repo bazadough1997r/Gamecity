@@ -31,7 +31,7 @@ router.get('/profile/:email', function(req, res) {
 
 //update user information
 
-router.patch("/editprofile/:email", function (req, res) {
+router.patch("/:email/editprofile/", function (req, res) {
   console.log(req.body, "bodyyy")
   AddUser.findOne(req.params.email, req.body)
   .then(function () {

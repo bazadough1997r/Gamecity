@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { get, patch } from 'axios';
-import { storage } from "../firebase/index"
 
-const ProfileEdit = ({ registerUser, isLoggedIn,props}) => {
-    console.log(isLoggedIn,"isLoggedIn")
+
+const ProfileEdit = (props) => {
+//     console.log(isLoggedIn,"isLoggedIn")
  
-    const [image , setImage,user,setUser]= useState(null);
-    const [ url,setURL]= useState(null);
-       let [data, setData] = useState ({
-           firstName: "",
+    
+   
+    const initialState = {
+           firstName: "hh",
            lastName: "",
            username: "",
            email: "",
@@ -16,13 +16,14 @@ const ProfileEdit = ({ registerUser, isLoggedIn,props}) => {
            phoneNo: "",
            birthday: "",
            password: ""
-       })
-       let { firstName, lastName, username, email, city, phoneNo, birthday, password  } = data
+       }
 
+       const [user,setUser]= useState(initialState);
+//
   useEffect(function() {
     async function getProfile() {
       try {
-        const response = await get(`/${props.match.params.email}/editProfile`);
+        const response = await get(`/addUser/profile/"+${props.match.params.email}`);
         setUser(response.data);        
       } catch(error) {
         console.log(error);
@@ -31,12 +32,14 @@ const ProfileEdit = ({ registerUser, isLoggedIn,props}) => {
     getProfile();    
   }, [props]);
 
+
+
   function handleSubmit(event) {
     event.preventDefault();
     async function updateProfile(user) {
       try {
-        await patch(`/${user.email}/editProfile`, user);
-        props.history.push(`/${user.email}/editProfile`);        
+        await patch(`/profile/editProfile+${props.match.params.email}`, user);
+        props.history.push(`/editProfile/${props.match.params.email}`);        
       } catch(error) {
         console.log(error);
       }
@@ -44,37 +47,42 @@ const ProfileEdit = ({ registerUser, isLoggedIn,props}) => {
     updateProfile();
   }
 
-//   function handleChange(event) {
-//     setUser({...user, [event.target.name]: event.target.value
-//     })
-//   }
 
 
-  const onChange = (e)=> {
+  function handleChangefirstName(event) {
+    setUser({ ...user, firstName: event.target.value });
+  }
 
-    setData({...data, [e.target.name]: e.target.value})
-}
-// function handleUpload(e){
+  function handleChangelastName(event) {
+    setUser({ ...user, lastName: event.target.value });
+  }
 
-//     console.log("imageeeeeeeee",image)
-//            e.preventDefault();
-//           const uploadTask = storage.ref(`/images/${image.name}`).put(image);
-//           uploadTask.on("state_changed",(snapshot) => {},
-//             (error) => {
-//               console.log(error, "error");
-//             },
-//             () => {
-//               storage
-//                 .ref("images")
-//                 .child(image.name)
-//                 .getDownloadURL()
-//                 .then((url) => {
-//                   setURL(url)
-//                   console.log(url)
-//                 });
-//             }
-//           );     
-//   }
+  function handleChangeusername(event) {
+    setUser({ ...user, username: event.target.value });
+  }
+
+  function handleChangeemail(event) {
+    setUser({ ...user, email: event.target.value });
+  }
+
+  function handleChangecity(event) {
+    setUser({ ...user, city: event.target.value });
+  }
+
+  
+  function handleChangephoneNo(event) {
+    setUser({ ...user, phoneNo: event.target.value });
+  }
+
+
+  
+  function handleChangebirthday(event) {
+    setUser({ ...user, birthday: event.target.value });
+  }
+
+  function handleChangepassword(event) {
+    setUser({ ...user, password: event.target.value });
+  }
 
  
 
@@ -82,35 +90,38 @@ const ProfileEdit = ({ registerUser, isLoggedIn,props}) => {
     <div style={{ textAlign:"center" }} ><form  action="/login"  >
     <h2>Edit Profile</h2>
         <h3>Register</h3>
-        <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName}  required placeholder="first name"></input>
+        <input onChange={handleChangefirstName} type="text" name = "firstName" value={user.firstName}  required placeholder="first name"></input>
         <br/>
        
-        <input onChange = {(e)=> onChange(e) } type="text" name = "lastName" value={lastName} required={true} placeholder="last name"></input>
+        <input onChange = {handleChangelastName} type="text" name = "lastName" value={user.lastName} required={true} placeholder="last name"></input>
         <br/>
         
-        <input onChange = {(e)=> onChange(e) } type="text" name = "username" value={username} required={true} placeholder="username"></input>
+        <input onChange = {handleChangeusername } type="text" name = "username" value={user.username} required={true} placeholder="username"></input>
         <br/>
        
-        <input onChange = {(e)=> onChange(e) } type="email" name = "email" value={email} required={true} placeholder="email"></input>
+        <input onChange = {handleChangeemail} type="email" name = "email" value={user.email} required={true} placeholder="email"></input>
         <br/>
       
-        <input onChange = {(e)=> onChange(e) } type="text" name = "city" value={city} required={true} placeholder="city"></input>
+        <input onChange = {handleChangecity} type="text" name = "city" value={user.city} required={true} placeholder="city"></input>
         <br/>
         <label>Phone number</label><br></br>
        
-        <input onChange = {(e)=> onChange(e) } type="tel"  placeholder="07X-XXXX-XXX"  maxLength="10" name = "phoneNo" value={phoneNo} required={true}></input>
+        <input onChange = { handleChangephoneNo} type="tel"  placeholder="07X-XXXX-XXX"  maxLength="10" name = "phoneNo" value={user.phoneNo} required={true}></input>
         <br/>
         <label>Birthday</label><br></br>
         
-        <input onChange = {(e)=> onChange(e) } type="date" name = "birthday" value={birthday} required={true}></input>
+        <input onChange = {handleChangebirthday} type="date" name = "birthday" value={user.birthday} required={true}></input>
         <br/>
         <br></br>
         
-        <input onChange = {(e)=> onChange(e) } type="password" name = "password" value={password}   required={true} placeholder="password"></input>
+        <input onChange = {handleChangepassword} type="password" name = "password" value={user.password}   required={true} placeholder="password"></input>
         <br/>
         <br/>
-        
-        <button type= "submit" onClick= {()=> handleSubmit()} className="btn btn-primary">submit</button>
+        <button type="submit" value="Post" className="btn btn-primary">
+            {" "}
+            Update{" "}
+          </button>
+        {/* <button type= "submit" onClick= {()=>handleSubmit ()} className="btn btn-primary">submit</button> */}
         <br/>
        
         </form>

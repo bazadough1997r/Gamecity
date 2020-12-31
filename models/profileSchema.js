@@ -10,19 +10,7 @@ const ProfileSchema = new mongoose.Schema({
   birthday: Date,
   password: String,
   url:String
-  // likeCount: {
-  //   type: Number,
-  //   default: 0,
-  // },
-  // createdAt: {
-  //   type: Date,
-  //   default: new Date(),
-  // },
-  // joinCount: {
-  //   type: Number,
-  //   id: [Number],
-  //   default: 0,
-  // }
+
 });
 
 module.exports = mongoose.model("ProfileSchema", ProfileSchema);
