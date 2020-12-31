@@ -3,9 +3,7 @@ const AddUser = require("../models/profileSchema.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
-const jwt_decode = require ("jwt-decode");
-
-
+const jwt_decode = require("jwt-decode");
 
 router.get("/", async (req, res) => {
   AddUser.find()
@@ -13,21 +11,20 @@ router.get("/", async (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-//get all user from  database 
+//get all user from  database
 router.get("/addUser", async (req, res) => {
   AddUser.find()
     .then((profileSchema) => res.json(profileSchema))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-
 router.post("/login", async (req, res) => {
   //checking if the username is signed up
   const email = req.body.email;
   const username = req.body.username;
-  console.log(req.body)
+  console.log(req.body);
   // console.log(email, "Rawan")
-  console.log(username, "Rawan")
+  console.log(username, "Rawan");
   const user = await AddUser.findOne({ email });
   if (!user) {
     return res
@@ -41,15 +38,13 @@ router.post("/login", async (req, res) => {
   if (!validpassword) return res.status(400).send("Password not correct");
   //create and send a token
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-  console.log(token)
   var decoded = jwt_decode(token);
-  console.log(decoded._id,"decoded");
-  res.header("addUser-token", token, email, username).json({ token, email, username });
+  res
+    .header("addUser-token", token, email, username)
+    .json({ token, email, username });
 });
 
-
-router.post("/",  async (req, res) => {
-
+router.post("/", async (req, res) => {
   //checking if the username or email is used
   const useradded = await AddUser.findOne({
     $or: [{ email: req.body.email }, { username: req.body.username }],
@@ -57,11 +52,12 @@ router.post("/",  async (req, res) => {
   console.log("user added");
 
   if (useradded)
-    return res.status(400).send(
-       "There is an account with same Username or Email,please choose another one?"
+    return res
+      .status(400)
+      .send(
+        "There is an account with same Username or Email,please choose another one?"
       );
 
-     
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const email = req.body.email;
@@ -69,13 +65,11 @@ router.post("/",  async (req, res) => {
   const phoneNo = req.body.phoneNo;
   const birthday = req.body.birthday;
   //hashing password
-  
-  const hashedPassword = bcrypt.hashSync(req.body.password, 10)
+
+  const hashedPassword = bcrypt.hashSync(req.body.password, 10);
   const username = req.body.username;
 
-  
-
-  //every thing is readdy here we send the data to the server  
+  //every thing is readdy here we send the data to the server
   const newUser = await AddUser.create({
     firstName: firstName,
     lastName: lastName,
@@ -87,7 +81,6 @@ router.post("/",  async (req, res) => {
     password: hashedPassword,
   });
 
-
   console.log(newUser);
   try {
     const saveUser = await newUser.save();
@@ -96,6 +89,5 @@ router.post("/",  async (req, res) => {
     res.status(400).send(err);
   }
 });
-
 
 module.exports = router;

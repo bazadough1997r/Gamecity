@@ -11,8 +11,8 @@ export default function gamesReducer(state = initialState, action) {
     //You need a default case. If there is no match, the reducer will just return the current state.
     case SET_GAMES:
       return {...state,
-        games: action.payload,
-        filteredItems: action.payload 
+        games: state.games.concat(action.payload),
+        filteredItems: state.filteredItems.concat(action.payload) 
       };
 
     case ADD_GAME:

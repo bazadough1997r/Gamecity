@@ -10,7 +10,6 @@ router.get("/getChats", function (req, res) {
        .exec((err, chats) =>{
            if(err) return res.status(400).send(err);
            res.status(200).send(chats);
-           console.log(chats,"here are the chats")
        })
   
   });

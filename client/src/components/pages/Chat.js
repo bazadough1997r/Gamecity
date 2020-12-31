@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import  {getChats}  from '../../actions';
-import  ChatCard  from './ChatCard';
+import  {getChats, afterPostMessage}  from '../../actions';
 import moment from 'moment';
 import io from "socket.io-client"
-// import Axios from 'axios';
 import jwt_decode from "jwt-decode";
 
 
@@ -17,13 +15,13 @@ import jwt_decode from "jwt-decode";
     componentDidMount(){
         let server ="http://localhost:3001"
 
-       console.log(this.props.dispatch(getChats()),"this.props.dispatch(getChats())")
        this.props.dispatch(getChats())
 
         this.socket = io(server);
 
         this.socket.on("Output Chat Message", messageFromBackend => {
-            console.log(messageFromBackend,"messageFromBackend")
+            console.log(messageFromBackend)
+            this.props.dispatch(afterPostMessage(messageFromBackend))
         })
     }
 
@@ -33,22 +31,10 @@ import jwt_decode from "jwt-decode";
         })
     }
 
-    // renderCards = () =>{
-    //     console.log(this.props.chats.chats,"this.props.chats.chats")
-    //     this.props.chats.chats &&
-    //     this.props.chats.chats.map((chat,i) => {
-    //        return 
-    //            (
-    //            <div></div>
-    //        )
-    //     })
-    // }
-
-
 
     onSubmitMessage = (event)=>{
        event.preventDefault()
-       console.log("submitted")
+
            let token = localStorage.getItem("token")
            var decoded = jwt_decode(token);
            let userId = decoded._id
@@ -92,7 +78,7 @@ import jwt_decode from "jwt-decode";
                            {this.props.chats.chats &&
                         this.props.chats.chats.map((chat,i) => {
                             return (
-                                <div>
+                                <div key={i}>
                                 <h3>{chat.sender.username}</h3>
                                 <h6>{chat.message}</h6>
                                 </div>
@@ -106,7 +92,6 @@ import jwt_decode from "jwt-decode";
 }
 
 const mapStateToProps = (state) => {
-    console.log(state,"statefrom CHAT")
     return {
         user: state.user.user,
         chats: state.chat

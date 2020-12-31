@@ -7,7 +7,6 @@ import swal from 'sweetalert';
 
 const Login = ( {loginUser, isLoggedIn} ) => {
       
-   console.log(isLoggedIn, "isLoggedIn")
     let [data, setData] = useState ({
         email: "",
         password: ""

@@ -18,7 +18,7 @@ function GameList(props) {
   
   console.log("games", games)
   console.log("props.games.filteredItems", props.games.filteredItems)
-  console.log(games);
+  console.log(props,"props");
   const dispatch = useDispatch();
   useEffect(function () {
     async function getGames() {
@@ -44,12 +44,9 @@ function GameList(props) {
           <Filter />
           </MDBCol>
           <MDBCol md="6" style={{ marginTop: "20px" }}>
-            {/* {console.log(games)} */}
             {props.games.filteredItems.map((game) => {
-              // console.log(game._id)
               return (
                 <div key={game._id}>
-                    {/* {console.log(game.gameType)} */}
                   <h4>
                     <Link to={`/games/${game._id}`}>{game.gameName}</Link>
                   </h4>
