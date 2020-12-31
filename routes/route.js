@@ -12,14 +12,7 @@ router.get("/", async (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-//get all user from  database 
-// router.get("/addUser/:id", async (req, res) => {
-//   var params=[req.params.id]
-//   console.log(req.params.id,"hhhhhhhhhhhhh")
-//   AddUser.find(params)
-//     .then((AddUser) => res.json(AddUser))
-//     .catch((err) => res.status(400).json("Error: " + err));
-// });
+
 
 //server side
 router.get('/profile/:email', function(req, res) {
@@ -31,16 +24,20 @@ router.get('/profile/:email', function(req, res) {
 
 //update user information
 
-router.patch("/:email/editprofile/", function (req, res) {
-  console.log(req.body, "bodyyy")
-  AddUser.findOne(req.params.email, req.body)
-  .then(function () {
+router.put("/profile/editProfile/:email", function (req, res) {
+
+  console.log("im the req.body", req.body)
+
+  console.log("email: ", req.params.email)
+  let user = AddUser.find({email: req.params.email});
+ user.update(req.body).then(function () {
     res.json("user updated");    
     console.log(req.params.email, "after the then")
 
     })
     .catch(function (err) {
       res.status(422).send("user update failed");
+      console.log("eerrrrrrrrrrrrrr")
     });
 });
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { get, patch } from 'axios';
+import { get,put} from 'axios';
 
 
 const ProfileEdit = (props) => {
@@ -8,14 +8,13 @@ const ProfileEdit = (props) => {
     
    
     const initialState = {
-           firstName: "hh",
+           firstName: "",
            lastName: "",
            username: "",
-           email: "",
            city: "",
            phoneNo: "",
            birthday: "",
-           password: ""
+           
        }
 
        const [user,setUser]= useState(initialState);
@@ -23,7 +22,7 @@ const ProfileEdit = (props) => {
   useEffect(function() {
     async function getProfile() {
       try {
-        const response = await get(`/addUser/profile/"+${props.match.params.email}`);
+        const response = await get(`/addUser/profile/${props.match.params.email}`);
         setUser(response.data);        
       } catch(error) {
         console.log(error);
@@ -34,18 +33,19 @@ const ProfileEdit = (props) => {
 
 
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    async function updateProfile(user) {
+  async function handleSubmit(event) {
+    console.log(props.match.params.email,"from ")
+     event.preventDefault();
+     console.log("user#1", user);
+
       try {
-        await patch(`/profile/editProfile+${props.match.params.email}`, user);
-        props.history.push(`/editProfile/${props.match.params.email}`);        
+        await put(`/addUser/profile/editProfile/${props.match.params.email}`, user);
+        window.location(`/profile/${props.match.params.email}`)
       } catch(error) {
         console.log(error);
       }
+    
     }
-    updateProfile();
-  }
 
 
 
@@ -59,10 +59,6 @@ const ProfileEdit = (props) => {
 
   function handleChangeusername(event) {
     setUser({ ...user, username: event.target.value });
-  }
-
-  function handleChangeemail(event) {
-    setUser({ ...user, email: event.target.value });
   }
 
   function handleChangecity(event) {
@@ -80,9 +76,7 @@ const ProfileEdit = (props) => {
     setUser({ ...user, birthday: event.target.value });
   }
 
-  function handleChangepassword(event) {
-    setUser({ ...user, password: event.target.value });
-  }
+ 
 
  
 
@@ -90,37 +84,32 @@ const ProfileEdit = (props) => {
     <div style={{ textAlign:"center" }} ><form  action="/login"  >
     <h2>Edit Profile</h2>
         <h3>Register</h3>
-        <input onChange={handleChangefirstName} type="text" name = "firstName" value={user.firstName}  required placeholder="first name"></input>
+        <input onChange={handleChangefirstName} type="text" name = "firstName" value={user.firstName}  placeholder="first name"></input>
         <br/>
        
-        <input onChange = {handleChangelastName} type="text" name = "lastName" value={user.lastName} required={true} placeholder="last name"></input>
+        <input onChange = {handleChangelastName} type="text" name = "lastName" value={user.lastName}  placeholder="last name"></input>
         <br/>
         
-        <input onChange = {handleChangeusername } type="text" name = "username" value={user.username} required={true} placeholder="username"></input>
+        <input onChange = {handleChangeusername } type="text" name = "username" value={user.username}  placeholder="username"></input>
         <br/>
        
-        <input onChange = {handleChangeemail} type="email" name = "email" value={user.email} required={true} placeholder="email"></input>
         <br/>
       
-        <input onChange = {handleChangecity} type="text" name = "city" value={user.city} required={true} placeholder="city"></input>
+        <input onChange = {handleChangecity} type="text" name = "city" value={user.city}  placeholder="city"></input>
         <br/>
         <label>Phone number</label><br></br>
        
-        <input onChange = { handleChangephoneNo} type="tel"  placeholder="07X-XXXX-XXX"  maxLength="10" name = "phoneNo" value={user.phoneNo} required={true}></input>
+        <input onChange = { handleChangephoneNo} type="tel"  placeholder="07X-XXXX-XXX"  maxLength="10" name = "phoneNo" value={user.phoneNo} ></input>
         <br/>
         <label>Birthday</label><br></br>
         
-        <input onChange = {handleChangebirthday} type="date" name = "birthday" value={user.birthday} required={true}></input>
+        <input onChange = {handleChangebirthday} type="date" name = "birthday" value={user.birthday} ></input>
         <br/>
         <br></br>
         
-        <input onChange = {handleChangepassword} type="password" name = "password" value={user.password}   required={true} placeholder="password"></input>
         <br/>
         <br/>
-        <button type="submit" value="Post" className="btn btn-primary">
-            {" "}
-            Update{" "}
-          </button>
+        <button type="submit" value="Post" className="btn btn-primary"  onClick= {(e)=>handleSubmit (e)}>Save </button>
         {/* <button type= "submit" onClick= {()=>handleSubmit ()} className="btn btn-primary">submit</button> */}
         <br/>
        
@@ -129,4 +118,4 @@ const ProfileEdit = (props) => {
 )
 }
 
-export default ProfileEdit;
+export default ProfileEdit; 

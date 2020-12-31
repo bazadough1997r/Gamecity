@@ -177,7 +177,7 @@ function Main() {
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
-      <Route exact path="/editProfile" component={ProfileEdit} />
+      <Route exact path="/editProfile/:email" component={ProfileEdit} />
 
       <Route exact path="/profile/:email" render={(props) => <Profile {...props} />} />
       <Route exact path="/login" render={(props) => <Login {...props} />} />

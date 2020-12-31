@@ -19,18 +19,24 @@ function Profile({ userData, fetchUser }) {
         {userData &&
           userData.user &&
           <ul>
+          -UserName:
           <li>{userData.user.username}</li>
+          -FirstName:
           <li>{userData.user.firstName}</li>
+          -LastName:
           <li>{userData.user.lastName}</li>
+          -Email:
           <li>{userData.user.email}</li>
+          -City:
           <li>{userData.user.city}</li>
+          -PhoneNo:
           <li>{userData.user.phoneNo}</li>
+          -Birthday:
           <li>{userData.user.birthday}</li>
-          <li>{userData.user._id}</li>
           </ul>                }
        <img src={userData.user.url} alt ="profile_pic" width="150px"></img>
                    <Link
-              to={{ pathname: `/editProfile/` }}
+              to={{ pathname: `/editProfile/${userData.user.email}` }}
               className="btn btn-info"
             >
               Edit

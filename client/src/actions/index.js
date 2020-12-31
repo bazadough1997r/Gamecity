@@ -333,13 +333,13 @@ export function setUser(user) {
   };
 }
 
-// export const EDIT_PROFILE = "EDIT_PROFILE";
-// export function updateProfile(user) {
-//   return {
-//     type: EDIT_PROFILE,
-//     user: user,
-//   };
-// }
+export const EDIT_PROFILE = "EDIT_PROFILE";
+export function updateProfile(user) {
+  return {
+    type: EDIT_PROFILE,
+    user: user,
+  };
+}
 
 export const fetchUser = (email) => {
   console.log(email,"email from action ")
