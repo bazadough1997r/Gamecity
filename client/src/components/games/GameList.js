@@ -5,23 +5,25 @@ import { patch } from "axios";
 import Filter from './Filter'
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import {likePost, unlikePost, joinPost, unjoinPost, setGames} from "../../actions/index.js"
-import   Chat  from '../pages/Chat';
+import { likePost, unlikePost, joinPost, unjoinPost, setGames } from "../../actions/index.js"
+import Chat from '../pages/Chat';
+// import { heart } from "@fortawesome/free-solid-svg-icons";
+
 // import { copyFileSync } from "fs";
 
 
 function GameList(props) {
 
-  const [commentField, setComment] = useState({comment : "", id: "", username: window.localStorage.username, joins: 0, likes: 0});
+  const [commentField, setComment] = useState({ comment: "", id: "", username: window.localStorage.username, joins: 0, likes: 0 });
   const [games, setGames] = useState([]);
   const dispatch = useDispatch();
   console.log(games, "games for the warning")
   function handleChangeComment(event) {
-    setComment({ ...commentField, comment: event.target.value, id: event.target.name, username: window.localStorage.username});
+    setComment({ ...commentField, comment: event.target.value, id: event.target.name, username: window.localStorage.username });
   }
 
 
-   function handleSubmitComment(event) {
+  function handleSubmitComment(event) {
     event.preventDefault();
     async function comment() {
       try {
@@ -33,7 +35,7 @@ function GameList(props) {
       }
     }
     comment();
-  } 
+  }
 
   useEffect(function () {
     async function getGames() {
@@ -55,16 +57,16 @@ function GameList(props) {
       <MDBContainer>
         <MDBRow>
           <MDBCol md="3">
-          <Chat />
-          <br></br>
-          <Filter />
+            <Chat />
+            <br></br>
+            <Filter />
           </MDBCol>
           <MDBCol md="6" style={{ marginTop: "20px" }}>
             {/* {console.log(game)} */}
             {props.games.filteredItems.map((game) => {
               return (
                 <div key={game._id}>
-                    {/* {console.log(game.comment)} */}
+                  {/* {console.log(game.comment)} */}
                   <h3>@{game.username}</h3>
                   <h4>
                     <Link to={`/games/${game._id}`}>{game.gameName}</Link>
@@ -84,59 +86,68 @@ function GameList(props) {
                         <h6>Duration: {game.gameDuration}</h6>
                       </MDBCol>
                     </MDBRow>
-                    <img src={game.selectedFile} width="250px" alt="game post"/>
+                    <img src={game.selectedFile} width="250px" alt="game post" />
                     <br />
-                    {/* <button onClick = {() => dispatch(likePost(game))}>
-                        Like {game.likeCount}
-                    </button> */}
-                    <button onClick = {() => dispatch(unlikePost(game, commentField))}>
-                        Unlike
+                    {/* <div>
+                     {game.likeCount.includes(game.username)
+                     ?<button onClick={() => dispatch(unlikePost(game, commentField))}>
+                      Unlike
                     </button>
-                    <button name = {game._id} onClick = {() => dispatch(likePost(game, commentField), console.log(game,commentField, "commentField, like"))}>
+                     : <button name={game._id} onClick={() => dispatch(likePost(game, commentField))}>
+                     Like {game.likeCount.length}
+                   </button>
+                      }
+                    </div> */}
+                    <i className = "material-icons">thumb_up</i>
+                    <button onClick={() => dispatch(unlikePost(game, commentField))}>
+                      Unlike
+                    </button>
+                    <button name={game._id} onClick={() => dispatch(likePost(game, commentField), console.log(game, commentField, "commentField, like"))}>
                       Like {game.likeCount.length}
                     </button>
-                    <button name = {game._id} onClick = {() => dispatch(joinPost(game, commentField))}>
+                    <button name={game._id} onClick={() => dispatch(joinPost(game, commentField))}>
                       Join {game.joinCount.length}
                     </button>
-                    <button name = {game._id} onClick = {() => dispatch(unjoinPost(game, commentField))}>
+                    <button name={game._id} onClick={() => dispatch(unjoinPost(game, commentField))}>
                       Unjoin
                     </button>
+                    {/* <FontAwesomeIcon icon={heart} /> */}
 
                     {game.joinCount.map((joined, i) => {
                       return (
-                        <div key = {i}>
+                        <div key={i}>
                           <h6>Player: {joined.username}</h6>
                         </div>
                       )
                     })}
 
-                      <br /> <br />
-                      <form>
+                    <br /> <br />
+                    <form>
                       <div className="form-group">
                         <input
-                          name = {game._id}
+                          name={game._id}
                           type="text"
                           value={commentField.comment.name}
                           onChange={handleChangeComment}
                           className="form-control"
                           placeholder="Type in your comment here..."
-                          />
-                        <button onClick = {handleSubmitComment}>Comment</button>
+                        />
+                        <button onClick={handleSubmitComment}>Comment</button>
                         <br /> <br />
                         {game.comment.map((theComment, i) => {
                           return (
-                            <div key = {i}>
-                            {/* {console.log(theComment)} */}
-                            <h6>Username: {theComment.username}</h6>
-                            <h6>Comment: {theComment.comment}</h6>
-                          <hr/>
-                        </div>
-                            )
-                          })}
+                            <div key={i}>
+                              {/* {console.log(theComment)} */}
+                              <h6>Username: {theComment.username}</h6>
+                              <h6>Comment: {theComment.comment}</h6>
+                              <hr />
+                            </div>
+                          )
+                        })}
                       </div>
-                      </form>
+                    </form>
                   </MDBContainer>
-                  <hr/>
+                  <hr />
                 </div>
               );
             })}
@@ -154,9 +165,7 @@ function GameList(props) {
     </div>
   );
 }
-// const mapStateToProps = state => ({
-//   games: state.games
-// })
+
 const mapStateToProps = (state) => {
   return {
     games: state.games,
@@ -181,16 +190,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(GameList);
                     // } */}
                     // {/* <button onClick = {() => dispatch(likePost(game))}>
                     //     Like {game.likeCount[0].likeCount}
-                    // </button> */}
-
-                    /////////////////////////////
-                    //                     {/* <button name = {game._id} onClick = {
-                    //   (event) => {setComment({ ...commentField, id: event.target.name})},
-                    //   handleSubmitJoin, 
-                    //   console.log(commentField, "commentField from the join")
-                    // }>
-                    //   Join {game.joinCount}
-                    // </button> */}
-                    // {/* <button name = {game._id} onChange = {handleChangeJoin} onClick = {handleSubmitJoin}>
-                    //   Join {game.joinCount}
                     // </button> */}
