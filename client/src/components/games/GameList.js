@@ -1,34 +1,25 @@
 import React, { useState, useEffect } from "react";
-// import {useRef} from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 import axios from "axios";
 import { patch } from "axios";
 import Filter from './Filter'
 import { Link } from "react-router-dom";
-// import  { comment, setGames } from '../../actions';
-import { connect } from 'react-redux';
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import {likePost, joinPost, unlikePost, setGames} from "../../actions/index.js"
+import {likePost, unlikePost, joinPost, unjoinPost, setGames} from "../../actions/index.js"
 import   Chat  from '../pages/Chat';
 // import { copyFileSync } from "fs";
 
 
 function GameList(props) {
 
-  const [commentField, setComment] = useState({comment : "", id: "", username: window.localStorage.username, joins: 0});
+  const [commentField, setComment] = useState({comment : "", id: "", username: window.localStorage.username, joins: 0, likes: 0});
   const [games, setGames] = useState([]);
   const dispatch = useDispatch();
   console.log(games, "games for the warning")
-  // let btnRef = useRef();
   function handleChangeComment(event) {
     setComment({ ...commentField, comment: event.target.value, id: event.target.name, username: window.localStorage.username});
   }
 
-  // const onBtnClick = e => {
-  //   if(btnRef.current){
-  //     btnRef.current.setAttribute("disabled", "disabled");
-  //   }
-  // }
 
    function handleSubmitComment(event) {
     event.preventDefault();
@@ -43,21 +34,6 @@ function GameList(props) {
     }
     comment();
   } 
-
-  // function handleSubmitJoin(event) {
-  //   event.preventDefault();
-  //   async function join() {
-  //     try {
-  //       await patch(`/api/games/${commentField.id}/joinPost`, commentField);
-  //       console.log(commentField.id, "ID from the edit")
-  //       props.history.push(`/games/${commentField.id}/joinPost`);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   join();
-  // } 
-
 
   useEffect(function () {
     async function getGames() {
@@ -93,6 +69,7 @@ function GameList(props) {
                   <h4>
                     <Link to={`/games/${game._id}`}>{game.gameName}</Link>
                   </h4>
+                  <h6>{game.createdAt}</h6>
                   {/* <h6>{game._id}</h6> */}
                   <MDBContainer>
                     <MDBRow>
@@ -109,14 +86,20 @@ function GameList(props) {
                     </MDBRow>
                     <img src={game.selectedFile} width="250px" alt="game post"/>
                     <br />
-                    <button onClick = {() => dispatch(likePost(game))}>
+                    {/* <button onClick = {() => dispatch(likePost(game))}>
                         Like {game.likeCount}
-                    </button>
-                    <button onClick = {() => dispatch(unlikePost(game))}>
+                    </button> */}
+                    <button onClick = {() => dispatch(unlikePost(game, commentField))}>
                         Unlike
                     </button>
-                    <button name = {game._id} onClick = {() => dispatch(joinPost(game, commentField), console.log(game,commentField, "commentField, join"))}>
+                    <button name = {game._id} onClick = {() => dispatch(likePost(game, commentField), console.log(game,commentField, "commentField, like"))}>
+                      Like {game.likeCount.length}
+                    </button>
+                    <button name = {game._id} onClick = {() => dispatch(joinPost(game, commentField))}>
                       Join {game.joinCount.length}
+                    </button>
+                    <button name = {game._id} onClick = {() => dispatch(unjoinPost(game, commentField))}>
+                      Unjoin
                     </button>
 
                     {game.joinCount.map((joined, i) => {

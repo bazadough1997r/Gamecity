@@ -23,15 +23,18 @@ const gameSchema = new mongoose.Schema({
     required: [true, "Game governorate is required"]
   },
 
-  likeCount: {
-    type: Number,
-    default: 0
-  },
+  likeCount: [
+    Object
+  ],
   unlikeCount: {
     type: Number,
     default: 0
   },
   joins: {
+    type: Number,
+    default: 0
+  },
+  likes: {
     type: Number,
     default: 0
   },
