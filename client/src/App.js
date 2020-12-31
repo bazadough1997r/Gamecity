@@ -6,6 +6,8 @@ import {
   Switch,
 } from "react-router-dom";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
 import ProtectedRoute from "./components/pages/ProtectedRoute";
 import notfound from "./components/pages/notfound";
 import Profile from "./components/pages/Profile";

@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "alert": "^5.0.8",
     "base-64": "^1.0.0",
     "bcrypt": "^5.0.0",

@@ -1,4 +1,4 @@
-import { SET_GAMES, ADD_GAME, REMOVE_GAME, REPLACE_GAME, FILTER_GAMES_BY_GOVERNORATES, FILTER_GAMES_BY_TYPE, LIKE_GAME, JOIN_GAME, ADD_COMMENT } from "../actions";
+import { SET_GAMES, ADD_GAME, REMOVE_GAME, REPLACE_GAME, FILTER_GAMES_BY_GOVERNORATES, FILTER_GAMES_BY_TYPE, LIKE_GAME, UNLIKE_GAME, JOIN_GAME, ADD_COMMENT } from "../actions";
 
 //Import SET_GAMES && ADD_GAME from the actions folder.
 // import { SET_GAMES, ADD_GAME, REMOVE_GAME, REPLACE_GAME, LIKE_GAME, JOIN_GAME } from "../actions";
@@ -49,6 +49,7 @@ export default function gamesReducer(state = initialState, action) {
           filteredItems: action.payload.items
         }
       case LIKE_GAME:
+      case UNLIKE_GAME:
         return state.map(function (game) {
           if (game._id === action.game._id) {
             return {
@@ -60,24 +61,41 @@ export default function gamesReducer(state = initialState, action) {
               selectedFile: action.game.selectedFile,
               likeCount: action.game.likeCount,
               joinCount: action.game.joinCount,
+              likes: action.game.likes,
+              username: action.game.username
             };
           } else return game;
         });
         case JOIN_GAME:
-          return state.map(function (game) {
+          return state.map(function (game, commentField) {
             if (game._id === action.game._id) {
-              return {
-                ...game,
-                gameName: action.game.gameName,
-                gameType: action.game.gameType,
-                gameDurartion: action.game.gameDuration,
-                gameDate: action.game.gameDate,
-                selectedFile: action.game.selectedFile,
-                likeCount: action.game.likeCount,
-                joinCount: action.game.joinCount,
-              };
-            } else return game;
-          });
+                 return {
+                  ...commentField,
+                  joinCount: action.commentField.joinCount,
+                  username: action.commentField.username
+                };
+              } else return commentField;
+            });
+            // if (commentField.id === action.commentField.id) {
+            //     return {
+            //       ...commentField,
+            //       comment: action.commentField.joinCount,
+            //       username: action.commentField.username
+            //     };
+            //   } else return commentField;
+            // });
+          //     return {
+          //       ...game,
+          //       gameName: action.game.gameName,
+          //       gameType: action.game.gameType,
+          //       gameDurartion: action.game.gameDuration,
+          //       gameDate: action.game.gameDate,
+          //       selectedFile: action.game.selectedFile,
+          //       likeCount: action.game.likeCount,
+          //       joinCount: action.game.joinCount,
+          //     };
+          //   } else return game;
+          // });
           case ADD_COMMENT:
             return state.map(function (commentField) {
               if (commentField.id === action.commentField.id) {

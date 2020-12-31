@@ -40,14 +40,13 @@ export function likePost(game, callback) {
   }
 }
 
-export const JOIN_GAME = "JOIN_GAME";
-export function joinPost(game, callback) {
+export const UNLIKE_GAME = "UNLIKE_GAME";
+export function unlikePost(game, callback) {
   return async function (dispatch) {
-    return axios.patch(`/api/games/${game._id}/joinPost`,game)
+    return axios.patch(`/api/games/${game._id}/unlikePost`,game)
       .then (function(data) {
-        // console.log(data)
         callback();
-        dispatch({ type: JOIN_GAME, payload: data})
+        dispatch({ type: UNLIKE_GAME, payload: data})
 
       })
       .catch(function (error) {
@@ -55,6 +54,33 @@ export function joinPost(game, callback) {
       })
   }
 }
+
+export const JOIN_GAME = "JOIN_GAME";
+export function joinPost(game, commentField, callback) {
+  console.log(game, "game")
+  console.log(commentField, "game")
+  console.log(callback, "callback")
+  return async function (dispatch) {
+    return axios.patch(`/api/games/${game._id}/joinPost`, commentField)
+      .then (function(data) {
+        callback();
+        dispatch({ type: JOIN_GAME, payload: data})
+        console.log(data)
+      })
+      .catch(function (error) {
+        console.log(error, "error from the actions")
+      })
+  }
+}
+
+// export const JOIN_GAME = "JOIN_GAME";
+// export function join(commentField) {
+//   console.log(commentField, "commentField")
+//   return {
+//     type: JOIN_GAME,
+//     commentField: commentField,
+//   };
+// }
 
 export const ADD_COMMENT = "ADD_COMMENT";
 export function comment(commentField) {

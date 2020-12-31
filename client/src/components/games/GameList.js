@@ -5,20 +5,21 @@ import axios from "axios";
 import { patch } from "axios";
 import Filter from './Filter'
 import { Link } from "react-router-dom";
-import  { setGames } from '../../actions';
+// import  { comment, setGames } from '../../actions';
 import { connect } from 'react-redux';
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import {likePost, joinPost} from "../../actions/index.js"
+import {likePost, joinPost, unlikePost, setGames} from "../../actions/index.js"
 import   Chat  from '../pages/Chat';
+// import { copyFileSync } from "fs";
 
 
 function GameList(props) {
-  const [commentField, setComment] = useState({comment : "", id: "", username: window.localStorage.username});
+
+  const [commentField, setComment] = useState({comment : "", id: "", username: window.localStorage.username, joins: 0});
   const [games, setGames] = useState([]);
   const dispatch = useDispatch();
   console.log(games, "games for the warning")
   // let btnRef = useRef();
-
   function handleChangeComment(event) {
     setComment({ ...commentField, comment: event.target.value, id: event.target.name, username: window.localStorage.username});
   }
@@ -29,12 +30,12 @@ function GameList(props) {
   //   }
   // }
 
-   function handleSubmit(event) {
+   function handleSubmitComment(event) {
     event.preventDefault();
     async function comment() {
       try {
         await patch(`/api/games/${commentField.id}/comment`, commentField);
-        console.log(commentField.id, "ID from the edit")
+        // console.log(commentField.id, "ID from the edit")
         props.history.push(`/games/${commentField.id}/comment`);
       } catch (error) {
         console.log(error);
@@ -42,6 +43,20 @@ function GameList(props) {
     }
     comment();
   } 
+
+  // function handleSubmitJoin(event) {
+  //   event.preventDefault();
+  //   async function join() {
+  //     try {
+  //       await patch(`/api/games/${commentField.id}/joinPost`, commentField);
+  //       console.log(commentField.id, "ID from the edit")
+  //       props.history.push(`/games/${commentField.id}/joinPost`);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   join();
+  // } 
 
 
   useEffect(function () {
@@ -74,7 +89,7 @@ function GameList(props) {
               return (
                 <div key={game._id}>
                     {/* {console.log(game.comment)} */}
-                  <h3>{game.username}</h3>
+                  <h3>@{game.username}</h3>
                   <h4>
                     <Link to={`/games/${game._id}`}>{game.gameName}</Link>
                   </h4>
@@ -95,14 +110,23 @@ function GameList(props) {
                     <img src={game.selectedFile} width="250px" alt="game post"/>
                     <br />
                     <button onClick = {() => dispatch(likePost(game))}>
-                      Like {game.likeCount}
+                        Like {game.likeCount}
                     </button>
-                    {/* <button name ={game._id} onClick = {handleSubmitLike}>
-                      Like {game.likeCount}
-                    </button>                    */}
-                    <button onClick = {() => dispatch(joinPost(game), console.log(game._id, game))}>
-                      Join {game.joinCount}
+                    <button onClick = {() => dispatch(unlikePost(game))}>
+                        Unlike
                     </button>
+                    <button name = {game._id} onClick = {() => dispatch(joinPost(game, commentField), console.log(game,commentField, "commentField, join"))}>
+                      Join {game.joinCount.length}
+                    </button>
+
+                    {game.joinCount.map((joined, i) => {
+                      return (
+                        <div key = {i}>
+                          <h6>Player: {joined.username}</h6>
+                        </div>
+                      )
+                    })}
+
                       <br /> <br />
                       <form>
                       <div className="form-group">
@@ -114,14 +138,12 @@ function GameList(props) {
                           className="form-control"
                           placeholder="Type in your comment here..."
                           />
-                        <button onClick = {handleSubmit}>Comment</button>
-                        {/* {console.log(commentField,"commentField")} */}
+                        <button onClick = {handleSubmitComment}>Comment</button>
                         <br /> <br />
-                        {game.comment.map((theComment) => {
+                        {game.comment.map((theComment, i) => {
                           return (
-                            <div>
-                              {/* {console.log(game.comment,"theComment")} */}
-                            {console.log(theComment)}
+                            <div key = {i}>
+                            {/* {console.log(theComment)} */}
                             <h6>Username: {theComment.username}</h6>
                             <h6>Comment: {theComment.comment}</h6>
                           <hr/>
@@ -166,3 +188,26 @@ const mapDispatchToProps = (dispatch) => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameList);
+                    // {/* {game.likeCount.includes(game.username)
+                    // ? <button onClick = {() => dispatch(unlikePost(game))}>
+                    //     Unlike
+                    //   </button>
+                    // : <button onClick = {() => dispatch(likePost(game))}>
+                    //     Like {game.likeCount}
+                    //   </button>
+                    // } */}
+                    // {/* <button onClick = {() => dispatch(likePost(game))}>
+                    //     Like {game.likeCount[0].likeCount}
+                    // </button> */}
+
+                    /////////////////////////////
+                    //                     {/* <button name = {game._id} onClick = {
+                    //   (event) => {setComment({ ...commentField, id: event.target.name})},
+                    //   handleSubmitJoin, 
+                    //   console.log(commentField, "commentField from the join")
+                    // }>
+                    //   Join {game.joinCount}
+                    // </button> */}
+                    // {/* <button name = {game._id} onChange = {handleChangeJoin} onClick = {handleSubmitJoin}>
+                    //   Join {game.joinCount}
+                    // </button> */}
