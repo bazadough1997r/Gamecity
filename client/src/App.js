@@ -13,6 +13,7 @@ import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
 import GameAdd from "./components/games/GameAdd";
 import GameEdit from "./components/games/GameEdit";
+import Chat from "./components/pages/Chat";
 import { loadUser } from "./actions";
 import { setToken } from "./components/pages/setToken";
 import { store } from "./index";
@@ -126,6 +127,17 @@ function Navigation() {
                   exact
                   className="nav-link"
                   activeClassName="active"
+                  to="/chat"
+                  style={{ color: "white" }}
+                >
+                  Chat Rooms
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  className="nav-link"
+                  activeClassName="active"
                   to={"/profile/"+useremail}
                   style={{ color: "white" }}
                 >
@@ -175,6 +187,7 @@ function Main() {
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
+      <Route exact path="/chat" component={Chat} />
       <Route exact path="/profile/:email" render={(props) => <Profile {...props} />} />
       <Route exact path="/login" render={(props) => <Login {...props} />} />
       <Route

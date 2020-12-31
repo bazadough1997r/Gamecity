@@ -1,16 +1,18 @@
 import { get } from "axios";
 import axios from 'axios';
 import { setToken } from '../components/pages/setToken';
+// import { response } from "express";
+
 
 
 export const FETCH_ALL = 'FETCH_ALL';
-export const SET_GAMES = "SET_GAMES";
 
 
 
 
-
+/////////////////////////////////////////////////////Actions for GAMES/////////////////////////////////////////////////////
 //setGames() will make our API call and use the dispatch method to send an action to the reducer.
+export const SET_GAMES = "SET_GAMES";
 export function setGames() {
   return function (dispatch) {
     //We don't need to use the full URL, just the path. We added the domain portion as a proxy in the client/package.json file.
@@ -30,23 +32,7 @@ export function setGames() {
   };
 }
 
-// export const LIKE_GAME = "LIKE_GAME";
-// export function likePost(game) {
-//     return function (dispatch) {
-//         return patch(`/api/games/${game._id}/likePost`)
-//           .then (function(data) {
-//               // const newGame = JSON.stringify(game);
-//               console.log(data, "game from actions")
-//               dispatch({ type : LIKE_GAME, game: game})
-//               console.log(game.likeCount,"this is the game likeCount from the actions!")
-//               // console.log(response.data, "response.data")
-      
-//             })
-//             .catch(function (error) {
-//                 console.log(error, "error from the actions")
-//               })
-//           }
-//         }
+
         
 export const LIKE_GAME = "LIKE_GAME";
 export function likePost(game, callback) {
@@ -104,6 +90,7 @@ export function removeGame(_id) {
   };
 }
 
+
 export const REPLACE_GAME = "REPLACE_GAME";
 export function replaceGame(game) {
   return {
@@ -112,6 +99,9 @@ export function replaceGame(game) {
   };
 }
 
+
+
+/////////////////////////////////////////////////////Actions for USER/////////////////////////////////////////////////////
 export const SET_USER = "SET_USER";
 export function setUser(user) {
   return {
@@ -120,7 +110,8 @@ export function setUser(user) {
   };
 }
 
-export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
+
+
 export const fetchUser = () => {
   return (dispatch) => {
     dispatch(fetchUserRequest());
@@ -138,7 +129,7 @@ export const fetchUser = () => {
   };
 };
 
-// export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST'
+export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST'
 export const fetchUserRequest = () => {
   return {
     type: FETCH_USER_REQUEST,
@@ -234,7 +225,8 @@ export const loginUser = (email, password, username) => async dispatch => {
   }
 }
 
-////////////////////////////FILTERRRRR//////////////////////////////
+/////////////////////////////////////////////////////Actions for FILTERS/////////////////////////////////////////////////////
+
 
 export const FILTER_GAMES_BY_GOVERNORATES = 'FILTER_GAMES_BY_GOVERNORATES'
 export const filterGames = (games, Governorates) => (dispatch) => {
@@ -268,3 +260,18 @@ export const filterByType = (games, type) => (dispatch) => {
     },
   });
 };
+
+/////////////////////////////////////////////////////Actions for CHATT/////////////////////////////////////////////////////
+export const CHAT_SERVER = '/api/chat';
+export const GET_CHATS = 'GET_CHATS';
+export const getChats = () => async dispatch => {
+
+   const response =  await axios.get(`${CHAT_SERVER}/getChats`);
+   console.log(response,"REPONSE")
+   dispatch({
+     type: GET_CHATS,
+     payload: response.data
+
+   }) 
+  }
+

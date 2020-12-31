@@ -20,7 +20,7 @@ router.get("/addUser", async (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-///loggingggg in
+
 router.post("/login", async (req, res) => {
   //checking if the username is signed up
   const email = req.body.email;
@@ -71,10 +71,8 @@ router.post("/",  async (req, res) => {
   //hashing password
   
   const hashedPassword = bcrypt.hashSync(req.body.password, 10)
-  // if (Password.length < 5)
-  // return res.status(400).send({ msg: "The password need to be at least 5 characters long. " }); 
-const username = req.body.username;
-// console.log(username, "userrrrrrrrrrrrrr")
+  const username = req.body.username;
+
   
 
   //every thing is readdy here we send the data to the server  

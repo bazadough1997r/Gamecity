@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loadUser } from '../../actions';
+import  {getChats}  from '../../actions';
+import  ChatCard  from './ChatCard';
 import moment from 'moment';
 import io from "socket.io-client"
 // import Axios from 'axios';
 import jwt_decode from "jwt-decode";
+
+
+
  class ChatPage extends Component {
     state = {
         chatMessage: "",
@@ -12,9 +16,14 @@ import jwt_decode from "jwt-decode";
 
     componentDidMount(){
         let server ="http://localhost:3001"
+
+       console.log(this.props.dispatch(getChats()),"this.props.dispatch(getChats())")
+       this.props.dispatch(getChats())
+
         this.socket = io(server);
+
         this.socket.on("Output Chat Message", messageFromBackend => {
-            console.log(messageFromBackend)
+            console.log(messageFromBackend,"messageFromBackend")
         })
     }
 
@@ -23,6 +32,17 @@ import jwt_decode from "jwt-decode";
             chatMessage: event.target.value
         })
     }
+
+    // renderCards = () =>{
+    //     console.log(this.props.chats.chats,"this.props.chats.chats")
+    //     this.props.chats.chats &&
+    //     this.props.chats.chats.map((chat,i) => {
+    //        return 
+    //            (
+    //            <div></div>
+    //        )
+    //     })
+    // }
 
 
 
@@ -35,7 +55,7 @@ import jwt_decode from "jwt-decode";
            let chatMessage = this.state.chatMessage
            let username = localStorage.getItem("username")
            let nowTime = moment();
-           let type = "Image"
+           let type = "Text"
            this.socket.emit("Input Chat Message", {
                chatMessage,
                userId,
@@ -68,6 +88,17 @@ import jwt_decode from "jwt-decode";
                     >
                         Send
                     </button>
+                    <div>
+                           {this.props.chats.chats &&
+                        this.props.chats.chats.map((chat,i) => {
+                            return (
+                                <div>
+                                <h3>{chat.sender.username}</h3>
+                                <h6>{chat.message}</h6>
+                                </div>
+                            )
+                        })}
+                    </div>
                 </form>
             </div>
         )
@@ -78,7 +109,8 @@ const mapStateToProps = (state) => {
     console.log(state,"statefrom CHAT")
     return {
         user: state.user.user,
+        chats: state.chat
     }
 }
 
-export default connect(mapStateToProps, {loadUser} )(ChatPage);
+export default connect(mapStateToProps)(ChatPage);

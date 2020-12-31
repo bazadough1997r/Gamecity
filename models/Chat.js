@@ -6,7 +6,7 @@ const ChatSchema =  mongoose.Schema({
   },
   sender: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'profileSchema'
+    ref: 'ProfileSchema'
   }, //By this we will have all the profileSchema
   type: { //chatt type
     type: String

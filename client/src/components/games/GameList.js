@@ -7,7 +7,7 @@ import  { setGames } from '../../actions';
 import { connect } from 'react-redux';
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import {likePost, joinPost} from "../../actions/index.js"
-import   Chat  from '../pages/Chat';
+// import   Chat  from '../pages/Chat';
 
 
 
@@ -39,7 +39,7 @@ function GameList(props) {
       <MDBContainer>
         <MDBRow>
           <MDBCol md="3">
-          <Chat />
+          {/* <Chat /> */}
           <br></br>
           <Filter />
           </MDBCol>
