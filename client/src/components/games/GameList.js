@@ -9,7 +9,7 @@ import  { setGames } from '../../actions';
 import { connect } from 'react-redux';
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import {likePost, joinPost} from "../../actions/index.js"
-import   Chat  from '../pages/Chat';
+// import   Chat  from '../pages/Chat';
 
 
 function GameList(props) {
@@ -56,6 +56,13 @@ function GameList(props) {
     getGames();
   }, []);
 
+// conditional rendering for notifications
+  // var value = false;
+  // if (window.localStorage.username === "Lousan") {
+  //   value = true;
+  // } else {
+  //   value = false;
+  // }
 
 
   return (
@@ -64,17 +71,51 @@ function GameList(props) {
       <MDBContainer>
         <MDBRow>
           <MDBCol md="3">
-          <Chat />
           <br></br>
           <Filter />
+
+
+          {/* Notifications part */}
+          <hr></hr>
+
+          <div>
+          <h4>{window.localStorage.username}'s notifications </h4>
+          {props.games.filteredItems.map((game) => {
+
+              return (
+
+                <div key={game._id}> 
+                  {/* {value === true ?  */}
+                    <MDBContainer>
+                        <form>
+                        <div className="form-group">
+                          {game.comment.map((theComment, i) => {
+                            return (
+                              <div key={i}>
+                              <h6>{theComment.username} commented: "{theComment.comment}" on  "<Link to={`/games/${game._id}`}>{game.gameName}</Link>" post.</h6> 
+                          </div>
+                              )
+                            })}
+                        </div>
+                        </form>
+                    </MDBContainer>
+                    
+                </div>
+              );
+            })}
+            </div>
+           
+
+
           </MDBCol>
           <MDBCol md="6" style={{ marginTop: "20px" }}>
             {/* {console.log(game)} */}
             {props.games.filteredItems.map((game) => {
               return (
                 <div key={game._id}>
+                  {/* {games.filter((x) => x.gameType.indexOf(type) >= 0)} */}
                     {/* {console.log(game.comment)} */}
-                  <h3>{game.username}</h3>
+                  <h3>@{game.username}</h3>
                   <h4>
                     <Link to={`/games/${game._id}`}>{game.gameName}</Link>
                   </h4>
@@ -121,7 +162,7 @@ function GameList(props) {
                           return (
                             <div key={i}>
                               {/* {console.log(game.comment,"theComment")} */}
-                            {console.log(theComment)}
+                            {/* {console.log(theComment)} */}
                             <h6>Username: {theComment.username}</h6>
                             <h6>Comment: {theComment.comment}</h6>
                           <hr/>

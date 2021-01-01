@@ -21,7 +21,6 @@ import SearchForm from "./components/pages/SearchForm";
 import Register from "./components/pages/register";
 // import FooterPage from "./Footer"
 import Land from "./components/Land";
-import Notifications from "./components/pages/Notifications";
 
 if (localStorage.getItem("token")) {
   setToken(localStorage.getItem("token"));
@@ -111,7 +110,7 @@ function Navigation() {
                   Games
                 </NavLink>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink
                   exact
                   className="nav-link"
@@ -121,7 +120,7 @@ function Navigation() {
                 >
                   Notifications
                 </NavLink>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <NavLink
                   exact
@@ -164,7 +163,7 @@ function Main() {
         isAuth={localStorage.length > 0}
       />
 
-      <Route
+      <ProtectedRoute
         exact
         path="/"
         component={GameList}
@@ -185,7 +184,7 @@ function Main() {
         render={(props) => <Register {...props} />}
       />
       <Route exact path="/notfound" component={notfound} />
-      <Route exact path="/notifications" component={Notifications} />
+      {/* <Route exact path="/notifications" component={Notifications} /> */}
     </Switch>
   );
 }
