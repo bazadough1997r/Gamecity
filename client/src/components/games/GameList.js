@@ -5,41 +5,22 @@ import { patch } from "axios";
 import Filter from "./Filter";
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import {
-  likePost,
-  unlikePost,
-  joinPost,
-  unjoinPost,
-  setGames,
-} from "../../actions/index.js";
+import { likePost, unlikePost, joinPost, unjoinPost, setGames } from "../../actions/index.js"
 // import Chat from '../pages/Chat';
 // import { heart } from "@fortawesome/free-solid-svg-icons";
 
 // import { copyFileSync } from "fs";
 
 function GameList(props) {
-  const [commentField, setComment] = useState({
-    comment: "",
-    id: "",
-    username: window.localStorage.username,
-    joins: 0,
-    likes: 0,
-  });
-  const [games, setGames] = useState([]);
 
-  console.log("games", games);
-  console.log("props.games.filteredItems", props.games.filteredItems);
-  console.log(props, "props");
+  const [commentField, setComment] = useState({ comment: "", id: "", username: window.localStorage.username, joins: 0, likes: 0 });
+  const [games, setGames] = useState([]);
   const dispatch = useDispatch();
-  console.log(games, "games for the warning");
+  console.log(games, "games for the warning")
   function handleChangeComment(event) {
-    setComment({
-      ...commentField,
-      comment: event.target.value,
-      id: event.target.name,
-      username: window.localStorage.username,
-    });
+    setComment({ ...commentField, comment: event.target.value, id: event.target.name, username: window.localStorage.username });
   }
+
 
   function handleSubmitComment(event) {
     event.preventDefault();
@@ -110,7 +91,7 @@ function GameList(props) {
                     </div>
                   );
                 } else {
-                  console.log("no notifications for now");
+                  console.log("no notifications for now")
                 }
               }, null)}
             </div>
@@ -139,11 +120,7 @@ function GameList(props) {
                         <h6>Duration: {game.gameDuration}</h6>
                       </MDBCol>
                     </MDBRow>
-                    <img
-                      src={game.selectedFile}
-                      width="250px"
-                      alt="game post"
-                    />
+                    <img src={game.selectedFile} width="250px" alt="game post" />
                     <br />
                     {/* Toggle */}
                     {/* <div>
@@ -157,44 +134,29 @@ function GameList(props) {
                       }
                     </div> */}
                     {/* <i className = "material-icons">thumb_up</i> */}
-                    <button
-                      onClick={() => dispatch(unlikePost(game, commentField))}
-                    >
+                    <button onClick={() => dispatch(unlikePost(game, commentField))}>
                       Unlike
                     </button>
-                    <button
-                      name={game._id}
-                      onClick={() =>
-                        dispatch(
-                          likePost(game, commentField),
-                          console.log(game, commentField, "commentField, like")
-                        )
-                      }
-                    >
+                    <button name={game._id} onClick={() => dispatch(likePost(game, commentField), console.log(game, commentField, "commentField, like"))}>
                       Like {game.likeCount.length}
                     </button>
-                    <button
-                      name={game._id}
-                      onClick={() => dispatch(joinPost(game, commentField))}
-                    >
+                    <button name={game._id} onClick={() => dispatch(joinPost(game, commentField))}>
                       Join {game.joinCount.length}
                     </button>
-                    <button
-                      name={game._id}
-                      onClick={() => dispatch(unjoinPost(game, commentField))}
-                    >
+                    <button name={game._id} onClick={() => dispatch(unjoinPost(game, commentField))}>
                       Unjoin
                     </button>
                     {/* <FontAwesomeIcon icon={heart} /> */}
+
                     {game.joinCount.map((joined, i) => {
                       return (
                         <div key={i}>
                           <h6>joined: @{joined.username}</h6>
                         </div>
-                      );
+                      )
                     })}
-                    <br />
-                    <br />
+
+                    <br/> <br />
                     <form>
                       <div className="form-group">
                         <input
@@ -211,11 +173,9 @@ function GameList(props) {
                           return (
                             <div key={i}>
                               {/* {console.log(theComment)} */}
-                              <h6>
-                                @{theComment.username}: {theComment.comment}
-                              </h6>
+                              <h6>@{theComment.username}: {theComment.comment}</h6>
                             </div>
-                          );
+                          )
                         })}
                       </div>
                     </form>
@@ -231,20 +191,18 @@ function GameList(props) {
               <Link to="/games/new" className="btn btn-primary float-none">
                 Build a team!
               </Link>
-            </h2>
+            </h2> 
             <br></br>
-            <a
-              href="https://www.tripadvisor.com/Attractions-g293986-Activities-c56-Amman_Amman_Governorate.html"
-              className="navbar-brand float-none"
-            >
-              <img
-                height="300px"
-                width="200px"
-                src={`${process.env.PUBLIC_URL}/Ads/ad1.gif`}
-                alt="Gamecity logo"
-              />
-            </a>
-            <div></div>
+            <a href="https://www.tripadvisor.com/Attractions-g293986-Activities-c56-Amman_Amman_Governorate.html" className="navbar-brand float-none">
+                  <img
+                    height="300px"
+                    width="200px"
+                    src={`${process.env.PUBLIC_URL}/Ads/ad1.gif`}
+                    alt="Gamecity logo"
+                  />
+                </a>
+            <div>
+            </div>
           </MDBCol>
         </MDBRow>
       </MDBContainer>
