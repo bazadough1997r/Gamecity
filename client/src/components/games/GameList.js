@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import Filter from './Filter'
+import Filter from "./Filter";
 import { Link } from "react-router-dom";
-import  { setGames } from '../../actions';
-import { connect } from 'react-redux';
+import { setGames } from "../../actions";
+import { connect } from "react-redux";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import {likePost, joinPost} from "../../actions/index.js"
-// import   Chat  from '../pages/Chat';
-
-
-
-
+import { likePost, joinPost } from "../../actions/index.js";
 
 function GameList(props) {
   const [games, setGames] = useState([]);
-  
-  console.log("games", games)
-  console.log("props.games.filteredItems", props.games.filteredItems)
-  console.log(props,"props");
+
+  console.log("games", games);
+  console.log("props.games.filteredItems", props.games.filteredItems);
+  console.log(props, "props");
   const dispatch = useDispatch();
   useEffect(function () {
     async function getGames() {
@@ -39,9 +34,9 @@ function GameList(props) {
       <MDBContainer>
         <MDBRow>
           <MDBCol md="3">
-          {/* <Chat /> */}
-          <br></br>
-          <Filter />
+            {/* <Chat /> */}
+            <br></br>
+            <Filter />
           </MDBCol>
           <MDBCol md="6" style={{ marginTop: "20px" }}>
             {props.games.filteredItems.map((game) => {
@@ -63,29 +58,41 @@ function GameList(props) {
                         <h6>Duration: {game.gameDuration}</h6>
                       </MDBCol>
                     </MDBRow>
-                    <img src={game.selectedFile} width="250px" alt="game post"/>
+                    <img
+                      src={game.selectedFile}
+                      width="250px"
+                      alt="game post"
+                    />
                     <br />
-                    <button onClick = {() => dispatch(likePost(game), console.log(game._id, game))}>
+                    <button
+                      onClick={() =>
+                        dispatch(likePost(game), console.log(game._id, game))
+                      }
+                    >
                       Like {game.likeCount}
                     </button>
-                    <button onClick = {() => dispatch(joinPost(game), console.log(game._id, game))}>
+                    <button
+                      onClick={() =>
+                        dispatch(joinPost(game), console.log(game._id, game))
+                      }
+                    >
                       Join {game.joinCount}
                     </button>
-                      <br /> <br />
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          value={game.comment}
-                          // onChange={handleChangeComment}
-                          className="form-control"
-                          placeholder="Type in your comment here..."
-                        />
-                        <button type="Submit">Comment</button>
-                        <br />
-                        <h6>{game.comment}</h6>
-                      </div>
+                    <br /> <br />
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        value={game.comment}
+                        // onChange={handleChangeComment}
+                        className="form-control"
+                        placeholder="Type in your comment here..."
+                      />
+                      <button type="Submit">Comment</button>
+                      <br />
+                      <h6>{game.comment}</h6>
+                    </div>
                   </MDBContainer>
-                  <hr/>
+                  <hr />
                 </div>
               );
             })}
@@ -103,20 +110,17 @@ function GameList(props) {
     </div>
   );
 }
-// const mapStateToProps = state => ({
-//   games: state.games
-// })
+
 const mapStateToProps = (state) => {
   return {
     games: state.games,
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     setGames: () => dispatch(setGames()),
-  }
-}
-
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameList);

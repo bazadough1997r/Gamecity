@@ -34,6 +34,7 @@ import jwt_decode from "jwt-decode";
 
     onSubmitMessage = (event)=>{
        event.preventDefault()
+       
 
            let token = localStorage.getItem("token")
            var decoded = jwt_decode(token);
@@ -79,7 +80,7 @@ import jwt_decode from "jwt-decode";
                         this.props.chats.chats.map((chat,i) => {
                             return (
                                 <div key={i}>
-                                <h3>{chat.sender.username}</h3>
+                                <h5><b>{chat.sender.username}</b></h5>
                                 <h6>{chat.message}</h6>
                                 </div>
                             )
