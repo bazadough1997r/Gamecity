@@ -13,7 +13,7 @@ import jwt_decode from "jwt-decode";
     }
 
     componentDidMount(){
-        let server ="http://localhost:3001"
+        let server ="/"
 
        this.props.dispatch(getChats())
 
