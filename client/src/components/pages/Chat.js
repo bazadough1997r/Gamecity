@@ -60,8 +60,9 @@ import jwt_decode from "jwt-decode";
         
         return (
             <div>
-                HI FROM CHAT COMPONENT
-                <form onSubmit={this.onSubmitMessage}>
+                <form onSubmit={this.onSubmitMessage} >
+                    <br></br>
+                    <h3>Join the forum!</h3>
                     <input 
                     id = "message"
                     prefix = {<icon type="message"/>}
@@ -75,13 +76,15 @@ import jwt_decode from "jwt-decode";
                     >
                         Send
                     </button>
+                    
                     <div>
+                    <br></br>
                            {this.props.chats.chats &&
                         this.props.chats.chats.map((chat,i) => {
                             return (
                                 <div key={i}>
-                                <h5><b>{chat.sender.username}</b></h5>
-                                <h6>{chat.message}</h6>
+                                <h5><b>{chat.sender.username}: </b> {chat.message}</h5>
+                               
                                 </div>
                             )
                         })}
