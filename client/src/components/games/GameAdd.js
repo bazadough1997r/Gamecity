@@ -7,8 +7,6 @@ import FileBase from "react-file-base64";
 import { addGame } from "../../actions";
 
 function GameAdd(props) {
-  // console.log(props)
-  
   const initialState = {
     gameName: "",
     gameType: "Select Game",
@@ -22,7 +20,6 @@ function GameAdd(props) {
     email: window.localStorage.email,
     username: window.localStorage.username,
   };
-
 
   //useState: UseState is a two element array that contains the current state as the
   //first element and a function to update it as the second. Here we're assigning the
@@ -67,7 +64,7 @@ function GameAdd(props) {
       gameGovernorate: game.gameGovernorate,
       selectedFile: game.selectedFile,
       email: game.email,
-      username: game.username
+      username: game.username,
     })
       .then(function (response) {
         dispatch(addGame(response.data));
@@ -80,136 +77,139 @@ function GameAdd(props) {
       });
   }
 
-
-
   function handleCancel() {
     props.history.push("/");
   }
 
   return (
     <div>
-      <br /> <br/>
-    <div className = "container">
-      <form  className="text-center border border-light p-9 rounded" onSubmit={handleSubmit}>
-        <div className = "form-group">
-      <h4 className="mb-4">What's your next game?..</h4>
-        <br />        
-        <div className="col">
-          {/* <label>Post</label> */}
-          <input
-            type="text"
-            required
-            value={game.gameName}
-            onChange={handleChangeName}
-            className="form-control"
-            placeholder="Type in your post here..."
-          />
-        </div>
-        <br />
-        {/* LOCATION- Drop DOWN MENU */}
-        <div className="col">
-          {/* <label>Governorate</label> */}
-          <select
-            type="text"
-            required
-            value={game.gameGovernorate}
-            onChange={handleChangeGovernorate}
-            className="form-control"
-            placeholder="Select Governorate"
-          >
-            <option value="SelectGovernorate">Select Governorate</option>
-            <option value="Irbid"> Irbid</option>
-            <option value="Ajloun"> Ajloun</option>
-            <option value="Jerash"> Jerash</option>
-            <option value="Mafraq"> Mafraq</option>
-            <option value="Balqa"> Balqa</option>
-            <option value="Amman"> Amman</option>
-            <option value="Zarqa"> Zarqa</option>
-            <option value="Madaba"> Madaba</option>
-            <option value="Karak"> Karak</option>
-            <option value="Tafilah"> Tafilah</option>
-            <option value="Ma'an"> Ma'an</option>
-            <option value="Aqaba"> Aqaba</option>
-          </select>
-        </div>
-        <br />
-        {/* SELECT GAME- DROPDOWN */}
-        <div className="col">
-          {/* <label>Game</label> */}
-          <select
-            type="text"
-            required
-            value={game.gameType}
-            onChange={handleChangeType}
-            className="form-control"
-            placeholder="Select Game"
-          >
-            <option value="SelectGame"> Select Game</option>
-            <option value="Paintball"> Paintball</option>
-            <option value="Football"> Football</option>
-            <option value="Karting"> Karting</option>
-            <option value="Basketball"> Basketball</option>
-            <option value="Laser Tag"> Laser Tag</option>
-            <option value="Volleyball"> Volleyball</option>
-            <option value="Rock Climbing"> Rock Climbing</option>
-            <option value="Horseback Riding"> Horseback Riding</option>
-            <option value="Handball"> Handball</option>
-            <option value="Tennis"> Tennis</option>
-            <option value="Running"> Running</option>
-            <option value="Other.."> Others..</option>
-          </select>
-        </div>
-        <br />
-        {/* DATE- CALENDAR DATE */}
-        <div className="col">
-          {/* <label>Date</label> */}
-          <input
-            type="date"
-            required
-            value={game.gameDate}
-            onChange={handleChangeDate}
-            className="form-control"
-          />
-        </div>
-        <br />
-        {/* DURATION- SET TIME */}
-        <div className="col">
-          {/* <label>Game Duration</label> */}
-          <input
-            type="text"
-            required
-            value={game.gameDuration}
-            onChange={handleChangeDuration}
-            className="form-control"
-            placeholder="Set game's duration"
-          />
-        </div>
-        <br />
-        {/* IMAGE- Upload Image */}
-        <div className = "form-group">
-        <label>Upload Image</label>
-        <br/> 
-          <FileBase
-            type = "file" 
-            multiple = {false} 
-            onDone = {({base64}) => setFields({...game, selectedFile: base64})}
-          />
-        </div> 
-        <div className="btn-group">
-          <button type="submit" value="Post" className="btn btn-primary">
-            Submit
-          </button>
-          <button
-            type="button"
-            onClick={handleCancel}
-            className="btn btn-secondary"
-          >
-            Cancel
-          </button>
-        </div>
-        </div>
-      </form>
-    </div>
+      <br /> <br />
+      <div className="container">
+        <form
+          className="text-center border border-light p-9 rounded"
+          onSubmit={handleSubmit}
+        >
+          <div className="form-group">
+            <h4 className="mb-4">What's your next game?..</h4>
+            <br />
+            <div className="col">
+              {/* <label>Post</label> */}
+              <input
+                type="text"
+                required
+                value={game.gameName}
+                onChange={handleChangeName}
+                className="form-control"
+                placeholder="Type in your post here..."
+              />
+            </div>
+            <br />
+            {/* LOCATION- Drop DOWN MENU */}
+            <div className="col">
+              {/* <label>Governorate</label> */}
+              <select
+                type="text"
+                required
+                value={game.gameGovernorate}
+                onChange={handleChangeGovernorate}
+                className="form-control"
+                placeholder="Select Governorate"
+              >
+                <option value="SelectGovernorate">Select Governorate</option>
+                <option value="Irbid"> Irbid</option>
+                <option value="Ajloun"> Ajloun</option>
+                <option value="Jerash"> Jerash</option>
+                <option value="Mafraq"> Mafraq</option>
+                <option value="Balqa"> Balqa</option>
+                <option value="Amman"> Amman</option>
+                <option value="Zarqa"> Zarqa</option>
+                <option value="Madaba"> Madaba</option>
+                <option value="Karak"> Karak</option>
+                <option value="Tafilah"> Tafilah</option>
+                <option value="Ma'an"> Ma'an</option>
+                <option value="Aqaba"> Aqaba</option>
+              </select>
+            </div>
+            <br />
+            {/* SELECT GAME- DROPDOWN */}
+            <div className="col">
+              {/* <label>Game</label> */}
+              <select
+                type="text"
+                required
+                value={game.gameType}
+                onChange={handleChangeType}
+                className="form-control"
+                placeholder="Select Game"
+              >
+                <option value="SelectGame"> Select Game</option>
+                <option value="Paintball"> Paintball</option>
+                <option value="Football"> Football</option>
+                <option value="Karting"> Karting</option>
+                <option value="Basketball"> Basketball</option>
+                <option value="Laser Tag"> Laser Tag</option>
+                <option value="Volleyball"> Volleyball</option>
+                <option value="Rock Climbing"> Rock Climbing</option>
+                <option value="Horseback Riding"> Horseback Riding</option>
+                <option value="Handball"> Handball</option>
+                <option value="Tennis"> Tennis</option>
+                <option value="Running"> Running</option>
+                <option value="Other.."> Others..</option>
+              </select>
+            </div>
+            <br />
+            {/* DATE- CALENDAR DATE */}
+            <div className="col">
+              {/* <label>Date</label> */}
+              <input
+                type="date"
+                required
+                value={game.gameDate}
+                onChange={handleChangeDate}
+                className="form-control"
+              />
+            </div>
+            <br />
+            {/* DURATION- SET TIME */}
+            <div className="col">
+              {/* <label>Game Duration</label> */}
+              <input
+                type="text"
+                required
+                value={game.gameDuration}
+                onChange={handleChangeDuration}
+                className="form-control"
+                placeholder="Set game's duration"
+              />
+            </div>
+            <br />
+            {/* IMAGE- Upload Image */}
+            <div className="form-group">
+              <label>Upload Image</label>
+              <br />
+              <FileBase
+                type="file"
+                multiple={false}
+                onDone={({ base64 }) =>
+                  setFields({ ...game, selectedFile: base64 })
+                }
+              />
+            </div>
+            <div className="btn-group">
+              <button type="submit" value="Post" className="btn btn-primary">
+                Submit
+              </button>
+              <button
+                type="button"
+                onClick={handleCancel}
+                className="btn btn-secondary"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

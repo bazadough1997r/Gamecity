@@ -26,6 +26,10 @@ function GameList(props) {
     likes: 0,
   });
   const [games, setGames] = useState([]);
+
+  console.log("games", games);
+  console.log("props.games.filteredItems", props.games.filteredItems);
+  console.log(props, "props");
   const dispatch = useDispatch();
   console.log(games, "games for the warning");
   function handleChangeComment(event) {
