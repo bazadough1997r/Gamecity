@@ -11,7 +11,37 @@ router.get("/", async (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-//get all user from  database
+
+
+//server side for admin
+router.get('/profile/:email', function(req, res) {
+  console.log(req.params)
+  AddUser.findOne({email:req.params.email})
+  .then(user => res.json(user))
+  .catch(err => res.status(400).json('Error: ' + err));
+});
+
+//update user information
+
+router.put("/profile/editProfile/:email", function (req, res) {
+
+  console.log("im the req.body", req.body)
+
+  console.log("email: ", req.params.email)
+  let user = AddUser.find({email: req.params.email});
+ user.update(req.body).then(function () {
+    res.json("user updated");    
+    console.log(req.params.email, "after the then")
+
+    })
+    .catch(function (err) {
+      res.status(422).send("user update failed");
+      console.log("eerrrrrrrrrrrrrr")
+    });
+});
+
+
+//get all user from  database 
 router.get("/addUser", async (req, res) => {
   AddUser.find()
     .then((profileSchema) => res.json(profileSchema))
@@ -64,6 +94,7 @@ router.post("/", async (req, res) => {
   const city = req.body.city;
   const phoneNo = req.body.phoneNo;
   const birthday = req.body.birthday;
+  const url=req.body.url;
   //hashing password
 
   const hashedPassword = bcrypt.hashSync(req.body.password, 10);
@@ -79,6 +110,7 @@ router.post("/", async (req, res) => {
     phoneNo: phoneNo,
     birthday: birthday,
     password: hashedPassword,
+    url:url
   });
 
   console.log(newUser);

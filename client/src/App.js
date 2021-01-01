@@ -6,9 +6,14 @@ import {
   Switch,
 } from "react-router-dom";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProtectedRoute from "./components/pages/ProtectedRoute";
 import notfound from "./components/pages/notfound";
 import Profile from "./components/pages/Profile";
+import ProfileEdit from "./components/pages/ProfileEdit";
+
 import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
 import GameAdd from "./components/games/GameAdd";
@@ -111,7 +116,7 @@ function Navigation() {
                   Games
                 </NavLink>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink
                   exact
                   className="nav-link"
@@ -121,7 +126,7 @@ function Navigation() {
                 >
                   Notifications
                 </NavLink>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <NavLink
                   exact
@@ -185,6 +190,9 @@ function Main() {
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
       <Route exact path="/chat" component={Chat} />
+      <Route exact path="/editProfile/:email" component={ProfileEdit} />
+
+      <Route exact path="/profile/:email" render={(props) => <Profile {...props} />} />
       <Route
         exact
         path="/profile/:email"
@@ -197,6 +205,7 @@ function Main() {
         render={(props) => <Register {...props} />}
       />
       <Route exact path="/notfound" component={notfound} />
+      {/* <Route exact path="/notifications" component={Notifications} /> */}
     </Switch>
   );
 }

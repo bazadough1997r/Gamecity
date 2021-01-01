@@ -29,7 +29,7 @@ export function setGames() {
 }
 
 export const LIKE_GAME = "LIKE_GAME";
-export function likePost(game, callback) {
+export function likePost( game, commentField, callback ) {
   return async function (dispatch) {
     return axios
       .patch(`/api/games/${game._id}/likePost`, game)
@@ -42,19 +42,62 @@ export function likePost(game, callback) {
       });
   };
 }
+       
+
+export const UNLIKE_GAME = "UNLIKE_GAME";
+export function unlikePost(game, commentField, callback) {
+  return async function (dispatch) {
+    return axios.patch(`/api/games/${game._id}/unlikePost`,commentField)
+      .then (function(data) {
+        callback();
+        dispatch({ type: UNLIKE_GAME, payload: data})
+
+      })
+      .catch(function (error) {
+        console.log(error, "error from the actions")
+      })
+  }
+}
 
 export const JOIN_GAME = "JOIN_GAME";
-export function joinPost(game, callback) {
+export function joinPost(game, commentField, callback) {
+  console.log(game, "game")
+  console.log(commentField, "game")
+  console.log(callback, "callback")
   return async function (dispatch) {
-    return axios
-      .patch(`/api/games/${game._id}/joinPost`, game)
-      .then(function (data) {
+    return axios.patch(`/api/games/${game._id}/joinPost`, commentField)
+      .then (function(data) {
         callback();
-        dispatch({ type: JOIN_GAME, payload: data });
+        dispatch({ type: JOIN_GAME, payload: data})
+        console.log(data)
+      })
+      .catch(function (error) {
+        console.log(error, "error from the actions")
+      })
+  }
+}
+
+export const UNJOIN_GAME = "UNJOIN_GAME";
+export function unjoinPost(game, commentField, callback) {
+  return async function (dispatch) {
+    return axios.patch(`/api/games/${game._id}/unjoinPost`, commentField)
+      .then (function(data) {
+        callback();
+        dispatch({ type: JOIN_GAME, payload: data})
+        console.log(data)
       })
       .catch(function (error) {
         console.log(error, "error from the actions");
       });
+  };
+}
+
+export const ADD_COMMENT = "ADD_COMMENT";
+export function comment(commentField) {
+  console.log(commentField, "commentField")
+  return {
+    type: ADD_COMMENT,
+    commentField: commentField,
   };
 }
 
@@ -68,7 +111,6 @@ export function addGame(game) {
 }
 
 export const SET_GAME = "SET_GAME";
-export const REMOVE_GAME = "REMOVE_GAME";
 export function setGame(game) {
   return {
     type: SET_GAME,
@@ -76,6 +118,7 @@ export function setGame(game) {
   };
 }
 
+export const REMOVE_GAME = "REMOVE_GAME";
 export function removeGame(_id) {
   return {
     type: REMOVE_GAME,
@@ -100,14 +143,26 @@ export function setUser(user) {
   };
 }
 
-export const fetchUser = () => {
+
+
+export const EDIT_PROFILE = "EDIT_PROFILE";
+export function updateProfile(user) {
+  return {
+    type: EDIT_PROFILE,
+    user: user,
+  };
+
+}
+
+export const fetchUser = (email) => {
+  console.log(email,"email from action ")
   return (dispatch) => {
+
     dispatch(fetchUserRequest());
-    axios
-      .get("https://jsonplaceholder.typicode.com/users") //change
+    axios.get("/addUser/profile/"+email) 
       .then((response) => {
-        // response.data is the users
-        const user = response.data;
+        let user = response.data;
+        console.log(user,"from client")
         dispatch(fetchUserSuccess(user));
       })
       .catch((error) => {
