@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, connect } from "react-redux";
 import axios from "axios";
 import { patch } from "axios";
-import Filter from './Filter'
+import Filter from "./Filter";
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { likePost, unlikePost, joinPost, unjoinPost, setGames } from "../../actions/index.js"
@@ -10,7 +10,6 @@ import Chat from '../pages/Chat';
 // import { heart } from "@fortawesome/free-solid-svg-icons";
 
 // import { copyFileSync } from "fs";
-
 
 function GameList(props) {
 
@@ -49,14 +48,7 @@ function GameList(props) {
     getGames();
   }, []);
 
-// conditional rendering for notifications
-  // var value = false;
-  // if (window.localStorage.username === "Lousan") {
-  //   value = true;
-  // } else {
-  //   value = false;
-  // }
-
+  // conditional rendering for notifications
 
   return (
     <div>
@@ -64,17 +56,51 @@ function GameList(props) {
       <MDBContainer>
         <MDBRow>
           <MDBCol md="3">
-            <Chat />
             <br></br>
             <Filter />
+
+            {/* Notifications part */}
+            <hr></hr>
+
+            <div>
+              <h4>{window.localStorage.username}'s notifications </h4>
+              {props.games.filteredItems.map((game) => {
+                if (game.username === window.localStorage.username) {
+                  return (
+                    <div key={game._id}>
+                      <MDBContainer>
+                        <form>
+                          <div className="form-group">
+                            {game.comment.map((theComment, i) => {
+                              return (
+                                <div key={i}>
+                                  <h6>
+                                    @{theComment.username} commented: "
+                                    {theComment.comment}" on "
+                                    <Link to={`/games/${game._id}`}>
+                                      {game.gameName}
+                                    </Link>
+                                    " post.
+                                  </h6>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </form>
+                      </MDBContainer>
+                    </div>
+                  );
+                } else {
+                  console.log("no notifications for now")
+                }
+              }, null)}
+            </div>
+            {/* Notifications part done */}
           </MDBCol>
           <MDBCol md="6" style={{ marginTop: "20px" }}>
-          <h4>{window.localStorage.username}'s notifications </h4>
-          {props.games.filteredItems.map((game) => { if (game.username === window.localStorage.username) 
+            {props.games.filteredItems.map((game) => {
               return (
                 <div key={game._id}>
-                  {/* {games.filter((x) => x.gameType.indexOf(type) >= 0)} */}
-                    {/* {console.log(game.comment)} */}
                   <h3>@{game.username}</h3>
                   <h4>
                     <Link to={`/games/${game._id}`}>{game.gameName}</Link>
@@ -162,11 +188,23 @@ function GameList(props) {
             })}
           </MDBCol>
           <MDBCol md="3">
-            <h2 style={{ marginTop: "20px" }}>
-              <Link to="/games/new" className="btn btn-primary float-right">
+            <br></br>
+            <h2>
+              <Link to="/games/new" className="btn btn-primary float-none">
                 Build a team!
               </Link>
-            </h2>
+            </h2> 
+            <br></br>
+            <a href="https://www.tripadvisor.com/Attractions-g293986-Activities-c56-Amman_Amman_Governorate.html" className="navbar-brand float-none">
+                  <img
+                    height="300px"
+                    width="200px"
+                    src={`${process.env.PUBLIC_URL}/Ads/ad1.gif`}
+                    alt="Gamecity logo"
+                  />
+                </a>
+            <div>
+            </div>
           </MDBCol>
         </MDBRow>
       </MDBContainer>
@@ -178,14 +216,13 @@ function GameList(props) {
 const mapStateToProps = (state) => {
   return {
     games: state.games,
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     setGames: () => dispatch(setGames()),
-  }
-}
-
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameList);
