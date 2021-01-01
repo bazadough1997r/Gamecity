@@ -49,6 +49,13 @@ function GameList(props) {
     getGames();
   }, []);
 
+// conditional rendering for notifications
+  // var value = false;
+  // if (window.localStorage.username === "Lousan") {
+  //   value = true;
+  // } else {
+  //   value = false;
+  // }
 
 
   return (
@@ -62,11 +69,12 @@ function GameList(props) {
             <Filter />
           </MDBCol>
           <MDBCol md="6" style={{ marginTop: "20px" }}>
-            {/* {console.log(game)} */}
-            {props.games.filteredItems.map((game) => {
+          <h4>{window.localStorage.username}'s notifications </h4>
+          {props.games.filteredItems.map((game) => { if (game.username === window.localStorage.username) 
               return (
                 <div key={game._id}>
-                  {/* {console.log(game.comment)} */}
+                  {/* {games.filter((x) => x.gameType.indexOf(type) >= 0)} */}
+                    {/* {console.log(game.comment)} */}
                   <h3>@{game.username}</h3>
                   <h4>
                     <Link to={`/games/${game._id}`}>{game.gameName}</Link>

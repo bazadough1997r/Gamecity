@@ -113,7 +113,7 @@ function Navigation() {
                   Games
                 </NavLink>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink
                   exact
                   className="nav-link"
@@ -123,7 +123,7 @@ function Navigation() {
                 >
                   Notifications
                 </NavLink>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <NavLink
                   exact
@@ -187,6 +187,7 @@ function Main() {
         render={(props) => <Register {...props} />}
       />
       <Route exact path="/notfound" component={notfound} />
+      {/* <Route exact path="/notifications" component={Notifications} /> */}
     </Switch>
   );
 }
