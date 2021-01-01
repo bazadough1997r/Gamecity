@@ -80,28 +80,28 @@ function GameList(props) {
 
           <div>
           <h4>{window.localStorage.username}'s notifications </h4>
-          {props.games.filteredItems.map((game) => {
+          {props.games.filteredItems.map((game) => { if (game.username === window.localStorage.username) {
 
               return (
 
                 <div key={game._id}> 
-                  {/* {value === true ?  */}
+                  {/* {value === true ? ( */}
                     <MDBContainer>
                         <form>
                         <div className="form-group">
                           {game.comment.map((theComment, i) => {
                             return (
                               <div key={i}>
-                              <h6>{theComment.username} commented: "{theComment.comment}" on  "<Link to={`/games/${game._id}`}>{game.gameName}</Link>" post.</h6> 
+                              <h6>@{theComment.username} commented: "{theComment.comment}" on  "<Link to={`/games/${game._id}`}>{game.gameName}</Link>" post.</h6> 
                           </div>
                               )
                             })}
                         </div>
                         </form>
                     </MDBContainer>
-                    
                 </div>
               );
+                          }
             })}
             </div>
            
