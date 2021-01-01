@@ -29,6 +29,8 @@ const Register = ({ registerUser, isLoggedIn}) => {
         setData({...data, [e.target.name]: e.target.value})
     }
     function handleChange(e)  {
+      
+
         if (e.target.files[0]) {
           setImage(
              e.target.files[0],
@@ -39,14 +41,16 @@ const Register = ({ registerUser, isLoggedIn}) => {
 
 
     function handleUpload(e){
-
+      
         console.log("imageeeeeeeee",image)
-               e.preventDefault();
+        e.preventDefault();
               const uploadTask = storage.ref(`/images/${image.name}`).put(image);
               uploadTask.on("state_changed",(snapshot) => {},
                 (error) => {
                   console.log(error, "error");
                 },
+          
+
                 () => {
                   storage
                     .ref("images")
@@ -59,6 +63,7 @@ const Register = ({ registerUser, isLoggedIn}) => {
                 }
               );     
       }
+    
       
 
     
