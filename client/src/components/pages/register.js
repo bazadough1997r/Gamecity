@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import  { registerUser } from '../../actions';
 import { connect } from 'react-redux';
-
+import { storage } from "../firebase/index"
 
 
 
 const Register = ({ registerUser, isLoggedIn}) => {
     console.log(isLoggedIn,"isLoggedIn")
-
+ const [image , setImage]= useState(null);
+ const [ url,setURL]= useState(null);
     let [data, setData] = useState ({
         firstName: "",
         lastName: "",
@@ -16,7 +17,8 @@ const Register = ({ registerUser, isLoggedIn}) => {
         city: "",
         phoneNo: "",
         birthday: "",
-        password: ""
+        password: "",
+        url:""
     })
 
     let { firstName, lastName, username, email, city, phoneNo, birthday, password  } = data
@@ -26,18 +28,61 @@ const Register = ({ registerUser, isLoggedIn}) => {
 
         setData({...data, [e.target.name]: e.target.value})
     }
+    function handleChange(e)  {
+      
+
+        if (e.target.files[0]) {
+          setImage(
+             e.target.files[0],
+          );
+         } else console.log("error in onchangeimg");
+       
+     }
+
+
+    function handleUpload(e){
+      
+        console.log("imageeeeeeeee",image)
+        e.preventDefault();
+              const uploadTask = storage.ref(`/images/${image.name}`).put(image);
+              uploadTask.on("state_changed",(snapshot) => {},
+                (error) => {
+                  console.log(error, "error");
+                },
+          
+
+                () => {
+                  storage
+                    .ref("images")
+                    .child(image.name)
+                    .getDownloadURL()
+                    .then((url) => {
+                      setURL(url)
+                      console.log(url)
+                    });
+                }
+              );     
+      }
+    
+      
+
+    
+
 
     const onsubmit = () =>{
         if(firstName === "" || lastName === "" || username === "" || email === "" || city === "" || phoneNo === "" || birthday === "" || password === ""){
             console.log("Please fill all required fields");
         } else {
-        registerUser(firstName, lastName, username, email, city,phoneNo, birthday, password)
+        registerUser(firstName, lastName, username, email, city,phoneNo, birthday, password,url)
         }   
     }
+
+    
+  
     
 
     return (
-        <div style={{ textAlign:"center" }} ><form action="/login" method="get">
+        <div style={{ textAlign:"center" }} ><form  action="/land"  >
             <h3>Register</h3>
             <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName}  required placeholder="first name"></input>
             <br/>
@@ -66,6 +111,17 @@ const Register = ({ registerUser, isLoggedIn}) => {
             <input onChange = {(e)=> onChange(e) } type="password" name = "password" value={password}   required={true} placeholder="password"></input>
             <br/>
             <br/>
+            <label>Add Image </label>
+            <input
+                      type = "file"
+                    
+                      onChange = {handleChange}/>
+                      <button onClick = {handleUpload}>Upload</button>
+                      <br />
+                      <img width="50px" src = {url || "http://via.placeholder.com/100x150"} alt = "placeholder" />
+                  
+                  <br />
+            
             <button type= "submit" onClick= {()=> onsubmit()} className="btn btn-primary">submit</button>
             <br/>
             <p>Already have an account? <a href="/land">Sign in</a></p>
