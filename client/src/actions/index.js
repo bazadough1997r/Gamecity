@@ -24,11 +24,11 @@ export function setGames() {
       });
   };
 }
-       
+
 export const LIKE_GAME = "LIKE_GAME";
-export function likePost(game, callback) {
+export function likePost( game, commentField, callback ) {
   return async function (dispatch) {
-    return axios.patch(`/api/games/${game._id}/likePost`,game)
+    return axios.patch(`/api/games/${game._id}/likePost`,commentField)
       .then (function(data) {
         callback();
         dispatch({ type: LIKE_GAME, payload: data})
@@ -39,16 +39,49 @@ export function likePost(game, callback) {
       })
   }
 }
+       
+
+export const UNLIKE_GAME = "UNLIKE_GAME";
+export function unlikePost(game, commentField, callback) {
+  return async function (dispatch) {
+    return axios.patch(`/api/games/${game._id}/unlikePost`,commentField)
+      .then (function(data) {
+        callback();
+        dispatch({ type: UNLIKE_GAME, payload: data})
+
+      })
+      .catch(function (error) {
+        console.log(error, "error from the actions")
+      })
+  }
+}
 
 export const JOIN_GAME = "JOIN_GAME";
-export function joinPost(game, callback) {
+export function joinPost(game, commentField, callback) {
+  console.log(game, "game")
+  console.log(commentField, "game")
+  console.log(callback, "callback")
   return async function (dispatch) {
-    return axios.patch(`/api/games/${game._id}/joinPost`,game)
+    return axios.patch(`/api/games/${game._id}/joinPost`, commentField)
       .then (function(data) {
-        // console.log(data)
         callback();
         dispatch({ type: JOIN_GAME, payload: data})
+        console.log(data)
+      })
+      .catch(function (error) {
+        console.log(error, "error from the actions")
+      })
+  }
+}
 
+export const UNJOIN_GAME = "UNJOIN_GAME";
+export function unjoinPost(game, commentField, callback) {
+  return async function (dispatch) {
+    return axios.patch(`/api/games/${game._id}/unjoinPost`, commentField)
+      .then (function(data) {
+        callback();
+        dispatch({ type: JOIN_GAME, payload: data})
+        console.log(data)
       })
       .catch(function (error) {
         console.log(error, "error from the actions")
