@@ -2,57 +2,46 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchUser } from "../../actions/index";
 import { useParams } from "react-router-dom";
-//import { storage } from "../firebase/index"
-function Profile({ userData, fetchUser, logOut }) {
-  // const [image , setImage]= useState(null);
-  // const [url , setURL]= useState(null);
-  let { email } = useParams();
-  console.log(email);
+ import { Link } from "react-router-dom";
+
+function Profile({ userData, fetchUser }) {
+ 
+  let {email}= useParams();
+  console.log(email)
   useEffect(() => {
     fetchUser(email);
-  }, [email, fetchUser]);
+  },[email,fetchUser]);
 
-  //  function handleChange(e)  {
-  //    if(e.target.files[0]){
-  //    }
-  //  }
 
-  return userData.loading ? (
-    <h2 style={{ marginTop: "20px" }}>Loading</h2>
-  ) : userData.error ? (
-    <h2 style={{ marginTop: "20px" }}>{userData.error}</h2>
-  ) : (
-    <div style={{ marginTop: "20px" }}>
-      <h2>User Information</h2>
+ 
+  return userData.loading ? (<h2>Loading</h2>) : userData.error ? (<h2>{userData.error}</h2>) : (<div><h2>User Information</h2>
       <div>
         <hr></hr>
         {userData && userData.user && (
           <ul>
-            <li>Username: {userData.user.username}</li>
-            <li>First name: {userData.user.firstName}</li>
-            <li>Last name: {userData.user.lastName}</li>
-            <li>Email: {userData.user.email}</li>
-            <li>City: Jordan/{userData.user.city}</li>
-            <li>Phone Number: {userData.user.phoneNo}</li>
-            <li>Birthday: {userData.user.birthday}</li>
-            <li>UserID: {userData.user._id}</li>
-          </ul>
+          -UserName:
+          <li>{userData.user.username}</li>
+          -FirstName:
+          <li>{userData.user.firstName}</li>
+          -LastName:
+          <li>{userData.user.lastName}</li>
+          -Email:
+          <li>{userData.user.email}</li>
+          -City:
+          <li>{userData.user.city}</li>
+          -PhoneNo:
+          <li>{userData.user.phoneNo}</li>
+          -Birthday:
+          <li>{userData.user.birthday}</li>
+          </ul>    
         )}
-        {/* <label>Add Image </label>
-  <input type="file" onChange="handleChange()"/>
-  <button onClick = "handleUpload()">Upload</button> */}
-        {/* <br />
-  <img width="50px" src = {this.state.url || "http://via.placeholder.com/100x150"} alt = "firebase-image" />
-  <button type="submit" value = "Submit" onClick = {this.onSubmit}>Submit</button> */}
-
-        {/*   
-        <Link
-          to={{ pathname: `/profile/${fetchUser._id}/edit` }}
-          className="btn btn-info"
-        >
-          Edit
-        </Link> */}
-        {/* <button onClick = {() => logOut()}> logOut</button> */}
+       <img src={userData.user.url} alt ="profile_pic" width="150px"></img>
+                   <Link
+              to={{ pathname: `/editProfile/${userData.user.email}` }}
+              className="btn btn-info"
+            >
+              Edit
+            </Link>
       </div>
     </div>
   );

@@ -12,6 +12,8 @@ import 'mdbreact/dist/css/mdb.css';
 import ProtectedRoute from "./components/pages/ProtectedRoute";
 import notfound from "./components/pages/notfound";
 import Profile from "./components/pages/Profile";
+import ProfileEdit from "./components/pages/ProfileEdit";
+
 import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
 import GameAdd from "./components/games/GameAdd";
@@ -175,6 +177,9 @@ function Main() {
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
+      <Route exact path="/editProfile/:email" component={ProfileEdit} />
+
+      <Route exact path="/profile/:email" render={(props) => <Profile {...props} />} />
       <Route
         exact
         path="/profile/:email"
