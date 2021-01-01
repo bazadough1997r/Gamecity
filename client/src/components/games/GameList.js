@@ -105,8 +105,10 @@ function GameList(props) {
                       </MDBContainer>
                     </div>
                   );
+                } else {
+                  console.log("no notifications for now")
                 }
-              })}
+              }, null)}
             </div>
             {/* Notifications part done */}
           </MDBCol>
@@ -162,16 +164,11 @@ function GameList(props) {
                           placeholder="Type in your comment here..."
                         />
                         <button onClick={handleSubmit}>Comment</button>
-                        {/* {console.log(commentField,"commentField")} */}
                         <br /> <br />
                         {game.comment.map((theComment, i) => {
                           return (
                             <div key={i}>
-                              {/* {console.log(game.comment,"theComment")} */}
-                              {/* {console.log(theComment)} */}
-                              <h6>Username: {theComment.username}</h6>
-                              <h6>Comment: {theComment.comment}</h6>
-                              <hr />
+                              <h6>@{theComment.username}: {theComment.comment}</h6>
                             </div>
                           );
                         })}
