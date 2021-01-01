@@ -52,6 +52,7 @@ function Profilegames(props) {
   return (
     <div>
       <hr />
+      <h3>{window.localStorage.username}'s posts:</h3>
       <MDBContainer>
         <MDBRow>
         
