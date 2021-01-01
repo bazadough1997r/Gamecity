@@ -46,7 +46,7 @@ function App() {
   );
 }
 
-var useremail=window.localStorage.email
+var useremail = window.localStorage.email;
 
 function Navigation() {
   var value = false;
@@ -80,7 +80,7 @@ function Navigation() {
           <div className="container">
             <ul className="nav justify-content-start ">
               <li className="nav-item">
-              <NavLink
+                <NavLink
                   exact
                   className="nav-link"
                   activeClassName="active"
@@ -129,7 +129,7 @@ function Navigation() {
                   exact
                   className="nav-link"
                   activeClassName="active"
-                  to={"/profile/"+useremail}
+                  to={"/profile/" + useremail}
                   style={{ color: "white" }}
                 >
                   Profile
@@ -157,18 +157,15 @@ function Navigation() {
 
 function Main() {
   return (
-    
     <Switch>
-
       <Route exact path="/land" component={Land} />
       <ProtectedRoute
         exact
         path="/games"
         component={GameList}
         isAuth={localStorage.length > 0}
-
       />
-      
+
       <ProtectedRoute
         exact
         path="/"
@@ -178,7 +175,11 @@ function Main() {
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
-      <Route exact path="/profile/:email" render={(props) => <Profile {...props} />} />
+      <Route
+        exact
+        path="/profile/:email"
+        render={(props) => <Profile {...props} />}
+      />
       <Route exact path="/login" render={(props) => <Login {...props} />} />
       <Route
         exact
@@ -186,7 +187,6 @@ function Main() {
         render={(props) => <Register {...props} />}
       />
       <Route exact path="/notfound" component={notfound} />
-     
     </Switch>
   );
 }

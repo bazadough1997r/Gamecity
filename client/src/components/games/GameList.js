@@ -88,6 +88,7 @@ function GameList(props) {
                     </MDBRow>
                     <img src={game.selectedFile} width="250px" alt="game post" />
                     <br />
+                    {/* Toggle */}
                     {/* <div>
                      {game.likeCount.includes(game.username)
                      ?<button onClick={() => dispatch(unlikePost(game, commentField))}>
@@ -98,7 +99,7 @@ function GameList(props) {
                    </button>
                       }
                     </div> */}
-                    <i className = "material-icons">thumb_up</i>
+                    {/* <i className = "material-icons">thumb_up</i> */}
                     <button onClick={() => dispatch(unlikePost(game, commentField))}>
                       Unlike
                     </button>
@@ -180,14 +181,3 @@ const mapDispatchToProps = (dispatch) => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameList);
-                    // {/* {game.likeCount.includes(game.username)
-                    // ? <button onClick = {() => dispatch(unlikePost(game))}>
-                    //     Unlike
-                    //   </button>
-                    // : <button onClick = {() => dispatch(likePost(game))}>
-                    //     Like {game.likeCount}
-                    //   </button>
-                    // } */}
-                    // {/* <button onClick = {() => dispatch(likePost(game))}>
-                    //     Like {game.likeCount[0].likeCount}
-                    // </button> */}
