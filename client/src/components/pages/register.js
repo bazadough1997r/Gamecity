@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import  { registerUser } from '../../actions';
 import { connect } from 'react-redux';
-// import ReduxForm from './registerForm1'
+import { storage } from "../firebase/index"
 
 
-// import { Redirect } from 'react-router-dom';
 
-
-const Register = ({ registerUser, isLoggedIn }) => {
-    // console.log(isLoggedIn,"isLoggedIn")
-
-    // if(isLoggedIn) return <Redirect to="/"/>
+const Register = ({ registerUser, isLoggedIn}) => {
+    console.log(isLoggedIn,"isLoggedIn")
+ const [image , setImage]= useState(null);
+ const [ url,setURL]= useState(null);
     let [data, setData] = useState ({
         firstName: "",
         lastName: "",
@@ -19,7 +17,8 @@ const Register = ({ registerUser, isLoggedIn }) => {
         city: "",
         phoneNo: "",
         birthday: "",
-        password: ""
+        password: "",
+        url:""
     })
 
     let { firstName, lastName, username, email, city, phoneNo, birthday, password  } = data
@@ -28,66 +27,114 @@ const Register = ({ registerUser, isLoggedIn }) => {
     const onChange = (e)=> {
 
         setData({...data, [e.target.name]: e.target.value})
-        // console.log([e.target.value])
     }
+    function handleChange(e)  {
+      
+
+        if (e.target.files[0]) {
+          setImage(
+             e.target.files[0],
+          );
+         } else console.log("error in onchangeimg");
+       
+     }
+
+
+    function handleUpload(e){
+      
+        console.log("imageeeeeeeee",image)
+        e.preventDefault();
+              const uploadTask = storage.ref(`/images/${image.name}`).put(image);
+              uploadTask.on("state_changed",(snapshot) => {},
+                (error) => {
+                  console.log(error, "error");
+                },
+          
+
+                () => {
+                  storage
+                    .ref("images")
+                    .child(image.name)
+                    .getDownloadURL()
+                    .then((url) => {
+                      setURL(url)
+                      console.log(url)
+                    });
+                }
+              );     
+      }
+    
+      
+
+    
+
 
     const onsubmit = () =>{
         if(firstName === "" || lastName === "" || username === "" || email === "" || city === "" || phoneNo === "" || birthday === "" || password === ""){
-            return alert("Please fill all required fields")
-        } else      
-        // if (required())
-        registerUser(firstName, lastName, username, email, city,phoneNo, birthday, password)
+            console.log("Please fill all required fields");
+        } else {
+        registerUser(firstName, lastName, username, email, city,phoneNo, birthday, password,url)
+        }   
     }
 
+    
+  
+    
+
     return (
-        <div>
-            <h1>REGISTER PAGE</h1>
-            <label>First name</label>
+        <div style={{ textAlign:"center" }} ><form  action="/land"  >
+            <h3>Register</h3>
+            <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName}  required placeholder="first name"></input>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="text" name = "firstName" value={firstName}  required={true}></input>
+           
+            <input onChange = {(e)=> onChange(e) } type="text" name = "lastName" value={lastName} required={true} placeholder="last name"></input>
             <br/>
-            <label>Last name</label>
+            
+            <input onChange = {(e)=> onChange(e) } type="text" name = "username" value={username} required={true} placeholder="username"></input>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="text" name = "lastName" value={lastName}></input>
+           
+            <input onChange = {(e)=> onChange(e) } type="email" name = "email" value={email} required={true} placeholder="email"></input>
             <br/>
-            <label>username</label>
+          
+            <input onChange = {(e)=> onChange(e) } type="text" name = "city" value={city} required={true} placeholder="city"></input>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="text" name = "username" value={username}></input>
+            <label>Phone number</label><br></br>
+           
+            <input onChange = {(e)=> onChange(e) } type="tel"  placeholder="07X-XXXX-XXX"  maxLength="10" name = "phoneNo" value={phoneNo} required={true}></input>
             <br/>
-            <label>Email</label>
+            <label>Birthday</label><br></br>
+            
+            <input onChange = {(e)=> onChange(e) } type="date" name = "birthday" value={birthday} required={true}></input>
             <br/>
-            <input onChange = {(e)=> onChange(e) } type="email" name = "email" value={email}></input>
-            <br/>
-            <label>city</label>
-            <br/>
-            <input onChange = {(e)=> onChange(e) } type="text" name = "city" value={city}></input>
-            <br/>
-            <label>Phone No.</label>
-            <br/>
-            <input onChange = {(e)=> onChange(e) } type="number" name = "phoneNo" value={phoneNo}></input>
-            <br/>
-            <label>Birthday</label>
-            <br/>
-            <input onChange = {(e)=> onChange(e) } type="date" name = "birthday" value={birthday}></input>
-            <br/>
-            <label>Password</label>
-            <br/>
-            <input onChange = {(e)=> onChange(e) } type="password" name = "password" value={password}></input>
+            <br></br>
+            
+            <input onChange = {(e)=> onChange(e) } type="password" name = "password" value={password}   required={true} placeholder="password"></input>
             <br/>
             <br/>
-            <button type= "submit" onClick= {()=> onsubmit()}>submit</button>
+            <label>Add Image </label>
+            <input
+                      type = "file"
+                    
+                      onChange = {handleChange}/>
+                      <button onClick = {handleUpload}>Upload</button>
+                      <br />
+                      <img width="50px" src = {url || "http://via.placeholder.com/100x150"} alt = "placeholder" />
+                  
+                  <br />
+            
+            <button type= "submit" onClick= {()=> onsubmit()} className="btn btn-primary">submit</button>
             <br/>
-            <p>Already have an account? <a href="/login">Sign in</a></p>
+            <p>Already have an account? <a href="/land">Sign in</a></p>
+            </form>
         </div>
     )
-}
+    }
 
-// function mapStateToProps(state) {
-//     console.log(state,"fsdfsd")
-//   }
+
+
 
 const mapStateToProps = state => ({
-    isLoggedIn: state.isLoggedIn
+    isLoggedIn: state.authReducer.isLoggedIn
 })
 
 export default connect(mapStateToProps, {registerUser})(Register);

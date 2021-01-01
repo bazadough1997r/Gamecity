@@ -6,13 +6,19 @@ import {
   Switch,
 } from "react-router-dom";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProtectedRoute from "./components/pages/ProtectedRoute";
 import notfound from "./components/pages/notfound";
 import Profile from "./components/pages/Profile";
+import ProfileEdit from "./components/pages/ProfileEdit";
+
 import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
 import GameAdd from "./components/games/GameAdd";
 import GameEdit from "./components/games/GameEdit";
+import Chat from "./components/pages/Chat";
 import { loadUser } from "./actions";
 import { setToken } from "./components/pages/setToken";
 import { store } from "./index";
@@ -43,78 +49,137 @@ function App() {
   );
 }
 
+var useremail = window.localStorage.email;
+
 function Navigation() {
+  var value = false;
+  if (window.localStorage.length > 0) {
+    value = true;
+  } else {
+    value = false;
+  }
+
   return (
-    <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-      <div className="container">
-        <ul className="nav justify-content-start ">
-          <li className="nav-item">
-            <a href="/" className="navbar-brand">
-              <img
-                height="30px"
-                width="30px"
-                src={`${process.env.PUBLIC_URL}/Logo/GamecityLogo.png`}
-                alt="Gamecity logo"
-              />
-            </a>
-          </li>
-        </ul>
-        <ul className="nav justify-content-start">
-          <li className="nav-item">
-            <SearchForm />
-          </li>
-        </ul>
-        <ul className="nav justify-content-end ">
-          <li className="nav-item">
-            <NavLink
-              exact
-              className="nav-link"
-              activeClassName="active"
-              to="/games"
-              style={{ color: "white" }}
-            >
-              Games
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink
-              exact
-              className="nav-link"
-              activeClassName="active"
-              to="/land"
-              style={{ color: "white" }}
-            >
-              Login
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              exact
-              className="nav-link"
-              activeClassName="active"
-              to="/land"
-              style={{ color: "white" }}
-              onClick={() => logout()}
-            >
-              Logout
-            </NavLink>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <div>
+      {value === false ? (
+        <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+          <div className="container">
+            <ul className="nav justify-content-start ">
+              <li className="nav-item">
+                <a href="/" className="navbar-brand">
+                  <img
+                    height="30px"
+                    width="30px"
+                    src={`${process.env.PUBLIC_URL}/Logo/GamecityLogo.png`}
+                    alt="Gamecity logo"
+                  />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      ) : (
+        <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+          <div className="container">
+            <ul className="nav justify-content-start ">
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  className="nav-link"
+                  activeClassName="active"
+                  to="/"
+                  style={{ color: "white" }}
+                >
+                  <img
+                    height="30px"
+                    width="30px"
+                    src={`${process.env.PUBLIC_URL}/Logo/GamecityLogo.png`}
+                    alt="Gamecity logo"
+                  />
+                </NavLink>
+              </li>
+            </ul>
+            <ul className="nav justify-content-start">
+              <li className="nav-item">
+                <SearchForm />
+              </li>
+            </ul>
+            <ul className="nav justify-content-end ">
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  className="nav-link"
+                  activeClassName="active"
+                  to="/games"
+                  style={{ color: "white" }}
+                >
+                  Games
+                </NavLink>
+              </li>
+              {/* <li className="nav-item">
+                <NavLink
+                  exact
+                  className="nav-link"
+                  activeClassName="active"
+                  to="/notifications"
+                  style={{ color: "white" }}
+                >
+                  Notifications
+                </NavLink>
+              </li> */}
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  className="nav-link"
+                  activeClassName="active"
+                  to="/chat"
+                  style={{ color: "white" }}
+                >
+                  Chat Rooms
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  className="nav-link"
+                  activeClassName="active"
+                  to={"/profile/" + useremail}
+                  style={{ color: "white" }}
+                >
+                  Profile
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  exact
+                  className="nav-link"
+                  activeClassName="active"
+                  to="/land"
+                  style={{ color: "white" }}
+                  onClick={() => logout()}
+                >
+                  Logout
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      )}
+    </div>
   );
 }
 
 function Main() {
   return (
     <Switch>
-      {/* <Route exact path="/" component={GameList} /> */}
+      <Route exact path="/land" component={Land} />
       <ProtectedRoute
         exact
         path="/games"
         component={GameList}
         isAuth={localStorage.length > 0}
       />
+
       <ProtectedRoute
         exact
         path="/"
@@ -124,7 +189,15 @@ function Main() {
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
-      <Route exact path="/profile" render={(props) => <Profile {...props} />} />
+      <Route exact path="/chat" component={Chat} />
+      <Route exact path="/editProfile/:email" component={ProfileEdit} />
+
+      <Route exact path="/profile/:email" render={(props) => <Profile {...props} />} />
+      <Route
+        exact
+        path="/profile/:email"
+        render={(props) => <Profile {...props} />}
+      />
       <Route exact path="/login" render={(props) => <Login {...props} />} />
       <Route
         exact
@@ -132,7 +205,7 @@ function Main() {
         render={(props) => <Register {...props} />}
       />
       <Route exact path="/notfound" component={notfound} />
-      <Route exact path="/land" component={Land} />
+      {/* <Route exact path="/notifications" component={Notifications} /> */}
     </Switch>
   );
 }

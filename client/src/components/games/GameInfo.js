@@ -40,34 +40,68 @@ function GameInfo(props) {
       });
   }
 
+  //auth user
+  var value = false;
+  if (window.localStorage.email === game.email) {
+    value = true;
+  } else {
+    value = false;
+  }
+
+  
+
   return (
     <div>
-      <hr></hr>
-      <h2>{game.gameName}</h2>
-      <h6>{game.gameDate}</h6>
-      <h6>{game.gameDuration}</h6>
-      <h6>{game.gameGovernorate}</h6>
-      <h6>{game.gameType}</h6>
-      {/* <img>{game.selectedFile}</img> */}
-      
-      <div className="btn-group">
-        <Link
-          to={{ pathname: `/games/${game._id}/edit` }}
-          className="btn btn-info"
-        >
-          Edit
-        </Link>
-        <button className="btn btn-danger" type="button" onClick={handleDelete}>
-          Delete
-        </button>
-        <Link to="/" className="btn btn-secondary">
-          Close
-        </Link>
-      </div>
-      <hr />
+      {value === false ? (
+        <div>
+          <hr></hr>
+          <h2>{game.gameName}</h2>
+          <h6>{game.gameDate}</h6>
+          <h6>{game.gameDuration}</h6>
+          <h6>{game.gameGovernorate}</h6>
+          <h6>{game.gameType}</h6>
+
+          <div className="btn-group">
+            <Link to="/" className="btn btn-secondary">
+              Close
+            </Link>
+          </div>
+          <hr />
+        </div>
+      ) : (
+        <div>
+          <hr></hr>
+          <h2>{game.gameName}</h2>
+          <h6>{game.gameDate}</h6>
+          <h6>{game.gameDuration}</h6>
+          <h6>{game.gameGovernorate}</h6>
+          <h6>{game.gameType}</h6>
+
+          <div className="btn-group">
+            <Link
+              to={{ pathname: `/games/${game._id}/edit` }}
+              className="btn btn-info"
+            >
+              Edit
+            </Link>
+            <button
+              className="btn btn-danger"
+              type="button"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+            <Link to="/" className="btn btn-secondary">
+              Close
+            </Link>
+          </div>
+          <hr />
+        </div>
+      )}
     </div>
   );
 }
 
 export default GameInfo;
 //useEffect: The React useEffect hook essentially replaces the lifecycle methods (componentDidMount, componentDidUpdate, componentWillUnmount). Use it when we need to rerender our component.
+
