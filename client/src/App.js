@@ -6,6 +6,9 @@ import {
   Switch,
 } from "react-router-dom";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProtectedRoute from "./components/pages/ProtectedRoute";
 import notfound from "./components/pages/notfound";
 import Profile from "./components/pages/Profile";
@@ -112,7 +115,7 @@ function Navigation() {
                   Games
                 </NavLink>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink
                   exact
                   className="nav-link"
@@ -122,7 +125,7 @@ function Navigation() {
                 >
                   Notifications
                 </NavLink>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <NavLink
                   exact
@@ -189,6 +192,7 @@ function Main() {
         render={(props) => <Register {...props} />}
       />
       <Route exact path="/notfound" component={notfound} />
+      {/* <Route exact path="/notifications" component={Notifications} /> */}
     </Switch>
   );
 }

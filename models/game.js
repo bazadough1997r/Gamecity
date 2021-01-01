@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+
 const gameSchema = new mongoose.Schema({
   gameName: {
     type: String,
@@ -21,14 +22,25 @@ const gameSchema = new mongoose.Schema({
     type: String,
     required: [true, "Game governorate is required"]
   },
-  likeCount: {
+
+  likeCount: [
+    Object
+  ],
+  unlikeCount: {
     type: Number,
     default: 0
   },
-  joinCount: {
+  joins: {
     type: Number,
     default: 0
   },
+  likes: {
+    type: Number,
+    default: 0
+  },
+  joinCount: [
+      Object
+  ],
   createdAt: {
     type: Date,
     default: new Date()

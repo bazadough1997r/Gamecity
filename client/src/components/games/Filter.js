@@ -38,7 +38,7 @@ class Filter extends Component {
           
         </div>
         <div className="filter-type">
-          Game type:{" "}
+          Games:{" "}
           <select
             value={this.props.type}
             onChange={(e) =>
