@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 
 
 
-//server side
+//server side for admin
 router.get('/profile/:email', function(req, res) {
   console.log(req.params)
   AddUser.findOne({email:req.params.email})
@@ -42,14 +42,21 @@ router.put("/profile/editProfile/:email", function (req, res) {
 });
 
 
+//get all user from  database 
+router.get("/addUser", async (req, res) => {
+  AddUser.find()
+    .then((profileSchema) => res.json(profileSchema))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 ///loggingggg in
 router.post("/login", async (req, res) => {
   //checking if the username is signed up
   const email = req.body.email;
-  // const username = req.body.username;
+  const username = req.body.username;
   console.log(req.body)
   // console.log(email, "Rawan")
-  // console.log(username, "Rawan")
+  console.log(username, "Rawan")
   const user = await AddUser.findOne({ email });
   if (!user) {
     return res
@@ -64,7 +71,7 @@ router.post("/login", async (req, res) => {
   //create and send a token
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
   console.log(token)
-  res.header("addUser-token", token, email).json({ token, email });
+  res.header("addUser-token", token, email, username).json({ token, email, username });
 });
 
 

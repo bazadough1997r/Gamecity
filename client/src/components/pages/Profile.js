@@ -16,8 +16,8 @@ function Profile({ userData, fetchUser }) {
  
   return userData.loading ? (<h2>Loading</h2>) : userData.error ? (<h2>{userData.error}</h2>) : (<div><h2>User Information</h2>
       <div>
-        {userData &&
-          userData.user &&
+        <hr></hr>
+        {userData && userData.user && (
           <ul>
           -UserName:
           <li>{userData.user.username}</li>
@@ -33,7 +33,8 @@ function Profile({ userData, fetchUser }) {
           <li>{userData.user.phoneNo}</li>
           -Birthday:
           <li>{userData.user.birthday}</li>
-          </ul>                }
+          </ul>    
+        )}
        <img src={userData.user.url} alt ="profile_pic" width="150px"></img>
                    <Link
               to={{ pathname: `/editProfile/${userData.user.email}` }}
@@ -49,17 +50,14 @@ function Profile({ userData, fetchUser }) {
 const mapStateToProps = (state) => {
   return {
     userData: state.user,
-    email : window.localStorage.email,
-    id : window.localStorage.id
-
+    email: window.localStorage.email,
+    id: window.localStorage.id,
   };
- 
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUser: (email) => dispatch(fetchUser(email)),
-    
   };
 };
 
