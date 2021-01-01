@@ -14,7 +14,7 @@ class Filter extends Component {
     ) : (
       <div className="filter">
         <div className="filter-governorate">
-          Governorates:
+          Governorates:{" "}
           <select
             value={this.props.Governorates}
             onChange={(e) =>
@@ -38,7 +38,7 @@ class Filter extends Component {
           
         </div>
         <div className="filter-type">
-          Games:
+          Games:{" "}
           <select
             value={this.props.type}
             onChange={(e) =>
