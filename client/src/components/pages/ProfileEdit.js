@@ -40,11 +40,10 @@ const ProfileEdit = (props) => {
 
       try {
         await put(`/addUser/profile/editProfile/${props.match.params.email}`, user);
-        window.location(`/profile/${props.match.params.email}`)
       } catch(error) {
         console.log(error);
       }
-    
+
     }
 
 

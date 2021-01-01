@@ -114,6 +114,7 @@ export function updateProfile(user) {
     type: EDIT_PROFILE,
     user: user,
   };
+
 }
 
 export const fetchUser = (email) => {
