@@ -56,9 +56,7 @@ const ProfileEdit = (props) => {
     setUser({ ...user, lastName: event.target.value });
   }
 
-  function handleChangeusername(event) {
-    setUser({ ...user, username: event.target.value });
-  }
+ 
 
   function handleChangecity(event) {
     setUser({ ...user, city: event.target.value });
@@ -87,10 +85,7 @@ const ProfileEdit = (props) => {
         <br/>
        
         <input onChange = {handleChangelastName} type="text" name = "lastName" value={user.lastName}  placeholder="last name"></input>
-        <br/>
         
-        <input onChange = {handleChangeusername } type="text" name = "username" value={user.username}  placeholder="username"></input>
-        <br/>
        
         <br/>
       

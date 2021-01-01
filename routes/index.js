@@ -13,6 +13,7 @@ router.get("/games", function (req, res) {
   });
 });
 
+
 //Get request to /games/:id (:id is a variable representing an game's _id) returns a JSON object of the specified game if it exists, otherwise returns status 404 and "No result found"
 router.get("/games/:id", function (req, res) {
   Game.findById(req.params.id, function (err, game) {
