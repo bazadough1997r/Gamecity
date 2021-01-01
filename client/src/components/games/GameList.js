@@ -151,7 +151,7 @@ function GameList(props) {
                     {game.joinCount.map((joined, i) => {
                       return (
                         <div key={i}>
-                          <h6>Player: {joined.username}</h6>
+                          <h6>joined: @{joined.username}</h6>
                         </div>
                       )
                     })}
@@ -173,9 +173,7 @@ function GameList(props) {
                           return (
                             <div key={i}>
                               {/* {console.log(theComment)} */}
-                              <h6>Username: {theComment.username}</h6>
-                              <h6>Comment: {theComment.comment}</h6>
-                              <hr />
+                              <h6>@{theComment.username}: {theComment.comment}</h6>
                             </div>
                           )
                         })}
