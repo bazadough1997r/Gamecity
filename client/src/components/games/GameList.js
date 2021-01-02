@@ -8,6 +8,8 @@ import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { likePost, unlikePost, joinPost, unjoinPost, setGames } from "../../actions/index.js"
 import Notifications from "./Notifications";
 
+
+
 function GameList(props) {
 
   const [commentField, setComment] = useState({ comment: "", id: "", username: window.localStorage.username, joins: 0, likes: 0 });
@@ -107,6 +109,7 @@ function GameList(props) {
                     <form>
                       <div className="form-group">
                         <input
+                        
                           name={game._id}
                           type="text"
                           value={commentField.comment.name}

@@ -4,10 +4,7 @@ import { fetchUser } from "../../actions/index";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Profilegames from "../games/Profilegames";
-//action  setGames
-//set state
-//map //if statmemnt
-//const[]
+
 function Profile({ userData, fetchUser }) {
   let { email } = useParams();
   console.log(email);

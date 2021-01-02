@@ -2,11 +2,23 @@ import React, { useState } from 'react';
 import  { registerUser } from '../../actions';
 import { connect } from 'react-redux';
 import { storage } from "../firebase/index"
+<<<<<<< HEAD
+
+
+
+const Register = ({ registerUser, isLoggedIn }) => {
+    console.log(isLoggedIn, "isLoggedIn")
+   
+    const [image, setImage] = useState(null);
+    const [url, setURL] = useState(null);
+    let [data, setData] = useState({
+=======
 const Register = ({ registerUser, isLoggedIn}) => {
     console.log(isLoggedIn,"isLoggedIn")
  const [image , setImage]= useState(null);
  const [ url,setURL]= useState(null);
     let [data, setData] = useState ({
+>>>>>>> 694b63233bc4082926f654d3accd1a7c7afc5dca
         firstName: "",
         lastName: "",
         username: "",
@@ -17,12 +29,52 @@ const Register = ({ registerUser, isLoggedIn}) => {
         password: "",
         url:""
     })
+<<<<<<< HEAD
+
+   
+
+    let { firstName, lastName, username, email, city, phoneNo, birthday, password } = data
+
+
+    const onChange = (e) => {
+
+        setData({ ...data, [e.target.name]: e.target.value })
+=======
     let { firstName, lastName, username, email, city, phoneNo, birthday, password  } = data
     const onChange = (e)=> {
         setData({...data, [e.target.name]: e.target.value})
+>>>>>>> 694b63233bc4082926f654d3accd1a7c7afc5dca
     }
     function handleChange(e)  {
         if (e.target.files[0]) {
+<<<<<<< HEAD
+            setImage(
+                e.target.files[0],
+            );
+        } else console.log("error in onchangeimg");
+
+    }
+
+
+    function handleUpload(e) {
+        
+        
+        e.preventDefault();
+
+        console.log("imageeeeeeeee", image)
+        if(image===null){
+            alert("You should choose File First")
+        }else{
+        const uploadTask = storage.ref(`/images/${image.name}`).put(image);
+        uploadTask.on("state_changed", (snapshot) => { },
+            (error) => {
+                console.log(error, "error");
+            },
+
+
+            () => {
+                storage
+=======
           setImage(
              e.target.files[0],
           );
@@ -38,6 +90,7 @@ const Register = ({ registerUser, isLoggedIn}) => {
                 },
                 () => {
                   storage
+>>>>>>> 694b63233bc4082926f654d3accd1a7c7afc5dca
                     .ref("images")
                     .child(image.name)
                     .getDownloadURL()
@@ -45,11 +98,25 @@ const Register = ({ registerUser, isLoggedIn}) => {
                       setURL(url)
                       console.log(url)
                     });
+<<<<<<< HEAD
+            }
+        );
+    }}
+
+
+
+
+
+
+    const onsubmit = () => {
+        if (firstName === "" || lastName === "" || username === "" || email === "" || city === "" || phoneNo === "" || birthday === "" || password === "") {
+=======
                 }
               );     
       }
     const onsubmit = () =>{
         if(firstName === "" || lastName === "" || username === "" || email === "" || city === "" || phoneNo === "" || birthday === "" || password === ""){
+>>>>>>> 694b63233bc4082926f654d3accd1a7c7afc5dca
             console.log("Please fill all required fields");
         } else {
         registerUser(firstName, lastName, username, email, city,phoneNo, birthday, password,url)
