@@ -47,13 +47,34 @@ function Notifications(props) {
                           </div>
                         );
                       })}
+                    </div>
+                  </form>
+                </MDBContainer>
+              </div>
+            );
+          }
+        })}
+      </div>
+
+      {/* /////////////////////////////////////JOINS////////////////////////////////////////////////// */}
+      <div>
+        <hr></hr>
+        {props.games.filteredItems.map((game) => {
+          if (game.username === window.localStorage.username) {
+            return (
+              <div key={game._id}>
+                <MDBContainer>
+                  <form>
+                    <div className="form-group">
                       {game.joinCount.map((joined, i) => {
                         return (
                           <div key={i}>
                             <h6>
-                              @{joined.username} wants to join your next game.
+                              @{joined.username} wants to join your next game:{" "}
+                              <Link to={`/games/${game._id}`}>
+                                {game.gameName}
+                              </Link>
                             </h6>
-                            {console.log(game.gameName, "joinedddd")}
                           </div>
                         );
                       })}
@@ -62,10 +83,8 @@ function Notifications(props) {
                 </MDBContainer>
               </div>
             );
-          } else {
-            console.log("no notifications for now");
           }
-        }, null)}
+        })}
       </div>
     </div>
   );
