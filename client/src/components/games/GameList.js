@@ -6,10 +6,7 @@ import Filter from "./Filter";
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { likePost, unlikePost, joinPost, unjoinPost, setGames } from "../../actions/index.js"
-// import Chat from '../pages/Chat';
-// import { heart } from "@fortawesome/free-solid-svg-icons";
-
-// import { copyFileSync } from "fs";
+import Notifications from "./Notifications";
 
 function GameList(props) {
 
@@ -27,7 +24,6 @@ function GameList(props) {
     async function comment() {
       try {
         await patch(`/api/games/${commentField.id}/comment`, commentField);
-        // console.log(commentField.id, "ID from the edit")
         props.history.push(`/games/${commentField.id}/comment`);
       } catch (error) {
         console.log(error);
@@ -48,7 +44,6 @@ function GameList(props) {
     getGames();
   }, []);
 
-  // conditional rendering for notifications
 
   return (
     <div>
@@ -60,49 +55,7 @@ function GameList(props) {
             <Filter />
 
             {/* Notifications part */}
-            <hr></hr>
-
-            <div>
-              <h4>{window.localStorage.username}'s notifications </h4>
-              {props.games.filteredItems.map((game) => {
-                if (game.username === window.localStorage.username) {
-                  return (
-                    <div key={game._id}>
-                      <MDBContainer>
-                        <form>
-                          <div className="form-group">
-                            {game.comment.map((theComment, i) => {
-                              return (
-                                <div key={i}>
-                                  <h6>
-                                    @{theComment.username} commented: "
-                                    {theComment.comment}" on "
-                                    <Link to={`/games/${game._id}`}>
-                                      {game.gameName}
-                                    </Link>
-                                    " post.
-                                  </h6>
-                                </div>
-                              );
-                            })}
-                            {game.joinCount.map((joined, i) => {
-                              return (
-                                <div key={i}>
-                                  <h6>@{joined.username} wants to join your next game.</h6>
-                                  {console.log(game.gameName, "joinedddd")}
-                                </div>
-                              )
-                            })}
-                          </div>
-                        </form>
-                      </MDBContainer>
-                    </div>
-                  );
-                } else {
-                  console.log("no notifications for now")
-                }
-              }, null)}
-            </div>
+            <Notifications/>
             {/* Notifications part done */}
           </MDBCol>
           <MDBCol md="6" style={{ marginTop: "20px" }}>
@@ -114,7 +67,6 @@ function GameList(props) {
                     <Link to={`/games/${game._id}`}>{game.gameName}</Link>
                   </h4>
                   <h6>{game.createdAt}</h6>
-                  {/* <h6>{game._id}</h6> */}
                   <MDBContainer>
                     <MDBRow>
                       <MDBCol size="4">
@@ -130,18 +82,6 @@ function GameList(props) {
                     </MDBRow>
                     <img src={game.selectedFile} width="250px" alt="game post" />
                     <br />
-                    {/* Toggle */}
-                    {/* <div>
-                     {game.likeCount.includes(game.username)
-                     ?<button onClick={() => dispatch(unlikePost(game, commentField))}>
-                      Unlike
-                    </button>
-                     : <button name={game._id} onClick={() => dispatch(likePost(game, commentField))}>
-                     Like {game.likeCount.length}
-                   </button>
-                      }
-                    </div> */}
-                    {/* <i className = "material-icons">thumb_up</i> */}
                     <button onClick={() => dispatch(unlikePost(game, commentField))}>
                       Unlike
                     </button>
@@ -154,7 +94,6 @@ function GameList(props) {
                     <button name={game._id} onClick={() => dispatch(unjoinPost(game, commentField))}>
                       Unjoin
                     </button>
-                    {/* <FontAwesomeIcon icon={heart} /> */}
 
                     {game.joinCount.map((joined, i) => {
                       return (
@@ -180,7 +119,6 @@ function GameList(props) {
                         {game.comment.map((theComment, i) => {
                           return (
                             <div key={i}>
-                              {/* {console.log(theComment)} */}
                               <h6>@{theComment.username}: {theComment.comment}</h6>
                             </div>
                           )
