@@ -7,6 +7,7 @@ import { storage } from "../firebase/index"
 
 const Register = ({ registerUser, isLoggedIn }) => {
     console.log(isLoggedIn, "isLoggedIn")
+   
     const [image, setImage] = useState(null);
     const [url, setURL] = useState(null);
     let [data, setData] = useState({
@@ -20,6 +21,8 @@ const Register = ({ registerUser, isLoggedIn }) => {
         password: "",
         url: ""
     })
+
+   
 
     let { firstName, lastName, username, email, city, phoneNo, birthday, password } = data
 
@@ -41,9 +44,14 @@ const Register = ({ registerUser, isLoggedIn }) => {
 
 
     function handleUpload(e) {
+        
+        
+        e.preventDefault();
 
         console.log("imageeeeeeeee", image)
-        e.preventDefault();
+        if(image===null){
+            alert("You should choose File First")
+        }else{
         const uploadTask = storage.ref(`/images/${image.name}`).put(image);
         uploadTask.on("state_changed", (snapshot) => { },
             (error) => {
@@ -62,7 +70,7 @@ const Register = ({ registerUser, isLoggedIn }) => {
                     });
             }
         );
-    }
+    }}
 
 
 

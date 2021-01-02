@@ -2,11 +2,7 @@ import React, { useState, useEffect } from "react";
 import { get,put} from 'axios';
 
 
-const ProfileEdit = (props) => {
-//     console.log(isLoggedIn,"isLoggedIn")
- 
-    
-   
+const ProfileEdit = (props) => { 
     const initialState = {
            firstName: "",
            lastName: "",
