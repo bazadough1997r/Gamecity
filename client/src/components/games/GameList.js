@@ -6,7 +6,7 @@ import Filter from "./Filter";
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { likePost, unlikePost, joinPost, unjoinPost, setGames } from "../../actions/index.js"
-import Chat from '../pages/Chat';
+// import Chat from '../pages/Chat';
 // import { heart } from "@fortawesome/free-solid-svg-icons";
 
 // import { copyFileSync } from "fs";
@@ -156,7 +156,7 @@ function GameList(props) {
                       )
                     })}
 
-                    <br /> <br />
+                    <br/> <br />
                     <form>
                       <div className="form-group">
                         <input
