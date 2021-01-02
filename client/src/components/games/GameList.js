@@ -85,6 +85,14 @@ function GameList(props) {
                                 </div>
                               );
                             })}
+                            {game.joinCount.map((joined, i) => {
+                              return (
+                                <div key={i}>
+                                  <h6>@{joined.username} wants to join your next game.</h6>
+                                  {console.log(game.gameName, "joinedddd")}
+                                </div>
+                              )
+                            })}
                           </div>
                         </form>
                       </MDBContainer>
