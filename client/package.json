@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.6.0",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
+    "bootstrap-toggle": "^2.2.2",
     "jwt-decode": "^3.1.2",
     "mdbootstrap": "^4.19.2",
     "mdbreact": "^5.0.1",
