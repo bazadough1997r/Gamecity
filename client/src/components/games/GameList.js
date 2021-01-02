@@ -156,7 +156,7 @@ function GameList(props) {
                       )
                     })}
 
-                    <br /> <br />
+                    <br/> <br />
                     <form>
                       <div className="form-group">
                         <input

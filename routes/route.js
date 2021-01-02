@@ -3,8 +3,7 @@ const AddUser = require("../models/profileSchema.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
-
-
+const jwt_decode = require("jwt-decode");
 
 router.get("/", async (req, res) => {
   AddUser.find()
@@ -49,14 +48,13 @@ router.get("/addUser", async (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-///loggingggg in
 router.post("/login", async (req, res) => {
   //checking if the username is signed up
   const email = req.body.email;
   const username = req.body.username;
-  console.log(req.body)
+  console.log(req.body);
   // console.log(email, "Rawan")
-  console.log(username, "Rawan")
+  console.log(username, "Rawan");
   const user = await AddUser.findOne({ email });
   if (!user) {
     return res
@@ -70,13 +68,13 @@ router.post("/login", async (req, res) => {
   if (!validpassword) return res.status(400).send("Password not correct");
   //create and send a token
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-  console.log(token)
-  res.header("addUser-token", token, email, username).json({ token, email, username });
+  var decoded = jwt_decode(token);
+  res
+    .header("addUser-token", token, email, username)
+    .json({ token, email, username });
 });
 
-
-router.post("/",  async (req, res) => {
-
+router.post("/", async (req, res) => {
   //checking if the username or email is used
   const useradded = await AddUser.findOne({
     $or: [{ email: req.body.email }, { username: req.body.username }],
@@ -84,11 +82,12 @@ router.post("/",  async (req, res) => {
   console.log("user added");
 
   if (useradded)
-    return res.status(400).send(
-       "There is an account with same Username or Email,please choose another one?"
+    return res
+      .status(400)
+      .send(
+        "There is an account with same Username or Email,please choose another one?"
       );
 
-     
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const email = req.body.email;
@@ -97,15 +96,11 @@ router.post("/",  async (req, res) => {
   const birthday = req.body.birthday;
   const url=req.body.url;
   //hashing password
-  
-  const hashedPassword = bcrypt.hashSync(req.body.password, 10)
-  // if (Password.length < 5)
-  // return res.status(400).send({ msg: "The password need to be at least 5 characters long. " }); 
-const username = req.body.username;
-// console.log(username, "userrrrrrrrrrrrrr")
-  
 
-  //every thing is readdy here we send the data to the server  
+  const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+  const username = req.body.username;
+
+  //every thing is readdy here we send the data to the server
   const newUser = await AddUser.create({
     firstName: firstName,
     lastName: lastName,
@@ -118,7 +113,6 @@ const username = req.body.username;
     url:url
   });
 
-
   console.log(newUser);
   try {
     const saveUser = await newUser.save();
@@ -127,6 +121,5 @@ const username = req.body.username;
     res.status(400).send(err);
   }
 });
-
 
 module.exports = router;
