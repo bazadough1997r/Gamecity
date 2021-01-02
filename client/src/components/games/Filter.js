@@ -7,8 +7,8 @@ class Filter extends Component {
 
     render() {
       // console.log(this.props.Governorates, "this.props.Governorates")
-   console.log(this.props.filteredGames, "this.props.filteredGames")
-       console.log(this.props.games, "this.props.games")
+      // console.log(this.props.filteredGames, "this.props.filteredGames")
+      // console.log(this.props.games, "this.props.games")
     return !this.props.filteredGames ? (
       <div>Loading...</div>
     ) : (
@@ -42,9 +42,7 @@ class Filter extends Component {
           <select
             value={this.props.type}
             onChange={(e) =>
-              //this.props.filterByType(this.props.filteredGames, e.target.value)
-              this.props.filterGames(this.props.games, e.target.value)
-
+              this.props.filterByType(this.props.filteredGames, e.target.value)
             }
           >
             <option value="">ALL</option>
