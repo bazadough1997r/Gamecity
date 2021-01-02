@@ -9,7 +9,11 @@
     "@testing-library/user-event": "^12.6.0",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
+<<<<<<< HEAD
     "firebase-functions": "^3.13.0",
+=======
+    "bootstrap-toggle": "^2.2.2",
+>>>>>>> 694b63233bc4082926f654d3accd1a7c7afc5dca
     "jwt-decode": "^3.1.2",
     "mdbootstrap": "^4.19.2",
     "mdbreact": "^5.0.1",
