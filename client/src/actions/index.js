@@ -225,7 +225,8 @@ export const registerUser = (
   city,
   phoneNo,
   birthday,
-  password
+  password,
+  url
 ) => async (dispatch) => {
   try {
     const body = {
@@ -237,6 +238,7 @@ export const registerUser = (
       phoneNo,
       birthday,
       password,
+      url
     };
     const response = await axios.post("/addUser", body);
     window.location = "/login";
