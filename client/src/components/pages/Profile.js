@@ -2,58 +2,49 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchUser } from "../../actions/index";
 import { useParams } from "react-router-dom";
-//import { storage } from "../firebase/index"
-function Profile({ userData, fetchUser, logOut }) {
-  // const [image , setImage]= useState(null);
-  // const [url , setURL]= useState(null);
+import { Link } from "react-router-dom";
+import Profilegames from "../games/Profilegames";
+//action  setGames
+//set state
+//map //if statmemnt
+//const[]
+function Profile({ userData, fetchUser }) {
   let { email } = useParams();
   console.log(email);
   useEffect(() => {
     fetchUser(email);
   }, [email, fetchUser]);
 
-  //  function handleChange(e)  {
-  //    if(e.target.files[0]){
-  //    }
-  //  }
-
   return userData.loading ? (
-    <h2 style={{ marginTop: "20px" }}>Loading</h2>
+    <h3>Loading</h3>
   ) : userData.error ? (
-    <h2 style={{ marginTop: "20px" }}>{userData.error}</h2>
+    <h3>{userData.error}</h3>
   ) : (
-    <div style={{ marginTop: "20px" }}>
-      <h2>User Information</h2>
+    <div>
+      <h3>{window.localStorage.username}'s info:</h3>
       <div>
         <hr></hr>
-        {userData && userData.user && (
-          <ul>
-            <li>Username: {userData.user.username}</li>
-            <li>First name: {userData.user.firstName}</li>
-            <li>Last name: {userData.user.lastName}</li>
-            <li>Email: {userData.user.email}</li>
-            <li>City: Jordan/{userData.user.city}</li>
-            <li>Phone Number: {userData.user.phoneNo}</li>
-            <li>Birthday: {userData.user.birthday}</li>
-            <li>UserID: {userData.user._id}</li>
-          </ul>
-        )}
-        {/* <label>Add Image </label>
-  <input type="file" onChange="handleChange()"/>
-  <button onClick = "handleUpload()">Upload</button> */}
-        {/* <br />
-  <img width="50px" src = {this.state.url || "http://via.placeholder.com/100x150"} alt = "firebase-image" />
-  <button type="submit" value = "Submit" onClick = {this.onSubmit}>Submit</button> */}
-
-        {/*   
+        <img src={userData.user.url} alt="profile_pic" width="150px"></img>
         <Link
-          to={{ pathname: `/profile/${fetchUser._id}/edit` }}
-          className="btn btn-info"
+          to={{ pathname: `/editProfile/${userData.user.email}` }}
+          className="btn btn-info float-right"
         >
           Edit
-        </Link> */}
-        {/* <button onClick = {() => logOut()}> logOut</button> */}
+        </Link>
+        {userData && userData.user && (
+          <div>
+            <h6>Username: {userData.user.username}</h6>
+            <h6>
+              Name: {userData.user.firstName} {userData.user.lastName}
+            </h6>
+            <h6>Email: {userData.user.email}</h6>
+            <h6>City: Jordan/{userData.user.city}</h6>
+            <h6>Phone number: {userData.user.phoneNo}</h6>
+            <h6>Birthday: {userData.user.birthday}</h6>
+          </div>
+        )}
       </div>
+      <Profilegames />
     </div>
   );
 }
