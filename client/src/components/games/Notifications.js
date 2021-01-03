@@ -25,7 +25,7 @@ function Notifications(props) {
     <div>
       <hr></hr>
       <div>
-        <h4>{window.localStorage.username}'s notifications </h4>
+        <h5>Comments notifications </h5>
         {props.games.filteredItems.map((game) => {
           if (game.username === window.localStorage.username) {
             return (
@@ -59,6 +59,7 @@ function Notifications(props) {
       {/* /////////////////////////////////////JOINS////////////////////////////////////////////////// */}
       <div>
         <hr></hr>
+        <h5>Join notifications </h5>
         {props.games.filteredItems.map((game) => {
           if (game.username === window.localStorage.username) {
             return (
