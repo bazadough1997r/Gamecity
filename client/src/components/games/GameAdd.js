@@ -56,6 +56,7 @@ function GameAdd(props) {
   //the new game object. Then we dispatch the addGame action passing in the new game object.
   function handleSubmit(event) {
     event.preventDefault();
+    
     post("/api/games", {
       gameName: game.gameName,
       gameType: game.gameType,

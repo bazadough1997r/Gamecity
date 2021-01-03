@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
 const ChatSchema =  mongoose.Schema({
+  postId: {
+    type: String,
+  },
   message: {
     type: String,
   },

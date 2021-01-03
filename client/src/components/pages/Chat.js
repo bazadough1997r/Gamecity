@@ -1,102 +1,107 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import  {getChats, afterPostMessage}  from '../../actions';
-import moment from 'moment';
-import io from "socket.io-client"
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { getChats, afterPostMessage } from "../../actions";
+import moment from "moment";
+import io from "socket.io-client";
 import jwt_decode from "jwt-decode";
 
+class ChatPage extends Component {
+    constructor(props) {
+        super(props);
+      
+        this.state = {
+            chatMessage: "",
+          };
+          console.log(this.props.chats.chats,"this.props in chat comp")
+      }
+      
+//5ff0d39471c627a308021049 this.props in chat comp
+//5ff0e52155b9a8bafc62566b this.props in chat comp
 
+  componentDidMount() {
+    let server = "http://localhost:3001";
 
- class ChatPage extends Component {
-    state = {
-        chatMessage: "",
-    }
+    this.props.dispatch(getChats(this.props.location.state.postId));
 
-    componentDidMount(){
-        let server ="http://localhost:3001"
+    this.socket = io(server);
 
-       this.props.dispatch(getChats())
+    this.socket.on("Output Chat Message", (messageFromBackend) => {
+      console.log(messageFromBackend);
+      this.props.dispatch(afterPostMessage(messageFromBackend));
+    });
+  }
 
-        this.socket = io(server);
+  handleMessage = (event) => {
+    this.setState({
+      chatMessage: event.target.value,
+    });
+  };
 
-        this.socket.on("Output Chat Message", messageFromBackend => {
-            console.log(messageFromBackend)
-            this.props.dispatch(afterPostMessage(messageFromBackend))
-        })
-    }
+  onSubmitMessage = (event) => {
+    event.preventDefault();
 
-    handleMessage = (event)=>{
-        this.setState({
-            chatMessage: event.target.value
-        })
-    }
+    let token = localStorage.getItem("token");
+    var decoded = jwt_decode(token);
+    let userId = decoded._id;
+    let chatMessage = this.state.chatMessage;
+    let username = localStorage.getItem("username");
+    let nowTime = moment();
+    let type = "Text";
+    let postId = this.props.location.state.postId //it will be something dynamic
+    console.log(postId, "postId")
 
+    this.socket.emit("Input Chat Message", {
+      postId,
+      chatMessage,
+      userId,
+      username,
+      nowTime,
+      type,
+    });
 
-    onSubmitMessage = (event)=>{
-       event.preventDefault()
-       
+    this.setState({
+      chatMessage: "",
+    });
+  };
 
-           let token = localStorage.getItem("token")
-           var decoded = jwt_decode(token);
-           let userId = decoded._id
-           let chatMessage = this.state.chatMessage
-           let username = localStorage.getItem("username")
-           let nowTime = moment();
-           let type = "Text"
-           this.socket.emit("Input Chat Message", {
-               chatMessage,
-               userId,
-               username,
-               nowTime,
-               type
-           });
-           console.log(this.socket)
-           this.setState({
-               chatMessage: ""
-           })
-    }
-
-    render() {
-        
-        return (
-            <div>
-                HI FROM CHAT COMPONENT
-                <form onSubmit={this.onSubmitMessage}>
-                    <input 
-                    id = "message"
-                    prefix = {<icon type="message"/>}
-                    placeholder ="type here"
-                    type= "text"
-                    value= {this.state.chatMessage}
-                    onChange= {this.handleMessage}
-                    />
-                    <button
-                    onClick= {(e)=> this.onSubmitMessage(e)}
-                    >
-                        Send
-                    </button>
-                    <div>
-                           {this.props.chats.chats &&
-                        this.props.chats.chats.map((chat,i) => {
-                            return (
-                                <div key={i}>
-                                <h5><b>{chat.sender.username}</b></h5>
-                                <h6>{chat.message}</h6>
-                                </div>
-                            )
-                        })}
-                    </div>
-                </form>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        HI FROM CHAT COMPONENT
+        <form onSubmit={this.onSubmitMessage}>
+          <input
+            id="message"
+            prefix={<icon type="message" />}
+            placeholder="type here"
+            type="text"
+            value={this.state.chatMessage}
+            onChange={this.handleMessage}
+          />
+          <button onClick={(e) => this.onSubmitMessage(e)}>Send</button>
+          <div>
+            {this.props.chats.chats &&
+              this.props.chats.chats.map((chat, i) => {
+                return (
+                  <div key={i}>
+                    <h5>
+                      <b>{chat.sender.username}</b>
+                    </h5>
+                    <h6>{chat.message}</h6>
+                  </div>
+                );
+              })}
+          </div>
+        </form>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        user: state.user.user,
-        chats: state.chat
-    }
-}
+  return {
+    user: state.user.user,
+    chats: state.chat,
+  };
+};
 
 export default connect(mapStateToProps)(ChatPage);

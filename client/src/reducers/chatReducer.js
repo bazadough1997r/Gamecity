@@ -1,6 +1,7 @@
 import { GET_CHATS, AFTER_POST_MESSAGE } from "../actions";
 
 export default function chatsReducer(state = {}, action) {
+    console.log(action.payload,"action.payload")
   switch (action.type) {
     case GET_CHATS:
       return { ...state, chats: action.payload };
@@ -8,8 +9,10 @@ export default function chatsReducer(state = {}, action) {
     case AFTER_POST_MESSAGE:
       // return { ...state, chats: action.payload };
       return { ...state, chats: state.chats.concat(action.payload) };
+      
 
     default:
       return state;
   }
+  
 }

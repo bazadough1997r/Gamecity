@@ -79,6 +79,7 @@ export function joinPost(game, commentField, callback) {
 
 export const UNJOIN_GAME = "UNJOIN_GAME";
 export function unjoinPost(game, commentField, callback) {
+  console.log(game,"game game")
   return async function (dispatch) {
     return axios.patch(`/api/games/${game._id}/unjoinPost`, commentField)
       .then (function(data) {
@@ -89,6 +90,14 @@ export function unjoinPost(game, commentField, callback) {
       .catch(function (error) {
         console.log(error, "error from the actions");
       });
+  };
+}
+
+export const JOIN_ROOM = "JOIN_ROOM";
+export function joinRoom(commentField, callback) {
+  console.log(commentField,"commentField from join room")
+  return async function (dispatch) {
+    
   };
 }
 
@@ -225,7 +234,8 @@ export const registerUser = (
   city,
   phoneNo,
   birthday,
-  password
+  password,
+  url
 ) => async (dispatch) => {
   try {
     const body = {
@@ -237,6 +247,7 @@ export const registerUser = (
       phoneNo,
       birthday,
       password,
+      url
     };
     const response = await axios.post("/addUser", body);
     window.location = "/login";
@@ -316,8 +327,10 @@ export const filterByType = (games, type) => (dispatch) => {
 /////////////////////////////////////////////////////Actions for CHATT/////////////////////////////////////////////////////
 export const CHAT_SERVER = "/api/chat";
 export const GET_CHATS = "GET_CHATS";
-export const getChats = () => async (dispatch) => {
-  const response = await axios.get(`${CHAT_SERVER}/getChats`);
+export const getChats = (postId) => async (dispatch) => {
+  console.log(postId,"POSTID")
+  const response = await axios.get(`${CHAT_SERVER}/getChats/${postId}`);
+  console.log(response,"response response")
   dispatch({
     type: GET_CHATS,
     payload: response.data,
@@ -326,6 +339,7 @@ export const getChats = () => async (dispatch) => {
 
 export const AFTER_POST_MESSAGE = "AFTER_POST_MESSAGE";
 export const afterPostMessage = (data) => {
+  console.log(data, "DETAA DETAA DETAA")
   return {
     type: AFTER_POST_MESSAGE,
     payload: data,
