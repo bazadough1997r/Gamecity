@@ -31,7 +31,13 @@ export default function gamesReducer(state = initialState, action) {
       return { ...state, game: action.game };
 
     case REMOVE_GAME:
-      return { ...state.filter((game) => game._id !== action._id) };
+      // return { ...state.filter((game) => game._id !== action._id) };
+      for (let i = 0; i < state.games.length; i++) {
+        if (state.games[i]["_id"] === action._id) {
+          delete state.games[i]["_id"];
+          return state;
+        }
+      }
 
     case REPLACE_GAME:
       return state.map(function (game) {
