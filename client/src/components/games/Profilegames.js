@@ -134,8 +134,9 @@ function Profilegames(props) {
                 </div>
               );
             } else {
-                  console.log("no notifications for now")
+                  console.log("you didn't post anything yet")
                 }
+                return null;
             })}
           </MDBCol>
          

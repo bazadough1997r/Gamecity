@@ -53,6 +53,7 @@ function Notifications(props) {
               </div>
             );
           }
+          return null;
         })}
       </div>
 
@@ -85,6 +86,7 @@ function Notifications(props) {
               </div>
             );
           }
+          return null
         })}
       </div>
     </div>
