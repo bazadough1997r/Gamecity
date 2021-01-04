@@ -53,8 +53,8 @@ router.patch("/games/:id/unlikePost", function (req, res) {
   var object = {likes: req.body.likes , username: req.body.username}
   // Game.findByIdAndUpdate(req.params.id, {likeCount: req.body.likeCount +1})     
   Game.findByIdAndUpdate(req.params.id, { $pull: {likeCount: object}}, {upsert: true, new: true}, (err, model) =>{
-    console.log(model, "model")
-    console.log(err, "err") 
+    // console.log(model, "model")
+    // console.log(err, "err") 
    })
     .then(function () {
       res.json("Game liked");

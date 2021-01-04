@@ -14,37 +14,45 @@ function Profile({ userData, fetchUser }) {
   useEffect(() => {
     fetchUser(email);
   }, [email, fetchUser]);
-
+  // style = {{backgroundImage: `url(${process.env.PUBLIC_URL + './Images/chatRoom.jpg'})`}}
   return userData.loading ? (
     <h3>Loading</h3>
   ) : userData.error ? (
     <h3>{userData.error}</h3>
   ) : (
     <div>
-      <h3>{window.localStorage.username}'s info:</h3>
-      <div>
-        <hr></hr>
-        <img src={userData.user.url} alt="profile_pic" width="150px"></img>
+      <br/><br/><br/>
+    <div>
+      <div className= "container p-10 text-center" style = {{width: "60%", background: "#070d13", opacity: "85%", borderRadius:"1rem"}}>
+      <h3 style = {{color: "#fff", fontSize: "28px", fontFamily: "Century Gothic"}}>{window.localStorage.username}'s info:</h3>
+      {/* <hr /> */}
+        <img src={userData.user.url} alt="profile_pic" width="150px" height = "150px" className = "rounded-circle"/>
+        {userData && userData.user && (
+          <div>
+            <p style = {{color: "#666666", fontSize: "18px", fontFamily: "Century Gothic"}}>
+              Username: 
+              <span style = {{color: "#fff", fontSize: "18px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                {userData.user.username}
+              </span>
+            </p>
+            <p>
+              Name: {userData.user.firstName} {userData.user.lastName}
+            </p>
+            <p>Email: {userData.user.email}</p>
+            <p>City: Jordan/{userData.user.city}</p>
+            <p>Phone number: {userData.user.phoneNo}</p>
+            <p>Birthday: {userData.user.birthday}</p>
+          </div>
+        )}
         <Link
           to={{ pathname: `/editProfile/${userData.user.email}` }}
           className="btn btn-info float-right"
         >
           Edit
         </Link>
-        {userData && userData.user && (
-          <div>
-            <h6>Username: {userData.user.username}</h6>
-            <h6>
-              Name: {userData.user.firstName} {userData.user.lastName}
-            </h6>
-            <h6>Email: {userData.user.email}</h6>
-            <h6>City: Jordan/{userData.user.city}</h6>
-            <h6>Phone number: {userData.user.phoneNo}</h6>
-            <h6>Birthday: {userData.user.birthday}</h6>
-          </div>
-        )}
       </div>
       <Profilegames />
+    </div>
     </div>
   );
 }

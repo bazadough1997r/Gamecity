@@ -34,6 +34,7 @@
     "mongoose-schema-types": "^1.2.6",
     "node": "^10.16.3",
     "nodemon": "^2.0.6",
+    "react-scroll": "^1.8.1",
     "socket.io": "^3.0.4",
     "sweetalert": "^2.1.2"
   },
