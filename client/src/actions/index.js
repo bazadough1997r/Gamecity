@@ -160,8 +160,8 @@ export const fetchUser = (email) => {
 
     dispatch(fetchUserRequest());
     axios.get("/addUser/profile/"+email) 
-      .then((response) => {
-        let user = response.data;
+      .then((payload) => {
+        let user = payload.data;
         console.log(user,"from client")
         dispatch(fetchUserSuccess(user));
       })
