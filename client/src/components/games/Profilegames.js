@@ -11,7 +11,6 @@ export default function Profilegames() {
   const [commentField, setComment] = useState({ comment: "", id: "", username: window.localStorage.username, joins: 0, likes: 0 });
   const [games, setGames] = useState([]);
   const dispatch = useDispatch();
-  console.log(games, "games for the warning")
   function handleChangeComment(event) {
     setComment({ ...commentField, comment: event.target.value, id: event.target.name, username: window.localStorage.username });
   }

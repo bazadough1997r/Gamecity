@@ -5,7 +5,6 @@ import { MDBContainer } from "mdbreact";
 
 export default  function Notifications() {
   const [games, setGames] = useState([]);
-  console.log(games, "games for the warning");
 
   useEffect(function () {
     async function getGames() {
@@ -19,7 +18,6 @@ export default  function Notifications() {
     getGames();
   }, []);
 
-  console.log("games notifications line 24", games)
   return (
     <div>
       <hr></hr>

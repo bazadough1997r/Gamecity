@@ -68,13 +68,29 @@ export function joinPost(game, commentField, callback) {
       .then (function(data) {
         callback();
         dispatch({ type: JOIN_GAME, payload: data})
-        console.log(data)
+        console.log(data, "data from JOIN_GAME, FINALLLYYYYYYYYYYY")
       })
       .catch(function (error) {
         console.log(error, "error from the actions")
       })
   }
 }
+//trying  to solve the join refresh
+
+// export const JOIN_GAME = "JOIN_GAME";
+// export const joinPost = (game, commentField) => {
+//   return (dispatch) => {
+//    axios.patch(`/api/games/${game._id}/joinPost`, commentField)
+//       .then ((response) => {
+//         let x = response.data;
+//         dispatch(joinPost(x))
+//         console.log(response, "response from JOIN_GAME, FINALLLYYYYYYYYYYY")
+//       })
+//       .catch((error) => {
+//         console.log(error, "error from the joinPost actions")
+//       })
+//   }
+// }
 
 export const UNJOIN_GAME = "UNJOIN_GAME";
 export function unjoinPost(game, commentField, callback) {
@@ -154,7 +170,6 @@ export function updateProfile(user) {
 }
 
 export const fetchUser = (email) => {
-  console.log(email,"email from action ")
   return (dispatch) => {
 
     dispatch(fetchUserRequest());

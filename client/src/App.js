@@ -180,11 +180,6 @@ function Main() {
       <Route exact path="/editProfile/:email" component={ProfileEdit} />
 
       <Route exact path="/profile/:email" render={(props) => <Profile {...props} />} />
-      <Route
-        exact
-        path="/profile/:email"
-        render={(props) => <Profile {...props} />}
-      />
       <Route exact path="/login" render={(props) => <Login {...props} />} />
       <Route
         exact

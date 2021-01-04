@@ -10,7 +10,6 @@ import Profilegames from "../games/Profilegames";
 //const[]
 function Profile({ userData, fetchUser }) {
   let { email } = useParams();
-  console.log(email);
   useEffect(() => {
     fetchUser(email);
   }, [email, fetchUser]);
