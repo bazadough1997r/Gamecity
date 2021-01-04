@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { patch } from "axios";
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import { likePost, unlikePost, joinPost, unjoinPost, setGames } from "../../actions/index.js"
+import { likePost, unlikePost, joinPost, unjoinPost } from "../../actions/index.js"
 
-// import { heart } from "@fortawesome/free-solid-svg-icons";
-
-// import { copyFileSync } from "fs";
-
-function Profilegames(props) {
+export default function Profilegames() {
 
   const [commentField, setComment] = useState({ comment: "", id: "", username: window.localStorage.username, joins: 0, likes: 0 });
   const [games, setGames] = useState([]);
@@ -21,13 +17,12 @@ function Profilegames(props) {
   }
 
 
-  function handleSubmitComment(event) {
+function handleSubmitComment(event) {
     event.preventDefault();
     async function comment() {
       try {
         await patch(`/api/games/${commentField.id}/comment`, commentField);
-        // console.log(commentField.id, "ID from the edit")
-        props.history.push(`/games/${commentField.id}/comment`);
+        games.history.push(`/games/${commentField.id}/comment`);
       } catch (error) {
         console.log(error);
       }
@@ -57,7 +52,7 @@ function Profilegames(props) {
         <MDBRow>
         
           <MDBCol md="6" style={{ marginTop: "20px" }}>
-            {props.games.filteredItems.map((game) => {
+            {games.map((game) => {
                 if (game.username === window.localStorage.username) {
               return (
                 <div key={game._id}>
@@ -122,7 +117,6 @@ function Profilegames(props) {
                         {game.comment.map((theComment, i) => {
                           return (
                             <div key={i}>
-                              {/* {console.log(theComment)} */}
                               <h6>@{theComment.username}: {theComment.comment}</h6>
                             </div>
                           )
@@ -147,16 +141,5 @@ function Profilegames(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    games: state.games,
-  };
-};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setGames: () => dispatch(setGames()),
-  };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profilegames);

@@ -1,7 +1,6 @@
 import { get } from "axios";
 import axios from "axios";
 import { setToken } from "../components/pages/setToken";
-// import { response } from "express";
 
 export const FETCH_ALL = "FETCH_ALL";
 
@@ -160,8 +159,8 @@ export const fetchUser = (email) => {
 
     dispatch(fetchUserRequest());
     axios.get("/addUser/profile/"+email) 
-      .then((payload) => {
-        let user = payload.data;
+      .then((response) => {
+        let user = response.data;
         console.log(user,"from client")
         dispatch(fetchUserSuccess(user));
       })
@@ -275,44 +274,6 @@ export const loginUser = (email, password, username) => async (dispatch) => {
       payload: error,
     });
   }
-};
-
-/////////////////////////////////////////////////////Actions for FILTERS/////////////////////////////////////////////////////
-
-export const FILTER_GAMES_BY_GOVERNORATES = "FILTER_GAMES_BY_GOVERNORATES";
-export const filterGames = (games, Governorates) => (dispatch) => {
-  dispatch({
-    type: FILTER_GAMES_BY_GOVERNORATES,
-    payload: {
-      //payload is an object that has the items
-
-      Governorates: Governorates,
-      items:
-        Governorates === "" // now if items are empty
-          ? games // return all games
-          : //else
-            games.filter((x) => x.gameGovernorate.indexOf(Governorates) >= 0),
-      //I want you to filter the games based on their governorates
-    },
-  });
-};
-
-export const FILTER_GAMES_BY_TYPE = "FILTER_GAMES_BY_TYPE";
-export const filterByType = (games, type) => (dispatch) => {
-  dispatch({
-    type: FILTER_GAMES_BY_TYPE,
-    payload: {
-      //payload is an object that has the items
-
-      type: type,
-      items:
-        type === "" // now if items are empty
-          ? games // return all games
-          : //else
-            games.filter((x) => x.gameType.indexOf(type) >= 0),
-      //I want you to filter the games based on their governorates
-    },
-  });
 };
 
 /////////////////////////////////////////////////////Actions for CHATT/////////////////////////////////////////////////////

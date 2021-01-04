@@ -13,7 +13,6 @@ import ProtectedRoute from "./components/pages/ProtectedRoute";
 import notfound from "./components/pages/notfound";
 import Profile from "./components/pages/Profile";
 import ProfileEdit from "./components/pages/ProfileEdit";
-
 import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
 import GameAdd from "./components/games/GameAdd";
@@ -25,7 +24,6 @@ import { store } from "./index";
 import Login from "./components/pages/login";
 import SearchForm from "./components/pages/SearchForm";
 import Register from "./components/pages/register";
-// import FooterPage from "./Footer"
 import Land from "./components/Land";
 
 if (localStorage.getItem("token")) {
@@ -116,17 +114,6 @@ function Navigation() {
                   Games
                 </NavLink>
               </li>
-              {/* <li className="nav-item">
-                <NavLink
-                  exact
-                  className="nav-link"
-                  activeClassName="active"
-                  to="/notifications"
-                  style={{ color: "white" }}
-                >
-                  Notifications
-                </NavLink>
-              </li> */}
               <li className="nav-item">
                 <NavLink
                   exact
@@ -205,7 +192,6 @@ function Main() {
         render={(props) => <Register {...props} />}
       />
       <Route exact path="/notfound" component={notfound} />
-      {/* <Route exact path="/notifications" component={Notifications} /> */}
     </Switch>
   );
 }

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { patch } from "axios";
-import Filter from "./Filter";
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import { likePost, unlikePost, joinPost, unjoinPost, setGames } from "../../actions/index.js"
+import { likePost, unlikePost, joinPost, unjoinPost } from "../../actions/index.js"
 import Notifications from "./Notifications";
 
-function GameList(props) {
+export default function GameList() {
 
   const [commentField, setComment] = useState({ comment: "", id: "", username: window.localStorage.username, joins: 0, likes: 0 });
   const [games, setGames] = useState([]);
@@ -24,7 +23,7 @@ function GameList(props) {
     async function comment() {
       try {
         await patch(`/api/games/${commentField.id}/comment`, commentField);
-        props.history.push(`/games/${commentField.id}/comment`);
+        games.history.push(`/games/${commentField.id}/comment`);
       } catch (error) {
         console.log(error);
       }
@@ -44,7 +43,6 @@ function GameList(props) {
     getGames();
   }, []);
 
-
   return (
     <div>
       <hr />
@@ -52,14 +50,13 @@ function GameList(props) {
         <MDBRow>
           <MDBCol md="3">
             <br></br>
-            <Filter />
+            {/* <Filter /> */}
 
-            {/* Notifications part */}
             <Notifications/>
-            {/* Notifications part done */}
+
           </MDBCol>
           <MDBCol md="6" style={{ marginTop: "20px" }}>
-            {props.games.filteredItems.map((game) => {
+            {games.map((game) => {
               return (
                 <div key={game._id}>
                   <h3>@{game.username}</h3>
@@ -157,16 +154,3 @@ function GameList(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    games: state.games,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setGames: () => dispatch(setGames()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(GameList);

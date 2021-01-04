@@ -3,8 +3,6 @@ import {
   ADD_GAME,
   REMOVE_GAME,
   REPLACE_GAME,
-  FILTER_GAMES_BY_GOVERNORATES,
-  FILTER_GAMES_BY_TYPE,
   LIKE_GAME,
   UNLIKE_GAME,
   JOIN_GAME,
@@ -15,35 +13,26 @@ import {
 //Declare our reducer function with two arguments, state and action. Set the initial state to an empty games array.
 const initialState = {
   games: [],
-  filteredItems: [],
-  Governorates: "",
-  type: "",
 };
 export default function gamesReducer(state = initialState, action) {
   // console.log(state,"state for games reducer laih undefined")
   //Use a switch statement to match the action type. If the action type is SET_GAMES it returns the games data to update the store with.
-  switch (action.type) {
+  switch (action.gameName) {
     //You need a default case. If there is no match, the reducer will just return the current state.
     case SET_GAMES:
-      return { ...state, games: action.payload, filteredItems: action.payload };
+      return action.games;
 
-    case ADD_GAME:
-      return { ...state, game: action.game };
+      case ADD_GAME:
+        return [action.game, ...state];
 
-    case REMOVE_GAME:
-      // return { ...state.filter((game) => game._id !== action._id) };
-      for (let i = 0; i < state.games.length; i++) {
-        if (state.games[i]["_id"] === action._id) {
-          delete state.games[i]["_id"];
-          return state;
-        }
-      }
+        case REMOVE_GAME:
+          return state.filter((game) => game._id !== action._id);
 
     case REPLACE_GAME:
       return state.map(function (game) {
         if (game._id === action.game._id) {
           return {
-            ...state,
+            ...game,
             gameName: action.game.gameName,
             gameType: action.game.gameType,
             gameDurartion: action.game.gameDuration,
@@ -54,20 +43,6 @@ export default function gamesReducer(state = initialState, action) {
           };
         } else return game;
       });
-
-    case FILTER_GAMES_BY_GOVERNORATES:
-      return {
-        ...state,
-        Governorates: action.payload.Governorates, //these ones are coming from the action payload
-        filteredItems: action.payload.items,
-      };
-
-    case FILTER_GAMES_BY_TYPE:
-      return {
-        ...state,
-        type: action.payload.type, //these ones are coming from the action payload
-        filteredItems: action.payload.items,
-      };
 
     case UNLIKE_GAME:
     case LIKE_GAME:

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { get,put} from 'axios';
-
+import { Link } from "react-router-dom";
 
 const ProfileEdit = (props) => {
 //     console.log(isLoggedIn,"isLoggedIn")
@@ -104,7 +104,8 @@ const ProfileEdit = (props) => {
         <br/>
         <br/>
         <button type="submit" value="Post" className="btn btn-primary"  onClick= {(e)=>handleSubmit (e)}>Save </button>
-        {/* <button type= "submit" onClick= {()=>handleSubmit ()} className="btn btn-primary">submit</button> */}
+        <Link  to={{ pathname: `/profile/${window.localStorage.email}` }} className="btn btn-primary">Back</Link>
+
         <br/>
        
         </form>
