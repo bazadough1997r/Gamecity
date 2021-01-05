@@ -170,12 +170,6 @@ export default function GameList(props) {
                     >
                     Join Room
                     </Link>
-
-                    <h2>
-              <Link to="/games/new" className="btn btn-primary float-none">
-                Build a team!
-              </Link>
-            </h2> 
               
                     {game.joinCount.map((joined, i) => {
                       // console.log(joined,"joined")

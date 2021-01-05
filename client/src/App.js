@@ -114,7 +114,7 @@ function Navigation() {
                   Games
                 </NavLink>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink
                   exact
                   className="nav-link"
@@ -124,7 +124,7 @@ function Navigation() {
                 >
                   Chat Rooms
                 </NavLink>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <NavLink
                   exact
@@ -176,7 +176,7 @@ function Main() {
       <Route exact path="/games/new" component={GameAdd} />
       <Route exact path="/games/:_id" component={GameInfo} />
       <Route exact path="/games/:_id/edit" component={GameEdit} />
-      <Route exact path="/chat" component={Chat} />
+      {/* <Route exact path="/chat" component={Chat} /> */}
       <Route exact path="/editProfile/:email" component={ProfileEdit} />
 
       <Route exact path="/profile/:email" render={(props) => <Profile {...props} />} />
