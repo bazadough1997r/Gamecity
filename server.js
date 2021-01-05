@@ -68,15 +68,16 @@ io.on("connection", (socket) => {
         }); //FILL_ME
         chat.save((err, doc) => {
           if (err) return console.log("error ");
-          // console.log(doc._id, "doc._id")
+          console.log(doc._id, "doc._id")
           // console.log("dddddddddddddddddddddddddddddddddddddddddddd")
           // console.log(doc.postId, "doc.postId,")
           // console.log("dddddddddddddddddddddddddddddddddddddddddddd")
 
-          Chat.find({ _id: doc._id })//I should look for the room name too, 
+          Chat.find({ _id: doc._id })
             .populate("sender")
             .exec((err, doc) => {
               // console.log(doc,"doc doc doc")
+              // console.log(doc._id,"doc doc doc")
               return io.emit("Output Chat Message", doc);
             });
         });
@@ -86,7 +87,6 @@ io.on("connection", (socket) => {
     });
   });
 
-  // socket.emit('message', "welcome to chat rooms")
 });
 
 server.listen(PORT, () => {

@@ -330,7 +330,8 @@ export const GET_CHATS = "GET_CHATS";
 export const getChats = (postId) => async (dispatch) => {
   console.log(postId,"POSTID")
   const response = await axios.get(`${CHAT_SERVER}/getChats/${postId}`);
-  console.log(response,"response response")
+  // const response = await axios.get(`${CHAT_SERVER}/getChats`);
+  console.log(response,"response response !!!!!!!!!")//array of objects
   dispatch({
     type: GET_CHATS,
     payload: response.data,

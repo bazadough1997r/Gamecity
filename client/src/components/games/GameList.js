@@ -11,7 +11,7 @@ import {
   joinPost,
   unjoinPost,
   setGames,
-  joinRoom,
+
 } from "../../actions/index.js";
 // import Chat from '../pages/Chat';
 // import { heart } from "@fortawesome/free-solid-svg-icons";
@@ -264,6 +264,7 @@ function GameList(props) {
                         />
                         <button onClick={handleSubmitComment}>Comment</button>
                         <br /> <br />
+                        {console.log(game.comment,"BFRBRBRBRBRBBRB")}
                         {game.comment.map((theComment, i) => {
                           return (
                             <div key={i}>
