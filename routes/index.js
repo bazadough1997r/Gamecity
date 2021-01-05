@@ -44,7 +44,6 @@ router.get("/games/:id", function (req, res) {
 });
 router.post("/games", function (req, res) {
   let game = new Game(req.body);
-  console.log(req.body, "req.bodyyyyy")
   game
     .save()
     .then((game) => {
@@ -64,12 +63,9 @@ router.patch("/games/:id", function (req, res) {
     });
 });
 router.patch("/games/:id/unlikePost", function (req, res) {
-  console.log(req.body, "i am the req.body")
   var object = {likes: req.body.likes , username: req.body.username}
   // Game.findByIdAndUpdate(req.params.id, {likeCount: req.body.likeCount +1})     
   Game.findByIdAndUpdate(req.params.id, { $pull: {likeCount: object}}, {upsert: true, new: true}, (err, model) =>{
-    console.log(model, "model")
-    console.log(err, "err") 
    })
     .then(function () {
       res.json("Game liked");
@@ -79,12 +75,12 @@ router.patch("/games/:id/unlikePost", function (req, res) {
     });
 });
 router.patch("/games/:id/likePost", function (req, res) {
-  console.log(req.body, "i am the req.body")
+  // console.log(req.body, "i am the req.body")
   var object = {likes: req.body.likes , username: req.body.username}
   // Game.findByIdAndUpdate(req.params.id, {likeCount: req.body.likeCount +1})     
   Game.findByIdAndUpdate(req.params.id, { $addToSet: {likeCount: object}}, {upsert: true, new: true}, (err, model) =>{
-    console.log(model, "model")
-    console.log(err, "err") 
+    // console.log(model, "model")
+    // console.log(err, "err") 
    })
     .then(function () {
       res.json("Game liked");
@@ -98,8 +94,8 @@ router.patch("/games/:id/joinPost", function (req, res) {
   console.log(req.body, "i'm the req.body from the join")
   var object = {joins: req.body.joins, username: req.body.username}
   Game.findByIdAndUpdate(req.params.id, { $addToSet: {joinCount: object}}, {upsert: true, new: true}, (err, model) =>{
-   console.log(model, "model")
-   console.log(err, "err") 
+  //  console.log(model, "model")
+  //  console.log(err, "err") 
   })
   .then(function () {   
     res.json("Game joined");    
@@ -113,8 +109,8 @@ router.patch("/games/:id/unjoinPost", function (req, res) {
   console.log(req.body, "i'm the req.body from the join")
   var object = {joins: req.body.joins, username: req.body.username}
   Game.findByIdAndUpdate(req.params.id, { $pull: {joinCount: object}}, {upsert: true, new: true}, (err, model) =>{
-   console.log(model, "model")
-   console.log(err, "err") 
+  //  console.log(model, "model")
+  //  console.log(err, "err") 
   })
   .then(function () {   
     res.json("Game joined");    
@@ -125,7 +121,7 @@ router.patch("/games/:id/unjoinPost", function (req, res) {
 });
 router.patch("/games/:id/comment", function (req, res) {
   // console.log(req.body.comment, "i'm the req.body.comment")
-  console.log(req.body, "i'm the req.body")
+  // console.log(req.body, "i'm the req.body")
   var object = {comment: req.body.comment, username: req.body.username}
   Game.findByIdAndUpdate(req.params.id, { $addToSet: {comment: object}}, {upsert: true, new: true}, (err, model) =>{
   //  console.log(model, "model")

@@ -187,6 +187,7 @@ function Main() {
         render={(props) => <Register {...props} />}
       />
       <Route exact path="/notfound" component={notfound} />
+      <Route path="/chat/:id" render={(props) => <Chat {...props}/>}/>
     </Switch>
   );
 }

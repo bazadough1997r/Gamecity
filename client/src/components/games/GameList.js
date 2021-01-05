@@ -7,15 +7,19 @@ import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { likePost, unlikePost, joinPost, unjoinPost } from "../../actions/index.js"
 import Notifications from "./Notifications";
 
-export default function GameList() {
+export default function GameList(props) {
 
   const [commentField, setComment] = useState({ comment: "", id: "", username: window.localStorage.username, joins: 0, likes: 0 });
   const [games, setGames] = useState([]);
   const dispatch = useDispatch();
   function handleChangeComment(event) {
-    setComment({ ...commentField, comment: event.target.value, id: event.target.name, username: window.localStorage.username });
+    setComment({
+      ...commentField,
+      comment: event.target.value,
+      id: event.target.name,
+      username: window.localStorage.username,
+    });
   }
-
 
   function handleSubmitComment(event) {
     event.preventDefault();
@@ -32,14 +36,14 @@ export default function GameList() {
 
   //filtersssss byyy Gov
   function handleChangeGovernorates(e) {
-  console.log(e.target.value, "lsning to change in filter#1")
+  // console.log(e.target.value, "lsning to change in filter#1")
   var x  = games.filter(game => game.gameGovernorate === e.target.value)
   games.map(game => console.log(x, "filtered by Gov"))
 }
 
   //filtersssss byyy Game
   function handleChangeGames(e) {
-    console.log(e.target.value, "lsning to change in filter#2")
+    // console.log(e.target.value, "lsning to change in filter#2")
     var x  = games.filter(game => game.gameType === e.target.value)
     games.map(game => console.log(x, "filtered by Game"))
   }
@@ -126,27 +130,60 @@ export default function GameList() {
                         <h6>Duration: {game.gameDuration}</h6>
                       </MDBCol>
                     </MDBRow>
-                    <img src={game.selectedFile} width="250px" alt="game post" />
+                    <img
+                      src={game.selectedFile}
+                      width="250px"
+                      alt="game post"
+                    />
                     <br />
                     <button onClick={() => dispatch(unlikePost(game, commentField))}>
                       Unlike
                     </button>
-                    <button name={game._id} onClick={() => dispatch(likePost(game, commentField), console.log(game, commentField, "commentField, like"))}>
+                    <button
+                      name={game._id}
+                      onClick={() =>
+                        dispatch(
+                          likePost(game, commentField),
+                          // console.log(game, commentField, "commentField, like")
+                        )
+                      }
+                    >
                       Like {game.likeCount.length}
                     </button>
-                    <button name={game._id} onClick={() => dispatch(joinPost(game, commentField))}>
+                    <button
+                      name={game._id}
+                      onClick={() => dispatch(joinPost(game, commentField))}
+                    >
                       Join {game.joinCount.length}
                     </button>
-                    <button name={game._id} onClick={() => dispatch(unjoinPost(game, commentField))}>
+                    <button
+                      name={game._id}
+                      onClick={() => dispatch(unjoinPost(game, commentField))}
+                    >
                       Unjoin
                     </button>
+                    <Link 
+                        to={{
+                          pathname: `/chat/${game._id}` ,
+                          state: { postId: game._id}
+                        }}         
+                    >
+                    Join Room
+                    </Link>
 
+                    <h2>
+              <Link to="/games/new" className="btn btn-primary float-none">
+                Build a team!
+              </Link>
+            </h2> 
+              
                     {game.joinCount.map((joined, i) => {
+                      // console.log(joined,"joined")
                       return (
                         <div key={i}>
                           <h6>joined: @{joined.username}</h6>
                         </div>
-                      )
+                      );
                     })}
 
                     <br/> <br />
@@ -162,12 +199,13 @@ export default function GameList() {
                         />
                         <button onClick={handleSubmitComment}>Comment</button>
                         <br /> <br />
+                        {/* {console.log(game.comment,"BFRBRBRBRBRBBRB")} */}
                         {game.comment.map((theComment, i) => {
                           return (
                             <div key={i}>
                               <h6>@{theComment.username}: {theComment.comment}</h6>
                             </div>
-                          )
+                          );
                         })}
                       </div>
                     </form>
@@ -183,18 +221,20 @@ export default function GameList() {
               <Link to="/games/new" className="btn btn-primary float-none">
                 Build a team!
               </Link>
-            </h2> 
+            </h2>
             <br></br>
-            <a href="https://www.tripadvisor.com/Attractions-g293986-Activities-c56-Amman_Amman_Governorate.html" className="navbar-brand float-none">
-                  <img
-                    height="300px"
-                    width="200px"
-                    src={`${process.env.PUBLIC_URL}/Ads/ad1.gif`}
-                    alt="Gamecity logo"
-                  />
-                </a>
-            <div>
-            </div>
+            <a
+              href="https://www.tripadvisor.com/Attractions-g293986-Activities-c56-Amman_Amman_Governorate.html"
+              className="navbar-brand float-none"
+            >
+              <img
+                height="300px"
+                width="200px"
+                src={`${process.env.PUBLIC_URL}/Ads/ad1.gif`}
+                alt="Gamecity logo"
+              />
+            </a>
+            <div></div>
           </MDBCol>
         </MDBRow>
       </MDBContainer>
