@@ -94,6 +94,7 @@ export function joinPost(game, commentField, callback) {
 
 export const UNJOIN_GAME = "UNJOIN_GAME";
 export function unjoinPost(game, commentField, callback) {
+  console.log(game,"game game")
   return async function (dispatch) {
     return axios.patch(`/api/games/${game._id}/unjoinPost`, commentField)
       .then (function(data) {
@@ -104,6 +105,14 @@ export function unjoinPost(game, commentField, callback) {
       .catch(function (error) {
         console.log(error, "error from the actions");
       });
+  };
+}
+
+export const JOIN_ROOM = "JOIN_ROOM";
+export function joinRoom(commentField, callback) {
+  console.log(commentField,"commentField from join room")
+  return async function (dispatch) {
+    
   };
 }
 
@@ -295,9 +304,7 @@ export const loginUser = (email, password, username) => async (dispatch) => {
 export const CHAT_SERVER = "/api/chat";
 export const GET_CHATS = "GET_CHATS";
 export const getChats = (postId) => async (dispatch) => {
-  console.log(postId, "POSTID");
   const response = await axios.get(`${CHAT_SERVER}/getChats/${postId}`);
-  console.log(response, "response");//array of objects
   dispatch({
     type: GET_CHATS,
     payload: response.data,

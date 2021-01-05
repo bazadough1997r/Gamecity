@@ -34,9 +34,9 @@ const ProfileEdit = (props) => {
 
 
   async function handleSubmit(event) {
-    console.log(props.match.params.email,"from ")
+    // console.log(props.match.params.email,"from ")
      event.preventDefault();
-     console.log("user#1", user);
+    //  console.log("user#1", user);
 
       try {
         await put(`/api/profile/editProfile/${props.match.params.email}`, user);
