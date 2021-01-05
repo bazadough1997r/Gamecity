@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { get,put} from 'axios';
-
+import { Link } from "react-router-dom";
 
 const ProfileEdit = (props) => {
 //     console.log(isLoggedIn,"isLoggedIn")
@@ -22,7 +22,7 @@ const ProfileEdit = (props) => {
   useEffect(function() {
     async function getProfile() {
       try {
-        const response = await get(`/addUser/profile/${props.match.params.email}`);
+        const response = await get(`/api/profile/${props.match.params.email}`);
         setUser(response.data);        
       } catch(error) {
         console.log(error);
@@ -39,7 +39,7 @@ const ProfileEdit = (props) => {
      console.log("user#1", user);
 
       try {
-        await put(`/addUser/profile/editProfile/${props.match.params.email}`, user);
+        await put(`/api/profile/editProfile/${props.match.params.email}`, user);
       } catch(error) {
         console.log(error);
       }
@@ -104,7 +104,8 @@ const ProfileEdit = (props) => {
         <br/>
         <br/>
         <button type="submit" value="Post" className="btn btn-primary"  onClick= {(e)=>handleSubmit (e)}>Save </button>
-        {/* <button type= "submit" onClick= {()=>handleSubmit ()} className="btn btn-primary">submit</button> */}
+        <Link  to={{ pathname: `/profile/${window.localStorage.email}` }} className="btn btn-primary">Back</Link>
+
         <br/>
        
         </form>

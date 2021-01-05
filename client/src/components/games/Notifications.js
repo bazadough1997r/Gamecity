@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { MDBContainer } from "mdbreact";
-import { setGames } from "../../actions/index.js";
 
-function Notifications(props) {
+export default  function Notifications() {
   const [games, setGames] = useState([]);
-  console.log(games, "games for the warning");
 
   useEffect(function () {
     async function getGames() {
@@ -26,7 +23,7 @@ function Notifications(props) {
       <hr></hr>
       <div>
         <h5>Comments notifications </h5>
-        {props.games.filteredItems.map((game) => {
+        {games.map((game) => {
           if (game.username === window.localStorage.username) {
             return (
               <div key={game._id}>
@@ -53,6 +50,7 @@ function Notifications(props) {
               </div>
             );
           }
+          return null;
         })}
       </div>
 
@@ -60,7 +58,7 @@ function Notifications(props) {
       <div>
         <hr></hr>
         <h5>Join notifications </h5>
-        {props.games.filteredItems.map((game) => {
+        {games.map((game) => {
           if (game.username === window.localStorage.username) {
             return (
               <div key={game._id}>
@@ -85,22 +83,12 @@ function Notifications(props) {
               </div>
             );
           }
+          return null
         })}
       </div>
     </div>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    games: state.games,
-  };
-};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setGames: () => dispatch(setGames()),
-  };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

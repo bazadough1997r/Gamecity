@@ -16,7 +16,10 @@ export default class LikeButton extends React.Component {
             this.setState({ join: this.state.join + 1 });
             }}
           >Join: {this.state.join}</button>
+          <h6>hi</h6>
         </div>
       );
     }
   }
+
+  

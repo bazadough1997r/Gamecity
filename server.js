@@ -2,19 +2,15 @@ const jwt = require("jsonwebtoken");
 const express = require("express");
 var cors = require("cors");
 var bodyParser = require("body-parser");
-
 const mongoose = require("mongoose");
 const router = require("./routes/index");
-
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const dotenv = require("dotenv");
 require("dotenv").config();
 const app = express();
-
 const server = require("http").createServer(app);
 const uri = process.env.MONGODB_URI;
-
 app.use(bodyParser.json({ limit: "30mb" }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
@@ -23,16 +19,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/api", router);
 app.use("/api/chat", require("./routes/chat"));
-
 const { Chat } = require("./models/Chat");
-
 const connect = mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true,
   useUnifiedTopology: true,
 });
-
 mongoose.connection.once("open", () => {
   console.log("Connected to the Database.");
 });
@@ -45,7 +38,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
-
 const io = require("socket.io")(server, {
   cors: {
     origin: "/",
@@ -64,7 +56,6 @@ io.on("connection", (socket) => {
         }); //FILL_ME
         chat.save((err, doc) => {
           if (err) return console.log("error ");
-
           Chat.find({ _id: doc._id })
             .populate("sender")
             .exec((err, doc) => {
@@ -77,7 +68,6 @@ io.on("connection", (socket) => {
     });
   });
 });
-
 server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}.`);
 });
@@ -93,6 +83,5 @@ global.authenticateToken = function (req, res, next) {
     next(); // pass the execution off to whatever request the client intended
   });
 };
-
-const addUserRouter = require("./routes/route.js");
-app.use("/addUser", addUserRouter);
+const addUserRouter = require("./routes/route");
+app.use("/api", addUserRouter);

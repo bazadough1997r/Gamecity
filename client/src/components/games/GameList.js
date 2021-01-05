@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { patch } from "axios";
-import Filter from "./Filter";
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import { likePost, unlikePost, joinPost, unjoinPost, setGames } from "../../actions/index.js"
+import { likePost, unlikePost, joinPost, unjoinPost } from "../../actions/index.js"
 import Notifications from "./Notifications";
 
-function GameList(props) {
+export default function GameList() {
 
   const [commentField, setComment] = useState({ comment: "", id: "", username: window.localStorage.username, joins: 0, likes: 0 });
   const [games, setGames] = useState([]);
   const dispatch = useDispatch();
-  console.log(games, "games for the warning")
   function handleChangeComment(event) {
     setComment({ ...commentField, comment: event.target.value, id: event.target.name, username: window.localStorage.username });
   }
@@ -24,12 +22,26 @@ function GameList(props) {
     async function comment() {
       try {
         await patch(`/api/games/${commentField.id}/comment`, commentField);
-        props.history.push(`/games/${commentField.id}/comment`);
+        games.history.push(`/games/${commentField.id}/comment`);
       } catch (error) {
         console.log(error);
       }
     }
     comment();
+  }
+
+  //filtersssss byyy Gov
+  function handleChangeGovernorates(e) {
+  console.log(e.target.value, "lsning to change in filter#1")
+  var x  = games.filter(game => game.gameGovernorate === e.target.value)
+  games.map(game => console.log(x, "filtered by Gov"))
+}
+
+  //filtersssss byyy Game
+  function handleChangeGames(e) {
+    console.log(e.target.value, "lsning to change in filter#2")
+    var x  = games.filter(game => game.gameType === e.target.value)
+    games.map(game => console.log(x, "filtered by Game"))
   }
 
   useEffect(function () {
@@ -44,7 +56,6 @@ function GameList(props) {
     getGames();
   }, []);
 
-
   return (
     <div>
       <hr />
@@ -52,14 +63,49 @@ function GameList(props) {
         <MDBRow>
           <MDBCol md="3">
             <br></br>
-            <Filter />
+            <div>
+          Governorates:
+          <select onChange={handleChangeGovernorates}>
+            <option value="">ALL</option>
+            <option value="Irbid">Irbid</option>
+            <option value="Ajloun">Ajloun</option>
+            <option value="Jerash">Jerash</option>
+            <option value="Mafraq">Mafraq</option>
+            <option value="Balqa">Balqa</option>
+            <option value="Amman">Amman</option>
+            <option value="Zarqa">Zarqa</option>
+            <option value="Madaba">Madaba</option>
+            <option value="Karak">Karak</option>
+            <option value="Tafila">Tafila</option>
+            <option value="Ma'an">Ma'an</option>
+            <option value="Aqaba">Aqaba</option>
+          </select>
+        </div>
 
-            {/* Notifications part */}
+          <div>
+           Games:
+           <select onChange={handleChangeGames}>
+             <option value="">ALL</option>
+             <option value="Paintball">Paintball</option>
+             <option value="Football">Football</option>
+             <option value="Karting">Karting</option>
+             <option value="Basketball">Basketball</option>
+             <option value="Laser Tag">Laser Tag</option>
+             <option value="Vollyball">Vollyball</option>
+             <option value="Rock Climbing">Rock Climbing</option>
+             <option value="Horseback Riding">Horseback Riding</option>
+             <option value="Handball">Handball</option>
+             <option value="Tafila">Tennis</option>
+             <option value="Running">Running</option>
+             <option value="Other..">Other..</option>
+           </select>
+         </div>
+
             <Notifications/>
-            {/* Notifications part done */}
+
           </MDBCol>
           <MDBCol md="6" style={{ marginTop: "20px" }}>
-            {props.games.filteredItems.map((game) => {
+            {games.map((game) => {
               return (
                 <div key={game._id}>
                   <h3>@{game.username}</h3>
@@ -157,16 +203,3 @@ function GameList(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    games: state.games,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setGames: () => dispatch(setGames()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(GameList);
