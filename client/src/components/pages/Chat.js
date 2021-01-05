@@ -15,12 +15,12 @@ import jwt_decode from "jwt-decode";
     componentDidMount(){
         let server ="/"
 
-       this.props.dispatch(getChats())
+        this.props.dispatch(getChats(this.props.location.state.postId));
 
         this.socket = io(server);
 
         this.socket.on("Output Chat Message", messageFromBackend => {
-            console.log(messageFromBackend)
+            // console.log(messageFromBackend)
             this.props.dispatch(afterPostMessage(messageFromBackend))
         })
     }
@@ -43,26 +43,29 @@ import jwt_decode from "jwt-decode";
            let username = localStorage.getItem("username")
            let nowTime = moment();
            let type = "Text"
+           var postId = this.props.location.state.postId; //it will be something dynamic
+          //  console.log(postId, "postId");
            this.socket.emit("Input Chat Message", {
+               postId,
                chatMessage,
                userId,
                username,
                nowTime,
                type
            });
-           console.log(this.socket)
+          //  console.log(this.socket)
            this.setState({
                chatMessage: ""
            })
     }
 
     render() {
-        
+        // console.log(this.props.chats.chats,"this.props.chats.chats")//array of objects
         return (
             <div>
-                <form onSubmit={this.onSubmitMessage} >
+                <form  onSubmit={this.onSubmitMessage} >
                     <br></br>
-                    <h3>Join the forum!</h3>
+
                     <input 
                     id = "message"
                     prefix = {<icon type="message"/>}
@@ -72,7 +75,7 @@ import jwt_decode from "jwt-decode";
                     onChange= {this.handleMessage}
                     />
                     <button
-                    onClick= {(e)=> this.onSubmitMessage(e)}
+                     type="submit"
                     >
                         Send
                     </button>
@@ -80,7 +83,7 @@ import jwt_decode from "jwt-decode";
                     <div>
                     <br></br>
                            {this.props.chats.chats &&
-                        this.props.chats.chats.map((chat,i) => {
+                        this.props.chats.chats.filter((cha)=> cha.postId === this.props.location.state.postId).map((chat,i) => {
                             return (
                                 <div key={i}>
                                 <h5><b>{chat.sender.username}: </b> {chat.message}</h5>

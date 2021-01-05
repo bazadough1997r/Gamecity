@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { Chat } = require("../models/Chat");
 
-router.get("/getChats", function (req, res) {
-  Chat.find()
+router.get("/getChats/:id", async function (req, res) {
+ await Chat.find()
     .populate("sender")
     .exec((err, chats) => {
       if (err) return res.status(400).send(err);
@@ -11,4 +11,7 @@ router.get("/getChats", function (req, res) {
     });
 });
 
+
+
 module.exports = router;
+

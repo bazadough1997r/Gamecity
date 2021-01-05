@@ -294,8 +294,10 @@ export const loginUser = (email, password, username) => async (dispatch) => {
 /////////////////////////////////////////////////////Actions for CHATT/////////////////////////////////////////////////////
 export const CHAT_SERVER = "/api/chat";
 export const GET_CHATS = "GET_CHATS";
-export const getChats = () => async (dispatch) => {
-  const response = await axios.get(`${CHAT_SERVER}/getChats`);
+export const getChats = (postId) => async (dispatch) => {
+  console.log(postId, "POSTID");
+  const response = await axios.get(`${CHAT_SERVER}/getChats/${postId}`);
+  console.log(response, "response");//array of objects
   dispatch({
     type: GET_CHATS,
     payload: response.data,

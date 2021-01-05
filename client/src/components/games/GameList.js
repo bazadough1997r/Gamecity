@@ -7,7 +7,7 @@ import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { likePost, unlikePost, joinPost, unjoinPost } from "../../actions/index.js"
 import Notifications from "./Notifications";
 
-export default function GameList() {
+export default function GameList(props) {
 
   const [commentField, setComment] = useState({ comment: "", id: "", username: window.localStorage.username, joins: 0, likes: 0 });
   const [games, setGames] = useState([]);
@@ -140,6 +140,14 @@ export default function GameList() {
                     <button name={game._id} onClick={() => dispatch(unjoinPost(game, commentField))}>
                       Unjoin
                     </button>
+                    <Link 
+                        to={{
+                          pathname: `/chat/${game._id}` ,
+                          state: { postId: game._id}
+                        }}         
+                    >
+                    Join Room
+                    </Link>
 
                     {game.joinCount.map((joined, i) => {
                       return (

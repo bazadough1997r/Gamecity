@@ -46,16 +46,19 @@ const io = require("socket.io")(server, {
 });
 // server.listen(3001)
 io.on("connection", (socket) => {
+  console.log("New Ws Connection...")
   socket.on("Input Chat Message", (msg) => {
     connect.then((db) => {
       try {
         let chat = new Chat({
+          postId: msg.postId,
           message: msg.chatMessage,
           sender: msg.userId,
           type: msg.type,
         }); //FILL_ME
         chat.save((err, doc) => {
           if (err) return console.log("error ");
+
           Chat.find({ _id: doc._id })
             .populate("sender")
             .exec((err, doc) => {
@@ -67,6 +70,7 @@ io.on("connection", (socket) => {
       }
     });
   });
+
 });
 server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}.`);
