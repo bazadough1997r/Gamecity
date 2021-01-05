@@ -6,7 +6,6 @@ import io from "socket.io-client"
 import jwt_decode from "jwt-decode";
 
 
-
  class ChatPage extends Component {
     state = {
         chatMessage: "",
@@ -41,7 +40,7 @@ import jwt_decode from "jwt-decode";
            let userId = decoded._id
            let chatMessage = this.state.chatMessage
            let username = localStorage.getItem("username")
-           let nowTime = moment();
+           let nowTime = moment().format("h:mm:ss");
            let type = "Text"
            var postId = this.props.location.state.postId; //it will be something dynamic
 
@@ -88,9 +87,12 @@ import jwt_decode from "jwt-decode";
                             return (
                                 <div key={i}>
                                 <h5>
-                                   <img src={chat.sender.url} width= "50px" alt="profile icon"/>
+                                   <img src={chat.sender.url} width= "50px"/>
                                     <b>{chat.sender.username}: </b> {chat.message}</h5>
-                                    <h6>{chat.createdAt}</h6>
+                                    <h6>{chat.nowTime}</h6>
+                                    {/* <h6>{chat.updatedAt}</h6> */}
+                                   
+
                                
                                 </div>
                             )
