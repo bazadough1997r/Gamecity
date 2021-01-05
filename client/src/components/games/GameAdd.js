@@ -56,6 +56,7 @@ function GameAdd(props) {
   //the new game object. Then we dispatch the addGame action passing in the new game object.
   function handleSubmit(event) {
     event.preventDefault();
+    
     post("/api/games", {
       gameName: game.gameName,
       gameType: game.gameType,
@@ -93,7 +94,7 @@ function GameAdd(props) {
             <h4 className="mb-4">What's your next game?..</h4>
             <br />
             <div className="col">
-              {/* <label>Post</label> */}
+    
               <input
                 type="text"
                 required
@@ -104,9 +105,9 @@ function GameAdd(props) {
               />
             </div>
             <br />
-            {/* LOCATION- Drop DOWN MENU */}
+
             <div className="col">
-              {/* <label>Governorate</label> */}
+
               <select
                 type="text"
                 required
@@ -131,9 +132,9 @@ function GameAdd(props) {
               </select>
             </div>
             <br />
-            {/* SELECT GAME- DROPDOWN */}
+  
             <div className="col">
-              {/* <label>Game</label> */}
+            
               <select
                 type="text"
                 required

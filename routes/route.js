@@ -1,53 +1,20 @@
 const express = require("express");
-const AddUser = require("../models/profileSchema.js");
+const AddUser = require("../models/profileSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 const jwt_decode = require("jwt-decode");
-
 router.get("/", async (req, res) => {
   AddUser.find()
     .then((users) => res.json(users))
     .catch((err) => res.status(400).json("Error: " + err));
 });
-
-
-
-//server side for admin
-router.get('/profile/:email', function(req, res) {
-  console.log(req.params)
-  AddUser.findOne({email:req.params.email})
-  .then(user => res.json(user))
-  .catch(err => res.status(400).json('Error: ' + err));
-});
-
-//update user information
-
-router.put("/profile/editProfile/:email", function (req, res) {
-
-  console.log("im the req.body", req.body)
-
-  console.log("email: ", req.params.email)
-  let user = AddUser.find({email: req.params.email});
- user.update(req.body).then(function () {
-    res.json("user updated");    
-    console.log(req.params.email, "after the then")
-
-    })
-    .catch(function (err) {
-      res.status(422).send("user update failed");
-      console.log("eerrrrrrrrrrrrrr")
-    });
-});
-
-
 //get all user from  database 
-router.get("/addUser", async (req, res) => {
+router.get("/", async (req, res) => {
   AddUser.find()
     .then((profileSchema) => res.json(profileSchema))
     .catch((err) => res.status(400).json("Error: " + err));
 });
-
 router.post("/login", async (req, res) => {
   //checking if the username is signed up
   const email = req.body.email;
@@ -69,25 +36,21 @@ router.post("/login", async (req, res) => {
   //create and send a token
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
   var decoded = jwt_decode(token);
-  res
-    .header("addUser-token", token, email, username)
+  res.header("addUser-token", token, email, username)
     .json({ token, email, username });
 });
-
 router.post("/", async (req, res) => {
   //checking if the username or email is used
   const useradded = await AddUser.findOne({
     $or: [{ email: req.body.email }, { username: req.body.username }],
   });
   console.log("user added");
-
   if (useradded)
     return res
       .status(400)
       .send(
         "There is an account with same Username or Email,please choose another one?"
       );
-
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const email = req.body.email;
@@ -96,10 +59,8 @@ router.post("/", async (req, res) => {
   const birthday = req.body.birthday;
   const url=req.body.url;
   //hashing password
-
   const hashedPassword = bcrypt.hashSync(req.body.password, 10);
   const username = req.body.username;
-
   //every thing is readdy here we send the data to the server
   const newUser = await AddUser.create({
     firstName: firstName,
@@ -112,7 +73,6 @@ router.post("/", async (req, res) => {
     password: hashedPassword,
     url:url
   });
-
   console.log(newUser);
   try {
     const saveUser = await newUser.save();
@@ -121,5 +81,4 @@ router.post("/", async (req, res) => {
     res.status(400).send(err);
   }
 });
-
 module.exports = router;

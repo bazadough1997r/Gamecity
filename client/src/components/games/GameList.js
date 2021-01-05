@@ -1,37 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { patch } from "axios";
-import Filter from "./Filter";
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import {
-  likePost,
-  unlikePost,
-  joinPost,
-  unjoinPost,
-  setGames,
-} from "../../actions/index.js";
-// import Chat from '../pages/Chat';
-// import { heart } from "@fortawesome/free-solid-svg-icons";
+import { likePost, unlikePost, joinPost, unjoinPost } from "../../actions/index.js"
+import Notifications from "./Notifications";
 
-// import { copyFileSync } from "fs";
+export default function GameList(props) {
 
-function GameList(props) {
-  const [commentField, setComment] = useState({
-    comment: "",
-    id: "",
-    username: window.localStorage.username,
-    joins: 0,
-    likes: 0,
-  });
+  const [commentField, setComment] = useState({ comment: "", id: "", username: window.localStorage.username, joins: 0, likes: 0 });
   const [games, setGames] = useState([]);
-
-  console.log("games", games);
-  console.log("props.games.filteredItems", props.games.filteredItems);
-  console.log(props, "props");
   const dispatch = useDispatch();
-  console.log(games, "games for the warning");
   function handleChangeComment(event) {
     setComment({
       ...commentField,
@@ -46,13 +26,26 @@ function GameList(props) {
     async function comment() {
       try {
         await patch(`/api/games/${commentField.id}/comment`, commentField);
-        // console.log(commentField.id, "ID from the edit")
-        props.history.push(`/games/${commentField.id}/comment`);
+        games.history.push(`/games/${commentField.id}/comment`);
       } catch (error) {
         console.log(error);
       }
     }
     comment();
+  }
+
+  //filtersssss byyy Gov
+  function handleChangeGovernorates(e) {
+  // console.log(e.target.value, "lsning to change in filter#1")
+  var x  = games.filter(game => game.gameGovernorate === e.target.value)
+  games.map(game => console.log(x, "filtered by Gov"))
+}
+
+  //filtersssss byyy Game
+  function handleChangeGames(e) {
+    // console.log(e.target.value, "lsning to change in filter#2")
+    var x  = games.filter(game => game.gameType === e.target.value)
+    games.map(game => console.log(x, "filtered by Game"))
   }
 
   useEffect(function () {
@@ -67,8 +60,6 @@ function GameList(props) {
     getGames();
   }, []);
 
-  // conditional rendering for notifications
-
   return (
     <div>
       <hr />
@@ -76,48 +67,49 @@ function GameList(props) {
         <MDBRow>
           <MDBCol md="3">
             <br></br>
-            <Filter />
-
-            {/* Notifications part */}
-            <hr></hr>
-
             <div>
-              <h4>{window.localStorage.username}'s notifications </h4>
-              {props.games.filteredItems.map((game) => {
-                if (game.username === window.localStorage.username) {
-                  return (
-                    <div key={game._id}>
-                      <MDBContainer>
-                        <form>
-                          <div className="form-group">
-                            {game.comment.map((theComment, i) => {
-                              return (
-                                <div key={i}>
-                                  <h6>
-                                    @{theComment.username} commented: "
-                                    {theComment.comment}" on "
-                                    <Link to={`/games/${game._id}`}>
-                                      {game.gameName}
-                                    </Link>
-                                    " post.
-                                  </h6>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </form>
-                      </MDBContainer>
-                    </div>
-                  );
-                } else {
-                  console.log("no notifications for now");
-                }
-              }, null)}
-            </div>
-            {/* Notifications part done */}
+          Governorates:
+          <select onChange={handleChangeGovernorates}>
+            <option value="">ALL</option>
+            <option value="Irbid">Irbid</option>
+            <option value="Ajloun">Ajloun</option>
+            <option value="Jerash">Jerash</option>
+            <option value="Mafraq">Mafraq</option>
+            <option value="Balqa">Balqa</option>
+            <option value="Amman">Amman</option>
+            <option value="Zarqa">Zarqa</option>
+            <option value="Madaba">Madaba</option>
+            <option value="Karak">Karak</option>
+            <option value="Tafila">Tafila</option>
+            <option value="Ma'an">Ma'an</option>
+            <option value="Aqaba">Aqaba</option>
+          </select>
+        </div>
+
+          <div>
+           Games:
+           <select onChange={handleChangeGames}>
+             <option value="">ALL</option>
+             <option value="Paintball">Paintball</option>
+             <option value="Football">Football</option>
+             <option value="Karting">Karting</option>
+             <option value="Basketball">Basketball</option>
+             <option value="Laser Tag">Laser Tag</option>
+             <option value="Vollyball">Vollyball</option>
+             <option value="Rock Climbing">Rock Climbing</option>
+             <option value="Horseback Riding">Horseback Riding</option>
+             <option value="Handball">Handball</option>
+             <option value="Tafila">Tennis</option>
+             <option value="Running">Running</option>
+             <option value="Other..">Other..</option>
+           </select>
+         </div>
+
+            <Notifications/>
+
           </MDBCol>
           <MDBCol md="6" style={{ marginTop: "20px" }}>
-            {props.games.filteredItems.map((game) => {
+            {games.map((game) => {
               return (
                 <div key={game._id}>
                   <h3>@{game.username}</h3>
@@ -125,7 +117,6 @@ function GameList(props) {
                     <Link to={`/games/${game._id}`}>{game.gameName}</Link>
                   </h4>
                   <h6>{game.createdAt}</h6>
-                  {/* <h6>{game._id}</h6> */}
                   <MDBContainer>
                     <MDBRow>
                       <MDBCol size="4">
@@ -145,21 +136,7 @@ function GameList(props) {
                       alt="game post"
                     />
                     <br />
-                    {/* Toggle */}
-                    {/* <div>
-                     {game.likeCount.includes(game.username)
-                     ?<button onClick={() => dispatch(unlikePost(game, commentField))}>
-                      Unlike
-                    </button>
-                     : <button name={game._id} onClick={() => dispatch(likePost(game, commentField))}>
-                     Like {game.likeCount.length}
-                   </button>
-                      }
-                    </div> */}
-                    {/* <i className = "material-icons">thumb_up</i> */}
-                    <button
-                      onClick={() => dispatch(unlikePost(game, commentField))}
-                    >
+                    <button onClick={() => dispatch(unlikePost(game, commentField))}>
                       Unlike
                     </button>
                     <button
@@ -167,7 +144,7 @@ function GameList(props) {
                       onClick={() =>
                         dispatch(
                           likePost(game, commentField),
-                          console.log(game, commentField, "commentField, like")
+                          // console.log(game, commentField, "commentField, like")
                         )
                       }
                     >
@@ -185,16 +162,31 @@ function GameList(props) {
                     >
                       Unjoin
                     </button>
-                    {/* <FontAwesomeIcon icon={heart} /> */}
+                    <Link 
+                        to={{
+                          pathname: `/chat/${game._id}` ,
+                          state: { postId: game._id}
+                        }}         
+                    >
+                    Join Room
+                    </Link>
+
+                    <h2>
+              <Link to="/games/new" className="btn btn-primary float-none">
+                Build a team!
+              </Link>
+            </h2> 
+              
                     {game.joinCount.map((joined, i) => {
+                      // console.log(joined,"joined")
                       return (
                         <div key={i}>
                           <h6>joined: @{joined.username}</h6>
                         </div>
                       );
                     })}
-                    <br />
-                    <br />
+
+                    <br/> <br />
                     <form>
                       <div className="form-group">
                         <input
@@ -207,13 +199,11 @@ function GameList(props) {
                         />
                         <button onClick={handleSubmitComment}>Comment</button>
                         <br /> <br />
+                        {/* {console.log(game.comment,"BFRBRBRBRBRBBRB")} */}
                         {game.comment.map((theComment, i) => {
                           return (
                             <div key={i}>
-                              {/* {console.log(theComment)} */}
-                              <h6>
-                                @{theComment.username}: {theComment.comment}
-                              </h6>
+                              <h6>@{theComment.username}: {theComment.comment}</h6>
                             </div>
                           );
                         })}
@@ -253,16 +243,3 @@ function GameList(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    games: state.games,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setGames: () => dispatch(setGames()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(GameList);
