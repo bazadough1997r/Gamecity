@@ -49,13 +49,14 @@ const io = require("socket.io")(server, {
 io.on("connection", (socket) => {
   console.log("New Ws Connection...")
   socket.on("Input Chat Message", (msg) => {
-    //  console.log(msg,"msg msg msg")
+     console.log(msg,"msg msg msg")
     connect.then((db) => {
       try {
         let chat = new Chat({
           postId: msg.postId,
           message: msg.chatMessage,
           sender: msg.userId,
+          nowTime: msg.nowTime,
           type: msg.type,
         }); //FILL_ME
         chat.save((err, doc) => {
