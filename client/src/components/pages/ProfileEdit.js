@@ -22,7 +22,7 @@ const ProfileEdit = (props) => {
   useEffect(function() {
     async function getProfile() {
       try {
-        const response = await get(`/addUser/profile/${props.match.params.email}`);
+        const response = await get(`/api/profile/${props.match.params.email}`);
         setUser(response.data);        
       } catch(error) {
         console.log(error);
@@ -39,7 +39,7 @@ const ProfileEdit = (props) => {
      console.log("user#1", user);
 
       try {
-        await put(`/addUser/profile/editProfile/${props.match.params.email}`, user);
+        await put(`/api/profile/editProfile/${props.match.params.email}`, user);
       } catch(error) {
         console.log(error);
       }

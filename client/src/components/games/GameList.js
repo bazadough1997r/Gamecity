@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { likePost, unlikePost, joinPost, unjoinPost } from "../../actions/index.js"
 import Notifications from "./Notifications";
-// import Filter from "./Filter";
 
 export default function GameList() {
 
@@ -64,7 +63,6 @@ export default function GameList() {
         <MDBRow>
           <MDBCol md="3">
             <br></br>
-            {/* <Filter /> */}
             <div>
           Governorates:
           <select onChange={handleChangeGovernorates}>

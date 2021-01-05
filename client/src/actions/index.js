@@ -173,7 +173,7 @@ export const fetchUser = (email) => {
   return (dispatch) => {
 
     dispatch(fetchUserRequest());
-    axios.get("/addUser/profile/"+email) 
+    axios.get("/api/profile/"+email) 
       .then((response) => {
         let user = response.data;
         console.log(user,"from client")
@@ -216,7 +216,7 @@ export const loadUser = () => async (dispatch) => {
     setToken(localStorage.getItem("token"));
   }
   try {
-    const response = await axios.get("/addUser");
+    const response = await axios.get("/api");
     dispatch({
       type: LOAD_USER,
       payload: response.data,
@@ -254,7 +254,7 @@ export const registerUser = (
       password,
       url
     };
-    const response = await axios.post("/addUser", body);
+    const response = await axios.post("/api", body);
     window.location = "/login";
 
     dispatch({
@@ -275,7 +275,7 @@ export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const loginUser = (email, password, username) => async (dispatch) => {
   try {
     const body = { email, password, username };
-    const response = await axios.post("addUser/login", body);
+    const response = await axios.post("api/login", body);
 
     dispatch({
       type: LOGIN_SUCCESS,
