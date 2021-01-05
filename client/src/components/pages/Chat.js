@@ -30,7 +30,7 @@ import jwt_decode from "jwt-decode";
             chatMessage: event.target.value
         })
     }
-
+    
 
     onSubmitMessage = (event)=>{
        event.preventDefault()
@@ -44,7 +44,7 @@ import jwt_decode from "jwt-decode";
            let nowTime = moment();
            let type = "Text"
            var postId = this.props.location.state.postId; //it will be something dynamic
-          //  console.log(postId, "postId");
+
            this.socket.emit("Input Chat Message", {
                postId,
                chatMessage,
@@ -84,9 +84,13 @@ import jwt_decode from "jwt-decode";
                     <br></br>
                            {this.props.chats.chats &&
                         this.props.chats.chats.filter((cha)=> cha.postId === this.props.location.state.postId).map((chat,i) => {
+                            console.log(chat,"chat")
                             return (
                                 <div key={i}>
-                                <h5><b>{chat.sender.username}: </b> {chat.message}</h5>
+                                <h5>
+                                   <img src={chat.sender.url} width= "50px"/>
+                                    <b>{chat.sender.username}: </b> {chat.message}</h5>
+                                    <h6>{chat.createdAt}</h6>
                                
                                 </div>
                             )
