@@ -88,7 +88,7 @@ import jwt_decode from "jwt-decode";
                             return (
                                 <div key={i}>
                                 <h5>
-                                   <img src={chat.sender.url} width= "50px"/>
+                                   <img src={chat.sender.url} width= "50px" alt="profile icon"/>
                                     <b>{chat.sender.username}: </b> {chat.message}</h5>
                                     <h6>{chat.createdAt}</h6>
                                
