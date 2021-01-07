@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { patch } from "axios";
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import { likePost, unlikePost, joinPost, unjoinPost, setGames } from "../../actions/index.js"
-
+import { likePost, unlikePost, joinPost, unjoinPost } from "../../actions/index.js"
 
 export default function Profilegames() {
 
   const [commentField, setComment] = useState({ comment: "", id: "", username: window.localStorage.username, joins: 0, likes: 0 });
   const [games, setGames] = useState([]);
   const dispatch = useDispatch();
-  console.log(games, "games for the warning")
   function handleChangeComment(event) {
     setComment({ ...commentField, comment: event.target.value, id: event.target.name, username: window.localStorage.username });
   }
 
 
-  function handleSubmitComment(event) {
+function handleSubmitComment(event) {
     event.preventDefault();
     async function comment() {
       try {
@@ -205,8 +203,9 @@ export default function Profilegames() {
                 </div>
               );
             } else {
-                  console.log("no notifications for now")
+                  console.log("you didn't post anything yet")
                 }
+                return null;
             })}
           </MDBCol>
         </MDBRow>

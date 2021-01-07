@@ -11,6 +11,9 @@ const ChatSchema =  mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'ProfileSchema'
   }, //By this we will have all the profileSchema
+  nowTime: {
+    type: String,
+  },
   type: { //chatt type
     type: String
   },

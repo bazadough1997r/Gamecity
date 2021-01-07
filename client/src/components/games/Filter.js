@@ -2,6 +2,9 @@
 // import { connect } from "react-redux";
 // import { filterGames, filterByType } from "../../actions";
 
+// export default function Filter() {
+//   const [games, setGames] = useState([]);
+//   const dispatch = useDispatch();
 
 // class Filter extends Component {
 

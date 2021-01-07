@@ -14,7 +14,12 @@ export default function GameList() {
   const dispatch = useDispatch();
   
   function handleChangeComment(event) {
-    setComment({ ...commentField, comment: event.target.value, id: event.target.name, username: window.localStorage.username });
+    setComment({
+      ...commentField,
+      comment: event.target.value,
+      id: event.target.name,
+      username: window.localStorage.username,
+    });
   }
 
   function handleSubmitComment(event) {
@@ -229,6 +234,7 @@ export default function GameList() {
                     </MDBRow>
 
                     {game.joinCount.map((joined, i) => {
+                      // console.log(joined,"joined")
                       return (
 
                         <div key={i}>
@@ -272,7 +278,7 @@ export default function GameList() {
                               <hr color= "white"></hr>
 
                             </div>
-                          )
+                          );
                         })}
 
                   {/* <hr color = "white" /> */}

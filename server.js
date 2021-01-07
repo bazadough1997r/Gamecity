@@ -56,6 +56,7 @@ io.on("connection", (socket) => {
           postId: msg.postId,
           message: msg.chatMessage,
           sender: msg.userId,
+          nowTime: msg.nowTime,
           type: msg.type,
         }); //FILL_ME
         chat.save((err, doc) => {
