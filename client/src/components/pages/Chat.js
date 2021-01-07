@@ -60,44 +60,55 @@ import jwt_decode from "jwt-decode";
     }
 
     render() {
-        // console.log(this.props.chats.chats,"this.props.chats.chats")//array of objects
+        
         return (
-            <div>
-                <form  onSubmit={this.onSubmitMessage} >
-                    <br></br>
-
-                    <input 
-                    id = "message"
-                    prefix = {<icon type="message"/>}
-                    placeholder ="type here"
-                    type= "text"
-                    value= {this.state.chatMessage}
-                    onChange= {this.handleMessage}
-                    />
-                    <button
-                     type="submit"
-                    >
-                        Send
-                    </button>
-                    
-                    <div>
-                    <br></br>
-                           {this.props.chats.chats &&
-                        this.props.chats.chats.filter((cha)=> cha.postId === this.props.location.state.postId).map((chat,i) => {
-                            console.log(chat,"chat")
-                            return (
-                                <div key={i}>
-                                <h5>
-                                   <img src={chat.sender.url} width= "50px" alt="profile icon"/>
-                                    <b>{chat.sender.username}: </b> {chat.message}</h5>
-                                    <h6>{chat.createdAt}</h6>
-                               
-                                </div>
-                            )
-                        })}
-                    </div>
-                </form>
-            </div>
+                <div style = {{backgroundImage: `url(${process.env.PUBLIC_URL + '../../Images/chatRoom.jpg'})`, height: "100vh"}}>
+                    <br/><br/><br/>
+                    <div className= "container p-10" style = {{width: "60%", background: "#070d13", opacity: "85%", borderRadius:"1rem"}}>
+                        <p style = {{color: "#fff", fontSize: "32px", fontFamily: "Century Gothic"}}>Chat Room</p>
+                        <p style = {{color: "#666666", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold", marginTop: "-15px"}}>At Gamesity, communication is our top interest. Enjoy chatting, meeting new people, and planning!</p>                    
+                        <div style = {{overflowY: "scroll", height: "250px"}}>
+                        <div>
+                            {this.props.chats.chats &&
+                                this.props.chats.chats.filter((cha)=> cha.postId === this.props.location.state.postId).map((chat,i) => {
+                                    console.log(chat,"chat")
+                                    return (
+                                        <div key={i}>
+                                        <img src={chat.sender.url} width= "40px" height = "40px" alt="profile icon" className = "rounded-circle"/>
+                                            <b style = {{color: "#aaaaaa", fontFamily: "Century Gothic", fontSize: "16px", marginLeft: "5px"}}>{chat.sender.username}: </b> 
+                                            <p style = {{color: "#aaaaaa", fontFamily: "Century Gothic", fontSize: "12px", marginLeft: "45px", marginTop: "-10px"}}>{chat.createdAt}</p>
+                                            <p style = {{color: "#fff", fontFamily: "Century Gothic", fontSize: "18px", fontWeight: "bold", marginLeft: "45px", marginTop: "-15px", marginBottom: "15px"}}>{chat.message}</p>
+                                        </div>
+                                    )
+                                })}
+                            </div>   
+                        </div>
+                        <br></br>
+                        <div>
+                        <hr color= "white"></hr>
+                        <form onSubmit={this.onSubmitMessage} style={{ display:"flex"}}>
+                            <input 
+                                style = {{width: "80%"}}
+                                className= "form-control"
+                                id = "message"
+                                prefix = {<icon type="message"/>}
+                                placeholder ="Type here..."
+                                type= "text"
+                                value= {this.state.chatMessage}
+                                onChange= {this.handleMessage}
+                            />
+                            {/* <br/> */}
+                            <button
+                                style = {{ margin: "-1px", width: "20%", align: "center", height: "40px", marginLeft: "5px"}}
+                                className="btn btn-dark text-center"
+                            >
+                                Send
+                            </button>              
+                        </form>
+                        <br/>
+                        </div>
+                    </div> 
+                </div>
         )
     }
 }

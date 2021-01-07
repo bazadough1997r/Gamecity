@@ -223,7 +223,7 @@ function Navigation() {
                 </Link>
               </IconButton>
 
-              <IconButton>
+              {/* <IconButton>
               <Link
                 exact
                 activeClassName="active"
@@ -231,7 +231,7 @@ function Navigation() {
               >
                 <CommentIcon style = {{color: "white"}}/>
               </Link>
-              </IconButton>
+              </IconButton> */}
 
               <div>
                 <IconButton aria-controls="simple-menu" aria-haspopup="true" color = "inherit" onClick={handleClick} >
@@ -321,6 +321,7 @@ function Main() {
         render={(props) => <Register {...props} />}
       />
       <Route exact path="/notfound" component={notfound} />
+      <Route path="/chat/:id" render={(props) => <Chat {...props}/>}/>
       {/* <Route exact path="/notifications" component={Notifications} /> */}
     </Switch>
   );

@@ -6,9 +6,6 @@ import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { likePost, unlikePost, joinPost, unjoinPost, setGames } from "../../actions/index.js"
 
-// import { heart } from "@fortawesome/free-solid-svg-icons";
-
-// import { copyFileSync } from "fs";
 
 export default function Profilegames() {
 
@@ -61,7 +58,7 @@ export default function Profilegames() {
 
                 <div key={game._id}>
 
-                  <p style = {{color: "#fff ", fontSize: "32px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                  <p style = {{color: "#fff ", fontSize: "24px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
                     <Link to={`/games/${game._id}`}>{game.gameName}</Link>
                   </p>
                   
@@ -71,46 +68,50 @@ export default function Profilegames() {
                   
                   {/* <MDBContainer> */}
                     <MDBRow>
-
                       <MDBCol>
-                        <span style = {{color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic"}} key={game.gameGovernorate}>
+                      <img src={game.selectedFile} width="40%" alt="Game Post" style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}/>
+                      </MDBCol>
+                      <MDBCol>
+                        <br/>
+                      <MDBRow>
+
+                        <span style = {{color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic", marginLeft: "-110px"}} key={game.gameGovernorate}>
                           Governorate:
-                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold", marginRight: "20px"}}>
                             Jordan/{game.gameGovernorate}
                           </span>
                         </span>
 
-                        <span style = {{ marginLeft: "50px", color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic"}}>Game: 
-                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
-                            {game.gameType}
-                          </span>
-                        </span>
-                      </MDBCol>
-
-                      <MDBCol size="12">
-                        <span style = {{color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic"}}>
+                        <span style = {{color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic",}}>
                           Date: 
-                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold", }}>
                             {game.gameDate}
                           </span>
                         </span>
 
-                        <span style = {{ marginLeft: "120px", color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic"}}>
+                      {/* </MDBCol> */}
+                      </MDBRow>
+                      <MDBRow>
+                      {/* <MDBCol> */}
+
+                        <span style = {{ color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic", marginLeft: "-110px", marginTop: "5px"}}>Game: 
+                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                           {game.gameType}
+                          </span>
+                        </span>
+
+                        <span style = {{ color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic", marginLeft: "110px", marginTop: "5px"}}>
                           Duration: 
                           <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
                             {game.gameDuration}
                           </span>
                         </span>
+                        
+                      </MDBRow>
                       </MDBCol>
-
                     </MDBRow>
 
-                    <br/>
-
-                    <img src={game.selectedFile} width="400px" alt="
-                    Game Post" style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}/>
-                    
-                    <br /><br />
+                    <br />
 
                     <MDBRow>
 
@@ -118,7 +119,7 @@ export default function Profilegames() {
                       name={game._id} 
                       variant="contained"
                       className = "btn btn-light btn-sm"
-                      style = {{marginRight: "5px"}} 
+                      style = {{marginRight: "5px", marginLeft:"15px"}} 
                       onClick={() => dispatch(likePost(game, commentField), console.log(game, commentField, "commentField, like"))}
                     >
                       Like | {game.likeCount.length}
@@ -173,7 +174,7 @@ export default function Profilegames() {
                           value={commentField.comment.name}
                           onChange={handleChangeComment}
                           className="input-sm"
-                          style = {{marginLeft:"-10px", width: "70%"}}
+                          style = {{ width: "70%", height: "30px"}}
                           placeholder="Type in your comment here..."
                         />
 
@@ -181,15 +182,13 @@ export default function Profilegames() {
                           variant="contained"
                           className = "btn btn-light btn-sm"
                           onClick={handleSubmitComment}>Comment</button>
-                        
-                        <br /> <br />
 
                         {game.comment.map((theComment, i) => {
                           return (
 
                             <div key={i}>
                               {/* {console.log(theComment)} */}
-                              <p style = {{color: "#b9b9b9", fontSize: "14px", fontFamily: "Century Gothic"}}>
+                              <p style = {{color: "#b9b9b9", fontSize: "14px", fontFamily: "Century Gothic", marginTop: "5px"}}>
                                 @{theComment.username}: 
                                 <span style = {{color: "#fff ", fontSize: "16px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
                                   {theComment.comment}
@@ -201,9 +200,8 @@ export default function Profilegames() {
                             </div>
                           )
                         })}
-                    {/* </form> */}
-                  {/* </MDBContainer> */}
-                  <hr />
+
+                  {/* <hr color = "white" /> */}
                 </div>
               );
             } else {
@@ -217,17 +215,3 @@ export default function Profilegames() {
     </div>
   );
 }
-
-// const mapStateToProps = (state) => {
-//   return {
-//     games: state.games,
-//   };
-// };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     setGames: () => dispatch(setGames()),
-//   };
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Profilegames);

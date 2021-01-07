@@ -53,17 +53,17 @@ function Profile({ userData, fetchUser }) {
 
           <div className= "container col p-10 text-center" style = {{width: "60%", background: "#070d13", opacity: "85%", borderRadius:"1rem"}}>
           
-          <p style = {{color: "#fff", fontSize: "28px", fontFamily: "Century Gothic"}}>
+          <p style = {{color: "#fff", fontSize: "28px", fontFamily: "Century Gothic", marginBottom: "5px"}}>
             @{window.localStorage.username}'s Profile:
           </p>
 
-            <img src={userData.user.url} alt="profile_pic" width="150px" height = "150px" className = "rounded-circle"/>
+            <img src={userData.user.url} alt="profile_pic" width="60%" className = "rounded-circle"/>
             
             {userData && userData.user && (
 
               <div>
 
-                <p style = {{color: "#b9b9b9", fontSize: "18px", fontFamily: "Century Gothic"}}>
+                <p style = {{color: "#b9b9b9", fontSize: "18px", fontFamily: "Century Gothic", marginTop: "5px"}}>
                   Username:   
                   <span style = {{color: "#fff ", fontSize: "18px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
                     {userData.user.username}
