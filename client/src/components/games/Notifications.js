@@ -20,7 +20,7 @@ export default  function Notifications() {
 
   return (
     <div>
-      <hr></hr>
+      {/* <hr></hr> */}
       <div>
         <h6>Comments notifications </h6>
         {games.map((game) => {
@@ -56,7 +56,7 @@ export default  function Notifications() {
 
       {/* /////////////////////////////////////JOINS////////////////////////////////////////////////// */}
       <div>
-        <hr></hr>
+        {/* <hr></hr> */}
         <h6>Join notifications </h6>
         {games.map((game) => {
           if (game.username === window.localStorage.username) {

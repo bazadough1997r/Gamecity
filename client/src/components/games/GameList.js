@@ -111,13 +111,14 @@ export default function GameList() {
       <MDBContainer>
         <MDBRow>
 
-          <MDBCol size = "8">
+          <MDBCol size = "8" style = {{marginLeft: "150px"}}>
             {games.map((game) => {
-                if (game.username === window.localStorage.username) {
               return (
                 // <div>
                 <div key={game._id} className= "container p-3 border" style = {{marginTop: "20px", borderRadius: "2rem"}}>
-
+                  <p style = {{color: "#192a3a", opacity: "80%", fontSize: "18px", fontFamily: "Century Gothic"}}>
+                    @{game.username}
+                  </p>
                   <p style = {{fontSize: "24px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
                     <Link to={`/games/${game._id}`} style = {{ color: "#192a3a"}}>{game.gameName}</Link>
                   </p>
@@ -278,9 +279,7 @@ export default function GameList() {
                 </div>
                 // </div>
               );
-            } else {
-                  console.log("no notifications for now")
-                }
+            
             })}
           </MDBCol>
         </MDBRow>
