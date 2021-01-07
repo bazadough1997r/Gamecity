@@ -25,6 +25,7 @@ MERN Stack (MongoDB, Express.js, React.js, Node.js)
 - bootstrap 
 - bcrypt - Token 
 - Heroku
+- Socket.io
 
 # Team
 
@@ -38,5 +39,8 @@ From within the root directory:
 ​
 ```sh
 npm install
+cd client
+npm install
+cd ..
 npm run dev
 ```

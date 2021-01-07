@@ -35,17 +35,19 @@ export default function GameList(props) {
   }
 
   //filtersssss byyy Gov
+  var x;
   function handleChangeGovernorates(e) {
   // console.log(e.target.value, "lsning to change in filter#1")
-  var x  = games.filter(game => game.gameGovernorate === e.target.value)
+  x  = games.filter(game => game.gameGovernorate === e.target.value)
   games.map(game => console.log(x, "filtered by Gov"))
 }
 
   //filtersssss byyy Game
+  var y;
   function handleChangeGames(e) {
     // console.log(e.target.value, "lsning to change in filter#2")
-    var x  = games.filter(game => game.gameType === e.target.value)
-    games.map(game => console.log(x, "filtered by Game"))
+    y  = games.filter(game => game.gameType === e.target.value)
+    games.map(game => console.log(y, "filtered by Game"))
   }
 
   useEffect(function () {
