@@ -21,6 +21,7 @@ function handleSubmitComment(event) {
     async function comment() {
       try {
         await patch(`/api/games/${commentField.id}/comment`, commentField);
+        // console.log(commentField.id, "ID from the edit")
         games.history.push(`/games/${commentField.id}/comment`);
       } catch (error) {
         console.log(error);
@@ -45,85 +46,160 @@ function handleSubmitComment(event) {
 
   return (
     <div>
-      <hr />
-      <h3>{window.localStorage.username}'s posts:</h3>
       <MDBContainer>
         <MDBRow>
-        
-          <MDBCol md="6" style={{ marginTop: "20px" }}>
+
+          <MDBCol>
             {games.map((game) => {
                 if (game.username === window.localStorage.username) {
               return (
+
                 <div key={game._id}>
-                  <h3>@{game.username}</h3>
-                  <h4>
+
+                  <p style = {{color: "#fff ", fontSize: "24px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
                     <Link to={`/games/${game._id}`}>{game.gameName}</Link>
-                  </h4>
-                  <h6>{game.createdAt}</h6>
+                  </p>
                   
-                  <MDBContainer>
+                  <p style = {{color: "#b9b9b9", fontSize: "14px", fontFamily: "Century Gothic"}}>
+                    {game.createdAt}
+                  </p>
+                  
+                  {/* <MDBContainer> */}
                     <MDBRow>
-                      <MDBCol size="4">
-                        <h6 key={game.gameGovernorate}>
-                          Jordan/{game.gameGovernorate}
-                        </h6>
-                        <h6>Game: {game.gameType}</h6>
+                      <MDBCol>
+                      <img src={game.selectedFile} width="40%" alt="Game Post" style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}/>
                       </MDBCol>
-                      <MDBCol size="4">
-                        <h6>Date: {game.gameDate}</h6>
-                        <h6>Duration: {game.gameDuration}</h6>
+                      <MDBCol>
+                        <br/>
+                      <MDBRow>
+
+                        <span style = {{color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic", marginLeft: "-110px"}} key={game.gameGovernorate}>
+                          Governorate:
+                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold", marginRight: "20px"}}>
+                            Jordan/{game.gameGovernorate}
+                          </span>
+                        </span>
+
+                        <span style = {{color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic",}}>
+                          Date: 
+                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold", }}>
+                            {game.gameDate}
+                          </span>
+                        </span>
+
+                      {/* </MDBCol> */}
+                      </MDBRow>
+                      <MDBRow>
+                      {/* <MDBCol> */}
+
+                        <span style = {{ color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic", marginLeft: "-110px", marginTop: "5px"}}>Game: 
+                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                           {game.gameType}
+                          </span>
+                        </span>
+
+                        <span style = {{ color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic", marginLeft: "110px", marginTop: "5px"}}>
+                          Duration: 
+                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                            {game.gameDuration}
+                          </span>
+                        </span>
+                        
+                      </MDBRow>
                       </MDBCol>
                     </MDBRow>
-                    <img src={game.selectedFile} width="250px" alt="game post" />
+
                     <br />
-            
-                    <button onClick={() => dispatch(unlikePost(game, commentField))}>
+
+                    <MDBRow>
+
+                    <button 
+                      name={game._id} 
+                      variant="contained"
+                      className = "btn btn-light btn-sm"
+                      style = {{marginRight: "5px", marginLeft:"15px"}} 
+                      onClick={() => dispatch(likePost(game, commentField), console.log(game, commentField, "commentField, like"))}
+                    >
+                      Like | {game.likeCount.length}
+                    </button>
+
+                    <button 
+                      variant="contained"
+                      className = "btn btn-light btn-sm"
+                      style = {{marginRight: "5px"}}  
+                      onClick={() => dispatch(unlikePost(game, commentField))}
+                    >
                       Unlike
                     </button>
-                    <button name={game._id} onClick={() => dispatch(likePost(game, commentField), console.log(game, commentField, "commentField, like"))}>
-                      Like {game.likeCount.length}
+
+                    <button 
+                      name={game._id} 
+                      variant="contained"
+                      className = "btn btn-light btn-sm"
+                      onClick={() => dispatch(joinPost(game, commentField))}
+                    >
+                      Join | {game.joinCount.length}
                     </button>
-                    <button name={game._id} onClick={() => dispatch(joinPost(game, commentField))}>
-                      Join {game.joinCount.length}
-                    </button>
-                    <button name={game._id} onClick={() => dispatch(unjoinPost(game, commentField))}>
+
+                    <button 
+                      name={game._id} 
+                      variant="contained"
+                      className = "btn btn-light btn-sm"
+                      onClick={() => dispatch(unjoinPost(game, commentField))}
+                    >
                       Unjoin
                     </button>
-                
+
+                    </MDBRow>
+
                     {game.joinCount.map((joined, i) => {
                       return (
+
                         <div key={i}>
-                          <h6>joined: @{joined.username}</h6>
+                          <p style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic"}}>
+                            Player: @{joined.username}
+                          </p>
                         </div>
+
+                      )}                  
                       )}
-                  
-                      )}
-                
-            
-                    <br /> <br />
-                    <form>
-                      <div className="form-group">
+                      
+                    {/* <form> */}
                         <input
                           name={game._id}
+                          id="inputGroup-sizing-sm"
                           type="text"
                           value={commentField.comment.name}
                           onChange={handleChangeComment}
-                          className="form-control"
+                          className="input-sm"
+                          style = {{ width: "70%", height: "30px"}}
                           placeholder="Type in your comment here..."
                         />
-                        <button onClick={handleSubmitComment}>Comment</button>
-                        <br /> <br />
+
+                        <button 
+                          variant="contained"
+                          className = "btn btn-light btn-sm"
+                          onClick={handleSubmitComment}>Comment</button>
+
                         {game.comment.map((theComment, i) => {
                           return (
+
                             <div key={i}>
-                              <h6>@{theComment.username}: {theComment.comment}</h6>
+                              {/* {console.log(theComment)} */}
+                              <p style = {{color: "#b9b9b9", fontSize: "14px", fontFamily: "Century Gothic", marginTop: "5px"}}>
+                                @{theComment.username}: 
+                                <span style = {{color: "#fff ", fontSize: "16px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                                  {theComment.comment}
+                                </span>
+                              </p>
+
+                              <hr color= "white"></hr>
+
                             </div>
                           )
                         })}
-                      </div>
-                    </form>
-                  </MDBContainer>
-                  <hr />
+
+                  {/* <hr color = "white" /> */}
                 </div>
               );
             } else {
@@ -132,13 +208,9 @@ function handleSubmitComment(event) {
                 return null;
             })}
           </MDBCol>
-         
         </MDBRow>
       </MDBContainer>
       <hr />
     </div>
   );
 }
-
-
-
