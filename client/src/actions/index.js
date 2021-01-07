@@ -1,7 +1,7 @@
 import { get } from "axios";
 import axios from "axios";
 import { setToken } from "../components/pages/setToken";
-
+import swal from 'sweetalert';
 export const FETCH_ALL = "FETCH_ALL";
 
 /////////////////////////////////////////////////////Actions for GAMES/////////////////////////////////////////////////////
@@ -290,6 +290,7 @@ export const loginUser = (email, password, username) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: response.data,
     });
+    swal("login sucssfully!", "You clicked the button!", "success");
     window.location = "/";
     dispatch(loadUser());
   } catch (error) {
@@ -297,6 +298,7 @@ export const loginUser = (email, password, username) => async (dispatch) => {
       type: LOGIN_FAILURE,
       payload: error,
     });
+    swal("password or email  Wrong");
   }
 };
 
