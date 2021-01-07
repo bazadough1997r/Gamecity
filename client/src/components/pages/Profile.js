@@ -4,55 +4,123 @@ import { fetchUser } from "../../actions/index";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Profilegames from "../games/Profilegames";
-//action  setGames
-//set state
-//map //if statmemnt
-//const[]
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+
 function Profile({ userData, fetchUser }) {
   let { email } = useParams();
-  console.log(email);
+  // console.log(email);
+
   useEffect(() => {
     fetchUser(email);
   }, [email, fetchUser]);
-  // style = {{backgroundImage: `url(${process.env.PUBLIC_URL + './Images/chatRoom.jpg'})`}}
+
   return userData.loading ? (
-    <h3>Loading</h3>
-  ) : userData.error ? (
-    <h3>{userData.error}</h3>
-  ) : (
-    <div>
+
+    <div style = {{backgroundImage: `url(${process.env.PUBLIC_URL + '.././Images/chatRoom.jpg'})`, height: "100vh"}}>
+      
       <br/><br/><br/>
-    <div>
-      <div className= "container p-10 text-center" style = {{width: "60%", background: "#070d13", opacity: "85%", borderRadius:"1rem"}}>
-      <h3 style = {{color: "#fff", fontSize: "28px", fontFamily: "Century Gothic"}}>{window.localStorage.username}'s info:</h3>
-      {/* <hr /> */}
-        <img src={userData.user.url} alt="profile_pic" width="150px" height = "150px" className = "rounded-circle"/>
-        {userData && userData.user && (
-          <div>
-            <p style = {{color: "#666666", fontSize: "18px", fontFamily: "Century Gothic"}}>
-              Username: 
-              <span style = {{color: "#fff", fontSize: "18px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
-                {userData.user.username}
-              </span>
-            </p>
-            <p>
-              Name: {userData.user.firstName} {userData.user.lastName}
-            </p>
-            <p>Email: {userData.user.email}</p>
-            <p>City: Jordan/{userData.user.city}</p>
-            <p>Phone number: {userData.user.phoneNo}</p>
-            <p>Birthday: {userData.user.birthday}</p>
-          </div>
-        )}
-        <Link
-          to={{ pathname: `/editProfile/${userData.user.email}` }}
-          className="btn btn-info float-right"
-        >
-          Edit
-        </Link>
+      
+      <div className= "container col p-10 text-center" style = {{width: "60%", background: "#070d13", opacity: "85%", borderRadius:"1rem"}}>
+        <p style = {{color: "#fff", fontSize: "28px", fontFamily: "Century Gothic"}}>
+          Loading...
+        </p>
       </div>
-      <Profilegames />
+      
     </div>
+
+  ) : userData.error ? (
+
+    <div style = {{backgroundImage: `url(${process.env.PUBLIC_URL + '.././Images/chatRoom.jpg'})`, height: "100vh"}}>
+      
+      <div className= "container col p-10 text-center" style = {{width: "60%", background: "#070d13", opacity: "85%", borderRadius:"1rem"}}>
+        <p style = {{color: "#fff", fontSize: "28px", fontFamily: "Century Gothic"}}>
+          {userData.error}
+        </p>
+      </div>
+
+    </div>
+
+  ) : (
+
+    <div style = {{backgroundImage: `url(${process.env.PUBLIC_URL + '.././Images/chatRoom.jpg'})`, height: "100vh"}} >
+      
+      <br/><br/><br/>
+      
+      <MDBContainer>
+        <div>
+        <MDBRow>
+        <MDBCol md="7">
+
+          <div className= "container col p-10 text-center" style = {{width: "60%", background: "#070d13", opacity: "85%", borderRadius:"1rem"}}>
+          
+          <p style = {{color: "#fff", fontSize: "28px", fontFamily: "Century Gothic"}}>
+            @{window.localStorage.username}'s Profile:
+          </p>
+
+            <img src={userData.user.url} alt="profile_pic" width="150px" height = "150px" className = "rounded-circle"/>
+            
+            {userData && userData.user && (
+
+              <div>
+
+                <p style = {{color: "#b9b9b9", fontSize: "18px", fontFamily: "Century Gothic"}}>
+                  Username:   
+                  <span style = {{color: "#fff ", fontSize: "18px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                    {userData.user.username}
+                  </span>
+                </p>
+
+                <p style = {{color: "#b9b9b9", fontSize: "18px", fontFamily: "Century Gothic"}}> 
+                  Name: 
+                  <span style = {{color: "#fff ", fontSize: "18px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                  {userData.user.firstName} {userData.user.lastName}
+                  </span>
+                </p>
+
+                <p style = {{color: "#b9b9b9", fontSize: "18px", fontFamily: "Century Gothic"}}>Email: 
+                  <span style = {{color: "#fff ", fontSize: "18px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                    {userData.user.email}
+                  </span> 
+                </p>
+                
+                <p style = {{color: "#b9b9b9", fontSize: "18px", fontFamily: "Century Gothic"}}>City: Jordan/
+                  <span style = {{color: "#fff ", fontSize: "18px", fontFamily: "Century Gothic", fontWeight: "bold"}}>              
+                    {userData.user.city}
+                  </span>
+                </p>
+
+                <p style = {{color: "#b9b9b9", fontSize: "18px", fontFamily: "Century Gothic"}}>Phone number: 
+                  <span style = {{color: "#fff ", fontSize: "18px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                    {userData.user.phoneNo}
+                  </span>  
+                </p>
+
+                <p style = {{color: "#b9b9b9", fontSize: "18px", fontFamily: "Century Gothic"}}>Birthday: 
+                  <span style = {{color: "#fff ", fontSize: "18px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                    {userData.user.birthday}
+                  </span>
+                </p>
+
+                  <Link
+                    to={{ pathname: `/editProfile/${userData.user.email}` }}
+                    variant="contained"
+                    className = "btn btn-light btn-block btn-lg"
+                    >
+                    Edit Profile
+                  </Link>
+                  <br/>
+              </div>
+            )}
+        </div>
+        </MDBCol>
+
+        <div className= "container col" style = {{overflowY: "scroll", height: "510px", width: "60%", background: "#070d13", opacity: "85%", borderRadius:"1rem"}}>
+          <Profilegames/>
+        </div>
+        
+      </MDBRow>
+      </div>
+    </MDBContainer>
     </div>
   );
 }

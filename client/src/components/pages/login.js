@@ -49,13 +49,12 @@ const useStyles = makeStyles({
 });
 
 
-const Login = ({ loginUser, isLoggedIn }, checked) => {
+const Login = ({ loginUser, isLoggedIn, checked }) => {
+  const classes = useStyles();
   let [data, setData] = useState({
     email: "",
     password: "",
   });
-
-  const classes = useStyles();
 
   if (isLoggedIn) return <Redirect to="/games" />;
 
@@ -72,22 +71,16 @@ const Login = ({ loginUser, isLoggedIn }, checked) => {
   };
 
   return (
-  <Collapse in = {checked} {...(checked ? { timeout: 1000 } : {})} >
+  // <Collapse in = {checked} {...(checked ? { timeout: 1000 } : {})} >
    <Card className={classes.root}>
       <CardMedia
         className={classes.media}
         image= {process.env.PUBLIC_URL + `/Images/login.jpg`}
         title="Login"
       />
+      
       <CardContent>
-        {/* <Typography 
-          gutterBottom 
-          variant="h5" 
-          component="h1" 
-          className = {classes.title}
-          >
-            Login
-          </Typography> */}
+        
               <TextField 
                 id="standard-size-small" 
                 variant="outlined"
@@ -98,8 +91,10 @@ const Login = ({ loginUser, isLoggedIn }, checked) => {
                 name="username"
                 value={username}
                 placeholder="username"
-                />
+              />
+
               <br /><br />
+
               <TextField 
                 id="standard-size-small" 
                 variant="outlined" 
@@ -109,9 +104,11 @@ const Login = ({ loginUser, isLoggedIn }, checked) => {
                 type="email"
                 name="email"
                 value={email}
-                placeholder="email address"
-                />
+                placeholder="E-mail Address"
+              />
+
               <br /><br />
+
               <TextField 
                 id="standard-size-small" 
                 variant="outlined"
@@ -121,21 +118,29 @@ const Login = ({ loginUser, isLoggedIn }, checked) => {
                 type="password"
                 name="password"
                 value={password}
-                placeholder="password"
-                />
-              <br /><br />       
+                placeholder="Password"
+              />
+
+              <br /><br />   
+
               <Button 
                 style = {{width: 390}}
-                type="submit" onClick={(e) => onsubmit(e)} className = {classes.button}>
+                type="submit" 
+                onClick={(e) => onsubmit(e)} 
+                className = {classes.button}
+              >
                 Submit
               </Button>
+
               <br />
+
               <Typography className = {classes.signUp} style = {{textAlign: "center"}}>
                 Don't have an account? <a href="/addUser">SignUp</a>
               </Typography>
+
       </CardContent>
     </Card>
-    </Collapse>
+    // </Collapse>
   );
 };
 

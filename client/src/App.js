@@ -9,18 +9,20 @@ import {
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
-import { AppBar, Collapse, IconButton, Toolbar, Grid } from "@material-ui/core";
-import SortIcon from '@material-ui/icons/Sort';
+import { AppBar, Collapse, IconButton, Toolbar, Grid, Typography, Button } from "@material-ui/core";
+import { AccountCircle } from "@material-ui/icons";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link as Scroll } from 'react-scroll';
 import { makeStyles } from '@material-ui/core/styles';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import { CssBaseline } from "@material-ui/core";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import HomeIcon from '@material-ui/icons/Home';
 import ProtectedRoute from "./components/pages/ProtectedRoute";
 import notfound from "./components/pages/notfound";
 import Profile from "./components/pages/Profile";
 import ProfileEdit from "./components/pages/ProfileEdit";
-
+import CommentIcon from '@material-ui/icons/Comment';
 import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
 import GameAdd from "./components/games/GameAdd";
@@ -36,6 +38,7 @@ import Header from "./components/pages/Header";
 import Cards from "./components/pages/Cards";
 // import FooterPage from "./Footer"
 import Land from "./components/Land";
+import PrimarySearchAppBar from "./components/pages/register2";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,16 +47,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: `url(${process.env.PUBLIC_URL + './Images/game.1.jpg'})`,
     backgroundRepeat: "no-repeat",
     alignContent: "center",
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    // backgroundSize: "cover"
   },
   rootNavBar: {
       flexGrow: "3",
-      // display: "flex",
-      // justifyContent: "center",
-      // alignItems: "center",
-      // height: "100vh",
       background: "#070d13",
       fontFamily: "Century Gothic"
   },
@@ -61,10 +57,6 @@ const useStyles = makeStyles((theme) => ({
       background: "none",
       fontFamily: "Century Gothic"
   },
-  appBarWrapperTwo: {
-    width: "80%",
-    margin: "0 auto"
-},
   appBarWrapper: {
       width: "80%",
       margin: "0 auto"
@@ -89,23 +81,13 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "2rem"
 
   },
-  body2: {
-      color: "#fff",
-      fontFamily: "Century Gothic",
-      fontSize: "1.65rem"
-
-  },
   container: {
       textAlign: "center"
   },
   expandIcon: {
       color: "#fff",
       fontSize: "2rem",
-  },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    },
+  }
 }));
 
 if (localStorage.getItem("token")) {
@@ -115,7 +97,7 @@ if (localStorage.getItem("token")) {
 
 function App() {
   const classes = useStyles();
-
+    
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
@@ -123,15 +105,9 @@ function App() {
   return (
     <div >
       <Router>
-      <CssBaseline />
-      {/* <Header /> */}
-      <Navigation />
-      <br/><br/>
-      {/* <Login /> */}
-        {/* <Navigation /> */}
-        {/* <div >
-          <Main />
-        </div> */}
+        <CssBaseline />
+          <Navigation />
+          <br/><br/>
       </Router>
     </div>
   );
@@ -142,9 +118,20 @@ var useremail = window.localStorage.email;
 function Navigation() {
   const classes = useStyles();
   const [checked, setChecked] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   useEffect(() => {
       setChecked(true);
   }, [])
+
   var value = false;
   if (window.localStorage.length > 0) {
     value = true;
@@ -158,11 +145,9 @@ function Navigation() {
         <div className = {classes.root} id = "header">
         <AppBar position = "static" className = {classes.appBar} elevation = {0}>
             <Toolbar className = {classes.appBarWrapper}>
-                {/* <h4 className = {classes.appBarLogo}>Gamesity</h4> */}
                 <div>
                 <Link
                   exact
-                  // className="nav-link"
                   activeClassName="active"
                   to="/land"
                   style={{ color: "white" }}
@@ -176,9 +161,6 @@ function Navigation() {
                     />
                 </Link>
                 </div>
-                {/* <IconButton>
-                    <SortIcon className = {classes.icon} />
-                </IconButton> */}
             </Toolbar>
         </AppBar>
         <Collapse in = {checked}  
@@ -188,7 +170,8 @@ function Navigation() {
             <div className = {classes.container}>
               <br /> <br /> <br /> <br /> <br /> <br /> 
               <br /> <br /> <br /> <br /> <br /> <br /> 
-              <br /> <br /> <br /> <br /> <br /> <br /> 
+              <br /> <br /> <br /> 
+              <br /> <br /> <br /> 
               <br />  
                 <Scroll to= "aboutus-login-cards" smooth = {true} >
                     <IconButton>
@@ -205,156 +188,90 @@ function Navigation() {
         <Main />
     </div>
       ) : (
-      //   <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-      //   <div className="container">
-      //     <ul className="nav justify-content-start ">
-      //       <li className="nav-item">
-      //         <NavLink
-      //           exact
-      //           className="nav-link"
-      //           activeClassName="active"
-      //           to="/"
-      //           style={{ color: "white" }}
-      //         >
-      //           <img
-      //             height="30px"
-      //             width="30px"
-      //             src={`${process.env.PUBLIC_URL}/Logo/GamecityLogo.png`}
-      //             alt="Gamecity logo"
-      //           />
-      //         </NavLink>
-      //       </li>
-      //     </ul>
-      //     <ul className="nav justify-content-start">
-      //       <li className="nav-item">
-      //         <SearchForm />
-      //       </li>
-      //     </ul>
-      //     <ul className="nav justify-content-end ">
-      //       <li className="nav-item">
-      //         <NavLink
-      //           exact
-      //           className="nav-link"
-      //           activeClassName="active"
-      //           to="/games"
-      //           style={{ color: "white" }}
-      //         >
-      //           Games
-      //         </NavLink>
-      //       </li>
-      //       {/* <li className="nav-item">
-      //         <Link
-      //           exact
-      //           className="nav-link"
-      //           activeClassName="active"
-      //           to="/notifications"
-      //           style={{ color: "white" }}
-      //         >
-      //           Notifications
-      //         </Link>
-      //       </li> */}
-      //       <li className="nav-item">
-      //         <NavLink
-      //           exact
-      //           className="nav-link"
-      //           activeClassName="active"
-      //           to="/chat"
-      //           style={{ color: "white" }}
-      //         >
-      //           Chat Rooms
-      //         </NavLink>
-      //       </li>
-      //       <li className="nav-item">
-      //         <NavLink
-      //           exact
-      //           className="nav-link"
-      //           activeClassName="active"
-      //           to={"/profile/" + useremail}
-      //           style={{ color: "white" }}
-      //         >
-      //           Profile
-      //         </NavLink>
-      //       </li>
-      //       <li>
-      //         <NavLink
-      //           exact
-      //           className="nav-link"
-      //           activeClassName="active"
-      //           to="/land"
-      //           style={{ color: "white" }}
-      //           onClick={() => logout()}
-      //         >
-      //           Logout
-      //         </NavLink>
-      //       </li>
-      //     </ul>
-      //   </div>
-      // </nav>
         <div>
-          <br/> <br/>  
-        <div 
-        id = "header"
-        >
         <AppBar 
-          className = {classes.rootNavBar} 
-        // className = {classes.appBar} 
-        elevation = {0}
+          id = "header"
+          position = "static"
+          style = {{background: "#070d13"}} 
+          elevation = {0}
         >
-            <Toolbar 
-            className = {classes.appBarWrapperTwo} variant="dense"
+          <Toolbar>
+            <Link
+              exact
+              activeClassName="active"
+              to="/games"
+              style={{ color: "white", flexGrow: 1}}
             >
-          <div >
+              <img
+                height="30px"
+                width="30px"
+                src={`${process.env.PUBLIC_URL}/Logo/GamecityLogo.png`}
+                alt="Gamecity logo"
+              />
+              </Link>
+
+              <SearchForm />
+
+              <IconButton >
                 <Link
-                  exact
-                  activeClassName="active"
-                  to="/land"
-                  style={{ color: "white" }}
-                >
-                  <img
-                    height="30px"
-                    width="30px"
-                    src={`${process.env.PUBLIC_URL}/Logo/GamecityLogo.png`}
-                    alt="Gamecity logo"
-                  />
-                </Link>
-                <SearchForm className= {classes.search}/>
-                <Link
+                  color = "inherit"
                   exact
                   activeClassName="active"
                   to="/games"
-                  style={{ color: "white" }}
                 >
-                  Games
+                  <HomeIcon style = {{color: "white"}}/>
                 </Link>
-                <Link
-                  exact
-                  activeClassName="active"
-                  to="/chat"
-                  style={{ color: "white" }}
+              </IconButton>
+
+              <IconButton>
+              <Link
+                exact
+                activeClassName="active"
+                to="/chat"
+              >
+                <CommentIcon style = {{color: "white"}}/>
+              </Link>
+              </IconButton>
+
+              <div>
+                <IconButton aria-controls="simple-menu" aria-haspopup="true" color = "inherit" onClick={handleClick} >
+                  <AccountCircle/>
+                </IconButton>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
                 >
-                  Chat Rooms
-                </Link>
-                <Link
-                  exact
-                  activeClassName="active"
-                  to={"/profile/" + useremail}
-                  style={{ color: "white" }}
-                >
-                  Profile
-                </Link>
-                <Link
-                  exact
-                  activeClassName="active"
-                  to="/land"
-                  style={{ color: "white" }}
-                  onClick={() => logout()}
-                >
-                  Logout
-                </Link>
-          </div>
+                  <MenuItem onClick={handleClose}>
+                    <Link
+                      exact
+                      activeClassName="active"
+                      to={"/profile/" + useremail}
+                    >
+                      <Button style = {{color: "#070d13"}}>
+                        Profile
+                      </Button>
+                     </Link>                   
+                  </MenuItem>
+                  <hr/>
+                  <MenuItem>
+                    <Link
+                      exact
+                      activeClassName="active"
+                      to="/land"
+                      onClick={() => logout()}
+                    >
+                      <Button style ={{color: "#070d13"}}>
+                        Logout
+                      </Button>
+                    </Link>                 
+                  </MenuItem>
+                </Menu>
+              </div>
           </Toolbar>
           </AppBar>
-          </div>
           <div>
           <Main />
           </div>

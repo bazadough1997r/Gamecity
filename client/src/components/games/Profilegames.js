@@ -10,7 +10,7 @@ import { likePost, unlikePost, joinPost, unjoinPost, setGames } from "../../acti
 
 // import { copyFileSync } from "fs";
 
-function Profilegames(props) {
+export default function Profilegames() {
 
   const [commentField, setComment] = useState({ comment: "", id: "", username: window.localStorage.username, joins: 0, likes: 0 });
   const [games, setGames] = useState([]);
@@ -27,7 +27,7 @@ function Profilegames(props) {
       try {
         await patch(`/api/games/${commentField.id}/comment`, commentField);
         // console.log(commentField.id, "ID from the edit")
-        props.history.push(`/games/${commentField.id}/comment`);
+        games.history.push(`/games/${commentField.id}/comment`);
       } catch (error) {
         console.log(error);
       }
@@ -51,85 +51,158 @@ function Profilegames(props) {
 
   return (
     <div>
-      <hr />
-      <h3>{window.localStorage.username}'s posts:</h3>
       <MDBContainer>
         <MDBRow>
-        
-          <MDBCol md="6" style={{ marginTop: "20px" }}>
-            {props.games.filteredItems.map((game) => {
+
+          <MDBCol>
+            {games.map((game) => {
                 if (game.username === window.localStorage.username) {
               return (
+
                 <div key={game._id}>
-                  <h3>@{game.username}</h3>
-                  <h4>
+
+                  <p style = {{color: "#fff ", fontSize: "32px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
                     <Link to={`/games/${game._id}`}>{game.gameName}</Link>
-                  </h4>
-                  <h6>{game.createdAt}</h6>
+                  </p>
                   
-                  <MDBContainer>
+                  <p style = {{color: "#b9b9b9", fontSize: "14px", fontFamily: "Century Gothic"}}>
+                    {game.createdAt}
+                  </p>
+                  
+                  {/* <MDBContainer> */}
                     <MDBRow>
-                      <MDBCol size="4">
-                        <h6 key={game.gameGovernorate}>
-                          Jordan/{game.gameGovernorate}
-                        </h6>
-                        <h6>Game: {game.gameType}</h6>
+
+                      <MDBCol>
+                        <span style = {{color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic"}} key={game.gameGovernorate}>
+                          Governorate:
+                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                            Jordan/{game.gameGovernorate}
+                          </span>
+                        </span>
+
+                        <span style = {{ marginLeft: "50px", color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic"}}>Game: 
+                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                            {game.gameType}
+                          </span>
+                        </span>
                       </MDBCol>
-                      <MDBCol size="4">
-                        <h6>Date: {game.gameDate}</h6>
-                        <h6>Duration: {game.gameDuration}</h6>
+
+                      <MDBCol size="12">
+                        <span style = {{color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic"}}>
+                          Date: 
+                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                            {game.gameDate}
+                          </span>
+                        </span>
+
+                        <span style = {{ marginLeft: "120px", color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic"}}>
+                          Duration: 
+                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                            {game.gameDuration}
+                          </span>
+                        </span>
                       </MDBCol>
+
                     </MDBRow>
-                    <img src={game.selectedFile} width="250px" alt="game post" />
-                    <br />
-            
-                    <button onClick={() => dispatch(unlikePost(game, commentField))}>
+
+                    <br/>
+
+                    <img src={game.selectedFile} width="400px" alt="
+                    Game Post" style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}/>
+                    
+                    <br /><br />
+
+                    <MDBRow>
+
+                    <button 
+                      name={game._id} 
+                      variant="contained"
+                      className = "btn btn-light btn-sm"
+                      style = {{marginRight: "5px"}} 
+                      onClick={() => dispatch(likePost(game, commentField), console.log(game, commentField, "commentField, like"))}
+                    >
+                      Like | {game.likeCount.length}
+                    </button>
+
+                    <button 
+                      variant="contained"
+                      className = "btn btn-light btn-sm"
+                      style = {{marginRight: "5px"}}  
+                      onClick={() => dispatch(unlikePost(game, commentField))}
+                    >
                       Unlike
                     </button>
-                    <button name={game._id} onClick={() => dispatch(likePost(game, commentField), console.log(game, commentField, "commentField, like"))}>
-                      Like {game.likeCount.length}
+
+                    <button 
+                      name={game._id} 
+                      variant="contained"
+                      className = "btn btn-light btn-sm"
+                      onClick={() => dispatch(joinPost(game, commentField))}
+                    >
+                      Join | {game.joinCount.length}
                     </button>
-                    <button name={game._id} onClick={() => dispatch(joinPost(game, commentField))}>
-                      Join {game.joinCount.length}
-                    </button>
-                    <button name={game._id} onClick={() => dispatch(unjoinPost(game, commentField))}>
+
+                    <button 
+                      name={game._id} 
+                      variant="contained"
+                      className = "btn btn-light btn-sm"
+                      onClick={() => dispatch(unjoinPost(game, commentField))}
+                    >
                       Unjoin
                     </button>
-                
+
+                    </MDBRow>
+
                     {game.joinCount.map((joined, i) => {
                       return (
+
                         <div key={i}>
-                          <h6>joined: @{joined.username}</h6>
+                          <p style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic"}}>
+                            Player: @{joined.username}
+                          </p>
                         </div>
+
+                      )}                  
                       )}
-                  
-                      )}
-                
-            
-                    <br /> <br />
-                    <form>
-                      <div className="form-group">
+                      
+                    {/* <form> */}
                         <input
                           name={game._id}
+                          id="inputGroup-sizing-sm"
                           type="text"
                           value={commentField.comment.name}
                           onChange={handleChangeComment}
-                          className="form-control"
+                          className="input-sm"
+                          style = {{marginLeft:"-10px", width: "70%"}}
                           placeholder="Type in your comment here..."
                         />
-                        <button onClick={handleSubmitComment}>Comment</button>
+
+                        <button 
+                          variant="contained"
+                          className = "btn btn-light btn-sm"
+                          onClick={handleSubmitComment}>Comment</button>
+                        
                         <br /> <br />
+
                         {game.comment.map((theComment, i) => {
                           return (
+
                             <div key={i}>
                               {/* {console.log(theComment)} */}
-                              <h6>@{theComment.username}: {theComment.comment}</h6>
+                              <p style = {{color: "#b9b9b9", fontSize: "14px", fontFamily: "Century Gothic"}}>
+                                @{theComment.username}: 
+                                <span style = {{color: "#fff ", fontSize: "16px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                                  {theComment.comment}
+                                </span>
+                              </p>
+
+                              <hr color= "white"></hr>
+
                             </div>
                           )
                         })}
-                      </div>
-                    </form>
-                  </MDBContainer>
+                    {/* </form> */}
+                  {/* </MDBContainer> */}
                   <hr />
                 </div>
               );
@@ -138,7 +211,6 @@ function Profilegames(props) {
                 }
             })}
           </MDBCol>
-         
         </MDBRow>
       </MDBContainer>
       <hr />
@@ -146,16 +218,16 @@ function Profilegames(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    games: state.games,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     games: state.games,
+//   };
+// };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setGames: () => dispatch(setGames()),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     setGames: () => dispatch(setGames()),
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profilegames);
+// export default connect(mapStateToProps, mapDispatchToProps)(Profilegames);

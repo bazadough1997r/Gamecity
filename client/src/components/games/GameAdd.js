@@ -8,19 +8,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-// import InputLabel from '@material-ui/core/InputLabel';
 
 const useStyles = makeStyles((theme) => ({
-    // root: {
-    //   height: '100vh',
-    //   // background: "#070d13",
-    // },
+
     image: {
       maxHeight: "100vh",
       maxWidth: "500vh",
@@ -44,12 +39,9 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(1),
       
     },
-    // submitButton: {
-    //   color: "#070d13"
-    // }
   }));
-//
-const GameAdd = (props) => {
+
+function GameAdd(props) {
   const classes = useStyles();
     const initialState = {
       gameName: "",
@@ -108,7 +100,7 @@ const GameAdd = (props) => {
         gameGovernorate: game.gameGovernorate,
         selectedFile: game.selectedFile,
         email: game.email,
-        username: game.username,
+        username: game.username
       })
         .then(function (response) {
           dispatch(addGame(response.data));
@@ -131,9 +123,6 @@ const GameAdd = (props) => {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          {/* <Avatar className={classes.avatar}>
-            <EditIcon />
-          </Avatar> */}
           <form className={classes.form} onSubmit={handleSubmit}>
             
             <TextField
@@ -148,7 +137,9 @@ const GameAdd = (props) => {
               className="form-control"
               placeholder="Type in your post here..."
             />
+
             <br/><br/>
+
             <Select
               type="text"
               required
@@ -171,7 +162,9 @@ const GameAdd = (props) => {
               <MenuItem value="Ma'an"> Ma'an</MenuItem>
               <MenuItem value="Aqaba"> Aqaba</MenuItem>
             </Select>
+
             <br/><br/>
+
             <Select
               type="text"
               required
@@ -194,7 +187,9 @@ const GameAdd = (props) => {
               <MenuItem value="Running"> Running</MenuItem>
               <MenuItem value="Other.."> Others...</MenuItem>
             </Select>
+
             <br/>
+
             <TextField
               variant="outlined"
               margin="normal"
@@ -206,7 +201,9 @@ const GameAdd = (props) => {
               onChange={handleChangeDate}
               className="form-control"
             />
+
             <br/><br/>
+
             <TextField
               variant="outlined"
               margin="normal"
@@ -219,7 +216,9 @@ const GameAdd = (props) => {
               className="form-control"
               placeholder="Set game's duration"
             />
+
             <br/><br/>
+
             <Typography>Upload Image</Typography>
             <FileBase
                 type="file"
@@ -228,7 +227,9 @@ const GameAdd = (props) => {
                   setFields({ ...game, selectedFile: base64 })
                 }
               />
+
             <br /><br/>
+
             <Button 
               fullWidth
               variant="contained"
@@ -238,7 +239,9 @@ const GameAdd = (props) => {
             > 
               Post
             </Button>
+
             <br /><br/>
+
             <Button 
               fullWidth
               variant="contained"
@@ -248,6 +251,7 @@ const GameAdd = (props) => {
             > 
               Cancel 
             </Button>
+            
           </form>
         </div>
       </Grid>
