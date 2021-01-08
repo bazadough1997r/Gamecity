@@ -2,15 +2,11 @@ import React from "react";
 
 export default function notfound() {
   return (
-    <div>
-      <h1 style={{textAlign:"center"}}>Gamecity only gives access for registered members!</h1>
-      <h3 style={{textAlign:"center"}}> <a href="/addUser">REGISTER</a></h3>
-      <img
-        style={{marginLeft:"auto", marginRight:"auto", display:"block"}}
-        src="https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif"
-        width="75%"
-        alt="page not found"
-      ></img>
+    <div style = {{backgroundImage: `url(${process.env.PUBLIC_URL + '../Images/chatRoom.jpg'})`, height: "100vh"}}>
+      <br/><br/><br/>
+    <div className= "container col p-10 text-center" style = {{width: "60%", background: "#070d13", opacity: "85%", borderRadius:"1rem"}}>
+      <p style = {{color: "#fff", fontSize: "28px", fontFamily: "Century Gothic"}}>You have to register before accessing Gamesity's content </p>
     </div>
+  </div>
   );
 }

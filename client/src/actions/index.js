@@ -1,8 +1,7 @@
 import { get } from "axios";
 import axios from "axios";
 import { setToken } from "../components/pages/setToken";
-// import { response } from "express";
-
+import swal from 'sweetalert';
 export const FETCH_ALL = "FETCH_ALL";
 
 /////////////////////////////////////////////////////Actions for GAMES/////////////////////////////////////////////////////
@@ -69,16 +68,33 @@ export function joinPost(game, commentField, callback) {
       .then (function(data) {
         callback();
         dispatch({ type: JOIN_GAME, payload: data})
-        console.log(data)
+        console.log(data, "data from JOIN_GAME, FINALLLYYYYYYYYYYY")
       })
       .catch(function (error) {
         console.log(error, "error from the actions")
       })
   }
 }
+//trying  to solve the join refresh
+
+// export const JOIN_GAME = "JOIN_GAME";
+// export const joinPost = (game, commentField) => {
+//   return (dispatch) => {
+//    axios.patch(`/api/games/${game._id}/joinPost`, commentField)
+//       .then ((response) => {
+//         let x = response.data;
+//         dispatch(joinPost(x))
+//         console.log(response, "response from JOIN_GAME, FINALLLYYYYYYYYYYY")
+//       })
+//       .catch((error) => {
+//         console.log(error, "error from the joinPost actions")
+//       })
+//   }
+// }
 
 export const UNJOIN_GAME = "UNJOIN_GAME";
 export function unjoinPost(game, commentField, callback) {
+  console.log(game,"game game")
   return async function (dispatch) {
     return axios.patch(`/api/games/${game._id}/unjoinPost`, commentField)
       .then (function(data) {
@@ -89,6 +105,14 @@ export function unjoinPost(game, commentField, callback) {
       .catch(function (error) {
         console.log(error, "error from the actions");
       });
+  };
+}
+
+export const JOIN_ROOM = "JOIN_ROOM";
+export function joinRoom(commentField, callback) {
+  console.log(commentField,"commentField from join room")
+  return async function (dispatch) {
+    
   };
 }
 
@@ -155,11 +179,10 @@ export function updateProfile(user) {
 }
 
 export const fetchUser = (email) => {
-  console.log(email,"email from action ")
   return (dispatch) => {
 
     dispatch(fetchUserRequest());
-    axios.get("/addUser/profile/"+email) 
+    axios.get("/api/profile/"+email) 
       .then((response) => {
         let user = response.data;
         console.log(user,"from client")
@@ -202,7 +225,7 @@ export const loadUser = () => async (dispatch) => {
     setToken(localStorage.getItem("token"));
   }
   try {
-    const response = await axios.get("/addUser");
+    const response = await axios.get("/api");
     dispatch({
       type: LOAD_USER,
       payload: response.data,
@@ -240,7 +263,7 @@ export const registerUser = (
       password,
       url
     };
-    const response = await axios.post("/addUser", body);
+    const response = await axios.post("/api", body);
     window.location = "/login";
 
     dispatch({
@@ -261,12 +284,13 @@ export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const loginUser = (email, password, username) => async (dispatch) => {
   try {
     const body = { email, password, username };
-    const response = await axios.post("addUser/login", body);
+    const response = await axios.post("api/login", body);
 
     dispatch({
       type: LOGIN_SUCCESS,
       payload: response.data,
     });
+    swal("login sucssfully!", "You clicked the button!", "success");
     window.location = "/";
     dispatch(loadUser());
   } catch (error) {
@@ -274,52 +298,15 @@ export const loginUser = (email, password, username) => async (dispatch) => {
       type: LOGIN_FAILURE,
       payload: error,
     });
+    swal("password or email  Wrong");
   }
-};
-
-/////////////////////////////////////////////////////Actions for FILTERS/////////////////////////////////////////////////////
-
-export const FILTER_GAMES_BY_GOVERNORATES = "FILTER_GAMES_BY_GOVERNORATES";
-export const filterGames = (games, Governorates) => (dispatch) => {
-  dispatch({
-    type: FILTER_GAMES_BY_GOVERNORATES,
-    payload: {
-      //payload is an object that has the items
-
-      Governorates: Governorates,
-      items:
-        Governorates === "" // now if items are empty
-          ? games // return all games
-          : //else
-            games.filter((x) => x.gameGovernorate.indexOf(Governorates) >= 0),
-      //I want you to filter the games based on their governorates
-    },
-  });
-};
-
-export const FILTER_GAMES_BY_TYPE = "FILTER_GAMES_BY_TYPE";
-export const filterByType = (games, type) => (dispatch) => {
-  dispatch({
-    type: FILTER_GAMES_BY_TYPE,
-    payload: {
-      //payload is an object that has the items
-
-      type: type,
-      items:
-        type === "" // now if items are empty
-          ? games // return all games
-          : //else
-            games.filter((x) => x.gameType.indexOf(type) >= 0),
-      //I want you to filter the games based on their governorates
-    },
-  });
 };
 
 /////////////////////////////////////////////////////Actions for CHATT/////////////////////////////////////////////////////
 export const CHAT_SERVER = "/api/chat";
 export const GET_CHATS = "GET_CHATS";
-export const getChats = () => async (dispatch) => {
-  const response = await axios.get(`${CHAT_SERVER}/getChats`);
+export const getChats = (postId) => async (dispatch) => {
+  const response = await axios.get(`${CHAT_SERVER}/getChats/${postId}`);
   dispatch({
     type: GET_CHATS,
     payload: response.data,

@@ -1,4 +1,5 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/storage';
 const firebaseConfig = {
   apiKey: "AIzaSyB2LGIuqDnnQ4FpUNp13QDIILbX29XY3Ac",
   authDomain: "gamecity-87e5e.firebaseapp.com",
