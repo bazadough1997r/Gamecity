@@ -22,9 +22,10 @@ MERN Stack (MongoDB, Express.js, React.js, Node.js)
 - react-redux
 - react-hooks
 - mongoDB Atlas
-- bootstrap 
+- Material UI 
 - bcrypt - Token 
 - Heroku
+- Socket.io
 
 # Team
 
@@ -38,5 +39,8 @@ From within the root directory:
 ​
 ```sh
 npm install
+cd client
+npm install
+cd ..
 npm run dev
 ```

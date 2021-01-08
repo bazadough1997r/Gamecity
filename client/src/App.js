@@ -3,13 +3,12 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  Switch,
-  NavLink
+  Switch
 } from "react-router-dom";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
-import { AppBar, Collapse, IconButton, Toolbar, Grid, Typography, Button } from "@material-ui/core";
+import { AppBar, Collapse, IconButton, Toolbar, Button } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link as Scroll } from 'react-scroll';
@@ -22,7 +21,7 @@ import ProtectedRoute from "./components/pages/ProtectedRoute";
 import notfound from "./components/pages/notfound";
 import Profile from "./components/pages/Profile";
 import ProfileEdit from "./components/pages/ProfileEdit";
-import CommentIcon from '@material-ui/icons/Comment';
+// import CommentIcon from '@material-ui/icons/Comment';
 import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
 import GameAdd from "./components/games/GameAdd";
@@ -38,6 +37,8 @@ import Header from "./components/pages/Header";
 import Cards from "./components/pages/Cards";
 import Land from "./components/Land";
 import FooterPage from "./components/pages/Footer"
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100vh",
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     alignContent: "center",
   },
   rootNavBar: {
-      flexGrow: "3",
+      flexGrow: "1",
       background: "#070d13",
       fontFamily: "Century Gothic"
   },
@@ -95,7 +96,7 @@ if (localStorage.getItem("token")) {
 
 
 function App() {
-  const classes = useStyles();
+  // const classes = useStyles();
     
   useEffect(() => {
     store.dispatch(loadUser());
@@ -141,36 +142,34 @@ function Navigation() {
   <div>
       {value === false ? (
         <div className = {classes.root} id = "header">
-        <AppBar position = "static" className = {classes.appBar} elevation = {0}>
-            <Toolbar className = {classes.appBarWrapper}>
-                <div>
-                <Link
-                  exact
-                  activeClassName="active"
-                  to="/land"
-                  style={{ color: "white" }}
-                >
-                <img
-                    className = {classes.appBarLogo}
+          {/* <AppBar position = "static" className = {classes.appBar} elevation = {0}>
+              <Toolbar className = {classes.appBarWrapper}>
+                  <div>
+                  <Link
+                    exact
+                    activeClassName="active"
+                    to="/land"
+                    style={{ color: "white", flexGrow: 1}}
+                    >
+                    <img
                     height="30px"
                     width="30px"
                     src={`${process.env.PUBLIC_URL}/Logo/GamecityLogo.png`}
                     alt="Gamecity logo"
                     />
-                </Link>
-                </div>
-            </Toolbar>
-        </AppBar>
+                  </Link>
+                  </div>
+              </Toolbar>
+          </AppBar> */}
         <Collapse in = {checked}  
             {...(checked ? { timeout: 1000 } : {})}
             collapsedHeight = {50}
         >
             <div className = {classes.container}>
-              <br /> <br /> <br /> <br /> <br /> <br /> 
-              <br /> <br /> <br /> <br /> <br /> <br /> 
-               <br /> <br /> <br /> 
-              {/*<br /> <br /> <br /> 
-              <br />   */}
+                <br /> <br /> <br /> <br /> <br /> <br /> 
+                <br /> <br /> <br /> <br /> <br /> <br /> 
+                <br /> <br /> <br /> 
+                <br /> <br /> <br /> 
                 <Scroll to= "aboutus-login-cards" smooth = {true} >
                     <IconButton>
                         <ExpandMoreIcon className = {classes.expandIcon}/>
@@ -180,12 +179,12 @@ function Navigation() {
         </Collapse>
         <div> 
           <br /> <br /> <br /> <br /> <br /> <br /> 
-          <br /> <br /> <br /> <br /> <br /> <br />  
-    </div>
-        <Cards />
+          <br /> <br /> <br /> <br /> <br />  
+          <Cards />
+          <Main />
+        </div>
         {/* <hr color = "white" /> */}
         <br /> <br />
-        <Main />
     </div>
       ) : (
         <div>
@@ -284,7 +283,7 @@ function Navigation() {
 function Main() {
   return (
     <Switch>
-      <Route exact path="/land" component={Header} />
+      {/* <Route exact path="/land" component={Header} /> */}
       <ProtectedRoute
         exact
         path="/games"
