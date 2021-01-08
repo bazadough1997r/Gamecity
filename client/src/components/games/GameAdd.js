@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
 
     },
     paper: {
-      margin: theme.spacing(6, 8),
+      margin: theme.spacing(0, 6),
+      // maxHeight: "100vh",
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -126,7 +127,7 @@ function GameAdd(props) {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <form className={classes.form} onSubmit={handleSubmit}>
-            
+          <Typography>Post:</Typography>
             <TextField
               variant="outlined"
               margin="normal"
@@ -141,7 +142,7 @@ function GameAdd(props) {
             />
 
             <br/><br/>
-
+            <Typography>Governorate:</Typography>
             <Select
               type="text"
               required
@@ -166,14 +167,14 @@ function GameAdd(props) {
             </Select>
 
             <br/><br/>
-
+            <Typography>Game:</Typography>
             <Select
               type="text"
               required
               value={game.gameType}
               onChange={handleChangeType}
               className="form-control"
-              placeholder="Select Game"
+              // value="Select Game"
             >
               <MenuItem value="SelectGame"> Select Game</MenuItem>
               <MenuItem value="Paintball"> Paintball</MenuItem>
@@ -191,7 +192,7 @@ function GameAdd(props) {
             </Select>
 
             <br/>
-
+            <Typography>Game Date:</Typography>
             <TextField
               variant="outlined"
               margin="normal"
@@ -205,7 +206,7 @@ function GameAdd(props) {
             />
 
             <br/><br/>
-
+            <Typography>Game Duration:</Typography>
             <TextField
               variant="outlined"
               margin="normal"
@@ -223,6 +224,7 @@ function GameAdd(props) {
 
             <Typography>Upload Image</Typography>
             <FileBase
+                required
                 type="file"
                 multiple={false}
                 onDone={({ base64 }) =>
@@ -231,31 +233,32 @@ function GameAdd(props) {
               />
 
             <br /><br/>
+            <div style = {{display: "flex"}}>
+              <Button 
+                // fullWidth
+                variant="contained"
+                style={{color: "white", backgroundColor: "#070d13", marginRight: "10px", width: "50%"}}
+                type="submit" 
+                value="Post"
+              > 
+                Post
+              </Button>
 
-            <Button 
-              fullWidth
-              variant="contained"
-              style={{color: "white", backgroundColor: "#070d13"}}
-              type="submit" 
-              value="Post"
-            > 
-              Post
-            </Button>
+              <br /><br/>
 
-            <br /><br/>
-
-            <Button 
-              fullWidth
-              variant="contained"
-              style={{color: "white", backgroundColor: "#070d13"}}            
-              type="button" 
-              onClick={handleCancel}
-            > 
-              Cancel 
-            </Button>
-            
+              <Button 
+                // fullWidth
+                variant="contained"
+                style={{color: "white", backgroundColor: "#070d13", width: "50%"}}            
+                type="button" 
+                onClick={handleCancel}
+              > 
+                Cancel 
+              </Button>
+            </div>
           </form>
         </div>
+      <br/>
       </Grid>
     </Grid>
     <FooterPage />

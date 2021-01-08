@@ -4,7 +4,7 @@ import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 const FooterPage = () => {
   return (
 
-    <MDBFooter color="#00060c" className="footer font-small pt-4  p-3">
+    <MDBFooter style = {{ background: "#070d13"}} className="footer font-small pt-4  p-3">
       <MDBContainer fluid className="text-center text-md-left" style = {{padding:"16px", fontFamily: "Century Gothic"}}>
         <MDBRow className = "d-flex justify-content-around">
           <MDBCol md="3" className="text-center">
@@ -12,7 +12,7 @@ const FooterPage = () => {
             <p style = {{fontSize: "12px", letterSpacing: "1.5px", lineHeight: "1.5"}}>
                 Gamesity, a new social media platform specifically catered towards playing and interacting
                 with the community. We all have this problem of really wanting to go and play a game, but we 
-                don't have enough people to complete the team. We;;, here at Gamesity, that's our aim. Well here,
+                don't have enough people to complete the team. We here at Gamesity, that's our aim. Well here,
                  you don't just get the chance to complete your team, but meet new friends, mingle, plan, and finally
                  get together.
             </p>

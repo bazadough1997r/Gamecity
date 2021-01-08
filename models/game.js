@@ -49,6 +49,7 @@ const gameSchema = new mongoose.Schema({
     Object
   ],
     selectedFile: {
+    required: [true, "Game duration is required"],
     type: String,
   },
   email: {

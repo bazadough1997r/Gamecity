@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Profilegames from "../games/Profilegames";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-// import FooterPage from "./Footer";
+import FooterPage from "./Footer";
 
 function Profile({ userData, fetchUser }) {
   let { email } = useParams();
@@ -38,14 +38,17 @@ function Profile({ userData, fetchUser }) {
           {userData.error}
         </p>
       </div>
-
+      <div>
+      <br/><br/>
+      <FooterPage/>
+    </div>
     </div>
 
   ) : (
 
     <div style = {{backgroundImage: `url(${process.env.PUBLIC_URL + '.././Images/chatRoom.jpg'})`, height: "100vh"}} >
       
-      <br/><br/><br/>
+      <br/><br/>
       
       <MDBContainer>
         <div>
@@ -122,7 +125,10 @@ function Profile({ userData, fetchUser }) {
       </MDBRow>
       </div>
     </MDBContainer>
-    {/* <FooterPage/> */}
+    <div>
+      <br/><br/>
+      <FooterPage/>
+    </div>
     </div>
   );
 }

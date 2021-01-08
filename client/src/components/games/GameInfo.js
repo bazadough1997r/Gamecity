@@ -6,6 +6,7 @@ import { setGame, removeGame } from "../../actions";
 import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
+import FooterPage from "../pages/Footer";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -98,7 +99,7 @@ function GameInfo(props) {
           <p style = {{color: "#fff", fontFamily: "Century Gothic", fontSize: "22px"}}>Type: {game.gameType}</p>
           
           <img 
-            style = {{color: "#fff", fontFamily: "Century Gothic", fontSize: "12px"}}
+            style = {{color: "#fff", fontFamily: "Century Gothic", fontSize: "12px", width: "20%"}}
             src = {game.selectedFile} alt= "Game"/>
           
           <br/><br/>
@@ -130,7 +131,7 @@ function GameInfo(props) {
          
           <img 
             style = {{color: "#fff", fontFamily: "Century Gothic", fontSize: "12px"}}
-            src = {game.selectedFile} alt= "Game" width = "200"/>
+            src = {game.selectedFile} alt= "Game" width = "80px"/>
          
           <br/><br/>
 
@@ -165,6 +166,8 @@ function GameInfo(props) {
         
         </div>
       )}
+      {/* <br/><br/> */}
+      <FooterPage/>
       </Grid>
     </div>
   );

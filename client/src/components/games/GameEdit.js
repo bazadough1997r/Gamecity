@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-// import FooterPage from "../pages/Footer"
+import FooterPage from "../pages/Footer"
 
 const useStyles = makeStyles((theme) => ({
 
@@ -247,7 +247,7 @@ function GameEdit(props) {
           </form>
         </div>
       </Grid>
-      {/* <FooterPage/> */}
+      <FooterPage/>
     </Grid>
   );
 }
