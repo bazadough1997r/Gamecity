@@ -33,10 +33,10 @@ import { store } from "./index";
 import Login from "./components/pages/login";
 import SearchForm from "./components/pages/SearchForm";
 import Register from "./components/pages/register";
-import Header from "./components/pages/Header";
+// import Header from "./components/pages/Header";
 import Cards from "./components/pages/Cards";
-import Land from "./components/Land";
-import FooterPage from "./components/pages/Footer"
+// import Land from "./components/Land";
+// import FooterPage from "./components/pages/Footer"
 
 
 const useStyles = makeStyles((theme) => ({
