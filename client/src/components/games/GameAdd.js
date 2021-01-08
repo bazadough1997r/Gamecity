@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import FooterPage from "../pages/Footer"
 
 const useStyles = makeStyles((theme) => ({
 
@@ -118,6 +119,7 @@ function GameAdd(props) {
     }
 
   return (
+    <div>
     <Grid container component="main" className={classes.root} justify= "center">
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -256,6 +258,8 @@ function GameAdd(props) {
         </div>
       </Grid>
     </Grid>
+    <FooterPage />
+    </div>
   );
 }
 

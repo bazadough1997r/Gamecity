@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { likePost, unlikePost, joinPost, unjoinPost } from "../../actions/index.js"
 import Notifications from "./Notifications";
+import FooterPage from "../pages/Footer"
 
 export default function GameList() {
 
@@ -60,168 +61,167 @@ export default function GameList() {
   }, []);
 
   return (
-    <div>
+    <div style = {{ background: "#03090e" }}>
       <MDBContainer>
         <MDBRow>
-          <MDBCol md="3" style = {{ marginLeft: "-75px"}}>
+          <MDBCol md="2" style = {{ marginTop: "20px", marginLeft: "-75px", marginRight: "15px"}}>
          
           <br></br>
-             
-              <p style = {{ fontSize: "18px", fontWeight: "bold", color: "#070d13" }}>
-                Governorates: 
-              </p>
+             <div style = {{display: "flex"}}>
+                <p style = {{ fontSize: "18px", color: "#fff" }}>
+                  Governorates: 
+                </p>
+                <div> 
+                  <select onChange={handleChangeGovernorates}>
+                    <option value="">All</option>
+                    <option value="Irbid">Irbid</option>
+                    <option value="Ajloun">Ajloun</option>
+                    <option value="Jerash">Jerash</option>
+                    <option value="Mafraq">Mafraq</option>
+                    <option value="Balqa">Balqa</option>
+                    <option value="Amman">Amman</option>
+                    <option value="Zarqa">Zarqa</option>
+                    <option value="Madaba">Madaba</option>
+                    <option value="Karak">Karak</option>
+                    <option value="Tafila">Tafila</option>
+                    <option value="Ma'an">Ma'an</option>
+                    <option value="Aqaba">Aqaba</option>
+                  </select>
+                </div>
+              </div>
 
-              <select onChange={handleChangeGovernorates}>
-                <option value="">All</option>
-                <option value="Irbid">Irbid</option>
-                <option value="Ajloun">Ajloun</option>
-                <option value="Jerash">Jerash</option>
-                <option value="Mafraq">Mafraq</option>
-                <option value="Balqa">Balqa</option>
-                <option value="Amman">Amman</option>
-                <option value="Zarqa">Zarqa</option>
-                <option value="Madaba">Madaba</option>
-                <option value="Karak">Karak</option>
-                <option value="Tafila">Tafila</option>
-                <option value="Ma'an">Ma'an</option>
-                <option value="Aqaba">Aqaba</option>
-              </select>
+              <div style = {{display: "flex"}}>
+                <p style = {{ fontSize: "18px", color: "#fff" }}>
+                  Games:
+                </p>
 
-              <div>
-              <p style = {{ fontSize: "18px", fontWeight: "bold", color: "#070d13" }}>
-                Games:
-              </p>
-
-              <select onChange={handleChangeGames}>
-                <option value="">All</option>
-                <option value="Paintball">Paintball</option>
-                <option value="Football">Football</option>
-                <option value="Karting">Karting</option>
-                <option value="Basketball">Basketball</option>
-                <option value="Laser Tag">Laser Tag</option>
-                <option value="Vollyball">Vollyball</option>
-                <option value="Rock Climbing">Rock Climbing</option>
-                <option value="Horseback Riding">Horseback Riding</option>
-                <option value="Handball">Handball</option>
-                <option value="Tafila">Tennis</option>
-                <option value="Running">Running</option>
-                <option value="Other..">Other..</option>
-              </select>
+                <div>
+                  <select onChange={handleChangeGames}>
+                    <option value="">All</option>
+                    <option value="Paintball">Paintball</option>
+                    <option value="Football">Football</option>
+                    <option value="Karting">Karting</option>
+                    <option value="Basketball">Basketball</option>
+                    <option value="Laser Tag">Laser Tag</option>
+                    <option value="Vollyball">Vollyball</option>
+                    <option value="Rock Climbing">Rock Climbing</option>
+                    <option value="Horseback Riding">Horseback Riding</option>
+                    <option value="Handball">Handball</option>
+                    <option value="Tafila">Tennis</option>
+                    <option value="Running">Running</option>
+                    <option value="Other..">Other..</option>
+                  </select>
+              </div>
             </div>
 
               <Notifications/>
 
             </MDBCol>
-            <div>
-      <MDBContainer>
-        <MDBRow>
 
-          <MDBCol size = "8" style = {{marginLeft: "150px"}}>
-            {games.map((game) => {
-              return (
-                // <div>
-                <div key={game._id} className= "container p-3 border" style = {{marginTop: "20px", borderRadius: "2rem"}}>
-                  <p style = {{color: "#192a3a", opacity: "80%", fontSize: "18px", fontFamily: "Century Gothic"}}>
-                    @{game.username}
-                  </p>
-                  <p style = {{fontSize: "24px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
-                    <Link to={`/games/${game._id}`} style = {{ color: "#192a3a"}}>{game.gameName}</Link>
-                  </p>
-                  
-                  <p style = {{color: "#b9b9b9", fontSize: "14px", fontFamily: "Century Gothic"}}>
-                    {game.createdAt}
-                  </p>
-                  
-                  {/* <MDBContainer> */}
-                    <MDBRow>
-                      <MDBCol>
-                      <img src={game.selectedFile} width="40%" alt="Game Post" style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}/>
-                      </MDBCol>
-                      <MDBCol>
-                        <br/>
+            <div className = "col" md="6" style={{ marginTop: "20px" }}>
+
+                <Link to="/games/new" className="btn btn-white btn-block" style = {{ borderRadius: "2rem" }}>
+                  New Game
+                </Link>
+
+              {games.map((game) => {
+                return (
+                  <div className= "container p-2 border" style = {{marginTop: "20px", borderRadius: "2rem", background: "#fff"}}>
+                  <div key={game._id}>
+                    <br/>
+                    <p style = {{marginLeft: "10px", color: "#414f5e", opacity: "80%", fontSize: "16px", fontFamily: "Century Gothic"}}>
+                      @{game.username}
+                    </p>
+                   
+                    <p style = {{marginLeft: "10px", fontSize: "20px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                      <Link to={`/games/${game._id}`} style = {{ color: "#192a3a"}}>{game.gameName}</Link>
+                    </p>
+                    
+                    <p style = {{ marginLeft: "10px", color: "#414f5e", fontSize: "14px", fontFamily: "Century Gothic"}}>
+                      {game.createdAt}
+                    </p>
+                    
+                    <MDBContainer>
                       <MDBRow>
-
-                        <span style = {{color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic", marginLeft: "-110px"}} key={game.gameGovernorate}>
-                          Governorate:
-                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold", marginRight: "20px"}}>
-                            Jordan/{game.gameGovernorate}
-                          </span>
-                        </span>
-
-                        <span style = {{color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic",}}>
-                          Date: 
-                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold", }}>
-                            {game.gameDate}
-                          </span>
-                        </span>
-
-                      {/* </MDBCol> */}
-                      </MDBRow>
-                      <MDBRow>
-                      {/* <MDBCol> */}
-
-                        <span style = {{ color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic", marginLeft: "-110px", marginTop: "5px"}}>Game: 
-                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
-                           {game.gameType}
-                          </span>
-                        </span>
-
-                        <span style = {{ color: "#b9b9b9", fontSize: "12px", fontFamily: "Century Gothic", marginLeft: "110px", marginTop: "5px"}}>
-                          Duration: 
-                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
-                            {game.gameDuration}
-                          </span>
-                        </span>
                         
+                        <MDBCol>
+                          <img src={game.selectedFile} width="60%" alt="game post" />
+                        </MDBCol>
+                        <MDBCol >
+                            <br/><br/><br/><br/>
+                          <MDBRow>
+                            <span style = {{color: "#414f5e", fontSize: "16px", fontFamily: "Century Gothic", marginLeft: "-100px"}} key={game.gameGovernorate}>
+                              Governorate:
+                              <span style = {{color: "#192a3a ", fontSize: "16px", fontFamily: "Century Gothic", fontWeight: "bold", marginRight: "50px"}}>
+                                Jordan/{game.gameGovernorate}
+                              </span>
+                            </span>
+
+                            <span style = {{color: "#414f5e", fontSize: "16px", fontFamily: "Century Gothic",}}>
+                              Date: 
+                              <span style = {{color: "#192a3a ", fontSize: "16px", fontFamily: "Century Gothic", fontWeight: "bold" }}>
+                                {game.gameDate}
+                              </span>
+                            </span>
+                        </MDBRow> 
+                        <MDBRow>
+
+                          <span style = {{ color: "#414f5e", fontSize: "16px", fontFamily: "Century Gothic", marginLeft: "-100px", marginTop: "10px"}}>
+                            Game: 
+                            <span style = {{color: "#192a3a ", fontSize: "16px", fontFamily: "Century Gothic", fontWeight: "bold", marginRight: "158px"}}>
+                            {game.gameType}
+                            </span>
+                          </span>
+
+                          <span style = {{ color: "#414f5e", fontSize: "16px", fontFamily: "Century Gothic", marginTop: "10px"}}>
+                            Duration: 
+                            <span style = {{color: "#192a3a ", fontSize: "16px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
+                              {game.gameDuration}
+                            </span>
+                          </span>
+     
+                          </MDBRow>
+                        </MDBCol>
                       </MDBRow>
-                      </MDBCol>
-                    </MDBRow>
 
-                    <br />
+                     
+                      <br />
+                      <div style = {{display: "flex"}}>
+                      {/* {window.location.username !== game.likeCount ? ( */}
+                      <button 
+                        variant="contained"
+                        className = "btn btn-light "
+                        onClick={() => dispatch(unlikePost(game, commentField))}
+                        >
+                        Unlike
+                      </button>
+                      {/* // ) : ( */}
+                      <button name={game._id} 
+                        variant="contained"
+                        className = "btn btn-light "                        
+                        onClick={() => dispatch(likePost(game, commentField), console.log(game, commentField, "commentField, like"))}>
+                        Like {game.likeCount.length}
+                      </button>
+                      {/* )} */}
+                      <button name={game._id} 
+                        variant="contained"
+                        className = "btn btn-light "                      
+                        onClick={() => dispatch(joinPost(game, commentField))}>
+                        Join {game.joinCount.length}
+                      {/* {console.log(game.joinCount[0].username)} */}
+                      </button>
 
-                    <MDBRow>
+                      <button name={game._id} 
+                        variant="contained"
+                        className = "btn btn-light "                      
+                        onClick={() => dispatch(unjoinPost(game, commentField))}>
+                        Unjoin
+                      </button>
 
-                    <button 
+                      <button
                       name={game._id} 
                       variant="contained"
-                      className = "btn btn-light btn-sm"
-                      style = {{marginRight: "5px", marginLeft:"15px"}} 
-                      onClick={() => dispatch(likePost(game, commentField), console.log(game, commentField, "commentField, like"))}
-                    >
-                      Like | {game.likeCount.length}
-                    </button>
-
-                    <button 
-                      variant="contained"
-                      className = "btn btn-light btn-sm"
-                      style = {{marginRight: "5px"}}  
-                      onClick={() => dispatch(unlikePost(game, commentField))}
-                    >
-                      Unlike
-                    </button>
-
-                    <button 
-                      name={game._id} 
-                      variant="contained"
-                      className = "btn btn-light btn-sm"
-                      onClick={() => dispatch(joinPost(game, commentField))}
-                    >
-                      Join | {game.joinCount.length}
-                    </button>
-
-                    <button 
-                      name={game._id} 
-                      variant="contained"
-                      className = "btn btn-light btn-sm"
-                      onClick={() => dispatch(unjoinPost(game, commentField))}
-                    >
-                      Unjoin
-                    </button>
-                      
-                    <button
-                      name={game._id} 
-                      variant="contained"
-                      className = "btn btn-light btn-sm"
+                      className = "btn btn-light "
                     >
                       <Link 
                         to={{pathname: `/chat/${game._id}`, state: { postId: game._id}}}         
@@ -230,145 +230,10 @@ export default function GameList() {
                         Join Room
                       </Link>
                     </button>
-
-                    </MDBRow>
-
-                    {game.joinCount.map((joined, i) => {
-                      // console.log(joined,"joined")
-                      return (
-
-                        <div key={i}>
-                          <p style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic"}}>
-                            Player: @{joined.username}
-                          </p>
-                        </div>
-
-                      )}                  
-                      )}
-                      
-                    {/* <form> */}
-                        <input
-                          name={game._id}
-                          id="inputGroup-sizing-sm"
-                          type="text"
-                          value={commentField.comment.name}
-                          onChange={handleChangeComment}
-                          className="input-sm"
-                          style = {{ width: "70%", height: "30px"}}
-                          placeholder="Type in your comment here..."
-                        />
-
-                        <button 
-                          variant="contained"
-                          className = "btn btn-light btn-sm"
-                          onClick={handleSubmitComment}>Comment</button>
-
-                        {game.comment.map((theComment, i) => {
-                          return (
-
-                            <div key={i}>
-                              {/* {console.log(theComment)} */}
-                              <p style = {{color: "#b9b9b9", fontSize: "14px", fontFamily: "Century Gothic", marginTop: "5px"}}>
-                                @{theComment.username}: 
-                                <span style = {{color: "#fff ", fontSize: "16px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
-                                  {theComment.comment}
-                                </span>
-                              </p>
-
-                              <hr color= "white"></hr>
-
-                            </div>
-                          );
-                        })}
-
-                  {/* <hr color = "white" /> */}
-                </div>
-                // </div>
-              );
-            
-            })}
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-      <hr />
-    </div>
-{/* 
-            
-            <MDBCol md="6" style={{ marginTop: "20px" }}>
-              {games.map((game) => {
-                return (
-                  <div className= "container" style = {{background: "#070d13", opacity: "85%", borderRadius:"1rem"}}>
-                  <div key={game._id}>
-                    <br/>
-                    <p style = {{color: "#fff", fontSize: "18px", fontFamily: "Century Gothic"}}>
-                      @{game.username}
-                    </p>
-                   
-                    <p style = {{color: "#fff ", fontSize: "24px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
-                      <Link to={`/games/${game._id}`}>{game.gameName}</Link>
-                    </p>
-                    
-                    <p style = {{color: "#b9b9b9", fontSize: "14px", fontFamily: "Century Gothic"}}>
-                      {game.createdAt}
-                    </p> */}
-                    
-                    {/* <MDBContainer>
-                      <MDBRow>
-                        <MDBCol size="4">
-
-                          <span style = {{color: "#fff ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold"}}>
-                            Jordan/{game.gameGovernorate}
-                          </span>
-
-                          <span>Game: 
-                            <span>{game.gameType}</span>
-                          </span>
-                          
-                        </MDBCol>
-
-                        <MDBCol size="4">
-
-                          <span>Date: 
-                            <span>{game.gameDate}</span>
-                          </span>
-
-                          <span>Duration: 
-                            <span>{game.gameDuration}</span>
-                          </span>
-
-                        </MDBCol>
-                      </MDBRow>
-
-                      <img src={game.selectedFile} width="250px" alt="game post" />
-                     
-                      <br />
-
-                      <button onClick={() => dispatch(unlikePost(game, commentField))}>
-                        Unlike
-                      </button>
-
-                      <button name={game._id} onClick={() => dispatch(likePost(game, commentField), console.log(game, commentField, "commentField, like"))}>
-                        Like {game.likeCount.length}
-                      </button>
-
-                      <button name={game._id} onClick={() => dispatch(joinPost(game, commentField))}>
-                        Join {game.joinCount.length}
-                      </button>
-
-                      <button name={game._id} onClick={() => dispatch(unjoinPost(game, commentField))}>
-                        Unjoin
-                      </button>
-
-                      <Link 
-                        to={{pathname: `/chat/${game._id}`, state: { postId: game._id}}}         
-                      >
-                        Join Room
-                      </Link>
-              
+                    </div>
 
                       {game.joinCount.map((joined, i) => {
                         return (
-
                           <div key={i}>
                             <h6>joined: @{joined.username}</h6>
                           </div>
@@ -376,72 +241,97 @@ export default function GameList() {
                         )
                       })}
 
-                      <br/> <br />
+                      <br/>
                       
                       <form>
-                        <div className="form-group">
+                        <div className="form-group" style = {{display: "flex"}}>
                          
-                          <input
-                            name={game._id}
-                            type="text"
-                            value={commentField.comment.name}
-                            onChange={handleChangeComment}
-                            className="form-control"
-                            placeholder="Type in your comment here..."
-                          />
+                        <input
+                          name={game._id}
+                          id="inputGroup-sizing-sm"
+                          type="text"
+                          value={commentField.comment.name}
+                          onChange={handleChangeComment}
+                          className="input-sm"
+                          style = {{ width: "70%"}}
+                          placeholder="Type in your comment here..."
+                        />
+
+                        <button 
+                          variant="contained"
+                          className = "btn btn-light"
+                          onClick={handleSubmitComment}>Comment</button>
                           
-                          <button onClick={handleSubmitComment}>Comment</button>
-                          
-                          <br /> <br />
-                          
+                          </div>
+                          <hr />
+
                           {game.comment.map((theComment, i) => {
                             return (
 
                               <div key={i}>
-                                <h6>@{theComment.username}: {theComment.comment}</h6>
-                              </div>
 
+                                <p style = {{ color: "#414f5e", fontSize: "12px", fontFamily: "Century Gothic"}}>
+                                  @{theComment.username}: 
+                                  <span style = {{color: "#192a3a ", fontSize: "14px", fontFamily: "Century Gothic", fontWeight: "bold" }}>
+                                    {theComment.comment}
+                                  </span>
+                                </p>
+
+                                <hr />
+
+                              </div>
                             )
                           })}
 
-                        </div>
                       </form>
                     </MDBContainer>
                     <hr />
                   </div>
                   </div>
                   
-                );
-              })}
+                  );
+                })}
 
-            </MDBCol> */}
-            <MDBCol md="3">
+            </div> 
 
-              <br></br>
+            <MDBCol md="2" style={{ marginTop: "40px"}}>
 
-              <h2>
-                <Link to="/games/new" className="btn btn-primary float-none">
-                  Build a team!
-                </Link>
-              </h2> 
-              <br></br>
               <a href="https://www.tripadvisor.com/Attractions-g293986-Activities-c56-Amman_Amman_Governorate.html" 
                 className="navbar-brand float-none">
-                
                 <img
-                  height="300px"
-                  width="200px"
+                  height="400px"
+                  width="250px"
                   src={`${process.env.PUBLIC_URL}/Ads/ad1.gif`}
                   alt="Gamecity logo"
                 />
               </a>
-              
-            <div>
-            </div>
+
+              <a href="https://www.facebook.com/AmmanFC/" 
+                className="navbar-brand float-none">
+                <img
+                  height="400px"
+                  width="250px"
+                  src={`${process.env.PUBLIC_URL}/Ads/football.jpg`}
+                  alt="Gamecity logo"
+                />
+              </a>
+
+              <a href="http://www.tajlifestyle.com/node/472" 
+                className="navbar-brand float-none">
+                <img
+                  height="400px"
+                  width="250px"
+                  src={`${process.env.PUBLIC_URL}/Ads/karting.jpg`}
+                  alt="Gamecity logo"
+                />
+              </a>
+
           </MDBCol>
+
         </MDBRow>
       </MDBContainer>
       <hr />
+      <FooterPage/>
     </div>
   );
 }
