@@ -1,37 +1,29 @@
-// import React, { useState, useEffect } from "react";
-// import { useDispatch } from "react-redux";
-// import axios from "axios";
+// import React, { Component } from "react";
+// import { connect } from "react-redux";
+// import { filterGames, filterByType } from "../../actions";
 
 // export default function Filter() {
 //   const [games, setGames] = useState([]);
 //   const dispatch = useDispatch();
 
-//     function handleChangeGovernorates(e) {
-//       console.log(e.target.value, "lsning to change in filter#1")
-//     }
+// class Filter extends Component {
 
-//     function handleChangeGames(e) {
-//       console.log(e.target.value, "lsning to change in filter#2")
-//     }
-
-
-//     useEffect(function () {
-//       async function getGames() {
-//         try {
-//           const response = await axios.get("/api/games");
-//           setGames(response.data);
-//         } catch (error) {
-//           console.log("error", error);
-//         }
-//       }
-//       getGames();
-//     }, []);
-
-//     return (
-//       <div>
-//         <div>
-//           Governorates:
-//           <select onChange={handleChangeGovernorates}>
+//     render() {
+//       // console.log(this.props.Governorates, "this.props.Governorates")
+//       // console.log(this.props.filteredGames, "this.props.filteredGames")
+//       // console.log(this.props.games, "this.props.games")
+//     return !this.props.filteredGames ? (
+//       <div>Loading...</div>
+//     ) : (
+//       <div className="filter">
+//         <div className="filter-governorate">
+//           Governorates:{" "}
+//           <select
+//             value={this.props.Governorates}
+//             onChange={(e) =>
+//               this.props.filterGames(this.props.games, e.target.value)
+//             }
+//           >
 //             <option value="">ALL</option>
 //             <option value="Irbid">Irbid</option>
 //             <option value="Ajloun">Ajloun</option>
@@ -46,11 +38,16 @@
 //             <option value="Ma'an">Ma'an</option>
 //             <option value="Aqaba">Aqaba</option>
 //           </select>
+          
 //         </div>
-
-//         <div>
+//         <div className="filter-type">
 //           Games:{" "}
-//           <select onChange={handleChangeGames}>
+//           <select
+//             value={this.props.type}
+//             onChange={(e) =>
+//               this.props.filterByType(this.props.filteredGames, e.target.value)
+//             }
+//           >
 //             <option value="">ALL</option>
 //             <option value="Paintball">Paintball</option>
 //             <option value="Football">Football</option>
@@ -65,8 +62,19 @@
 //             <option value="Running">Running</option>
 //             <option value="Other..">Other..</option>
 //           </select>
+          
 //         </div>
 //       </div>
 //     );
-//   }
+//  }
 
+// }
+
+// const mapStateToProps = state => ({
+//    type: state.games.type,
+//     games: state.games.games,
+//     Governorates: state.games.Governorates,
+//     filteredGames: state.games.filteredItems,
+// })
+
+// export default connect(mapStateToProps, {filterGames, filterByType})(Filter);

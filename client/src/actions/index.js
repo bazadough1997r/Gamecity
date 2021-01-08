@@ -1,7 +1,7 @@
 import { get } from "axios";
 import axios from "axios";
 import { setToken } from "../components/pages/setToken";
-
+import swal from 'sweetalert';
 export const FETCH_ALL = "FETCH_ALL";
 
 /////////////////////////////////////////////////////Actions for GAMES/////////////////////////////////////////////////////
@@ -94,6 +94,7 @@ export function joinPost(game, commentField, callback) {
 
 export const UNJOIN_GAME = "UNJOIN_GAME";
 export function unjoinPost(game, commentField, callback) {
+  console.log(game,"game game")
   return async function (dispatch) {
     return axios.patch(`/api/games/${game._id}/unjoinPost`, commentField)
       .then (function(data) {
@@ -104,6 +105,14 @@ export function unjoinPost(game, commentField, callback) {
       .catch(function (error) {
         console.log(error, "error from the actions");
       });
+  };
+}
+
+export const JOIN_ROOM = "JOIN_ROOM";
+export function joinRoom(commentField, callback) {
+  console.log(commentField,"commentField from join room")
+  return async function (dispatch) {
+    
   };
 }
 
@@ -281,6 +290,7 @@ export const loginUser = (email, password, username) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: response.data,
     });
+    swal("login sucssfully!", "You clicked the button!", "success");
     window.location = "/";
     dispatch(loadUser());
   } catch (error) {
@@ -288,14 +298,15 @@ export const loginUser = (email, password, username) => async (dispatch) => {
       type: LOGIN_FAILURE,
       payload: error,
     });
+    swal("password or email  Wrong");
   }
 };
 
 /////////////////////////////////////////////////////Actions for CHATT/////////////////////////////////////////////////////
 export const CHAT_SERVER = "/api/chat";
 export const GET_CHATS = "GET_CHATS";
-export const getChats = () => async (dispatch) => {
-  const response = await axios.get(`${CHAT_SERVER}/getChats`);
+export const getChats = (postId) => async (dispatch) => {
+  const response = await axios.get(`${CHAT_SERVER}/getChats/${postId}`);
   dispatch({
     type: GET_CHATS,
     payload: response.data,

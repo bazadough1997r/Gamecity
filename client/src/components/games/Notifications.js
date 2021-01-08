@@ -20,9 +20,10 @@ export default  function Notifications() {
 
   return (
     <div>
-      <hr></hr>
+      {/* <hr></hr> */}
       <div>
-        <h5>Comments notifications </h5>
+        <hr color = "white" />
+        <p style = {{ fontSize: "18px", color: "#fff" }}>Comment Notifications </p>
         {games.map((game) => {
           if (game.username === window.localStorage.username) {
             return (
@@ -33,14 +34,14 @@ export default  function Notifications() {
                       {game.comment.map((theComment, i) => {
                         return (
                           <div key={i}>
-                            <h6>
+                            <p style = {{ fontSize: "16px", color: "#fff" }}>
                               @{theComment.username} commented: "
                               {theComment.comment}" on "
                               <Link to={`/games/${game._id}`}>
                                 {game.gameName}
                               </Link>
                               " post.
-                            </h6>
+                            </p>
                           </div>
                         );
                       })}
@@ -56,8 +57,8 @@ export default  function Notifications() {
 
       {/* /////////////////////////////////////JOINS////////////////////////////////////////////////// */}
       <div>
-        <hr></hr>
-        <h5>Join notifications </h5>
+        <hr color = "white" />
+        <p style = {{ fontSize: "18px", color: "#fff" }}>Join Notifications </p>
         {games.map((game) => {
           if (game.username === window.localStorage.username) {
             return (
@@ -68,12 +69,12 @@ export default  function Notifications() {
                       {game.joinCount.map((joined, i) => {
                         return (
                           <div key={i}>
-                            <h6>
+                            <p style = {{ fontSize: "16px", color: "#fff" }}>
                               @{joined.username} wants to join your next game:{" "}
                               <Link to={`/games/${game._id}`}>
                                 {game.gameName}
                               </Link>
-                            </h6>
+                            </p>
                           </div>
                         );
                       })}

@@ -21,17 +21,32 @@ export default class SearchForm extends Component {
       false,
     );
   }
-  render() {
-    return(
-       <div>
-         <input
-           type="text"
-           className="nav-item"
-           name="searchText"
-           placeholder="Search.. "
-         />
-       </div>
-    )
 
+  render() {
+    return (
+      <div>
+        <input
+          type="text"
+          className="form-control-sm"
+          name="searchText"
+          placeholder="Search.. "
+          style = {{borderRadius: "0.25rem"}}
+          onClick={this.searchHandler}
+        />
+      </div>
+    );
   }
+  // render() {
+  //   return(
+  //      <div>
+  //        <input
+  //          type="text"
+  //          className="nav-item"
+  //          name="searchText"
+  //          placeholder="Search.. "
+  //        />
+  //      </div>
+  //   )
+
+  // }
 }
