@@ -2,6 +2,7 @@ import {
   FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
   FETCH_USER_FAILURE,
+  EDIT_PROFILE
 } from "../actions/index";
 
 const initialState = {
@@ -29,6 +30,21 @@ const reducer = (state = initialState, action) => {
         user: [],
         error: action.payload,
       };
+      case EDIT_PROFILE:
+        return state.map(function (user) {
+          if (user.email === action.user.email) {
+            return {
+              ...state,
+              firstName: action.user.firstName,
+              lastName: action.user.lastName,
+              email: action.user.email,
+              city: action.user.city,
+              phoneNo: action.user.phoneNo,
+              birthday: action.user.birthday,
+              url:action.user.url
+            };
+          } else return user;
+        });
     default:
       return state;
   }

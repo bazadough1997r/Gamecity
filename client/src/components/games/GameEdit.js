@@ -1,7 +1,47 @@
 import React, { useState, useEffect } from "react";
 import { get, patch } from "axios";
+import FileBase from "react-file-base64";
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import FooterPage from "../pages/Footer"
+
+const useStyles = makeStyles((theme) => ({
+
+    image: {
+      maxHeight: "100vh",
+      maxWidth: "500vh",
+      backgroundImage: `url(${process.env.PUBLIC_URL + '../../Images/editPost.jpg'})`,
+      backgroundRepeat: "no-repeat",
+      alignContent: "center", 
+
+    },
+    paper: {
+      margin: theme.spacing(6, 8),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+      width: '100%',
+      marginTop: theme.spacing(1),
+      
+    }
+  }));
 
 function GameEdit(props) {
+  const classes = useStyles();
+
   const initialState = { 
     gameName: "",     
     gameType: "Select Game",
@@ -10,8 +50,8 @@ function GameEdit(props) {
     gameGovernorate: "Select Governorate",
     selectedFile: ""
   };
+
   const [game, setGame] = useState(initialState);
-  console.log(game)
 
   useEffect(
     function () {
@@ -69,111 +109,148 @@ function GameEdit(props) {
   }
 
   return (
-    <div>
-      <h1>Edit</h1>
-      <hr />
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Post</label>
-          <input
-            type="text"
-            required
-            value={game.gameName}
-            onChange={handleChangeName}
-            className="form-control"
-            placeholder="Type in your post here..."
-          />
-        </div>
+    <Grid container component="main" className={classes.root} justify= "center">
+      <CssBaseline />
+      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        
+        <div className={classes.paper}>
+          <form className={classes.form} onSubmit={handleSubmit}>
+            
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              type="text"
+              required
+              value={game.gameName}
+              onChange={handleChangeName}
+              className="form-control"
+              placeholder="Type in your post here..."
+            />
 
-        {/* LOCATION- Drop DOWN MENU */}
-        <div className="form-group">
-          <label>Governorate</label>
-          <select
-            type="text"
-            required
-            value={game.gameGovernorate}
-            onChange={handleChangeGovernorate}
-            className="form-control"
-            placeholder="Select Governorate"
-          >
-            <option value="SelectGovernorate">Select Governorate</option>
-            <option value="Amman"> Amman</option>
-            <option value="Jerash"> Jerash</option>
-            <option value="Irbid"> Irbid</option>
-            <option value="Balqa"> Balqa</option>
-            <option value="Zarqa"> Zarqa</option>
-            <option value="Madaba"> Madaba</option>
-            <option value="Mafraq"> Mafraq</option>
-            <option value="Ajloun"> Ajloun</option>
-          </select>
-        </div>
+            <br/><br/>
 
-        {/* SELECT GAME- DROPDOWN */}
-        <div className="form-group">
-          <label>Game</label>
-          <select
-            type="text"
-            required
-            value={game.gameType}
-            onChange={handleChangeType}
-            className="form-control"
-            placeholder="Select Game"
-          >
-            <option value="SelectGame"> Select Game</option>
-            <option value="Paintball"> Paintball</option>
-            <option value="Football"> Football</option>
-            <option value="Karting"> Karting</option>
-            <option value="Basketball"> Basketball</option>
-            <option value="Laser Tag"> Laser Tag</option>
-            <option value="Volleyball"> Volleyball</option>
-            <option value="Rock Climbing"> Rock Climbing</option>
-            <option value="Horseback Riding"> Horseback Riding</option>
-          </select>
-        </div>
+            <Select
+              type="text"
+              required
+              value={game.gameGovernorate}
+              onChange={handleChangeGovernorate}
+              className="form-control"
+              placeholder="Select Governorate"
+            >
+              <MenuItem value="SelectGovernorate">Select Governorate</MenuItem>
+              <MenuItem value="Irbid"> Irbid</MenuItem>
+              <MenuItem value="Ajloun"> Ajloun</MenuItem>
+              <MenuItem value="Jerash"> Jerash</MenuItem>
+              <MenuItem value="Mafraq"> Mafraq</MenuItem>
+              <MenuItem value="Balqa"> Balqa</MenuItem>
+              <MenuItem value="Amman"> Amman</MenuItem>
+              <MenuItem value="Zarqa"> Zarqa</MenuItem>
+              <MenuItem value="Madaba"> Madaba</MenuItem>
+              <MenuItem value="Karak"> Karak</MenuItem>
+              <MenuItem value="Tafilah"> Tafilah</MenuItem>
+              <MenuItem value="Ma'an"> Ma'an</MenuItem>
+              <MenuItem value="Aqaba"> Aqaba</MenuItem>
+            </Select>
 
-        {/* DATE- CALENDAR DATE */}
-        <div className="form-group">
-          <label>Date</label>
-          <input
-            type="date"
-            required
-            value={game.gameDate}
-            onChange={handleChangeDate}
-            className="form-control"
-          />
-        </div>
+            <br/><br/>
 
-        {/* DURATION- SET TIME */}
-        <div className="form-group">
-          <label>Game Duration</label>
-          <input
-            type="text"
-            required
-            value={game.gameDuration}
-            onChange={handleChangeDuration}
-            className="form-control"
-            placeholder="Set game's duration"
-          />
-        </div>
+            <Select
+              type="text"
+              required
+              value={game.gameType}
+              onChange={handleChangeType}
+              className="form-control"
+              placeholder="Select Game"
+            >
+              <MenuItem value="SelectGame"> Select Game</MenuItem>
+              <MenuItem value="Paintball"> Paintball</MenuItem>
+              <MenuItem value="Football"> Football</MenuItem>
+              <MenuItem value="Karting"> Karting</MenuItem>
+              <MenuItem value="Basketball"> Basketball</MenuItem>
+              <MenuItem value="Laser Tag"> Laser Tag</MenuItem>
+              <MenuItem value="Volleyball"> Volleyball</MenuItem>
+              <MenuItem value="Rock Climbing"> Rock Climbing</MenuItem>
+              <MenuItem value="Horseback Riding"> Horseback Riding</MenuItem>
+              <MenuItem value="Handball"> Handball</MenuItem>
+              <MenuItem value="Tennis"> Tennis</MenuItem>
+              <MenuItem value="Running"> Running</MenuItem>
+              <MenuItem value="Other.."> Others...</MenuItem>
+            </Select>
 
-        <div>
-          <button type="submit" value="Post" className="btn btn-primary">
-            {" "}
-            Update{" "}
-          </button>
-          <button
-            type="button"
-            onClick={handleCancel}
-            className="btn btn-secondary"
-          >
-            {" "}
-            Cancel{" "}
-          </button>
+            <br/>
+
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              type="date"
+              required
+              value={game.gameDate}
+              onChange={handleChangeDate}
+              className="form-control"
+            />
+
+            <br/><br/>
+
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              type="text"
+              required
+              value={game.gameDuration}
+              onChange={handleChangeDuration}
+              className="form-control"
+              placeholder="Set game's duration"
+            />
+
+            <br/><br/>
+
+            <Typography>Upload Image</Typography>
+            <FileBase
+                type="file"
+                multiple={false}
+                onDone={({ base64 }) =>
+                  setGame({ ...game, selectedFile: base64 })
+                }
+              />
+
+            <br /><br/>
+
+            <Button 
+              fullWidth
+              variant="contained"
+              style={{color: "white", backgroundColor: "#070d13"}}
+              type="submit" 
+              value="Post"
+            > 
+              Post
+            </Button>
+
+            <br /><br/>
+
+            <Button 
+              fullWidth
+              variant="contained"
+              style={{color: "white", backgroundColor: "#070d13"}}            
+              type="button" 
+              onClick={handleCancel}
+            > 
+              Cancel 
+            </Button>
+            
+          </form>
         </div>
-      </form>
-    </div>
+      </Grid>
+      <FooterPage/>
+    </Grid>
   );
 }
 
-
 export default GameEdit;
+

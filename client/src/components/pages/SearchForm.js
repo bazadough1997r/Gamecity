@@ -1,32 +1,52 @@
 import React, { Component } from "react";
 
 export default class SearchForm extends Component {
-  
-  searchHandler = (e) => {
-    window.addEventListener("keydown", function (e) {
-      if (e.keyCode === 13) {
-        e.preventDefault();
-        if (window.find(e.target.value) === false) {
-          alert(e.target.value + " does not exist in this page!");
-        } else {
-          window.find(e.target.value);
-        }
-      }
-    });
-  };
+  constructor(props) {
+    super(props);
+    this.state = { isShow: false };
+  }
+
+  componentDidMount() {
+    window.addEventListener(
+      "keydown",
+      (e) => {
+        if (e.keyCode === 13) {
+          e.preventDefault();
+          if(e.target.value === ""){
+            alert("please fill the search bar")
+          }
+          window.find(e.target.value)
+        }    
+      },
+      false,
+    );
+  }
 
   render() {
     return (
       <div>
         <input
           type="text"
-          className="nav-item"
+          className="form-control-sm"
           name="searchText"
           placeholder="Search.. "
+          style = {{borderRadius: "0.25rem"}}
           onClick={this.searchHandler}
         />
       </div>
     );
   }
-}
+  // render() {
+  //   return(
+  //      <div>
+  //        <input
+  //          type="text"
+  //          className="nav-item"
+  //          name="searchText"
+  //          placeholder="Search.. "
+  //        />
+  //      </div>
+  //   )
 
+  // }
+}

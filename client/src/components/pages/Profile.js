@@ -2,57 +2,285 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchUser } from "../../actions/index";
 import { useParams } from "react-router-dom";
-//import { storage } from "../firebase/index"
-function Profile({ userData, fetchUser, logOut }) {
-  // const [image , setImage]= useState(null);
-  // const [url , setURL]= useState(null);
+import { Link } from "react-router-dom";
+import Profilegames from "../games/Profilegames";
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import FooterPage from "./Footer";
+
+function Profile({ userData, fetchUser }) {
   let { email } = useParams();
-  console.log(email);
+  // console.log(email);
+
   useEffect(() => {
     fetchUser(email);
   }, [email, fetchUser]);
 
-  //  function handleChange(e)  {
-  //    if(e.target.files[0]){
-  //    }
-  //  }
-
   return userData.loading ? (
-    <h2 style={{ marginTop: "20px" }}>Loading</h2>
-  ) : userData.error ? (
-    <h2 style={{ marginTop: "20px" }}>{userData.error}</h2>
-  ) : (
-    <div style={{ marginTop: "20px" }}>
-      <h2>User Information</h2>
-      <div>
-        <hr></hr>
-        {userData && userData.user && (
-          <ul>
-            <li>Username: {userData.user.username}</li>
-            <li>First name: {userData.user.firstName}</li>
-            <li>Last name: {userData.user.lastName}</li>
-            <li>Email: {userData.user.email}</li>
-            <li>City: Jordan/{userData.user.city}</li>
-            <li>Phone Number: {userData.user.phoneNo}</li>
-            <li>Birthday: {userData.user.birthday}</li>
-            <li>UserID: {userData.user._id}</li>
-          </ul>
-        )}
-        {/* <label>Add Image </label>
-  <input type="file" onChange="handleChange()"/>
-  <button onClick = "handleUpload()">Upload</button> */}
-        {/* <br />
-  <img width="50px" src = {this.state.url || "http://via.placeholder.com/100x150"} alt = "firebase-image" />
-  <button type="submit" value = "Submit" onClick = {this.onSubmit}>Submit</button> */}
+    <div
+      style={{
+        backgroundImage: `url(${
+          process.env.PUBLIC_URL + ".././Images/chatRoom.jpg"
+        })`,
+        height: "100vh",
+      }}
+    >
+      <br />
+      <br />
+      <br />
 
-        {/*   
-        <Link
-          to={{ pathname: `/profile/${fetchUser._id}/edit` }}
-          className="btn btn-info"
+      <div
+        className="container col p-10 text-center"
+        style={{
+          width: "60%",
+          background: "#070d13",
+          opacity: "85%",
+          borderRadius: "1rem",
+        }}
+      >
+        <p
+          style={{
+            color: "#fff",
+            fontSize: "28px",
+            fontFamily: "Century Gothic",
+          }}
         >
-          Edit
-        </Link> */}
-        {/* <button onClick = {() => logOut()}> logOut</button> */}
+          Loading...
+        </p>
+      </div>
+    </div>
+  ) : userData.error ? (
+    <div
+      style={{
+        backgroundImage: `url(${
+          process.env.PUBLIC_URL + ".././Images/chatRoom.jpg"
+        })`,
+        height: "100vh",
+      }}
+    >
+      <div
+        className="container col p-10 text-center"
+        style={{
+          width: "60%",
+          background: "#070d13",
+          opacity: "85%",
+          borderRadius: "1rem",
+        }}
+      >
+        <p
+          style={{
+            color: "#fff",
+            fontSize: "28px",
+            fontFamily: "Century Gothic",
+          }}
+        >
+          {userData.error}
+        </p>
+      </div>
+      <div>
+        <br />
+        <br />
+        <FooterPage />
+      </div>
+    </div>
+  ) : (
+    <div
+      style={{
+        backgroundImage: `url(${
+          process.env.PUBLIC_URL + ".././Images/chatRoom.jpg"
+        })`,
+        height: "100vh",
+      }}
+    >
+      <br />
+      <br />
+
+      <MDBContainer>
+        <div>
+          <MDBRow>
+            <MDBCol md="6">
+              <div
+                className="container col p-10 text-center"
+                style={{
+                  width: "60%",
+                  background: "#070d13",
+                  opacity: "85%",
+                  borderRadius: "1rem",
+                }}
+              >
+                <p
+                  style={{
+                    color: "#fff",
+                    fontSize: "28px",
+                    fontFamily: "Century Gothic",
+                    marginBottom: "5px",
+                  }}
+                >
+                  @{window.localStorage.username}'s Profile:
+                </p>
+
+                <img
+                  src={userData.user.url}
+                  alt="profile_pic"
+                  width="125px"
+                  className="rounded-circle"
+                />
+
+                {userData && userData.user && (
+                  <div>
+                    <p
+                      style={{
+                        color: "#b9b9b9",
+                        fontSize: "18px",
+                        fontFamily: "Century Gothic",
+                        marginTop: "5px",
+                      }}
+                    >
+                      Username:
+                      <span
+                        style={{
+                          color: "#fff ",
+                          fontSize: "18px",
+                          fontFamily: "Century Gothic",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {userData.user.username}
+                      </span>
+                    </p>
+
+                    <p
+                      style={{
+                        color: "#b9b9b9",
+                        fontSize: "18px",
+                        fontFamily: "Century Gothic",
+                      }}
+                    >
+                      Name:
+                      <span
+                        style={{
+                          color: "#fff ",
+                          fontSize: "18px",
+                          fontFamily: "Century Gothic",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {userData.user.firstName} {userData.user.lastName}
+                      </span>
+                    </p>
+
+                    <p
+                      style={{
+                        color: "#b9b9b9",
+                        fontSize: "18px",
+                        fontFamily: "Century Gothic",
+                      }}
+                    >
+                      Email:
+                      <span
+                        style={{
+                          color: "#fff ",
+                          fontSize: "18px",
+                          fontFamily: "Century Gothic",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {userData.user.email}
+                      </span>
+                    </p>
+
+                    <p
+                      style={{
+                        color: "#b9b9b9",
+                        fontSize: "18px",
+                        fontFamily: "Century Gothic",
+                      }}
+                    >
+                      City: Jordan/
+                      <span
+                        style={{
+                          color: "#fff ",
+                          fontSize: "18px",
+                          fontFamily: "Century Gothic",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {userData.user.city}
+                      </span>
+                    </p>
+
+                    <p
+                      style={{
+                        color: "#b9b9b9",
+                        fontSize: "18px",
+                        fontFamily: "Century Gothic",
+                      }}
+                    >
+                      Phone number:
+                      <span
+                        style={{
+                          color: "#fff ",
+                          fontSize: "18px",
+                          fontFamily: "Century Gothic",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {userData.user.phoneNo}
+                      </span>
+                    </p>
+
+                    <p
+                      style={{
+                        color: "#b9b9b9",
+                        fontSize: "18px",
+                        fontFamily: "Century Gothic",
+                      }}
+                    >
+                      Birthday:
+                      <span
+                        style={{
+                          color: "#fff ",
+                          fontSize: "18px",
+                          fontFamily: "Century Gothic",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {userData.user.birthday}
+                      </span>
+                    </p>
+
+                    <Link
+                      to={{ pathname: `/editProfile/${userData.user.email}` }}
+                      variant="contained"
+                      className="btn btn-light btn-block btn-lg"
+                    >
+                      Edit Profile
+                    </Link>
+                    <br />
+                  </div>
+                )}
+              </div>
+            </MDBCol>
+
+            <div
+              className="container col"
+              style={{
+                overflowY: "scroll",
+                height: "510px",
+                width: "60%",
+                background: "#070d13",
+                opacity: "85%",
+                borderRadius: "1rem",
+              }}
+            >
+              <Profilegames />
+            </div>
+          </MDBRow>
+        </div>
+      </MDBContainer>
+      <div>
+        <br />
+        <br />
+        <FooterPage />
       </div>
     </div>
   );
