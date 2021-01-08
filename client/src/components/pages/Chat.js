@@ -4,13 +4,16 @@ import  {getChats, afterPostMessage}  from '../../actions';
 import moment from 'moment';
 import io from "socket.io-client"
 import jwt_decode from "jwt-decode";
-
+import FooterPage from "../pages/Footer";
 
  class ChatPage extends Component {
     state = {
         chatMessage: "",
     }
+   
 
+
+    
     componentDidMount(){
         let server ="/"
 
@@ -59,7 +62,7 @@ import jwt_decode from "jwt-decode";
     }
 
     render() {
-        // console.log(this.props.chats.chats,"this.props.chats.chats")//array of objects
+
         return (
                 <div style = {{backgroundImage: `url(${process.env.PUBLIC_URL + '../../Images/chatRoom.jpg'})`, height: "100vh"}}>
                     <br/><br/><br/>
@@ -75,7 +78,7 @@ import jwt_decode from "jwt-decode";
                                         <div key={i}>
                                         <img src={chat.sender.url} width= "40px" height = "40px" alt="profile icon" className = "rounded-circle"/>
                                             <b style = {{color: "#aaaaaa", fontFamily: "Century Gothic", fontSize: "16px", marginLeft: "5px"}}>{chat.sender.username}: </b> 
-                                            <p style = {{color: "#aaaaaa", fontFamily: "Century Gothic", fontSize: "12px", marginLeft: "45px", marginTop: "-10px"}}>{chat.createdAt}</p>
+                                            <p style = {{color: "#aaaaaa", fontFamily: "Century Gothic", fontSize: "12px", marginLeft: "45px", marginTop: "-10px"}}>{chat.nowTime}</p>
                                             <p style = {{color: "#fff", fontFamily: "Century Gothic", fontSize: "18px", fontWeight: "bold", marginLeft: "45px", marginTop: "-15px", marginBottom: "15px"}}>{chat.message}</p>
                                         </div>
                                     )
@@ -107,6 +110,8 @@ import jwt_decode from "jwt-decode";
                         <br/>
                         </div>
                     </div> 
+                    <br/><br/><br/>
+                        <FooterPage />
                 </div>
         )
     }
