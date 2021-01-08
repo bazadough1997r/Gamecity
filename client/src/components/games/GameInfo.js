@@ -99,7 +99,7 @@ function GameInfo(props) {
           
           <img 
             style = {{color: "#fff", fontFamily: "Century Gothic", fontSize: "12px"}}
-            src = {game.selectedFile} alt= "Game Photo"/>
+            src = {game.selectedFile} alt= "Game"/>
           
           <br/><br/>
          
@@ -130,7 +130,7 @@ function GameInfo(props) {
          
           <img 
             style = {{color: "#fff", fontFamily: "Century Gothic", fontSize: "12px"}}
-            src = {game.selectedFile} alt= "Game Photo" width = "200"/>
+            src = {game.selectedFile} alt= "Game" width = "200"/>
          
           <br/><br/>
 

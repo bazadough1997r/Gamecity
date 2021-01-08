@@ -188,6 +188,7 @@ export default function GameList() {
                       <br />
                       <div style = {{display: "flex"}}>
                       {/* {window.location.username !== game.likeCount ? ( */}
+                      <a href="/">
                       <button 
                         variant="contained"
                         className = "btn btn-light "
@@ -195,14 +196,18 @@ export default function GameList() {
                         >
                         Unlike
                       </button>
+                      </a>
                       {/* // ) : ( */}
+                      <a href="/">
                       <button name={game._id} 
                         variant="contained"
                         className = "btn btn-light "                        
                         onClick={() => dispatch(likePost(game, commentField), console.log(game, commentField, "commentField, like"))}>
                         Like {game.likeCount.length}
                       </button>
+                      </a>
                       {/* )} */}
+                      <a href="/">
                       <button name={game._id} 
                         variant="contained"
                         className = "btn btn-light "                      
@@ -210,13 +215,16 @@ export default function GameList() {
                         Join {game.joinCount.length}
                       {/* {console.log(game.joinCount[0].username)} */}
                       </button>
+                      </a>
 
+                      <a href="/">
                       <button name={game._id} 
                         variant="contained"
                         className = "btn btn-light "                      
                         onClick={() => dispatch(unjoinPost(game, commentField))}>
                         Unjoin
                       </button>
+                      </a>
 
                       <button
                       name={game._id} 
