@@ -33,11 +33,12 @@ import { store } from "./index";
 import Login from "./components/pages/login";
 import SearchForm from "./components/pages/SearchForm";
 import Register from "./components/pages/register";
-import Header from "./components/pages/Header";
+// import Header from "./components/pages/Header";
 import Cards from "./components/pages/Cards";
 import Land from "./components/Land";
 import FooterPage from "./components/pages/Footer"
-
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import Notifications from "./components/games/Notifications";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -118,6 +119,7 @@ function Navigation() {
   const classes = useStyles();
   const [checked, setChecked] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorElNot, setAnchorElNot] = React.useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -125,6 +127,14 @@ function Navigation() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleClickNot = (event) => {
+    setAnchorElNot(event.currentTarget);
+  };
+
+  const handleCloseNot = () => {
+    setAnchorElNot(null);
   };
 
   useEffect(() => {
@@ -196,8 +206,8 @@ function Navigation() {
         >
           <Toolbar>
             <Link
-              exact
-              activeClassName="active"
+              exact="true"
+              activeclassname="active"
               to="/games"
               style={{ color: "white", flexGrow: 1}}
             >
@@ -214,28 +224,37 @@ function Navigation() {
               <IconButton >
                 <Link
                   color = "inherit"
-                  exact
-                  activeClassName="active"
+                  exact="true"
+                  activeclassname="active"
                   to="/games"
                 >
                   <HomeIcon style = {{color: "white"}}/>
                 </Link>
               </IconButton>
 
-              {/* <IconButton>
-              <Link
-                exact
-                activeClassName="active"
-                to="/chat"
-              >
-                <CommentIcon style = {{color: "white"}}/>
-              </Link>
-              </IconButton> */}
+              <div>
+              <IconButton aria-controls="simple-menu" aria-haspopup="true" color = "inherit" onClick={handleClickNot}>
+                <NotificationsActiveIcon style = {{color: "white"}}/>
+              </IconButton>
+
+              <Menu
+                  id="simple-menu"
+                  anchorEl={anchorElNot}
+                  keepMounted
+                  open={Boolean(anchorElNot)}
+                  onClose={handleCloseNot}
+                >
+                  <MenuItem onClick={handleCloseNot}>
+                    <Notifications />                  
+                  </MenuItem>
+                </Menu>
+              </div>
 
               <div>
                 <IconButton aria-controls="simple-menu" aria-haspopup="true" color = "inherit" onClick={handleClick} >
                   <AccountCircle/>
                 </IconButton>
+                
                 <Menu
                   id="simple-menu"
                   anchorEl={anchorEl}
@@ -245,8 +264,8 @@ function Navigation() {
                 >
                   <MenuItem onClick={handleClose}>
                     <Link
-                      exact
-                      activeClassName="active"
+                      exact="true"
+                      activeclassname="active"
                       to={"/profile/" + useremail}
                     >
                       <Button style = {{color: "#070d13"}}>
@@ -257,8 +276,8 @@ function Navigation() {
                   <hr/>
                   <MenuItem>
                     <Link
-                      exact
-                      activeClassName="active"
+                      exact= "true"
+                      activeclassname="active"
                       to="/land"
                       onClick={() => logout()}
                     >
@@ -285,36 +304,36 @@ function Main() {
     <Switch>
       {/* <Route exact path="/land" component={Header} /> */}
       <ProtectedRoute
-        exact
+        exact="true"
         path="/games"
         component={GameList}
         isAuth={localStorage.length > 0}
       />
 
       <ProtectedRoute
-        exact
+        exact="true"
         path="/"
         component={GameList}
         isAuth={localStorage.length > 0}
       />
-      <Route exact path="/games/new" component={GameAdd} />
-      <Route exact path="/games/:_id" component={GameInfo} />
-      <Route exact path="/games/:_id/edit" component={GameEdit} />
+      <Route exact="true" path="/games/new" component={GameAdd} />
+      <Route exact="true" path="/games/:_id" component={GameInfo} />
+      <Route exact="true" path="/games/:_id/edit" component={GameEdit} />
       {/* <Route exact path="/chat" component={Chat} /> */}
-      <Route exact path="/editProfile/:email" component={ProfileEdit} />
+      <Route exact="true" path="/editProfile/:email" component={ProfileEdit} />
       <Route
-        exact
+        exact="true"
         path="/addUser"
         render={(props) => <Register {...props} />}
       />
-      <Route exact path="/profile/:email" render={(props) => <Profile {...props} />} />
-      <Route exact path="/login" render={(props) => <Login {...props} />} />
+      <Route exact="true" path="/profile/:email" render={(props) => <Profile {...props} />} />
+      <Route exact="true" path="/login" render={(props) => <Login {...props} />} />
       <Route
-        exact
+        exact="true"
         path="/addUser"
         render={(props) => <Register {...props} />}
       />
-      <Route exact path="/notfound" component={notfound} />
+      <Route exact="true" path="/notfound" component={notfound} />
       <Route path="/chat/:id" render={(props) => <Chat {...props}/>}/>
       {/* <Route exact path="/notifications" component={Notifications} /> */}
     </Switch>

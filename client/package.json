@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
     "bootstrap-toggle": "^2.2.2",
+    "emoji-picker-react": "^3.2.4",
     "jwt-decode": "^3.1.2",
     "mdbootstrap": "^4.19.2",
     "mdbreact": "^5.0.1",

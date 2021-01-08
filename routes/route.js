@@ -41,15 +41,15 @@ router.post("/login", async (req, res) => {
 });
 router.post("/", async (req, res) => {
   //checking if the username or email is used
+
   const useradded = await AddUser.findOne({
     $or: [{ email: req.body.email }, { username: req.body.username }],
   });
-  console.log("user added");
   if (useradded)
     return res
       .status(400)
       .send(
-        "There is an account with same Username or Email,please choose another one?"
+        "There is an account with same Username or Email,please choose another one"
       );
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
@@ -58,7 +58,6 @@ router.post("/", async (req, res) => {
   const phoneNo = req.body.phoneNo;
   const birthday = req.body.birthday;
   const url=req.body.url;
-  //hashing password
   const hashedPassword = bcrypt.hashSync(req.body.password, 10);
   const username = req.body.username;
   //every thing is readdy here we send the data to the server

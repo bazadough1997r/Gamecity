@@ -5,8 +5,8 @@ import { patch } from "axios";
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import {
-  likePost,
-  unlikePost,
+  // likePost,
+  // unlikePost,
   joinPost,
   unjoinPost,
 } from "../../actions/index.js";
@@ -77,7 +77,6 @@ export default function GameList() {
     }
     getGames();
   }, []);
-
   return (
     <div style={{ background: "#03090e" }}>
       <div style = {{display: "flex"}}>
@@ -168,14 +167,7 @@ export default function GameList() {
             >
               New Game
             </Link>
-            {/* <MDBCol */}
-            {/* md="2"
-            style={{
-              marginTop: "20px",
-              marginLeft: "-75px",
-              marginRight: "15px",
-            }}
-          > */}
+            
             <br></br>
             <div style={{ display: "flex" }}>
             <div style={{ display: "flex", flexGrow: 1 }}>
@@ -222,13 +214,12 @@ export default function GameList() {
               </div>
             </div>
 
-            <Notifications />
-          {/* </MDBCol> */}
 
           <div>
             {value === false ? (
             <div>
-            {games.map((game) => {
+            {games.sort((a, b) => a.createdAt > b.createdAt ? -1 : 1)
+            .map((game) => {
               return (
                 <div
                   className="container p-2 border"
@@ -352,7 +343,7 @@ export default function GameList() {
                               Game:
                               <span
                                 style={{
-                                  color: "#192a3a ",
+                                  color: "#192a3a",
                                   fontSize: "16px",
                                   fontFamily: "Century Gothic",
                                   fontWeight: "bold",
@@ -391,7 +382,7 @@ export default function GameList() {
                       <br />
                       <div style={{ display: "flex" }}>
                         {/* {window.location.username !== game.likeCount ? ( */}
-                        <a href="/">
+                        {/* <a href="/">
                           <button
                             variant="contained"
                             className="btn btn-light "
@@ -401,9 +392,9 @@ export default function GameList() {
                           >
                             Unlike
                           </button>
-                        </a>
+                        </a> */}
                         {/* // ) : ( */}
-                        <a href="/">
+                        {/* <a href="/">
                           <button
                             name={game._id}
                             variant="contained"
@@ -421,7 +412,7 @@ export default function GameList() {
                           >
                             Like {game.likeCount.length}
                           </button>
-                        </a>
+                        </a> */}
                         {/* )} */}
                         <a href="/">
                           <button
@@ -700,7 +691,7 @@ export default function GameList() {
                             <br />
                             <div style={{ display: "flex" }}>
                               {/* {window.location.username !== game.likeCount ? ( */}
-                              <a href="/">
+                              {/* <a href="/">
                                 <button
                                   variant="contained"
                                   className="btn btn-light "
@@ -710,9 +701,9 @@ export default function GameList() {
                                 >
                                   Unlike
                                 </button>
-                              </a>
+                              </a> */}
                               {/* // ) : ( */}
-                              <a href="/">
+                              {/* <a href="/">
                                 <button
                                   name={game._id}
                                   variant="contained"
@@ -730,7 +721,7 @@ export default function GameList() {
                                 >
                                   Like {game.likeCount.length}
                                 </button>
-                              </a>
+                              </a> */}
                               {/* )} */}
                               <a href="/">
                                 <button
