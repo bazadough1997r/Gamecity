@@ -36,10 +36,8 @@ import SearchForm from "./components/pages/SearchForm";
 import Register from "./components/pages/register";
 import Header from "./components/pages/Header";
 import Cards from "./components/pages/Cards";
-// import FooterPage from "./Footer"
 import Land from "./components/Land";
-import PrimarySearchAppBar from "./components/pages/register2";
-
+import FooterPage from "./components/pages/Footer"
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100vh",
@@ -85,8 +83,9 @@ const useStyles = makeStyles((theme) => ({
       textAlign: "center"
   },
   expandIcon: {
-      color: "#fff",
-      fontSize: "2rem",
+      color: "#070d13",
+      fontSize: "3.5rem",
+      marginLeft: "20px"
   }
 }));
 
@@ -107,7 +106,6 @@ function App() {
       <Router>
         <CssBaseline />
           <Navigation />
-          <br/><br/>
       </Router>
     </div>
   );
@@ -170,9 +168,9 @@ function Navigation() {
             <div className = {classes.container}>
               <br /> <br /> <br /> <br /> <br /> <br /> 
               <br /> <br /> <br /> <br /> <br /> <br /> 
-              <br /> <br /> <br /> 
-              <br /> <br /> <br /> 
-              <br />  
+               <br /> <br /> <br /> 
+              {/*<br /> <br /> <br /> 
+              <br />   */}
                 <Scroll to= "aboutus-login-cards" smooth = {true} >
                     <IconButton>
                         <ExpandMoreIcon className = {classes.expandIcon}/>
@@ -182,9 +180,11 @@ function Navigation() {
         </Collapse>
         <div> 
           <br /> <br /> <br /> <br /> <br /> <br /> 
-          <br /> <br /> <br />  
+          <br /> <br /> <br /> <br /> <br /> <br />  
     </div>
         <Cards />
+        {/* <hr color = "white" /> */}
+        <br /> <br />
         <Main />
     </div>
       ) : (
