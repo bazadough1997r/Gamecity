@@ -77,7 +77,6 @@ export default function GameList() {
     }
     getGames();
   }, []);
-
   return (
     <div style={{ background: "#03090e" }}>
       <div style = {{display: "flex"}}>
@@ -228,7 +227,8 @@ export default function GameList() {
           <div>
             {value === false ? (
             <div>
-            {games.map((game) => {
+            {games.sort((a, b) => a.createdAt > b.createdAt ? -1 : 1)
+            .map((game) => {
               return (
                 <div
                   className="container p-2 border"

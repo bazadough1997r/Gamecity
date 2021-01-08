@@ -27,6 +27,7 @@
 import { GET_CHATS, AFTER_POST_MESSAGE } from "../actions";
 
 export default function chatsReducer(state = {}, action) {
+  // console.log("hellooo")
   switch (action.type) {
     case GET_CHATS:
       return { ...state, chats: action.payload };
