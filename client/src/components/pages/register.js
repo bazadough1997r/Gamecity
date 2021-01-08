@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
 
     },
     paper: {
-      margin: theme.spacing(0, 8),
+      margin: theme.spacing(-1, 5),
+      maxHeight: "200vh",
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
