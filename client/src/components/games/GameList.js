@@ -5,8 +5,8 @@ import { patch } from "axios";
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import {
-  likePost,
-  unlikePost,
+  // likePost,
+  // unlikePost,
   joinPost,
   unjoinPost,
 } from "../../actions/index.js";
