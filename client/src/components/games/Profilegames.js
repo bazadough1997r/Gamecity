@@ -4,7 +4,7 @@ import axios from "axios";
 import { patch } from "axios";
 import { Link } from "react-router-dom";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import { likePost, unlikePost, joinPost, unjoinPost } from "../../actions/index.js"
+import { joinPost, unjoinPost } from "../../actions/index.js"
 
 export default function Profilegames() {
 
@@ -132,6 +132,7 @@ function handleSubmitComment(event) {
                       Unlike
                     </button> */}
 
+                    <a href={"/profile/" + window.localStorage.email}>
                     <button 
                       name={game._id} 
                       variant="contained"
@@ -140,7 +141,9 @@ function handleSubmitComment(event) {
                     >
                       Join | {game.joinCount.length}
                     </button>
+                    </a>
 
+                    <a href={"/profile/" + window.localStorage.email}>
                     <button 
                       name={game._id} 
                       variant="contained"
@@ -149,6 +152,7 @@ function handleSubmitComment(event) {
                     >
                       Unjoin
                     </button>
+                    </a>
 
                     </MDBRow>
 
