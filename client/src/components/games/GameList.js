@@ -167,14 +167,7 @@ export default function GameList() {
             >
               New Game
             </Link>
-            {/* <MDBCol */}
-            {/* md="2"
-            style={{
-              marginTop: "20px",
-              marginLeft: "-75px",
-              marginRight: "15px",
-            }}
-          > */}
+            
             <br></br>
             <div style={{ display: "flex" }}>
             <div style={{ display: "flex", flexGrow: 1 }}>
@@ -221,8 +214,6 @@ export default function GameList() {
               </div>
             </div>
 
-            <Notifications />
-          {/* </MDBCol> */}
 
           <div>
             {value === false ? (
@@ -352,7 +343,7 @@ export default function GameList() {
                               Game:
                               <span
                                 style={{
-                                  color: "#192a3a ",
+                                  color: "#192a3a",
                                   fontSize: "16px",
                                   fontFamily: "Century Gothic",
                                   fontWeight: "bold",
