@@ -391,7 +391,7 @@ export default function GameList() {
                       <br />
                       <div style={{ display: "flex" }}>
                         {/* {window.location.username !== game.likeCount ? ( */}
-                        <a href="/">
+                        {/* <a href="/">
                           <button
                             variant="contained"
                             className="btn btn-light "
@@ -401,9 +401,9 @@ export default function GameList() {
                           >
                             Unlike
                           </button>
-                        </a>
+                        </a> */}
                         {/* // ) : ( */}
-                        <a href="/">
+                        {/* <a href="/">
                           <button
                             name={game._id}
                             variant="contained"
@@ -421,7 +421,7 @@ export default function GameList() {
                           >
                             Like {game.likeCount.length}
                           </button>
-                        </a>
+                        </a> */}
                         {/* )} */}
                         <a href="/">
                           <button
@@ -700,7 +700,7 @@ export default function GameList() {
                             <br />
                             <div style={{ display: "flex" }}>
                               {/* {window.location.username !== game.likeCount ? ( */}
-                              <a href="/">
+                              {/* <a href="/">
                                 <button
                                   variant="contained"
                                   className="btn btn-light "
@@ -710,9 +710,9 @@ export default function GameList() {
                                 >
                                   Unlike
                                 </button>
-                              </a>
+                              </a> */}
                               {/* // ) : ( */}
-                              <a href="/">
+                              {/* <a href="/">
                                 <button
                                   name={game._id}
                                   variant="contained"
@@ -730,7 +730,7 @@ export default function GameList() {
                                 >
                                   Like {game.likeCount.length}
                                 </button>
-                              </a>
+                              </a> */}
                               {/* )} */}
                               <a href="/">
                                 <button

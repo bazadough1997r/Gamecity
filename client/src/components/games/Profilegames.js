@@ -113,7 +113,7 @@ function handleSubmitComment(event) {
 
                     <MDBRow>
 
-                    <button 
+                    {/* <button 
                       name={game._id} 
                       variant="contained"
                       className = "btn btn-light btn-sm"
@@ -121,16 +121,16 @@ function handleSubmitComment(event) {
                       onClick={() => dispatch(likePost(game, commentField), console.log(game, commentField, "commentField, like"))}
                     >
                       Like | {game.likeCount.length}
-                    </button>
+                    </button> */}
 
-                    <button 
+                    {/* <button 
                       variant="contained"
                       className = "btn btn-light btn-sm"
                       style = {{marginRight: "5px"}}  
                       onClick={() => dispatch(unlikePost(game, commentField))}
                     >
                       Unlike
-                    </button>
+                    </button> */}
 
                     <button 
                       name={game._id} 
