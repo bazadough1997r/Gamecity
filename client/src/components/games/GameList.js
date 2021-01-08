@@ -181,6 +181,7 @@ export default function GameList() {
 
                     <MDBRow>
 
+                    <a href="/">
                     <button 
                       name={game._id} 
                       variant="contained"
@@ -190,7 +191,9 @@ export default function GameList() {
                     >
                       Like | {game.likeCount.length}
                     </button>
+                    </a>
 
+                    <a href="/">
                     <button 
                       variant="contained"
                       className = "btn btn-light btn-sm"
@@ -199,7 +202,9 @@ export default function GameList() {
                     >
                       Unlike
                     </button>
+                    </a>
 
+                    <a href="/">
                     <button 
                       name={game._id} 
                       variant="contained"
@@ -208,7 +213,9 @@ export default function GameList() {
                     >
                       Join | {game.joinCount.length}
                     </button>
+                    </a>
 
+                    <a href="/">
                     <button 
                       name={game._id} 
                       variant="contained"
@@ -217,6 +224,7 @@ export default function GameList() {
                     >
                       Unjoin
                     </button>
+                    </a>
                       
                     <button
                       name={game._id} 
