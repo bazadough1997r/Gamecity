@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Profilegames from "../games/Profilegames";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import FooterPage from "./Footer";
+// import FooterPage from "./Footer";
 
 function Profile({ userData, fetchUser }) {
   let { email } = useParams();
