@@ -10,7 +10,10 @@ import jwt_decode from "jwt-decode";
     state = {
         chatMessage: "",
     }
+   
 
+
+    
     componentDidMount(){
         let server ="/"
 

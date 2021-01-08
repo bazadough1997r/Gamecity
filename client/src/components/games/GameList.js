@@ -11,6 +11,7 @@ export default function GameList(props) {
 
   const [commentField, setComment] = useState({ comment: "", id: "", username: window.localStorage.username, joins: 0, likes: 0 });
   const [games, setGames] = useState([]);
+  const [solution, setSolution] = useState(true)
   const dispatch = useDispatch();
   function handleChangeComment(event) {
     setComment({
@@ -59,9 +60,9 @@ export default function GameList(props) {
     }
     getGames();
   }, []);
-
   return (
     <div>
+      {console.log("Render")}
       <hr />
       <MDBContainer>
         <MDBRow>
@@ -109,6 +110,7 @@ export default function GameList(props) {
 
           </MDBCol>
           <MDBCol md="6" style={{ marginTop: "20px" }}>
+            {console.log(games)}
             {games.map((game) => {
               return (
                 <div key={game._id}>
@@ -139,11 +141,12 @@ export default function GameList(props) {
                     <button onClick={() => dispatch(unlikePost(game, commentField))}>
                       Unlike
                     </button>
+                    {console.log("solution state value:", solution)}
                     <button
                       name={game._id}
                       onClick={() =>
                         dispatch(
-                          likePost(game, commentField),
+                          likePost(game, () =>  {console.log("inside callback"); setSolution(!solution)}),
                           // console.log(game, commentField, "commentField, like")
                         )
                       }

@@ -28,13 +28,17 @@ export function setGames() {
 }
 
 export const LIKE_GAME = "LIKE_GAME";
-export function likePost( game, commentField, callback ) {
+export function likePost( game, callback ) {
+  console.log(game, "game likepost action")
   return async function (dispatch) {
+    // console.log("dispatch", dispatch)
     return axios
       .patch(`/api/games/${game._id}/likePost`, game)
       .then(function (data) {
+        console.log("gameGAMEGAME", game)
         callback();
-        dispatch({ type: LIKE_GAME, payload: data });
+        console.log("data", data)
+        dispatch({ type: LIKE_GAME, payload: game.likeCount.length });
       })
       .catch(function (error) {
         console.log(error, "error from the actions");
@@ -264,7 +268,8 @@ export const registerUser = (
       url
     };
     const response = await axios.post("/api", body);
-    window.location = "/login";
+    console.log(body,"boddyy")
+    // window.location = "/login";
 
     dispatch({
       type: REGISTER_SUCCESS,
