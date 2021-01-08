@@ -183,8 +183,8 @@ const ProfileEdit = (props) => {
             <br />
 
             <Link
-              exact
-              activeClassName="active"
+              exact="true"
+              activeclassname="active"
               to={"/profile/" + window.localStorage.email}
             >
               <Button
