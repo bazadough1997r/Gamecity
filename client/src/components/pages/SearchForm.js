@@ -36,17 +36,17 @@ export default class SearchForm extends Component {
       </div>
     );
   }
-  render() {
-    return(
-       <div>
-         <input
-           type="text"
-           className="nav-item"
-           name="searchText"
-           placeholder="Search.. "
-         />
-       </div>
-    )
+  // render() {
+  //   return(
+  //      <div>
+  //        <input
+  //          type="text"
+  //          className="nav-item"
+  //          name="searchText"
+  //          placeholder="Search.. "
+  //        />
+  //      </div>
+  //   )
 
-  }
+  // }
 }

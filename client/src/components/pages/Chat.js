@@ -4,7 +4,7 @@ import  {getChats, afterPostMessage}  from '../../actions';
 import moment from 'moment';
 import io from "socket.io-client"
 import jwt_decode from "jwt-decode";
-
+import FooterPage from "../pages/Footer";
 
  class ChatPage extends Component {
     state = {
@@ -107,6 +107,8 @@ import jwt_decode from "jwt-decode";
                         <br/>
                         </div>
                     </div> 
+                    <br/><br/><br/>
+                        <FooterPage />
                 </div>
         )
     }
