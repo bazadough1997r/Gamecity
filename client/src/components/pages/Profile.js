@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Profilegames from "../games/Profilegames";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import FooterPage from "./Footer";
 
 function Profile({ userData, fetchUser }) {
   let { email } = useParams();
@@ -49,7 +50,7 @@ function Profile({ userData, fetchUser }) {
       <MDBContainer>
         <div>
         <MDBRow>
-        <MDBCol md="7">
+        <MDBCol md="6">
 
           <div className= "container col p-10 text-center" style = {{width: "60%", background: "#070d13", opacity: "85%", borderRadius:"1rem"}}>
           
@@ -57,7 +58,7 @@ function Profile({ userData, fetchUser }) {
             @{window.localStorage.username}'s Profile:
           </p>
 
-            <img src={userData.user.url} alt="profile_pic" width="60%" className = "rounded-circle"/>
+            <img src={userData.user.url} alt="profile_pic" width="125px" className = "rounded-circle"/>
             
             {userData && userData.user && (
 
@@ -121,6 +122,7 @@ function Profile({ userData, fetchUser }) {
       </MDBRow>
       </div>
     </MDBContainer>
+    {/* <FooterPage/> */}
     </div>
   );
 }

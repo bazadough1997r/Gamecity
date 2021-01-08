@@ -3,13 +3,12 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  Switch,
-  NavLink
+  Switch
 } from "react-router-dom";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
-import { AppBar, Collapse, IconButton, Toolbar, Grid, Typography, Button } from "@material-ui/core";
+import { AppBar, Collapse, IconButton, Toolbar, Button } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link as Scroll } from 'react-scroll';
@@ -22,7 +21,7 @@ import ProtectedRoute from "./components/pages/ProtectedRoute";
 import notfound from "./components/pages/notfound";
 import Profile from "./components/pages/Profile";
 import ProfileEdit from "./components/pages/ProfileEdit";
-import CommentIcon from '@material-ui/icons/Comment';
+// import CommentIcon from '@material-ui/icons/Comment';
 import GameList from "./components/games/GameList";
 import GameInfo from "./components/games/GameInfo";
 import GameAdd from "./components/games/GameAdd";
@@ -36,10 +35,8 @@ import SearchForm from "./components/pages/SearchForm";
 import Register from "./components/pages/register";
 import Header from "./components/pages/Header";
 import Cards from "./components/pages/Cards";
-// import FooterPage from "./Footer"
-import Land from "./components/Land";
-import PrimarySearchAppBar from "./components/pages/register2";
-
+// import Land from "./components/Land";
+// import FooterPage from "./components/pages/Footer"
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100vh",
@@ -85,8 +82,9 @@ const useStyles = makeStyles((theme) => ({
       textAlign: "center"
   },
   expandIcon: {
-      color: "#fff",
-      fontSize: "2rem",
+      color: "#070d13",
+      fontSize: "3.5rem",
+      marginLeft: "20px"
   }
 }));
 
@@ -96,7 +94,7 @@ if (localStorage.getItem("token")) {
 
 
 function App() {
-  const classes = useStyles();
+  // const classes = useStyles();
     
   useEffect(() => {
     store.dispatch(loadUser());
@@ -107,7 +105,6 @@ function App() {
       <Router>
         <CssBaseline />
           <Navigation />
-          <br/><br/>
       </Router>
     </div>
   );
@@ -170,9 +167,9 @@ function Navigation() {
             <div className = {classes.container}>
               <br /> <br /> <br /> <br /> <br /> <br /> 
               <br /> <br /> <br /> <br /> <br /> <br /> 
-              <br /> <br /> <br /> 
-              <br /> <br /> <br /> 
-              <br />  
+               <br /> <br /> <br /> 
+              {/*<br /> <br /> <br /> 
+              <br />   */}
                 <Scroll to= "aboutus-login-cards" smooth = {true} >
                     <IconButton>
                         <ExpandMoreIcon className = {classes.expandIcon}/>
@@ -182,9 +179,11 @@ function Navigation() {
         </Collapse>
         <div> 
           <br /> <br /> <br /> <br /> <br /> <br /> 
-          <br /> <br /> <br />  
+          <br /> <br /> <br /> <br /> <br /> <br />  
     </div>
         <Cards />
+        {/* <hr color = "white" /> */}
+        <br /> <br />
         <Main />
     </div>
       ) : (

@@ -22,7 +22,7 @@ MERN Stack (MongoDB, Express.js, React.js, Node.js)
 - react-redux
 - react-hooks
 - mongoDB Atlas
-- bootstrap 
+- Material UI 
 - bcrypt - Token 
 - Heroku
 - Socket.io
