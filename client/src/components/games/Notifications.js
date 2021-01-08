@@ -23,7 +23,7 @@ export default  function Notifications() {
       {/* <hr></hr> */}
       <div>
         <hr color = "white" />
-        <p style = {{ fontSize: "18px", color: "#fff" }}>Comment Notifications </p>
+        <p style = {{ fontSize: "18px", color: "#192a3a" }}>Comment Notifications </p>
         {games.map((game) => {
           if (game.username === window.localStorage.username) {
             return (
@@ -34,7 +34,7 @@ export default  function Notifications() {
                       {game.comment.map((theComment, i) => {
                         return (
                           <div key={i}>
-                            <p style = {{ fontSize: "16px", color: "#fff" }}>
+                            <p style = {{ fontSize: "16px", color: "#192a3a" }}>
                               @{theComment.username} commented: "
                               {theComment.comment}" on "
                               <Link to={`/games/${game._id}`}>
@@ -58,7 +58,7 @@ export default  function Notifications() {
       {/* /////////////////////////////////////JOINS////////////////////////////////////////////////// */}
       <div>
         <hr color = "white" />
-        <p style = {{ fontSize: "18px", color: "#fff" }}>Join Notifications </p>
+        <p style = {{ fontSize: "18px", color: "#192a3a" }}>Join Notifications </p>
         {games.map((game) => {
           if (game.username === window.localStorage.username) {
             return (
@@ -69,7 +69,7 @@ export default  function Notifications() {
                       {game.joinCount.map((joined, i) => {
                         return (
                           <div key={i}>
-                            <p style = {{ fontSize: "16px", color: "#fff" }}>
+                            <p style = {{ fontSize: "16px", color: "#192a3a" }}>
                               @{joined.username} wants to join your next game:{" "}
                               <Link to={`/games/${game._id}`}>
                                 {game.gameName}

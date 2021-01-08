@@ -37,7 +37,8 @@ import Header from "./components/pages/Header";
 import Cards from "./components/pages/Cards";
 import Land from "./components/Land";
 import FooterPage from "./components/pages/Footer"
-
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import Notifications from "./components/games/Notifications";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -118,6 +119,7 @@ function Navigation() {
   const classes = useStyles();
   const [checked, setChecked] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorElNot, setAnchorElNot] = React.useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -125,6 +127,14 @@ function Navigation() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleClickNot = (event) => {
+    setAnchorElNot(event.currentTarget);
+  };
+
+  const handleCloseNot = () => {
+    setAnchorElNot(null);
   };
 
   useEffect(() => {
@@ -222,20 +232,29 @@ function Navigation() {
                 </Link>
               </IconButton>
 
-              {/* <IconButton>
-              <Link
-                exact
-                activeClassName="active"
-                to="/chat"
-              >
-                <CommentIcon style = {{color: "white"}}/>
-              </Link>
-              </IconButton> */}
+              <div>
+              <IconButton aria-controls="simple-menu" aria-haspopup="true" color = "inherit" onClick={handleClickNot}>
+                <NotificationsActiveIcon style = {{color: "white"}}/>
+              </IconButton>
+
+              <Menu
+                  id="simple-menu"
+                  anchorEl={anchorElNot}
+                  keepMounted
+                  open={Boolean(anchorElNot)}
+                  onClose={handleCloseNot}
+                >
+                  <MenuItem onClick={handleCloseNot}>
+                    <Notifications />                  
+                  </MenuItem>
+                </Menu>
+              </div>
 
               <div>
                 <IconButton aria-controls="simple-menu" aria-haspopup="true" color = "inherit" onClick={handleClick} >
                   <AccountCircle/>
                 </IconButton>
+                
                 <Menu
                   id="simple-menu"
                   anchorEl={anchorEl}
