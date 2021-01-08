@@ -77,7 +77,6 @@ export default function GameList() {
     }
     getGames();
   }, []);
-
   return (
     <div style={{ background: "#03090e" }}>
       <div style = {{display: "flex"}}>

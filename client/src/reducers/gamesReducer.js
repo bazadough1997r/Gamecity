@@ -31,6 +31,7 @@ export default function gamesReducer(state = initialState, action) {
     case REPLACE_GAME:
       return state.map(function (game) {
         if (game._id === action.game._id) {
+          // console.log(action.game.likeCount,"action.game.likeCount")
           return {
             ...game,
             gameName: action.game.gameName,
@@ -41,13 +42,18 @@ export default function gamesReducer(state = initialState, action) {
             likeCount: action.game.likeCount,
             joinCount: action.game.joinCount,
           };
+          
         } else return game;
       });
 
     case UNLIKE_GAME:
     case LIKE_GAME:
+      // console.log("hellooooo")
       return state.map(function (game, commentField) {
+        // console.log(game, "game in reducer")
+        // console.log(commentField, "commentField in reducer")
         if (game._id === action.game._id) {
+       console.log(action.commentField.joinCount,"action.commentField.joinCount")
           return {
             ...commentField,
             joinCount: action.commentField.joinCount,

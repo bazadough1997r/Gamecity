@@ -10,7 +10,10 @@ import FooterPage from "../pages/Footer";
     state = {
         chatMessage: "",
     }
+   
 
+
+    
     componentDidMount(){
         let server ="/"
 
