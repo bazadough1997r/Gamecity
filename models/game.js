@@ -1,50 +1,64 @@
 const mongoose = require("mongoose");
-// const {ObjectId} = mongoose.Schema.Types
+
 
 const gameSchema = new mongoose.Schema({
   gameName: {
     type: String,
-    required: [true, "Game name is required"]
+    required: [true, "Game name is required"],
   },
   gameType: {
     type: String,
-    required: [true, "Game type is required"]
+    required: [true, "Game type is required"],
   },
   gameDuration: {
     type: String,
-    required: [true, "Game duration is required"]
+    required: [true, "Game duration is required"],
   },
   gameGovernorate: {
     type: String,
-    required: [true, "Game governorate is required"]
+    required: [true, "Game governorate is required"],
   },
   gameDate: {
     type: String,
-    required: [true, "Game governorate is required"]
+    required: [true, "Game governorate is required"],
   },
-  likeCount: {
+
+  likeCount: [
+    Object
+  ],
+  unlikeCount: {
     type: Number,
     default: 0
   },
-  joinCount: {
+  joins: {
     type: Number,
-    default: 0
+    default: 0,
   },
+  likes: {
+    type: Number,
+    default: 0,
+  },
+  joinCount: [
+      Object
+  ],
   createdAt: {
     type: Date,
-    default: new Date()
+    default: new Date(),
   },
-  comment : {
-    type: String
-  },
-  selectedFile: {
+  comment : [
+    Object
+  ],
+    selectedFile: {
     type: String,
-    // required: [true, "Please upload image of game"]
   },
   email: {
     type: String,
+  },
+  username: {
+    type: String
   }
 });
+
 
 module.exports = mongoose.model("Game", gameSchema);
 
