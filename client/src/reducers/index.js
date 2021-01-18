@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import games from "./gamesReducer";
 import game from "./gameReducer";
-import profileReducer from './profileReducer';
+import profileReducer from "./profileReducer";
 import authReducer from "./authReducer";
 import chatReducer from "./chatReducer";
 import joinRoomReducer from "./joinRoomReducer";

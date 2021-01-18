@@ -9,7 +9,7 @@ const ProfileSchema = new mongoose.Schema({
   phoneNo: Number,
   birthday: Date,
   password: String,
-  url:String
+  url: String,
 });
 
 module.exports = mongoose.model("ProfileSchema", ProfileSchema);

@@ -1,10 +1,10 @@
 import { get } from "axios";
 import axios from "axios";
 import { setToken } from "../components/pages/setToken";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 export const FETCH_ALL = "FETCH_ALL";
 
-/////////////////////////////////////////////////////Actions for GAMES/////////////////////////////////////////////////////
+////////Actions for GAMES/////////
 //setGames() will make our API call and use the dispatch method to send an action to the reducer.
 export const SET_GAMES = "SET_GAMES";
 export function setGames() {
@@ -28,16 +28,16 @@ export function setGames() {
 }
 
 export const LIKE_GAME = "LIKE_GAME";
-export function likePost( game, callback ) {
-  console.log(game, "game likepost action")
+export function likePost(game, callback) {
+  console.log(game, "game likepost action");
   return async function (dispatch) {
     // console.log("dispatch", dispatch)
     return axios
       .patch(`/api/games/${game._id}/likePost`, game)
       .then(function (data) {
-        console.log("gameGAMEGAME", game)
+        console.log("gameGAMEGAME", game);
         callback();
-        console.log("data", data)
+        console.log("data", data);
         dispatch({ type: LIKE_GAME, payload: game.likeCount.length });
       })
       .catch(function (error) {
@@ -45,66 +45,52 @@ export function likePost( game, callback ) {
       });
   };
 }
-       
 
 export const UNLIKE_GAME = "UNLIKE_GAME";
 export function unlikePost(game, commentField, callback) {
   return async function (dispatch) {
-    return axios.patch(`/api/games/${game._id}/unlikePost`,commentField)
-      .then (function(data) {
+    return axios
+      .patch(`/api/games/${game._id}/unlikePost`, commentField)
+      .then(function (data) {
         callback();
-        dispatch({ type: UNLIKE_GAME, payload: data})
-
+        dispatch({ type: UNLIKE_GAME, payload: data });
       })
       .catch(function (error) {
-        console.log(error, "error from the actions")
-      })
-  }
+        console.log(error, "error from the actions");
+      });
+  };
 }
 
 export const JOIN_GAME = "JOIN_GAME";
 export function joinPost(game, commentField, callback) {
-  console.log(game, "game")
-  console.log(commentField, "game")
-  console.log(callback, "callback")
+  console.log(game, "game");
+  console.log(commentField, "game");
+  console.log(callback, "callback");
   return async function (dispatch) {
-    return axios.patch(`/api/games/${game._id}/joinPost`, commentField)
-      .then (function(data) {
+    return axios
+      .patch(`/api/games/${game._id}/joinPost`, commentField)
+      .then(function (data) {
         callback();
-        dispatch({ type: JOIN_GAME, payload: data})
-        console.log(data, "data from JOIN_GAME, FINALLLYYYYYYYYYYY")
+        dispatch({ type: JOIN_GAME, payload: data });
+        console.log(data, "data from JOIN_GAME, FINALLLYYYYYYYYYYY");
       })
       .catch(function (error) {
-        console.log(error, "error from the actions")
-      })
-  }
+        console.log(error, "error from the actions");
+      });
+  };
 }
+
 //trying  to solve the join refresh
-
-// export const JOIN_GAME = "JOIN_GAME";
-// export const joinPost = (game, commentField) => {
-//   return (dispatch) => {
-//    axios.patch(`/api/games/${game._id}/joinPost`, commentField)
-//       .then ((response) => {
-//         let x = response.data;
-//         dispatch(joinPost(x))
-//         console.log(response, "response from JOIN_GAME, FINALLLYYYYYYYYYYY")
-//       })
-//       .catch((error) => {
-//         console.log(error, "error from the joinPost actions")
-//       })
-//   }
-// }
-
 export const UNJOIN_GAME = "UNJOIN_GAME";
 export function unjoinPost(game, commentField, callback) {
-  console.log(game,"game game")
+  console.log(game, "game game");
   return async function (dispatch) {
-    return axios.patch(`/api/games/${game._id}/unjoinPost`, commentField)
-      .then (function(data) {
+    return axios
+      .patch(`/api/games/${game._id}/unjoinPost`, commentField)
+      .then(function (data) {
         callback();
-        dispatch({ type: JOIN_GAME, payload: data})
-        console.log(data)
+        dispatch({ type: JOIN_GAME, payload: data });
+        console.log(data);
       })
       .catch(function (error) {
         console.log(error, "error from the actions");
@@ -114,15 +100,13 @@ export function unjoinPost(game, commentField, callback) {
 
 export const JOIN_ROOM = "JOIN_ROOM";
 export function joinRoom(commentField, callback) {
-  console.log(commentField,"commentField from join room")
-  return async function (dispatch) {
-    
-  };
+  console.log(commentField, "commentField from join room");
+  return async function (dispatch) {};
 }
 
 export const ADD_COMMENT = "ADD_COMMENT";
 export function comment(commentField) {
-  console.log(commentField, "commentField")
+  console.log(commentField, "commentField");
   return {
     type: ADD_COMMENT,
     commentField: commentField,
@@ -162,7 +146,7 @@ export function replaceGame(game) {
   };
 }
 
-/////////////////////////////////////////////////////Actions for USER/////////////////////////////////////////////////////
+//////////////////Actions for USER////////////////////
 export const SET_USER = "SET_USER";
 export function setUser(user) {
   return {
@@ -171,25 +155,22 @@ export function setUser(user) {
   };
 }
 
-
-
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export function updateProfile(user) {
   return {
     type: EDIT_PROFILE,
     user: user,
   };
-
 }
 
 export const fetchUser = (email) => {
   return (dispatch) => {
-
     dispatch(fetchUserRequest());
-    axios.get("/api/profile/"+email) 
+    axios
+      .get("/api/profile/" + email)
       .then((response) => {
         let user = response.data;
-        console.log(user,"from client")
+        console.log(user, "from client");
         dispatch(fetchUserSuccess(user));
       })
       .catch((error) => {
@@ -265,12 +246,10 @@ export const registerUser = (
       phoneNo,
       birthday,
       password,
-      url
+      url,
     };
     const response = await axios.post("/api", body);
-    console.log(body,"boddyy")
-    // window.location = "/login";
-
+    console.log(body, "boddyy");
     dispatch({
       type: REGISTER_SUCCESS,
       payload: response.data.id,
@@ -307,7 +286,7 @@ export const loginUser = (email, password, username) => async (dispatch) => {
   }
 };
 
-/////////////////////////////////////////////////////Actions for CHATT/////////////////////////////////////////////////////
+//////////////////////Actions for CHATT/////////////
 export const CHAT_SERVER = "/api/chat";
 export const GET_CHATS = "GET_CHATS";
 export const getChats = (postId) => async (dispatch) => {

@@ -9,7 +9,6 @@ import FooterPage from "./Footer";
 
 function Profile({ userData, fetchUser }) {
   let { email } = useParams();
-  // console.log(email);
 
   useEffect(() => {
     fetchUser(email);

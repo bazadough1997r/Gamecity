@@ -15,23 +15,21 @@ const initialState = {
   games: [],
 };
 export default function gamesReducer(state = initialState, action) {
-  // console.log(state,"state for games reducer laih undefined")
   //Use a switch statement to match the action type. If the action type is SET_GAMES it returns the games data to update the store with.
   switch (action.gameName) {
     //You need a default case. If there is no match, the reducer will just return the current state.
     case SET_GAMES:
       return action.games;
 
-      case ADD_GAME:
-        return [action.game, ...state];
+    case ADD_GAME:
+      return [action.game, ...state];
 
-        case REMOVE_GAME:
-          return state.filter((game) => game._id !== action._id);
+    case REMOVE_GAME:
+      return state.filter((game) => game._id !== action._id);
 
     case REPLACE_GAME:
       return state.map(function (game) {
         if (game._id === action.game._id) {
-          // console.log(action.game.likeCount,"action.game.likeCount")
           return {
             ...game,
             gameName: action.game.gameName,
@@ -42,18 +40,17 @@ export default function gamesReducer(state = initialState, action) {
             likeCount: action.game.likeCount,
             joinCount: action.game.joinCount,
           };
-          
         } else return game;
       });
 
     case UNLIKE_GAME:
     case LIKE_GAME:
-      // console.log("hellooooo")
       return state.map(function (game, commentField) {
-        // console.log(game, "game in reducer")
-        // console.log(commentField, "commentField in reducer")
         if (game._id === action.game._id) {
-       console.log(action.commentField.joinCount,"action.commentField.joinCount")
+          console.log(
+            action.commentField.joinCount,
+            "action.commentField.joinCount"
+          );
           return {
             ...commentField,
             joinCount: action.commentField.joinCount,

@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
     .then((users) => res.json(users))
     .catch((err) => res.status(400).json("Error: " + err));
 });
-//get all user from  database 
+//get all user from  database
 router.get("/", async (req, res) => {
   AddUser.find()
     .then((profileSchema) => res.json(profileSchema))
@@ -20,7 +20,6 @@ router.post("/login", async (req, res) => {
   const email = req.body.email;
   const username = req.body.username;
   console.log(req.body);
-  // console.log(email, "Rawan")
   console.log(username, "Rawan");
   const user = await AddUser.findOne({ email });
   if (!user) {
@@ -36,7 +35,8 @@ router.post("/login", async (req, res) => {
   //create and send a token
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
   var decoded = jwt_decode(token);
-  res.header("addUser-token", token, email, username)
+  res
+    .header("addUser-token", token, email, username)
     .json({ token, email, username });
 });
 router.post("/", async (req, res) => {
@@ -57,7 +57,7 @@ router.post("/", async (req, res) => {
   const city = req.body.city;
   const phoneNo = req.body.phoneNo;
   const birthday = req.body.birthday;
-  const url=req.body.url;
+  const url = req.body.url;
   const hashedPassword = bcrypt.hashSync(req.body.password, 10);
   const username = req.body.username;
   //every thing is readdy here we send the data to the server
@@ -70,7 +70,7 @@ router.post("/", async (req, res) => {
     phoneNo: phoneNo,
     birthday: birthday,
     password: hashedPassword,
-    url:url
+    url: url,
   });
   console.log(newUser);
   try {
