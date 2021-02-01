@@ -18,12 +18,13 @@ Video games players.
 # Technologies
 
 MERN Stack (MongoDB, Express.js, React.js, Node.js)
+
 - Node exepress
 - react-redux
 - react-hooks
 - mongoDB Atlas
-- Material UI 
-- bcrypt - Token 
+- Material UI
+- bcrypt - Token
 - Heroku
 - Socket.io
 
@@ -34,9 +35,11 @@ MERN Stack (MongoDB, Express.js, React.js, Node.js)
 - **Development Team Members**: Abeer , Rawan , Dialah , Rahaf
 
 ### Installing Dependencies
+
 ​
 From within the root directory:
 ​
+
 ```sh
 npm install
 cd client
