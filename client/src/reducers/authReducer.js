@@ -3,8 +3,7 @@ import {
   REGISTER_FAILURE,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  AUTH_ERROR
-  // LOG_OUT,
+  AUTH_ERROR,
 } from "../actions/index";
 const initialState = {
   token: localStorage.getItem("token"),

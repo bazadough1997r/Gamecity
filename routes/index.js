@@ -5,25 +5,28 @@ const router = express.Router();
 const Game = require("../models/game");
 const mongoose = require("mongoose");
 const AddUser = require("../models/profileSchema");
-router.get('/profile/:email', function(req, res) {
-  console.log("games included routers prfiler",req.params)
-  AddUser.findOne({email:req.params.email})
-  .then(user => {res.json(user)
-  })
-  .catch(err => res.status(400).json('Error: ' + err));
+router.get("/profile/:email", function (req, res) {
+  console.log("games included routers prfiler", req.params);
+  AddUser.findOne({ email: req.params.email })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 //update profile user
 router.put("/profile/editProfile/:email", function (req, res) {
-  console.log("im the req.body", req.body)
-  console.log("email: ", req.params.email)
-  let user = AddUser.find({email: req.params.email});
- user.update(req.body).then(function () {
-    res.json("user updated");    
-    console.log(req.params.email, "after the then")
+  console.log("im the req.body", req.body);
+  console.log("email: ", req.params.email);
+  let user = AddUser.find({ email: req.params.email });
+  user
+    .update(req.body)
+    .then(function () {
+      res.json("user updated");
+      console.log(req.params.email, "after the then");
     })
     .catch(function (err) {
       res.status(422).send("user update failed");
-      console.log("eerrrrrrrrrrrrrr")
+      console.log("eerrrrrrrrrrrrrr");
     });
 });
 //Get request to /games returns a JSON array of all game objects found in the database.
@@ -63,10 +66,13 @@ router.patch("/games/:id", function (req, res) {
     });
 });
 router.patch("/games/:id/unlikePost", function (req, res) {
-  var object = {likes: req.body.likes , username: req.body.username}
-  // Game.findByIdAndUpdate(req.params.id, {likeCount: req.body.likeCount +1})     
-  Game.findByIdAndUpdate(req.params.id, { $pull: {likeCount: object}}, {upsert: true, new: true}, (err, model) =>{
-   })
+  var object = { likes: req.body.likes, username: req.body.username };
+  Game.findByIdAndUpdate(
+    req.params.id,
+    { $pull: { likeCount: object } },
+    { upsert: true, new: true },
+    (err, model) => {}
+  )
     .then(function () {
       res.json("Game liked");
     })
@@ -75,13 +81,13 @@ router.patch("/games/:id/unlikePost", function (req, res) {
     });
 });
 router.patch("/games/:id/likePost", function (req, res) {
-  // console.log(req.body, "i am the req.body")
-  var object = {likes: req.body.likes , username: req.body.username}
-  // Game.findByIdAndUpdate(req.params.id, {likeCount: req.body.likeCount +1})     
-  Game.findByIdAndUpdate(req.params.id, { $addToSet: {likeCount: object}}, {upsert: true, new: true}, (err, model) =>{
-    // console.log(model, "model")
-    // console.log(err, "err") 
-   })
+  var object = { likes: req.body.likes, username: req.body.username };
+  Game.findByIdAndUpdate(
+    req.params.id,
+    { $addToSet: { likeCount: object } },
+    { upsert: true, new: true },
+    (err, model) => {}
+  )
     .then(function () {
       res.json("Game liked");
     })
@@ -90,45 +96,47 @@ router.patch("/games/:id/likePost", function (req, res) {
     });
 });
 router.patch("/games/:id/joinPost", function (req, res) {
-  // console.log(req.body.comment, "i'm the req.body.comment")
-  console.log(req.body, "i'm the req.body from the join")
-  var object = {joins: req.body.joins, username: req.body.username}
-  Game.findByIdAndUpdate(req.params.id, { $addToSet: {joinCount: object}}, {upsert: true, new: true}, (err, model) =>{
-  //  console.log(model, "model")
-  //  console.log(err, "err") 
-  })
-  .then(function () {   
-    res.json("Game joined");    
+  console.log(req.body, "i'm the req.body from the join");
+  var object = { joins: req.body.joins, username: req.body.username };
+  Game.findByIdAndUpdate(
+    req.params.id,
+    { $addToSet: { joinCount: object } },
+    { upsert: true, new: true },
+    (err, model) => {}
+  )
+    .then(function () {
+      res.json("Game joined");
     })
     .catch(function (err) {
       res.status(422).send("Game join failed");
     });
 });
 router.patch("/games/:id/unjoinPost", function (req, res) {
-  // console.log(req.body.comment, "i'm the req.body.comment")
-  console.log(req.body, "i'm the req.body from the join")
-  var object = {joins: req.body.joins, username: req.body.username}
-  Game.findByIdAndUpdate(req.params.id, { $pull: {joinCount: object}}, {upsert: true, new: true}, (err, model) =>{
-  //  console.log(model, "model")
-  //  console.log(err, "err") 
-  })
-  .then(function () {   
-    res.json("Game joined");    
+  console.log(req.body, "i'm the req.body from the join");
+  var object = { joins: req.body.joins, username: req.body.username };
+  Game.findByIdAndUpdate(
+    req.params.id,
+    { $pull: { joinCount: object } },
+    { upsert: true, new: true },
+    (err, model) => {}
+  )
+    .then(function () {
+      res.json("Game joined");
     })
     .catch(function (err) {
       res.status(422).send("Game join failed");
     });
 });
 router.patch("/games/:id/comment", function (req, res) {
-  // console.log(req.body.comment, "i'm the req.body.comment")
-  // console.log(req.body, "i'm the req.body")
-  var object = {comment: req.body.comment, username: req.body.username}
-  Game.findByIdAndUpdate(req.params.id, { $addToSet: {comment: object}}, {upsert: true, new: true}, (err, model) =>{
-  //  console.log(model, "model")
-  //  console.log(err, "err") 
-  })
-  .then(function () {   
-    res.json("Game comment added");    
+  var object = { comment: req.body.comment, username: req.body.username };
+  Game.findByIdAndUpdate(
+    req.params.id,
+    { $addToSet: { comment: object } },
+    { upsert: true, new: true },
+    (err, model) => {}
+  )
+    .then(function () {
+      res.json("Game comment added");
     })
     .catch(function (err) {
       res.status(422).send("Game update failed");

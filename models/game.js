@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const gameSchema = new mongoose.Schema({
   gameName: {
     type: String,
@@ -23,12 +22,10 @@ const gameSchema = new mongoose.Schema({
     required: [true, "Game governorate is required"],
   },
 
-  likeCount: [
-    Object
-  ],
+  likeCount: [Object],
   unlikeCount: {
     type: Number,
-    default: 0
+    default: 0,
   },
   joins: {
     type: Number,
@@ -38,17 +35,13 @@ const gameSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  joinCount: [
-      Object
-  ],
+  joinCount: [Object],
   createdAt: {
     type: Date,
     default: new Date(),
   },
-  comment : [
-    Object
-  ],
-    selectedFile: {
+  comment: [Object],
+  selectedFile: {
     required: [true, "Game duration is required"],
     type: String,
   },
@@ -56,10 +49,8 @@ const gameSchema = new mongoose.Schema({
     type: String,
   },
   username: {
-    type: String
-  }
+    type: String,
+  },
 });
 
-
 module.exports = mongoose.model("Game", gameSchema);
-

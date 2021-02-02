@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-// import { Collapse } from '@material-ui/core';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
 import { loginUser } from "../../actions";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -17,13 +16,13 @@ const useStyles = makeStyles({
     width: 430,
     height: 550,
     background: "rgba(0,0,0,0.5)",
-    alignContent: "center"
+    alignContent: "center",
   },
   title: {
     fontFamily: "Century Gothic",
     fontWeight: "semi-bold",
     fontSize: "2rem",
-    color: "#fff"
+    color: "#fff",
   },
   signUp: {
     fontFamily: "Century Gothic",
@@ -36,18 +35,17 @@ const useStyles = makeStyles({
   description: {
     fontFamily: "Century Gothic",
     fontSize: "1rem",
-    color: "#ddd"      
+    color: "#ddd",
   },
   textField: {
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
   },
   button: {
     fontFamily: "Century Gothic",
     fontSize: "1rem",
-    backgroundColor: "#fff"
-  }
+    backgroundColor: "#fff",
+  },
 });
-
 
 const Login = ({ loginUser, isLoggedIn, checked }) => {
   const classes = useStyles();
@@ -71,76 +69,75 @@ const Login = ({ loginUser, isLoggedIn, checked }) => {
   };
 
   return (
-  // <Collapse in = {checked} {...(checked ? { timeout: 1000 } : {})} >
-   <Card className={classes.root}>
+    <Card className={classes.root}>
       <CardMedia
         className={classes.media}
-        image= {process.env.PUBLIC_URL + `/Images/login.jpg`}
+        image={process.env.PUBLIC_URL + `/Images/login.jpg`}
         title="Login"
       />
-      
+
       <CardContent>
-        
-              <TextField 
-                id="standard-size-small" 
-                variant="outlined"
-                className = {classes.textField} 
-                style = {{width: 390}}
-                onChange={(e) => onChange(e)}
-                type="username"
-                name="username"
-                value={username}
-                placeholder="username"
-              />
+        <TextField
+          id="standard-size-small"
+          variant="outlined"
+          className={classes.textField}
+          style={{ width: 390 }}
+          onChange={(e) => onChange(e)}
+          type="username"
+          name="username"
+          value={username}
+          placeholder="username"
+        />
 
-              <br /><br />
+        <br />
+        <br />
 
-              <TextField 
-                id="standard-size-small" 
-                variant="outlined" 
-                className = {classes.textField}
-                style = {{width: 390}}
-                onChange={(e) => onChange(e)}
-                type="email"
-                name="email"
-                value={email}
-                placeholder="E-mail Address"
-              />
+        <TextField
+          id="standard-size-small"
+          variant="outlined"
+          className={classes.textField}
+          style={{ width: 390 }}
+          onChange={(e) => onChange(e)}
+          type="email"
+          name="email"
+          value={email}
+          placeholder="E-mail Address"
+        />
 
-              <br /><br />
+        <br />
+        <br />
 
-              <TextField 
-                id="standard-size-small" 
-                variant="outlined"
-                className = {classes.textField}
-                style = {{width: 390}} 
-                onChange={(e) => onChange(e)}
-                type="password"
-                name="password"
-                value={password}
-                placeholder="Password"
-              />
+        <TextField
+          id="standard-size-small"
+          variant="outlined"
+          className={classes.textField}
+          style={{ width: 390 }}
+          onChange={(e) => onChange(e)}
+          type="password"
+          name="password"
+          value={password}
+          placeholder="Password"
+        />
 
-              <br /><br />   
+        <br />
+        <br />
 
-              <Button 
-                style = {{width: 390}}
-                type="submit" 
-                onClick={(e) => onsubmit(e)} 
-                className = {classes.button}
-              >
-                Submit
-              </Button>
+        <Button
+          style={{ width: 390 }}
+          type="submit"
+          onClick={(e) => onsubmit(e)}
+          className={classes.button}
+        >
+          Submit
+        </Button>
 
-              <br />
+        <br />
 
-              <Typography className = {classes.signUp} style = {{textAlign: "center"}}>
-                Don't have an account? <a href="/addUser">SignUp</a>
-              </Typography>
-
+        <Typography className={classes.signUp} style={{ textAlign: "center" }}>
+          Don't have an account? <a href="/addUser">SignUp</a>
+        </Typography>
       </CardContent>
     </Card>
-    // </Collapse>
   );
 };
 

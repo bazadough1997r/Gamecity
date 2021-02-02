@@ -7,7 +7,6 @@ import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-// import FooterPage from "./Footer";
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -68,7 +67,6 @@ const ProfileEdit = (props) => {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    //  console.log("user#1", user);
 
     try {
       await put(`/api/profile/editProfile/${props.match.params.email}`, user);
@@ -198,7 +196,6 @@ const ProfileEdit = (props) => {
           </form>
         </div>
       </Grid>
-      {/* <FooterPage/> */}
     </Grid>
   );
 };

@@ -47,9 +47,8 @@ const io = require("socket.io")(server, {
 
 // server.listen(3001)
 io.on("connection", (socket) => {
-  console.log("New Ws Connection...")
+  console.log("New Ws Connection...");
   socket.on("Input Chat Message", (msg) => {
-    //  console.log(msg,"msg msg msg")
     connect.then((db) => {
       try {
         let chat = new Chat({
@@ -58,19 +57,14 @@ io.on("connection", (socket) => {
           sender: msg.userId,
           nowTime: msg.nowTime,
           type: msg.type,
-        }); //FILL_ME
+        });
         chat.save((err, doc) => {
           if (err) return console.log("error ");
-          console.log(doc._id, "doc._id")
-          // console.log("dddddddddddddddddddddddddddddddddddddddddddd")
-          // console.log(doc.postId, "doc.postId,")
-          // console.log("dddddddddddddddddddddddddddddddddddddddddddd")
+          console.log(doc._id, "doc._id");
 
           Chat.find({ _id: doc._id })
             .populate("sender")
             .exec((err, doc) => {
-              // console.log(doc,"doc doc doc")
-              // console.log(doc._id,"doc doc doc")
               return io.emit("Output Chat Message", doc);
             });
         });
@@ -79,7 +73,6 @@ io.on("connection", (socket) => {
       }
     });
   });
-
 });
 server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}.`);
