@@ -70,7 +70,6 @@ npm run dev
 ## Demo Video
 
 [Gamecity Video](https://www.youtube.com/watch?v=s1oRZDVN0Hk&t=7s)
-=======
 ```
 ## Running The Application
 
