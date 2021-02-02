@@ -38,12 +38,13 @@ You will automatically be directed to the landing page. You cannot access the pa
 # Technologies
 
 MERN Stack (MongoDB, Express.js, React.js, Node.js)
+
 - Node exepress
 - react-redux
 - react-hooks
 - mongoDB Atlas
-- Material UI 
-- bcrypt - Token 
+- Material UI
+- bcrypt - Token
 - Heroku
 - Socket.io
 
@@ -54,16 +55,6 @@ Development of this application started on Decemer 11, 2020 and the minimum viab
 
 These instructions will get the project up and running on your local machine for development and testing purposes.
 
-# Prerequisites
-
-Softwares that you need to install and how to install them
-This [link](https://docs.mongodb.com/manual/installation/) contains the manual for the installation of MongoDB on diffrent platforms (Linux, macOS And Windows). This [link](https://nodejs.org/en/download/package-manager/) contains the command of installation of nodejs. Then start installing the dependencies that you will be running on your terminal or your bash commander.
-
-## Installing Dependencies
-​
-From within the root directory:
-​
-```
 npm install
 ```
 Go to the cliend side
@@ -72,6 +63,14 @@ cd client
 ```
 ```
 npm install
+cd ..
+npm run dev
+```
+
+## Demo Video
+
+[Gamecity Video](https://www.youtube.com/watch?v=s1oRZDVN0Hk&t=7s)
+=======
 ```
 ## Running The Application
 
