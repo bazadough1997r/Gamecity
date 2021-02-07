@@ -268,6 +268,7 @@ export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const loginUser = (email, password, username) => async (dispatch) => {
   try {
     const body = { email, password, username };
+    console.log(body, "bofy");
     const response = await axios.post("api/login", body);
 
     dispatch({
