@@ -43,6 +43,7 @@ export default function Notifications() {
                               </Link>
                               " post.
                             </p>
+                            {console.log((i+=i)+1, "counting comments notifications, done")}
                           </div>
                         );
                       })}
@@ -73,11 +74,14 @@ export default function Notifications() {
                         return (
                           <div key={i}>
                             <p style={{ fontSize: "16px", color: "#192a3a" }}>
-                              @{joined.username} wants to join your next game:{" "}
+                              @{joined.username} wants to join your next game:
                               <Link to={`/games/${game._id}`}>
                                 {game.gameName}
                               </Link>
                             </p>
+
+                            {/* {console.log((i+=i)+1, "JOINS")} */}
+
                           </div>
                         );
                       })}

@@ -29,7 +29,7 @@ const gameSchema = new mongoose.Schema({
   },
   joins: {
     type: Number,
-    default: 0,
+    // default: 0,
   },
   likes: {
     type: Number,

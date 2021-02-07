@@ -8,6 +8,7 @@ import {
   IconButton,
   Toolbar,
   Button,
+  Badge,
 } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -205,14 +206,23 @@ function Navigation() {
               </IconButton>
 
               <div>
-                <IconButton
-                  aria-controls="simple-menu"
-                  aria-haspopup="true"
-                  color="inherit"
-                  onClick={handleClickNot}
+                <Badge
+                  badgeContent={6}
+                  color="secondary"
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
                 >
-                  <NotificationsActiveIcon style={{ color: "white" }} />
-                </IconButton>
+                  <IconButton
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                    color="inherit"
+                    onClick={handleClickNot}
+                  >
+                    <NotificationsActiveIcon style={{ color: "white" }} />
+                  </IconButton>
+                </Badge>
 
                 <Menu
                   id="simple-menu"
